@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
-
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -17,7 +15,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.springframework.stereotype.Component;
 
 import com.payProject.system.entity.Resources;
 import com.payProject.system.entity.Role;
@@ -26,18 +23,16 @@ import com.payProject.system.entity.UserExample;
 import com.payProject.system.mapper.ResourcesMapper;
 import com.payProject.system.mapper.RoleMapper;
 import com.payProject.system.mapper.UserMapper;
+
 /**
- * <p>关于shiro的核心类</p>
- * <div>
- * <u>该类有两个核心作用</u>
- * 		<li>1,存入用户权限信息</li>
- * 		<li>2,用户密码加密以及比对验证</li>
- * </div>
- * @author K
- * @date 2019-07-30
+ * shiro身份校验核心类
+ * 
+ * @author 作者: z77z
+ * @date 创建时间：2017年2月10日 下午3:19:48
  */
-@Component
+
 public class MyShiroRealm extends AuthorizingRealm {
+
 	@Resource
 	UserMapper userMapper;
 	@Resource
@@ -90,12 +85,4 @@ public class MyShiroRealm extends AuthorizingRealm {
 		 */
 		return new SimpleAuthenticationInfo(user,user.getUserPassword(),ByteSource.Util.bytes(user.getUserSalt()),"MyShiroRealm");
 	}
-	/*
-	 * //清除缓存//////要是这里不清空缓存就会加载jedis 的连接池 为了防止缓存数据连接问题造成 shiro的异常 所以这里要清空缓存 public
-	 * void clearCached() { PrincipalCollection principals =
-	 * SecurityUtils.getSubject().getPrincipals(); super.clearCache(principals); }
-	 */
-	
-
-
 }
