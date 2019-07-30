@@ -3,19 +3,20 @@
 <mapper namespace="com.payProject.system.mapper.UserMapper" >
   <resultMap id="BaseResultMap" type="com.payProject.system.entity.User" >
     <result column="id" property="id" jdbcType="INTEGER" />
-    <result column="userId" property="userid" jdbcType="VARCHAR" />
-    <result column="userName" property="username" jdbcType="VARCHAR" />
-    <result column="userPassword" property="userpassword" jdbcType="VARCHAR" />
-    <result column="userMail" property="usermail" jdbcType="VARCHAR" />
-    <result column="userPhone" property="userphone" jdbcType="VARCHAR" />
-    <result column="userQQ" property="userqq" jdbcType="VARCHAR" />
-    <result column="userWechar" property="userwechar" jdbcType="VARCHAR" />
-    <result column="userType" property="usertype" jdbcType="INTEGER" />
-    <result column="userAddress" property="useraddress" jdbcType="VARCHAR" />
-    <result column="userCity" property="usercity" jdbcType="VARCHAR" />
-    <result column="createTime" property="createtime" jdbcType="DATE" />
-    <result column="submitTime" property="submittime" jdbcType="DATE" />
-    <result column="submitSystem" property="submitsystem" jdbcType="VARCHAR" />
+    <result column="userId" property="userId" jdbcType="VARCHAR" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+    <result column="userPassword" property="userPassword" jdbcType="VARCHAR" />
+    <result column="userSalt" property="userSalt" jdbcType="VARCHAR" />
+    <result column="userMail" property="userMail" jdbcType="VARCHAR" />
+    <result column="userPhone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="userQQ" property="userQQ" jdbcType="VARCHAR" />
+    <result column="userWechar" property="userWechar" jdbcType="VARCHAR" />
+    <result column="userType" property="userType" jdbcType="INTEGER" />
+    <result column="userAddress" property="userAddress" jdbcType="VARCHAR" />
+    <result column="userCity" property="userCity" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="DATE" />
+    <result column="submitTime" property="submitTime" jdbcType="DATE" />
+    <result column="submitSystem" property="submitSystem" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -77,14 +78,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, userId, userName, userPassword, userMail, userPhone, userQQ, userWechar, userType, 
-    userAddress, userCity, createTime, submitTime, submitSystem, status
+    id, userId, userName, userPassword, userSalt, userMail, userPhone, userQQ, userWechar, 
+    userType, userAddress, userCity, createTime, submitTime, submitSystem, status
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payProject.system.entity.UserExample" >
     select
     <if test="distinct" >
       distinct
     </if>
+    'false' as QUERYID,
     <include refid="Base_Column_List" />
     from system_user
     <if test="_parameter != null" >
@@ -94,69 +96,63 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.payProject.system.entity.UserExample" >
-    delete from system_user
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.payProject.system.entity.User" >
-    insert into system_user (id, userId, userName, 
-      userPassword, userMail, userPhone, 
+  <insert id="insert" parameterType="com.payProject.system.entity.User" useGeneratedKeys="true" keyProperty="id" >
+    insert into system_user (userId, userName, userPassword, 
+      userSalt, userMail, userPhone, 
       userQQ, userWechar, userType, 
       userAddress, userCity, createTime, 
       submitTime, submitSystem, status
       )
-    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
-      #{userpassword,jdbcType=VARCHAR}, #{usermail,jdbcType=VARCHAR}, #{userphone,jdbcType=VARCHAR}, 
-      #{userqq,jdbcType=VARCHAR}, #{userwechar,jdbcType=VARCHAR}, #{usertype,jdbcType=INTEGER}, 
-      #{useraddress,jdbcType=VARCHAR}, #{usercity,jdbcType=VARCHAR}, #{createtime,jdbcType=DATE}, 
-      #{submittime,jdbcType=DATE}, #{submitsystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
+    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
+      #{userSalt,jdbcType=VARCHAR}, #{userMail,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, 
+      #{userQQ,jdbcType=VARCHAR}, #{userWechar,jdbcType=VARCHAR}, #{userType,jdbcType=INTEGER}, 
+      #{userAddress,jdbcType=VARCHAR}, #{userCity,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, 
+      #{submitTime,jdbcType=DATE}, #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.payProject.system.entity.User" >
+  <insert id="insertSelective" parameterType="com.payProject.system.entity.User" useGeneratedKeys="true" keyProperty="id" >
     insert into system_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="userid != null" >
+      <if test="userId != null" >
         userId,
       </if>
-      <if test="username != null" >
+      <if test="userName != null" >
         userName,
       </if>
-      <if test="userpassword != null" >
+      <if test="userPassword != null" >
         userPassword,
       </if>
-      <if test="usermail != null" >
+      <if test="userSalt != null" >
+        userSalt,
+      </if>
+      <if test="userMail != null" >
         userMail,
       </if>
-      <if test="userphone != null" >
+      <if test="userPhone != null" >
         userPhone,
       </if>
-      <if test="userqq != null" >
+      <if test="userQQ != null" >
         userQQ,
       </if>
-      <if test="userwechar != null" >
+      <if test="userWechar != null" >
         userWechar,
       </if>
-      <if test="usertype != null" >
+      <if test="userType != null" >
         userType,
       </if>
-      <if test="useraddress != null" >
+      <if test="userAddress != null" >
         userAddress,
       </if>
-      <if test="usercity != null" >
+      <if test="userCity != null" >
         userCity,
       </if>
-      <if test="createtime != null" >
+      <if test="createTime != null" >
         createTime,
       </if>
-      <if test="submittime != null" >
+      <if test="submitTime != null" >
         submitTime,
       </if>
-      <if test="submitsystem != null" >
+      <if test="submitSystem != null" >
         submitSystem,
       </if>
       <if test="status != null" >
@@ -164,47 +160,47 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
       </if>
-      <if test="userid != null" >
-        #{userid,jdbcType=VARCHAR},
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="username != null" >
-        #{username,jdbcType=VARCHAR},
+      <if test="userPassword != null" >
+        #{userPassword,jdbcType=VARCHAR},
       </if>
-      <if test="userpassword != null" >
-        #{userpassword,jdbcType=VARCHAR},
+      <if test="userSalt != null" >
+        #{userSalt,jdbcType=VARCHAR},
       </if>
-      <if test="usermail != null" >
-        #{usermail,jdbcType=VARCHAR},
+      <if test="userMail != null" >
+        #{userMail,jdbcType=VARCHAR},
       </if>
-      <if test="userphone != null" >
-        #{userphone,jdbcType=VARCHAR},
+      <if test="userPhone != null" >
+        #{userPhone,jdbcType=VARCHAR},
       </if>
-      <if test="userqq != null" >
-        #{userqq,jdbcType=VARCHAR},
+      <if test="userQQ != null" >
+        #{userQQ,jdbcType=VARCHAR},
       </if>
-      <if test="userwechar != null" >
-        #{userwechar,jdbcType=VARCHAR},
+      <if test="userWechar != null" >
+        #{userWechar,jdbcType=VARCHAR},
       </if>
-      <if test="usertype != null" >
-        #{usertype,jdbcType=INTEGER},
+      <if test="userType != null" >
+        #{userType,jdbcType=INTEGER},
       </if>
-      <if test="useraddress != null" >
-        #{useraddress,jdbcType=VARCHAR},
+      <if test="userAddress != null" >
+        #{userAddress,jdbcType=VARCHAR},
       </if>
-      <if test="usercity != null" >
-        #{usercity,jdbcType=VARCHAR},
+      <if test="userCity != null" >
+        #{userCity,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=DATE},
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
       </if>
-      <if test="submittime != null" >
-        #{submittime,jdbcType=DATE},
+      <if test="submitTime != null" >
+        #{submitTime,jdbcType=DATE},
       </if>
-      <if test="submitsystem != null" >
-        #{submitsystem,jdbcType=VARCHAR},
+      <if test="submitSystem != null" >
+        #{submitSystem,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
@@ -223,44 +219,47 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.userid != null" >
-        userId = #{record.userid,jdbcType=VARCHAR},
+      <if test="record.userId != null" >
+        userId = #{record.userId,jdbcType=VARCHAR},
       </if>
-      <if test="record.username != null" >
-        userName = #{record.username,jdbcType=VARCHAR},
+      <if test="record.userName != null" >
+        userName = #{record.userName,jdbcType=VARCHAR},
       </if>
-      <if test="record.userpassword != null" >
-        userPassword = #{record.userpassword,jdbcType=VARCHAR},
+      <if test="record.userPassword != null" >
+        userPassword = #{record.userPassword,jdbcType=VARCHAR},
       </if>
-      <if test="record.usermail != null" >
-        userMail = #{record.usermail,jdbcType=VARCHAR},
+      <if test="record.userSalt != null" >
+        userSalt = #{record.userSalt,jdbcType=VARCHAR},
       </if>
-      <if test="record.userphone != null" >
-        userPhone = #{record.userphone,jdbcType=VARCHAR},
+      <if test="record.userMail != null" >
+        userMail = #{record.userMail,jdbcType=VARCHAR},
       </if>
-      <if test="record.userqq != null" >
-        userQQ = #{record.userqq,jdbcType=VARCHAR},
+      <if test="record.userPhone != null" >
+        userPhone = #{record.userPhone,jdbcType=VARCHAR},
       </if>
-      <if test="record.userwechar != null" >
-        userWechar = #{record.userwechar,jdbcType=VARCHAR},
+      <if test="record.userQQ != null" >
+        userQQ = #{record.userQQ,jdbcType=VARCHAR},
       </if>
-      <if test="record.usertype != null" >
-        userType = #{record.usertype,jdbcType=INTEGER},
+      <if test="record.userWechar != null" >
+        userWechar = #{record.userWechar,jdbcType=VARCHAR},
       </if>
-      <if test="record.useraddress != null" >
-        userAddress = #{record.useraddress,jdbcType=VARCHAR},
+      <if test="record.userType != null" >
+        userType = #{record.userType,jdbcType=INTEGER},
       </if>
-      <if test="record.usercity != null" >
-        userCity = #{record.usercity,jdbcType=VARCHAR},
+      <if test="record.userAddress != null" >
+        userAddress = #{record.userAddress,jdbcType=VARCHAR},
       </if>
-      <if test="record.createtime != null" >
-        createTime = #{record.createtime,jdbcType=DATE},
+      <if test="record.userCity != null" >
+        userCity = #{record.userCity,jdbcType=VARCHAR},
       </if>
-      <if test="record.submittime != null" >
-        submitTime = #{record.submittime,jdbcType=DATE},
+      <if test="record.createTime != null" >
+        createTime = #{record.createTime,jdbcType=DATE},
       </if>
-      <if test="record.submitsystem != null" >
-        submitSystem = #{record.submitsystem,jdbcType=VARCHAR},
+      <if test="record.submitTime != null" >
+        submitTime = #{record.submitTime,jdbcType=DATE},
+      </if>
+      <if test="record.submitSystem != null" >
+        submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
@@ -273,19 +272,20 @@
   <update id="updateByExample" parameterType="map" >
     update system_user
     set id = #{record.id,jdbcType=INTEGER},
-      userId = #{record.userid,jdbcType=VARCHAR},
-      userName = #{record.username,jdbcType=VARCHAR},
-      userPassword = #{record.userpassword,jdbcType=VARCHAR},
-      userMail = #{record.usermail,jdbcType=VARCHAR},
-      userPhone = #{record.userphone,jdbcType=VARCHAR},
-      userQQ = #{record.userqq,jdbcType=VARCHAR},
-      userWechar = #{record.userwechar,jdbcType=VARCHAR},
-      userType = #{record.usertype,jdbcType=INTEGER},
-      userAddress = #{record.useraddress,jdbcType=VARCHAR},
-      userCity = #{record.usercity,jdbcType=VARCHAR},
-      createTime = #{record.createtime,jdbcType=DATE},
-      submitTime = #{record.submittime,jdbcType=DATE},
-      submitSystem = #{record.submitsystem,jdbcType=VARCHAR},
+      userId = #{record.userId,jdbcType=VARCHAR},
+      userName = #{record.userName,jdbcType=VARCHAR},
+      userPassword = #{record.userPassword,jdbcType=VARCHAR},
+      userSalt = #{record.userSalt,jdbcType=VARCHAR},
+      userMail = #{record.userMail,jdbcType=VARCHAR},
+      userPhone = #{record.userPhone,jdbcType=VARCHAR},
+      userQQ = #{record.userQQ,jdbcType=VARCHAR},
+      userWechar = #{record.userWechar,jdbcType=VARCHAR},
+      userType = #{record.userType,jdbcType=INTEGER},
+      userAddress = #{record.userAddress,jdbcType=VARCHAR},
+      userCity = #{record.userCity,jdbcType=VARCHAR},
+      createTime = #{record.createTime,jdbcType=DATE},
+      submitTime = #{record.submitTime,jdbcType=DATE},
+      submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />

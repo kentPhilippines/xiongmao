@@ -1,22 +1,21 @@
 package com.payProject.system.entity;
 
 import java.util.Date;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class RoleResources {
     private Integer id;
 
-    private Integer roleid;
+    private Integer roleId;
 
-    private Integer resourcesid;
+    private Integer resourcesId;
 
-    private Date createtime;
+    private Date createTime;
 
-    private Date submittime;
+    private Date submitTime;
 
-    private String submitsystem;
+    private String submitSystem;
 
     private Integer status;
 
@@ -28,44 +27,44 @@ public class RoleResources {
         this.id = id;
     }
 
-    public Integer getRoleid() {
-        return roleid;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRoleid(Integer roleid) {
-        this.roleid = roleid;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
-    public Integer getResourcesid() {
-        return resourcesid;
+    public Integer getResourcesId() {
+        return resourcesId;
     }
 
-    public void setResourcesid(Integer resourcesid) {
-        this.resourcesid = resourcesid;
+    public void setResourcesId(Integer resourcesId) {
+        this.resourcesId = resourcesId;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getSubmittime() {
-        return submittime;
+    public Date getSubmitTime() {
+        return submitTime;
     }
 
-    public void setSubmittime(Date submittime) {
-        this.submittime = submittime;
+    public void setSubmitTime(Date submitTime) {
+        this.submitTime = submitTime;
     }
 
-    public String getSubmitsystem() {
-        return submitsystem;
+    public String getSubmitSystem() {
+        return submitSystem;
     }
 
-    public void setSubmitsystem(String submitsystem) {
-        this.submitsystem = submitsystem == null ? null : submitsystem.trim();
+    public void setSubmitSystem(String submitSystem) {
+        this.submitSystem = submitSystem == null ? null : submitSystem.trim();
     }
 
     public Integer getStatus() {

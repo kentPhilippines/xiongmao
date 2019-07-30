@@ -3,12 +3,12 @@ package com.payProject.system.mapper;
 import com.payProject.system.entity.RoleResources;
 import com.payProject.system.entity.RoleResourcesExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+@Mapper
 public interface RoleResourcesMapper {
     int countByExample(RoleResourcesExample example);
-
-    int deleteByExample(RoleResourcesExample example);
 
     int deleteByPrimaryKey(Integer id);
 

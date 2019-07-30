@@ -7,15 +7,15 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class Role {
     private Integer id;
 
-    private Integer roleid;
+    private Integer roleId;
 
-    private String rolename;
+    private String roleName;
 
-    private Date rolecreatetime;
+    private Date roleCreateTime;
 
-    private Date rolesubmittime;
+    private Date roleSubmitTime;
 
-    private String submitsystem;
+    private String submitSystem;
 
     private Integer status;
 
@@ -27,44 +27,44 @@ public class Role {
         this.id = id;
     }
 
-    public Integer getRoleid() {
-        return roleid;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRoleid(Integer roleid) {
-        this.roleid = roleid;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
-    public String getRolename() {
-        return rolename;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRolename(String rolename) {
-        this.rolename = rolename == null ? null : rolename.trim();
+    public void setRoleName(String roleName) {
+        this.roleName = roleName == null ? null : roleName.trim();
     }
 
-    public Date getRolecreatetime() {
-        return rolecreatetime;
+    public Date getRoleCreateTime() {
+        return roleCreateTime;
     }
 
-    public void setRolecreatetime(Date rolecreatetime) {
-        this.rolecreatetime = rolecreatetime;
+    public void setRoleCreateTime(Date roleCreateTime) {
+        this.roleCreateTime = roleCreateTime;
     }
 
-    public Date getRolesubmittime() {
-        return rolesubmittime;
+    public Date getRoleSubmitTime() {
+        return roleSubmitTime;
     }
 
-    public void setRolesubmittime(Date rolesubmittime) {
-        this.rolesubmittime = rolesubmittime;
+    public void setRoleSubmitTime(Date roleSubmitTime) {
+        this.roleSubmitTime = roleSubmitTime;
     }
 
-    public String getSubmitsystem() {
-        return submitsystem;
+    public String getSubmitSystem() {
+        return submitSystem;
     }
 
-    public void setSubmitsystem(String submitsystem) {
-        this.submitsystem = submitsystem == null ? null : submitsystem.trim();
+    public void setSubmitSystem(String submitSystem) {
+        this.submitSystem = submitSystem == null ? null : submitSystem.trim();
     }
 
     public Integer getStatus() {

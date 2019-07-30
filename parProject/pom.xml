@@ -75,97 +75,18 @@
             <artifactId>mybatis-generator-core</artifactId>
             <version>1.3.2</version>
         </dependency>
-       <!-- 	  springboot web  
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-               <groupId>org.apache.tomcat.embed</groupId>
-               <artifactId>tomcat-embed-jasper</artifactId>
-        </dependency> 
-		测试支持
-	    <dependency>
-		      <groupId>junit</groupId>
-		      <artifactId>junit</artifactId>
-		      <version>3.8.1</version>
-		      <scope>test</scope>
-	    </dependency>
-	    分页
-		<dependency>
-			<groupId>com.github.pagehelper</groupId>
-			<artifactId>pagehelper</artifactId>
-			<version>4.1.6</version>
-		</dependency>	
-		mybatis
+          <!-- mybatis -->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>1.1.1</version>
-		</dependency>      
-		 <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-             
-        </dependency>
-        <dependency>
-              <groupId>junit</groupId>
-              <artifactId>junit</artifactId>
-              <version>3.8.1</version>
-              <scope>test</scope>
-        </dependency>
-        servlet依赖.
-        <dependency>
-              <groupId>javax.servlet</groupId>
-              <artifactId>javax.servlet-api</artifactId>
-        </dependency>
-              <dependency>
-                     <groupId>javax.servlet</groupId>
-                     <artifactId>jstl</artifactId>
-              </dependency>
-        热部署
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-devtools</artifactId>
-		    <optional>true</optional> 
 		</dependency>
-        mysql
+			<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.21</version>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.4</version>
 		</dependency>
-        <dependency>逆向工程mysql支持
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.35</version>
-        </dependency>
-        <dependency>逆向工程mybatis支持
-            <groupId>org.mybatis.generator</groupId>
-            <artifactId>mybatis-generator-core</artifactId>
-            <version>1.3.2</version>
-        </dependency>
-		tomcat的支持.
-        <dependency>
-               <groupId>org.apache.tomcat.embed</groupId>
-               <artifactId>tomcat-embed-jasper</artifactId>
-        </dependency> 
-		 -->
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
    </dependencies>
    	<properties>
         <java.version>1.8</java.version>

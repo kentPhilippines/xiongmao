@@ -3,11 +3,11 @@
 <mapper namespace="com.payProject.system.mapper.RoleResourcesMapper" >
   <resultMap id="BaseResultMap" type="com.payProject.system.entity.RoleResources" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="roleId" property="roleid" jdbcType="INTEGER" />
-    <result column="resourcesId" property="resourcesid" jdbcType="INTEGER" />
-    <result column="createTime" property="createtime" jdbcType="DATE" />
-    <result column="submitTime" property="submittime" jdbcType="DATE" />
-    <result column="submitSystem" property="submitsystem" jdbcType="VARCHAR" />
+    <result column="roleId" property="roleId" jdbcType="INTEGER" />
+    <result column="resourcesId" property="resourcesId" jdbcType="INTEGER" />
+    <result column="createTime" property="createTime" jdbcType="DATE" />
+    <result column="submitTime" property="submitTime" jdbcType="DATE" />
+    <result column="submitSystem" property="submitSystem" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -76,6 +76,7 @@
     <if test="distinct" >
       distinct
     </if>
+    'false' as QUERYID,
     <include refid="Base_Column_List" />
     from system_role_resources
     <if test="_parameter != null" >
@@ -95,39 +96,30 @@
     delete from system_role_resources
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.payProject.system.entity.RoleResourcesExample" >
-    delete from system_role_resources
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.payProject.system.entity.RoleResources" >
-    insert into system_role_resources (id, roleId, resourcesId, 
-      createTime, submitTime, submitSystem, 
-      status)
-    values (#{id,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER}, #{resourcesid,jdbcType=INTEGER}, 
-      #{createtime,jdbcType=DATE}, #{submittime,jdbcType=DATE}, #{submitsystem,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.payProject.system.entity.RoleResources" useGeneratedKeys="true" keyProperty="id" >
+    insert into system_role_resources (roleId, resourcesId, createTime, 
+      submitTime, submitSystem, status
+      )
+    values (#{roleId,jdbcType=INTEGER}, #{resourcesId,jdbcType=INTEGER}, #{createTime,jdbcType=DATE}, 
+      #{submitTime,jdbcType=DATE}, #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.payProject.system.entity.RoleResources" >
+  <insert id="insertSelective" parameterType="com.payProject.system.entity.RoleResources" useGeneratedKeys="true" keyProperty="id" >
     insert into system_role_resources
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="roleid != null" >
+      <if test="roleId != null" >
         roleId,
       </if>
-      <if test="resourcesid != null" >
+      <if test="resourcesId != null" >
         resourcesId,
       </if>
-      <if test="createtime != null" >
+      <if test="createTime != null" >
         createTime,
       </if>
-      <if test="submittime != null" >
+      <if test="submitTime != null" >
         submitTime,
       </if>
-      <if test="submitsystem != null" >
+      <if test="submitSystem != null" >
         submitSystem,
       </if>
       <if test="status != null" >
@@ -135,23 +127,20 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="roleid != null" >
-        #{roleid,jdbcType=INTEGER},
+      <if test="resourcesId != null" >
+        #{resourcesId,jdbcType=INTEGER},
       </if>
-      <if test="resourcesid != null" >
-        #{resourcesid,jdbcType=INTEGER},
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
       </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=DATE},
+      <if test="submitTime != null" >
+        #{submitTime,jdbcType=DATE},
       </if>
-      <if test="submittime != null" >
-        #{submittime,jdbcType=DATE},
-      </if>
-      <if test="submitsystem != null" >
-        #{submitsystem,jdbcType=VARCHAR},
+      <if test="submitSystem != null" >
+        #{submitSystem,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
@@ -170,20 +159,20 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.roleid != null" >
-        roleId = #{record.roleid,jdbcType=INTEGER},
+      <if test="record.roleId != null" >
+        roleId = #{record.roleId,jdbcType=INTEGER},
       </if>
-      <if test="record.resourcesid != null" >
-        resourcesId = #{record.resourcesid,jdbcType=INTEGER},
+      <if test="record.resourcesId != null" >
+        resourcesId = #{record.resourcesId,jdbcType=INTEGER},
       </if>
-      <if test="record.createtime != null" >
-        createTime = #{record.createtime,jdbcType=DATE},
+      <if test="record.createTime != null" >
+        createTime = #{record.createTime,jdbcType=DATE},
       </if>
-      <if test="record.submittime != null" >
-        submitTime = #{record.submittime,jdbcType=DATE},
+      <if test="record.submitTime != null" >
+        submitTime = #{record.submitTime,jdbcType=DATE},
       </if>
-      <if test="record.submitsystem != null" >
-        submitSystem = #{record.submitsystem,jdbcType=VARCHAR},
+      <if test="record.submitSystem != null" >
+        submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
@@ -196,11 +185,11 @@
   <update id="updateByExample" parameterType="map" >
     update system_role_resources
     set id = #{record.id,jdbcType=INTEGER},
-      roleId = #{record.roleid,jdbcType=INTEGER},
-      resourcesId = #{record.resourcesid,jdbcType=INTEGER},
-      createTime = #{record.createtime,jdbcType=DATE},
-      submitTime = #{record.submittime,jdbcType=DATE},
-      submitSystem = #{record.submitsystem,jdbcType=VARCHAR},
+      roleId = #{record.roleId,jdbcType=INTEGER},
+      resourcesId = #{record.resourcesId,jdbcType=INTEGER},
+      createTime = #{record.createTime,jdbcType=DATE},
+      submitTime = #{record.submitTime,jdbcType=DATE},
+      submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -209,20 +198,20 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.payProject.system.entity.RoleResources" >
     update system_role_resources
     <set >
-      <if test="roleid != null" >
-        roleId = #{roleid,jdbcType=INTEGER},
+      <if test="roleId != null" >
+        roleId = #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="resourcesid != null" >
-        resourcesId = #{resourcesid,jdbcType=INTEGER},
+      <if test="resourcesId != null" >
+        resourcesId = #{resourcesId,jdbcType=INTEGER},
       </if>
-      <if test="createtime != null" >
-        createTime = #{createtime,jdbcType=DATE},
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=DATE},
       </if>
-      <if test="submittime != null" >
-        submitTime = #{submittime,jdbcType=DATE},
+      <if test="submitTime != null" >
+        submitTime = #{submitTime,jdbcType=DATE},
       </if>
-      <if test="submitsystem != null" >
-        submitSystem = #{submitsystem,jdbcType=VARCHAR},
+      <if test="submitSystem != null" >
+        submitSystem = #{submitSystem,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
@@ -232,11 +221,11 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.payProject.system.entity.RoleResources" >
     update system_role_resources
-    set roleId = #{roleid,jdbcType=INTEGER},
-      resourcesId = #{resourcesid,jdbcType=INTEGER},
-      createTime = #{createtime,jdbcType=DATE},
-      submitTime = #{submittime,jdbcType=DATE},
-      submitSystem = #{submitsystem,jdbcType=VARCHAR},
+    set roleId = #{roleId,jdbcType=INTEGER},
+      resourcesId = #{resourcesId,jdbcType=INTEGER},
+      createTime = #{createTime,jdbcType=DATE},
+      submitTime = #{submitTime,jdbcType=DATE},
+      submitSystem = #{submitSystem,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

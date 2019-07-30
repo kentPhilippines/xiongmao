@@ -1,27 +1,29 @@
 package com.payProject.system.entity;
 
 import java.util.Date;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class Resources {
     private Integer id;
 
-    private Integer resourcesid;
+    private Integer resourcesId;
 
-    private String resourcesname;
+    private String resourcesName;
 
-    private Integer resourcestype;
+    private Integer resourcesType;
 
-    private String resourceskey;
+    private String resourcesKey;
 
-    private String resourcesurl;
+    private String resourcesUrl;
 
     private String description;
 
-    private Date createtime;
+    private Date createTime;
 
-    private Date submittime;
+    private Date submitTime;
 
-    private String submitsystem;
+    private String submitSystem;
 
     private Integer status;
 
@@ -33,44 +35,44 @@ public class Resources {
         this.id = id;
     }
 
-    public Integer getResourcesid() {
-        return resourcesid;
+    public Integer getResourcesId() {
+        return resourcesId;
     }
 
-    public void setResourcesid(Integer resourcesid) {
-        this.resourcesid = resourcesid;
+    public void setResourcesId(Integer resourcesId) {
+        this.resourcesId = resourcesId;
     }
 
-    public String getResourcesname() {
-        return resourcesname;
+    public String getResourcesName() {
+        return resourcesName;
     }
 
-    public void setResourcesname(String resourcesname) {
-        this.resourcesname = resourcesname == null ? null : resourcesname.trim();
+    public void setResourcesName(String resourcesName) {
+        this.resourcesName = resourcesName == null ? null : resourcesName.trim();
     }
 
-    public Integer getResourcestype() {
-        return resourcestype;
+    public Integer getResourcesType() {
+        return resourcesType;
     }
 
-    public void setResourcestype(Integer resourcestype) {
-        this.resourcestype = resourcestype;
+    public void setResourcesType(Integer resourcesType) {
+        this.resourcesType = resourcesType;
     }
 
-    public String getResourceskey() {
-        return resourceskey;
+    public String getResourcesKey() {
+        return resourcesKey;
     }
 
-    public void setResourceskey(String resourceskey) {
-        this.resourceskey = resourceskey == null ? null : resourceskey.trim();
+    public void setResourcesKey(String resourcesKey) {
+        this.resourcesKey = resourcesKey == null ? null : resourcesKey.trim();
     }
 
-    public String getResourcesurl() {
-        return resourcesurl;
+    public String getResourcesUrl() {
+        return resourcesUrl;
     }
 
-    public void setResourcesurl(String resourcesurl) {
-        this.resourcesurl = resourcesurl == null ? null : resourcesurl.trim();
+    public void setResourcesUrl(String resourcesUrl) {
+        this.resourcesUrl = resourcesUrl == null ? null : resourcesUrl.trim();
     }
 
     public String getDescription() {
@@ -81,28 +83,28 @@ public class Resources {
         this.description = description == null ? null : description.trim();
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getSubmittime() {
-        return submittime;
+    public Date getSubmitTime() {
+        return submitTime;
     }
 
-    public void setSubmittime(Date submittime) {
-        this.submittime = submittime;
+    public void setSubmitTime(Date submitTime) {
+        this.submitTime = submitTime;
     }
 
-    public String getSubmitsystem() {
-        return submitsystem;
+    public String getSubmitSystem() {
+        return submitSystem;
     }
 
-    public void setSubmitsystem(String submitsystem) {
-        this.submitsystem = submitsystem == null ? null : submitsystem.trim();
+    public void setSubmitSystem(String submitSystem) {
+        this.submitSystem = submitSystem == null ? null : submitSystem.trim();
     }
 
     public Integer getStatus() {

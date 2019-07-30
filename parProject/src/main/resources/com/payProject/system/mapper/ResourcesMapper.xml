@@ -3,15 +3,15 @@
 <mapper namespace="com.payProject.system.mapper.ResourcesMapper" >
   <resultMap id="BaseResultMap" type="com.payProject.system.entity.Resources" >
     <result column="id" property="id" jdbcType="INTEGER" />
-    <result column="resourcesId" property="resourcesid" jdbcType="INTEGER" />
-    <result column="resourcesName" property="resourcesname" jdbcType="VARCHAR" />
-    <result column="resourcesType" property="resourcestype" jdbcType="INTEGER" />
-    <result column="resourcesKey" property="resourceskey" jdbcType="VARCHAR" />
-    <result column="resourcesUrl" property="resourcesurl" jdbcType="VARCHAR" />
+    <result column="resourcesId" property="resourcesId" jdbcType="INTEGER" />
+    <result column="resourcesName" property="resourcesName" jdbcType="VARCHAR" />
+    <result column="resourcesType" property="resourcesType" jdbcType="INTEGER" />
+    <result column="resourcesKey" property="resourcesKey" jdbcType="VARCHAR" />
+    <result column="resourcesUrl" property="resourcesUrl" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="createTime" property="createtime" jdbcType="DATE" />
-    <result column="submitTime" property="submittime" jdbcType="DATE" />
-    <result column="submitSystem" property="submitsystem" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="DATE" />
+    <result column="submitTime" property="submitTime" jdbcType="DATE" />
+    <result column="submitSystem" property="submitSystem" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -81,6 +81,7 @@
     <if test="distinct" >
       distinct
     </if>
+    'false' as QUERYID,
     <include refid="Base_Column_List" />
     from system_resources
     <if test="_parameter != null" >
@@ -90,53 +91,44 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.payProject.system.entity.ResourcesExample" >
-    delete from system_resources
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.payProject.system.entity.Resources" >
-    insert into system_resources (id, resourcesId, resourcesName, 
-      resourcesType, resourcesKey, resourcesUrl, 
-      description, createTime, submitTime, 
-      submitSystem, status)
-    values (#{id,jdbcType=INTEGER}, #{resourcesid,jdbcType=INTEGER}, #{resourcesname,jdbcType=VARCHAR}, 
-      #{resourcestype,jdbcType=INTEGER}, #{resourceskey,jdbcType=VARCHAR}, #{resourcesurl,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR}, #{createtime,jdbcType=DATE}, #{submittime,jdbcType=DATE}, 
-      #{submitsystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.payProject.system.entity.Resources" useGeneratedKeys="true" keyProperty="id" >
+    insert into system_resources (resourcesId, resourcesName, resourcesType, 
+      resourcesKey, resourcesUrl, description, 
+      createTime, submitTime, submitSystem, 
+      status)
+    values (#{resourcesId,jdbcType=INTEGER}, #{resourcesName,jdbcType=VARCHAR}, #{resourcesType,jdbcType=INTEGER}, 
+      #{resourcesKey,jdbcType=VARCHAR}, #{resourcesUrl,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=DATE}, #{submitTime,jdbcType=DATE}, #{submitSystem,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.payProject.system.entity.Resources" >
+  <insert id="insertSelective" parameterType="com.payProject.system.entity.Resources" useGeneratedKeys="true" keyProperty="id" >
     insert into system_resources
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="resourcesid != null" >
+      <if test="resourcesId != null" >
         resourcesId,
       </if>
-      <if test="resourcesname != null" >
+      <if test="resourcesName != null" >
         resourcesName,
       </if>
-      <if test="resourcestype != null" >
+      <if test="resourcesType != null" >
         resourcesType,
       </if>
-      <if test="resourceskey != null" >
+      <if test="resourcesKey != null" >
         resourcesKey,
       </if>
-      <if test="resourcesurl != null" >
+      <if test="resourcesUrl != null" >
         resourcesUrl,
       </if>
       <if test="description != null" >
         description,
       </if>
-      <if test="createtime != null" >
+      <if test="createTime != null" >
         createTime,
       </if>
-      <if test="submittime != null" >
+      <if test="submitTime != null" >
         submitTime,
       </if>
-      <if test="submitsystem != null" >
+      <if test="submitSystem != null" >
         submitSystem,
       </if>
       <if test="status != null" >
@@ -144,35 +136,32 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
+      <if test="resourcesId != null" >
+        #{resourcesId,jdbcType=INTEGER},
       </if>
-      <if test="resourcesid != null" >
-        #{resourcesid,jdbcType=INTEGER},
+      <if test="resourcesName != null" >
+        #{resourcesName,jdbcType=VARCHAR},
       </if>
-      <if test="resourcesname != null" >
-        #{resourcesname,jdbcType=VARCHAR},
+      <if test="resourcesType != null" >
+        #{resourcesType,jdbcType=INTEGER},
       </if>
-      <if test="resourcestype != null" >
-        #{resourcestype,jdbcType=INTEGER},
+      <if test="resourcesKey != null" >
+        #{resourcesKey,jdbcType=VARCHAR},
       </if>
-      <if test="resourceskey != null" >
-        #{resourceskey,jdbcType=VARCHAR},
-      </if>
-      <if test="resourcesurl != null" >
-        #{resourcesurl,jdbcType=VARCHAR},
+      <if test="resourcesUrl != null" >
+        #{resourcesUrl,jdbcType=VARCHAR},
       </if>
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=DATE},
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
       </if>
-      <if test="submittime != null" >
-        #{submittime,jdbcType=DATE},
+      <if test="submitTime != null" >
+        #{submitTime,jdbcType=DATE},
       </if>
-      <if test="submitsystem != null" >
-        #{submitsystem,jdbcType=VARCHAR},
+      <if test="submitSystem != null" >
+        #{submitSystem,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
@@ -191,32 +180,32 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.resourcesid != null" >
-        resourcesId = #{record.resourcesid,jdbcType=INTEGER},
+      <if test="record.resourcesId != null" >
+        resourcesId = #{record.resourcesId,jdbcType=INTEGER},
       </if>
-      <if test="record.resourcesname != null" >
-        resourcesName = #{record.resourcesname,jdbcType=VARCHAR},
+      <if test="record.resourcesName != null" >
+        resourcesName = #{record.resourcesName,jdbcType=VARCHAR},
       </if>
-      <if test="record.resourcestype != null" >
-        resourcesType = #{record.resourcestype,jdbcType=INTEGER},
+      <if test="record.resourcesType != null" >
+        resourcesType = #{record.resourcesType,jdbcType=INTEGER},
       </if>
-      <if test="record.resourceskey != null" >
-        resourcesKey = #{record.resourceskey,jdbcType=VARCHAR},
+      <if test="record.resourcesKey != null" >
+        resourcesKey = #{record.resourcesKey,jdbcType=VARCHAR},
       </if>
-      <if test="record.resourcesurl != null" >
-        resourcesUrl = #{record.resourcesurl,jdbcType=VARCHAR},
+      <if test="record.resourcesUrl != null" >
+        resourcesUrl = #{record.resourcesUrl,jdbcType=VARCHAR},
       </if>
       <if test="record.description != null" >
         description = #{record.description,jdbcType=VARCHAR},
       </if>
-      <if test="record.createtime != null" >
-        createTime = #{record.createtime,jdbcType=DATE},
+      <if test="record.createTime != null" >
+        createTime = #{record.createTime,jdbcType=DATE},
       </if>
-      <if test="record.submittime != null" >
-        submitTime = #{record.submittime,jdbcType=DATE},
+      <if test="record.submitTime != null" >
+        submitTime = #{record.submitTime,jdbcType=DATE},
       </if>
-      <if test="record.submitsystem != null" >
-        submitSystem = #{record.submitsystem,jdbcType=VARCHAR},
+      <if test="record.submitSystem != null" >
+        submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
@@ -229,15 +218,15 @@
   <update id="updateByExample" parameterType="map" >
     update system_resources
     set id = #{record.id,jdbcType=INTEGER},
-      resourcesId = #{record.resourcesid,jdbcType=INTEGER},
-      resourcesName = #{record.resourcesname,jdbcType=VARCHAR},
-      resourcesType = #{record.resourcestype,jdbcType=INTEGER},
-      resourcesKey = #{record.resourceskey,jdbcType=VARCHAR},
-      resourcesUrl = #{record.resourcesurl,jdbcType=VARCHAR},
+      resourcesId = #{record.resourcesId,jdbcType=INTEGER},
+      resourcesName = #{record.resourcesName,jdbcType=VARCHAR},
+      resourcesType = #{record.resourcesType,jdbcType=INTEGER},
+      resourcesKey = #{record.resourcesKey,jdbcType=VARCHAR},
+      resourcesUrl = #{record.resourcesUrl,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
-      createTime = #{record.createtime,jdbcType=DATE},
-      submitTime = #{record.submittime,jdbcType=DATE},
-      submitSystem = #{record.submitsystem,jdbcType=VARCHAR},
+      createTime = #{record.createTime,jdbcType=DATE},
+      submitTime = #{record.submitTime,jdbcType=DATE},
+      submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />

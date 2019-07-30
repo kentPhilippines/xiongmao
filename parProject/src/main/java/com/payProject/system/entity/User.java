@@ -1,36 +1,88 @@
 package com.payProject.system.entity;
 
 import java.util.Date;
-
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+/**
+ * <p>用户数据表</p>
+ * @author K
+ *
+ */
 public class User {
+	/**
+	 * <p>数据id</p>
+	 * 数据库自动生成
+	 * <strong><u>主键,唯一索引</u></strong>
+	 */
     private Integer id;
-
-    private String userid;
-
-    private String username;
-
-    private String userpassword;
-
-    private String usermail;
-
-    private String userphone;
-
-    private String userqq;
-
-    private String userwechar;
-
-    private Integer usertype;
-
-    private String useraddress;
-
-    private String usercity;
-
-    private Date createtime;
-
-    private Date submittime;
-
-    private String submitsystem;
-
+    /**
+   	 * <p>用户id</p>
+   	 * 不可重复，建议自动生成
+   	 * <strong><u>唯一索引</u></strong>
+   	 */
+    private String userId;
+    /**
+	 * <p>用户昵称</p>
+	 */
+    private String userName;
+    /**
+	 * <p>登录密码</p>
+	 * 不可为null
+	 */
+    private String userPassword;
+    /**
+	 * <p>加密盐</p>
+	 * 
+	 */
+    private String userSalt;
+    /**
+	 * <p>用户邮箱</p>
+	 */
+    private String userMail;
+    /**
+	 * <p>用户手机</p>
+	 */
+    private String userPhone;
+    /**
+	 * <p>用户QQ</p>
+	 */
+    private String userQQ;
+    /**
+	 * <p>用户微信</p>
+	 */
+    private String userWechar;
+    /**
+   	 * <p>用户类型</p>
+   	 * 目前该值未定义，需要一个项目全局变量来定义
+   	 */
+    private Integer userType;
+    /**
+	 * <p>用户地址</p>
+	 */
+    private String userAddress;
+    /**
+	 * <p>用户所在城市</p>
+	 */
+    private String userCity;
+    /**
+	 * <p>用户数据创建时间</p>
+	 */
+    private Date createTime;
+    /**
+	 * <p>用户提交时间</p>
+	 */
+    private Date submitTime;
+    /**
+   	 * <p>提交系统</p>
+   	 * <strong><u>全局索引</u></strong>
+   	 * <div>该字段用户区分系统数据</div>
+   	 */
+    private String submitSystem;
+    /**
+	 * <p>用户状态</p>
+	 * <strong><u>状态:1可使用；0不可使用</u></strong>		
+	 * <div>该字段需要建立全局常量</div>		
+	 */
     private Integer status;
 
     public Integer getId() {
@@ -41,108 +93,116 @@ public class User {
         this.id = id;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid == null ? null : userid.trim();
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
 
-    public String getUserpassword() {
-        return userpassword;
+    public String getUserPassword() {
+        return userPassword;
     }
 
-    public void setUserpassword(String userpassword) {
-        this.userpassword = userpassword == null ? null : userpassword.trim();
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword == null ? null : userPassword.trim();
     }
 
-    public String getUsermail() {
-        return usermail;
+    public String getUserSalt() {
+        return userSalt;
     }
 
-    public void setUsermail(String usermail) {
-        this.usermail = usermail == null ? null : usermail.trim();
+    public void setUserSalt(String userSalt) {
+        this.userSalt = userSalt == null ? null : userSalt.trim();
     }
 
-    public String getUserphone() {
-        return userphone;
+    public String getUserMail() {
+        return userMail;
     }
 
-    public void setUserphone(String userphone) {
-        this.userphone = userphone == null ? null : userphone.trim();
+    public void setUserMail(String userMail) {
+        this.userMail = userMail == null ? null : userMail.trim();
     }
 
-    public String getUserqq() {
-        return userqq;
+    public String getUserPhone() {
+        return userPhone;
     }
 
-    public void setUserqq(String userqq) {
-        this.userqq = userqq == null ? null : userqq.trim();
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone == null ? null : userPhone.trim();
     }
 
-    public String getUserwechar() {
-        return userwechar;
+    public String getUserQQ() {
+        return userQQ;
     }
 
-    public void setUserwechar(String userwechar) {
-        this.userwechar = userwechar == null ? null : userwechar.trim();
+    public void setUserQQ(String userQQ) {
+        this.userQQ = userQQ == null ? null : userQQ.trim();
     }
 
-    public Integer getUsertype() {
-        return usertype;
+    public String getUserWechar() {
+        return userWechar;
     }
 
-    public void setUsertype(Integer usertype) {
-        this.usertype = usertype;
+    public void setUserWechar(String userWechar) {
+        this.userWechar = userWechar == null ? null : userWechar.trim();
     }
 
-    public String getUseraddress() {
-        return useraddress;
+    public Integer getUserType() {
+        return userType;
     }
 
-    public void setUseraddress(String useraddress) {
-        this.useraddress = useraddress == null ? null : useraddress.trim();
+    public void setUserType(Integer userType) {
+        this.userType = userType;
     }
 
-    public String getUsercity() {
-        return usercity;
+    public String getUserAddress() {
+        return userAddress;
     }
 
-    public void setUsercity(String usercity) {
-        this.usercity = usercity == null ? null : usercity.trim();
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress == null ? null : userAddress.trim();
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public String getUserCity() {
+        return userCity;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setUserCity(String userCity) {
+        this.userCity = userCity == null ? null : userCity.trim();
     }
 
-    public Date getSubmittime() {
-        return submittime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setSubmittime(Date submittime) {
-        this.submittime = submittime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public String getSubmitsystem() {
-        return submitsystem;
+    public Date getSubmitTime() {
+        return submitTime;
     }
 
-    public void setSubmitsystem(String submitsystem) {
-        this.submitsystem = submitsystem == null ? null : submitsystem.trim();
+    public void setSubmitTime(Date submitTime) {
+        this.submitTime = submitTime;
+    }
+
+    public String getSubmitSystem() {
+        return submitSystem;
+    }
+
+    public void setSubmitSystem(String submitSystem) {
+        this.submitSystem = submitSystem == null ? null : submitSystem.trim();
     }
 
     public Integer getStatus() {

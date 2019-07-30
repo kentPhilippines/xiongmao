@@ -7,15 +7,15 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class UserRole {
     private Integer id;
 
-    private String userid;
+    private String userId;
 
     private Integer role;
 
-    private Date createtime;
+    private Date createTime;
 
-    private Date submittime;
+    private Date submitTime;
 
-    private String submitsystem;
+    private String submitSystem;
 
     private Integer status;
 
@@ -27,12 +27,12 @@ public class UserRole {
         this.id = id;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid == null ? null : userid.trim();
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 
     public Integer getRole() {
@@ -43,28 +43,28 @@ public class UserRole {
         this.role = role;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getSubmittime() {
-        return submittime;
+    public Date getSubmitTime() {
+        return submitTime;
     }
 
-    public void setSubmittime(Date submittime) {
-        this.submittime = submittime;
+    public void setSubmitTime(Date submitTime) {
+        this.submitTime = submitTime;
     }
 
-    public String getSubmitsystem() {
-        return submitsystem;
+    public String getSubmitSystem() {
+        return submitSystem;
     }
 
-    public void setSubmitsystem(String submitsystem) {
-        this.submitsystem = submitsystem == null ? null : submitsystem.trim();
+    public void setSubmitSystem(String submitSystem) {
+        this.submitSystem = submitSystem == null ? null : submitSystem.trim();
     }
 
     public Integer getStatus() {

@@ -3,11 +3,11 @@
 <mapper namespace="com.payProject.system.mapper.UserRoleMapper" >
   <resultMap id="BaseResultMap" type="com.payProject.system.entity.UserRole" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="userId" property="userId" jdbcType="VARCHAR" />
     <result column="role" property="role" jdbcType="INTEGER" />
-    <result column="createTime" property="createtime" jdbcType="DATE" />
-    <result column="submitTime" property="submittime" jdbcType="DATE" />
-    <result column="submitSystem" property="submitsystem" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="DATE" />
+    <result column="submitTime" property="submitTime" jdbcType="DATE" />
+    <result column="submitSystem" property="submitSystem" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -76,6 +76,7 @@
     <if test="distinct" >
       distinct
     </if>
+    'false' as QUERYID,
     <include refid="Base_Column_List" />
     from system_user_role
     <if test="_parameter != null" >
@@ -95,39 +96,30 @@
     delete from system_user_role
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.payProject.system.entity.UserRoleExample" >
-    delete from system_user_role
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.payProject.system.entity.UserRole" >
-    insert into system_user_role (id, userId, role, 
-      createTime, submitTime, submitSystem, 
-      status)
-    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, 
-      #{createtime,jdbcType=DATE}, #{submittime,jdbcType=DATE}, #{submitsystem,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.payProject.system.entity.UserRole" useGeneratedKeys="true" keyProperty="id" >
+    insert into system_user_role (userId, role, createTime, 
+      submitTime, submitSystem, status
+      )
+    values (#{userId,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, #{createTime,jdbcType=DATE}, 
+      #{submitTime,jdbcType=DATE}, #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.payProject.system.entity.UserRole" >
+  <insert id="insertSelective" parameterType="com.payProject.system.entity.UserRole" useGeneratedKeys="true" keyProperty="id" >
     insert into system_user_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="userid != null" >
+      <if test="userId != null" >
         userId,
       </if>
       <if test="role != null" >
         role,
       </if>
-      <if test="createtime != null" >
+      <if test="createTime != null" >
         createTime,
       </if>
-      <if test="submittime != null" >
+      <if test="submitTime != null" >
         submitTime,
       </if>
-      <if test="submitsystem != null" >
+      <if test="submitSystem != null" >
         submitSystem,
       </if>
       <if test="status != null" >
@@ -135,23 +127,20 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="userid != null" >
-        #{userid,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
       </if>
       <if test="role != null" >
         #{role,jdbcType=INTEGER},
       </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=DATE},
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
       </if>
-      <if test="submittime != null" >
-        #{submittime,jdbcType=DATE},
+      <if test="submitTime != null" >
+        #{submitTime,jdbcType=DATE},
       </if>
-      <if test="submitsystem != null" >
-        #{submitsystem,jdbcType=VARCHAR},
+      <if test="submitSystem != null" >
+        #{submitSystem,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
@@ -170,20 +159,20 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.userid != null" >
-        userId = #{record.userid,jdbcType=VARCHAR},
+      <if test="record.userId != null" >
+        userId = #{record.userId,jdbcType=VARCHAR},
       </if>
       <if test="record.role != null" >
         role = #{record.role,jdbcType=INTEGER},
       </if>
-      <if test="record.createtime != null" >
-        createTime = #{record.createtime,jdbcType=DATE},
+      <if test="record.createTime != null" >
+        createTime = #{record.createTime,jdbcType=DATE},
       </if>
-      <if test="record.submittime != null" >
-        submitTime = #{record.submittime,jdbcType=DATE},
+      <if test="record.submitTime != null" >
+        submitTime = #{record.submitTime,jdbcType=DATE},
       </if>
-      <if test="record.submitsystem != null" >
-        submitSystem = #{record.submitsystem,jdbcType=VARCHAR},
+      <if test="record.submitSystem != null" >
+        submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
@@ -196,11 +185,11 @@
   <update id="updateByExample" parameterType="map" >
     update system_user_role
     set id = #{record.id,jdbcType=INTEGER},
-      userId = #{record.userid,jdbcType=VARCHAR},
+      userId = #{record.userId,jdbcType=VARCHAR},
       role = #{record.role,jdbcType=INTEGER},
-      createTime = #{record.createtime,jdbcType=DATE},
-      submitTime = #{record.submittime,jdbcType=DATE},
-      submitSystem = #{record.submitsystem,jdbcType=VARCHAR},
+      createTime = #{record.createTime,jdbcType=DATE},
+      submitTime = #{record.submitTime,jdbcType=DATE},
+      submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -209,20 +198,20 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.payProject.system.entity.UserRole" >
     update system_user_role
     <set >
-      <if test="userid != null" >
-        userId = #{userid,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        userId = #{userId,jdbcType=VARCHAR},
       </if>
       <if test="role != null" >
         role = #{role,jdbcType=INTEGER},
       </if>
-      <if test="createtime != null" >
-        createTime = #{createtime,jdbcType=DATE},
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=DATE},
       </if>
-      <if test="submittime != null" >
-        submitTime = #{submittime,jdbcType=DATE},
+      <if test="submitTime != null" >
+        submitTime = #{submitTime,jdbcType=DATE},
       </if>
-      <if test="submitsystem != null" >
-        submitSystem = #{submitsystem,jdbcType=VARCHAR},
+      <if test="submitSystem != null" >
+        submitSystem = #{submitSystem,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
@@ -232,11 +221,11 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.payProject.system.entity.UserRole" >
     update system_user_role
-    set userId = #{userid,jdbcType=VARCHAR},
+    set userId = #{userId,jdbcType=VARCHAR},
       role = #{role,jdbcType=INTEGER},
-      createTime = #{createtime,jdbcType=DATE},
-      submitTime = #{submittime,jdbcType=DATE},
-      submitSystem = #{submitsystem,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=DATE},
+      submitTime = #{submitTime,jdbcType=DATE},
+      submitSystem = #{submitSystem,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
