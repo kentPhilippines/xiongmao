@@ -8,6 +8,7 @@ import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.payProject.system.entity.User;
 
@@ -38,7 +39,7 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
 
     private String kickoutUrl; //踢出后到的地址
     private boolean kickoutAfter = false; //踢出之前登录的/之后登录的用户 默认踢出之前登录的用户
-    private int maxSession = 1; //同一个帐号最大会话数 默认1
+    private int maxSession  = 1; //同一个帐号最大会话数 默认1
 
     private SessionManager sessionManager;
     private Cache<String, Deque<Serializable>> cache;
@@ -75,22 +76,16 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
             //如果没有登录，直接进行之后的流程
             return true;
         }
-        
-
         Session session = subject.getSession();
         User user = (User) subject.getPrincipal();
         String username = user.getUserName();
         Serializable sessionId = session.getId();
-
-        //读取缓存   没有就存入
-        Deque<Serializable> deque = cache.get(username);
-        
+        Deque<Serializable> deque = cache.get(username);//读取缓存
         //如果此用户没有session队列，也就是还没有登录过，缓存中没有
         //就new一个空队列，不然deque对象为空，会报空指针
         if(deque==null){
         	deque = new LinkedList<Serializable>();
         }
-        
         //如果队列里没有此sessionId，且用户没有被踢出；放入队列
         if(!deque.contains(sessionId) && session.getAttribute("kickout") == null) {
             //将sessionId存入队列

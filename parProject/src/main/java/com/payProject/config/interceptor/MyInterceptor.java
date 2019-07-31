@@ -42,7 +42,7 @@ public class MyInterceptor implements HandlerInterceptor {
         }
         //3.登录状态检查,使用response返回指定信息
         log.info("required=true,需检查是否登录");
-        User user = (User)request.getSession().getAttribute("userSession");
+        User user = (User)request.getSession().getAttribute("user");
         if(ObjectUtil.isNull(user)) {
         	response.sendRedirect("/login");
         	return false;

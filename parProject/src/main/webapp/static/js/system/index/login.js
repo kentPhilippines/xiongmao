@@ -9,7 +9,7 @@ var LoginCls = {
 			
 		},
 		initNode: function(){
-			
+			this.$loginForm = $("#loginForm").serialize();
 		},
 		initData : function() {//初始化数据
 		},

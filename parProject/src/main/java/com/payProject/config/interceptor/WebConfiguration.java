@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-/*public class SessionConfiguration extends WebMvcConfigurerAdapter{      �÷����ѹ�ʱ
+/*public class SessionConfiguration extends WebMvcConfigurerAdapter{      该方法以过时
 	 @Override
 	    public void addInterceptors(InterceptorRegistry registry) {
 	        registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**");
@@ -17,7 +17,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfiguration implements WebMvcConfigurer{
 	 	@Autowired
 	    private MyInterceptor  inteceptor;
-	 
 	    //配置拦截的资源以及放行的资源
 	 	/**
 	 	 * addPathPatterns     拦截的资源

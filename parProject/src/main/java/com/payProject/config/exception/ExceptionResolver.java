@@ -23,7 +23,6 @@ public class ExceptionResolver implements HandlerExceptionResolver{
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
 			Exception ex) {
-
 		// 判断请求类型，是否为 异步请求
 		String ajax_header = request.getHeader("X-Requested-With");
 		if (ajax_header != null && ajax_header.equals("XMLHttpRequest")) {
@@ -31,12 +30,10 @@ public class ExceptionResolver implements HandlerExceptionResolver{
 			// 对异步请求的异常进行处理
 			response.setContentType("application/json;charset=UTF-8");
 			response.setCharacterEncoding("UTF-8");
-
 			// 创建结果对象
 			Map<String, Object> result = new HashMap<>();
 			result.put("success", false);
 			result.put("message", ex.getMessage());
-
 			ObjectMapper mapper = new ObjectMapper();
 			PrintWriter writer = null;
 			try {

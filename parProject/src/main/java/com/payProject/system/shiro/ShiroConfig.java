@@ -25,30 +25,37 @@ import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
 
 /**
- * @author 作者 z77z
- * @date 创建时间：2017年2月10日 下午1:16:38
+ * @author K
+ * @date 2019-07-31
  * 
  */
 @Configuration
 public class ShiroConfig {
-
-
 	@Value("${spring.redis.host}")
 	private String host;
-
 	@Value("${spring.redis.port}")
 	private int port;
-	
 	@Value("${spring.redis.timeout}")
     private int timeout;
-
 	/**
-	 * ShiroFilterFactoryBean 处理拦截资源文件问题。
-	 * 注意：单独一个ShiroFilterFactoryBean配置是或报错的，以为在
-	 * 初始化ShiroFilterFactoryBean的时候需要注入：SecurityManager
+	 * <p>被踢后的页面</p>
+	 */
+	@Value("${spring.shiro.outLogin.url}")
+	 private String outLoginUrl;
+	/**
+	 * <p>同时在线人数</p>
+	 */
+	 @Value("${spring.shiro.maxLoginSession}")
+	 private int maxOnlineSession; 
+	/**
+	 * <p>ShiroFilterFactoryBean 处理拦截资源文件问题。</p>
+	 * <li>注意：单独一个ShiroFilterFactoryBean配置是或报错的，以为在</li>
+	 * <li> 初始化ShiroFilterFactoryBean的时候需要注入：SecurityManager</li>
 	 *
-	 * Filter Chain定义说明 1、一个URL可以配置多个Filter，使用逗号分隔 2、当设置多个过滤器时，全部验证通过，才视为通过
-	 * 3、部分过滤器可指定参数，如perms，roles
+	 * <p>Filter Chain定义说明 </p>
+	 * <li>1、一个URL可以配置多个Filter，使用逗号分隔 </li>
+	 * <li>2、当设置多个过滤器时，全部验证通过，才视为通过</li>
+	 * <li>3、部分过滤器可指定参数，如perms，roles</li>
 	 *
 	 */
 	@Bean
@@ -101,8 +108,7 @@ public class ShiroConfig {
 	}
 
 	/**
-	 * 身份认证realm; (这个需要自己写，账号密码校验；权限等)
-	 * 
+	 * <p>身份认证realm; (这个需要自己写，账号密码校验；权限等)</p>
 	 * @return
 	 */
 	@Bean
@@ -112,8 +118,8 @@ public class ShiroConfig {
 	}
 
 	/**
-	 * 配置shiro redisManager
-	 * 使用的是shiro-redis开源插件
+	 *<p> 配置shiro redisManager</p>
+	 * <li>使用的是shiro-redis开源插件</li>
 	 * @return
 	 */
 	public RedisManager redisManager() {
@@ -127,8 +133,8 @@ public class ShiroConfig {
 	}
 
 	/**
-	 * cacheManager 缓存 redis实现
-	 * 使用的是shiro-redis开源插件
+	 * <p>cacheManager 缓存 redis实现</P>
+	 * <li>使用的是shiro-redis开源插件</li>
 	 * @return
 	 */
 	public RedisCacheManager cacheManager() {
@@ -138,8 +144,8 @@ public class ShiroConfig {
 	}
 
 	/**
-	 * RedisSessionDAO shiro sessionDao层的实现 通过redis
-	 * 使用的是shiro-redis开源插件
+	 * <p>RedisSessionDAO shiro sessionDao层的实现 通过redis</p>
+	 * <li>使用的是shiro-redis开源插件</li>
 	 */
 	@Bean
 	public RedisSessionDAO redisSessionDAO() {
@@ -149,8 +155,8 @@ public class ShiroConfig {
 	}
 
 	/**
-	 * Session Manager
-	 * 使用的是shiro-redis开源插件
+	 * <p>Session Manager</p>
+	 * <li>使用的是shiro-redis开源插件</li>
 	 */
 	@Bean
 	public DefaultWebSessionManager sessionManager() {
@@ -160,7 +166,7 @@ public class ShiroConfig {
 	}
 	
 	/**
-     * cookie对象;
+     * <p>cookie对象;</p>
      * @return
      */
     public SimpleCookie rememberMeCookie(){
@@ -172,7 +178,7 @@ public class ShiroConfig {
     }
     
     /**
-     * cookie管理对象;记住我功能
+     * <p>cookie管理对象;记住我功能</p>
      * @return
      */
     public CookieRememberMeManager rememberMeManager(){
@@ -184,7 +190,7 @@ public class ShiroConfig {
     }
     
     /**
-     * 限制同一账号登录同时登录人数控制
+     *<p> 限制同一账号登录同时登录人数控制</p>
      * @return
      */
     public KickoutSessionControlFilter kickoutSessionControlFilter(){
@@ -198,9 +204,9 @@ public class ShiroConfig {
     	//是否踢出后来登录的，默认是false；即后者登录的用户踢出前者登录的用户；踢出顺序。
     	kickoutSessionControlFilter.setKickoutAfter(false);
     	//同一个用户最大的会话数，默认1；比如2的意思是同一个用户允许最多同时两个人登录；
-    	kickoutSessionControlFilter.setMaxSession(1);
+    	kickoutSessionControlFilter.setMaxSession(maxOnlineSession);
     	//被踢出后重定向到的地址；
-    	kickoutSessionControlFilter.setKickoutUrl("/kickout");
+    	kickoutSessionControlFilter.setKickoutUrl(outLoginUrl);
         return kickoutSessionControlFilter;
      }
 }

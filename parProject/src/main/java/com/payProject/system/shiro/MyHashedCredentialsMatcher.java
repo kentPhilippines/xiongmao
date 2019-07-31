@@ -13,19 +13,35 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
+/**
+ * <p>密码验证类</p>
+ * <li>这个类重写shiro的密码验证方法</li>
+ * @author K
+ * @date 2019-07-31
+ * <p>若该项目未整合redis,也可以使用缓存CacheUtil.newTimedCache(超时时间)
+ * 	来实现当天密码错误次数,这个功能
+ * 	CacheUtil.newTimedCache()引用自cn.hutool,集成工具类
+ * </p>
+ * 
+ */
 @Component
 public class MyHashedCredentialsMatcher extends HashedCredentialsMatcher {
-	@Value("${shiro.retryTimes}")
+	/**
+	 * <p>密码错误最大次数</p>
+	 */
+	@Value("${spring.shiro.retryTimes}")
 	private Integer retryTimes;
 	@Autowired
 	StringRedisTemplate stringRedisTemplate;
-	/**
-	 * @param retryTimes
-	 */
 	public void setRetryTimes(Integer retryTimes) {
 		this.retryTimes = retryTimes;
 	}
 	/**
+	 * <p>登录验证核心</p>
+	 * <li>1,首先从缓存钟取登录错误次数</li>
+	 * <li>2,密码比对</li>
+	 * <li>3,成功则清除缓存；失败则记录缓存</li>
+	 * <li>4,缓存时间为一天,也就是说一天之类错误次数为指定的次数</li>
 	 * @param AuthenticationToken token 这个类用来搜集用户信息和相关凭证
 	 * @param AuthenticationInfo  info 这个类用来验证凭证的正确性
 	 * @return 返回 false 密码错误 并提示还有几次的输入错误机会 true 密码正确
@@ -33,30 +49,23 @@ public class MyHashedCredentialsMatcher extends HashedCredentialsMatcher {
 	@Override
 	public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
 		String username = (String) token.getPrincipal();
-		// 从缓存中查询
 		 ValueOperations<String, String> opsForValue = stringRedisTemplate.opsForValue(); 
 		 String count = (String) opsForValue.get(username); 
 		 if (count == null) {
 			 opsForValue.set(username, "0", 1, TimeUnit.DAYS); 
 		 } 
-		 // 获取到当前密码错误次数 count = (String)
-		  opsForValue.get(username);
-		 // 判断密码错误次数 
-		  if (Integer.parseInt(count) >= retryTimes) { 
+		 opsForValue.get(username);
+		 if (Integer.parseInt(count) >= retryTimes) { 
 		   throw new ExcessiveAttemptsException();
 		   }
-		  //密码验证
-		boolean matches = super.doCredentialsMatch(token, info);
-		   if (matches) { 
-			   // 密码验证成功，清除密码错误次数 
-			   opsForValue.set(username, "0", 1, TimeUnit.DAYS);
-		   } else { 
-			   // 密码验证失败，将缓存中的密码错误次数 +1 
-			   opsForValue.set(username, String.valueOf(Integer.parseInt(count) + 1),1, TimeUnit.DAYS); 
-		   }
-		   String count1 = (String) opsForValue.get(username);
-		   System.out.println(count1);
-		 
+		 boolean matches = super.doCredentialsMatch(token, info);//调用父类密码验证方法
+		 if (matches) { 
+			 opsForValue.set(username, "0", 1, TimeUnit.DAYS);
+		  } else { 
+			 opsForValue.set(username, String.valueOf(Integer.parseInt(count) + 1),1, TimeUnit.DAYS); 
+		  }
+		  String count1 = (String) opsForValue.get(username);
+		  System.out.println(count1);
 		return matches;
 	}
 }

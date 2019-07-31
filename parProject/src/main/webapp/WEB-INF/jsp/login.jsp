@@ -53,4 +53,4 @@
   </div>
   </form>
 </body>
-<script type="text/javascript" src="${ctx}/static/js/system/index/index.js"></script>
+<script type="text/javascript" src="${ctx}/static/js/system/index/login.js"></script>
