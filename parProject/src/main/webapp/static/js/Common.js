@@ -23,6 +23,7 @@
             $.ajax({
                 url: url,
                 data: data,
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
                 type: requestType == null  || requestType == '' ?'post':requestType,
                 dataType:"json",
                 async: isAsync ? isAsync : true,
@@ -174,7 +175,7 @@
                 return sessionStorage.setItem(key, JSON.stringify(value));
             }
             sessionStorage.setItem(key, value);
-        }
+        },
     };
     win.CommonUtil = CommonUtil;
 }(window, document, jQuery));

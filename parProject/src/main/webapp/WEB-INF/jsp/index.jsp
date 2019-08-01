@@ -106,17 +106,20 @@
       </ul>
     </div>
   </div>
-  
-  <div class="layui-body">
-    <!-- 内容主体区域 -->
-    <iframe id="mainFrame" name="mainFrame"
-						<%-- src="${ctx}/index" 这里写页面路径即可 --%> 
+  <div class="layui-body" id="LAY_app_body">
+     <iframe id="mainFrame" name="mainFrame"
+						src="${ctx}/system/user/userShow"
 						style="overflow: visible; height: 100%; scrolling="yes"
-						frameborder="no" width="100%" height="650">
+						frameborder="no" width="100%" height="650"
+						marginheight = "50px"
+						marginwidth ="10px"
+						>
 	</iframe>
     <div style="padding: 15px;">内容主体区域
-    </div>  
-  </div>
+    </div> 
+    
+    
+  </div>  
   
   <div class="layui-footer">
     <!-- 底部固定区域 -->
@@ -125,5 +128,4 @@
 </div>
 </body>
 </html>
-<script type="text/javascript" src="${ctx}/static/js/system/index/index.js"></script>
-<script type="text/javascript" src="${ctx}/static/css/system/index.css"></script>
+<script type="text/javascript" src="${ctx}/static/js/system/index/index.js"/>

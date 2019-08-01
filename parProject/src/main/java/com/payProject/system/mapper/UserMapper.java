@@ -1,11 +1,13 @@
 package com.payProject.system.mapper;
 
-import com.payProject.system.entity.User;
-import com.payProject.system.entity.UserExample;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import com.payProject.system.entity.User;
+import com.payProject.system.entity.UserExample;
+
 @Mapper
 public interface UserMapper {
     int countByExample(UserExample example);

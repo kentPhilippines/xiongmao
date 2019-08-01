@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.payProject.config.common.JsonResult;
 import com.payProject.system.entity.User;
 
+import cn.hutool.core.util.StrUtil;
+
 @Controller
 @RequestMapping("/")
 public class LoginContorller {
@@ -34,6 +36,10 @@ public class LoginContorller {
 	 @ResponseBody
 	 @RequestMapping("/loginOnline")
 	 public JsonResult login(User user,HttpSession session) {
+		 if(StrUtil.isBlankIfStr(user.getUserName()))
+			throw new UnknownAccountException("请填写用户名");
+		 if(StrUtil.isBlankIfStr(user.getUserPassword()))
+			 throw new IncorrectCredentialsException("请填写密码");	
 			UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(),user.getUserPassword());
 			//有实例的话安全管理器获取subject
 			Subject subject = SecurityUtils.getSubject();

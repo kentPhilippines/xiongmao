@@ -17,7 +17,18 @@
     <result column="createTime" property="createTime" jdbcType="DATE" />
     <result column="submitTime" property="submitTime" jdbcType="DATE" />
     <result column="submitSystem" property="submitSystem" jdbcType="VARCHAR" />
+    <result column="payPassword" property="payPassword" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="retain1" property="retain1" jdbcType="VARCHAR" />
+    <result column="retain2" property="retain2" jdbcType="VARCHAR" />
+    <result column="retain3" property="retain3" jdbcType="VARCHAR" />
+    <result column="retain4" property="retain4" jdbcType="VARCHAR" />
+    <result column="retain5" property="retain5" jdbcType="VARCHAR" />
+    <result column="retain6" property="retain6" jdbcType="VARCHAR" />
+    <result column="retain7" property="retain7" jdbcType="VARCHAR" />
+    <result column="retain8" property="retain8" jdbcType="VARCHAR" />
+    <result column="retain9" property="retain9" jdbcType="VARCHAR" />
+    <result column="retain10" property="retain10" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -79,7 +90,9 @@
   </sql>
   <sql id="Base_Column_List" >
     id, userId, userName, userPassword, userSalt, userMail, userPhone, userQQ, userWechar, 
-    userType, userAddress, userCity, createTime, submitTime, submitSystem, status
+    userType, userAddress, userCity, createTime, submitTime, submitSystem, payPassword, 
+    status, retain1, retain2, retain3, retain4, retain5, retain6, retain7, retain8, retain9, 
+    retain10
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payProject.system.entity.UserExample" >
     select
@@ -101,14 +114,20 @@
       userSalt, userMail, userPhone, 
       userQQ, userWechar, userType, 
       userAddress, userCity, createTime, 
-      submitTime, submitSystem, status
-      )
+      submitTime, submitSystem, payPassword, 
+      status, retain1, retain2, 
+      retain3, retain4, retain5, 
+      retain6, retain7, retain8, 
+      retain9, retain10)
     values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
       #{userSalt,jdbcType=VARCHAR}, #{userMail,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, 
       #{userQQ,jdbcType=VARCHAR}, #{userWechar,jdbcType=VARCHAR}, #{userType,jdbcType=INTEGER}, 
       #{userAddress,jdbcType=VARCHAR}, #{userCity,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, 
-      #{submitTime,jdbcType=DATE}, #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
-      )
+      #{submitTime,jdbcType=DATE}, #{submitSystem,jdbcType=VARCHAR}, #{payPassword,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{retain1,jdbcType=VARCHAR}, #{retain2,jdbcType=VARCHAR}, 
+      #{retain3,jdbcType=VARCHAR}, #{retain4,jdbcType=VARCHAR}, #{retain5,jdbcType=VARCHAR}, 
+      #{retain6,jdbcType=VARCHAR}, #{retain7,jdbcType=VARCHAR}, #{retain8,jdbcType=VARCHAR}, 
+      #{retain9,jdbcType=VARCHAR}, #{retain10,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.payProject.system.entity.User" useGeneratedKeys="true" keyProperty="id" >
     insert into system_user
@@ -155,8 +174,41 @@
       <if test="submitSystem != null" >
         submitSystem,
       </if>
+      <if test="payPassword != null" >
+        payPassword,
+      </if>
       <if test="status != null" >
         status,
+      </if>
+      <if test="retain1 != null" >
+        retain1,
+      </if>
+      <if test="retain2 != null" >
+        retain2,
+      </if>
+      <if test="retain3 != null" >
+        retain3,
+      </if>
+      <if test="retain4 != null" >
+        retain4,
+      </if>
+      <if test="retain5 != null" >
+        retain5,
+      </if>
+      <if test="retain6 != null" >
+        retain6,
+      </if>
+      <if test="retain7 != null" >
+        retain7,
+      </if>
+      <if test="retain8 != null" >
+        retain8,
+      </if>
+      <if test="retain9 != null" >
+        retain9,
+      </if>
+      <if test="retain10 != null" >
+        retain10,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -202,8 +254,41 @@
       <if test="submitSystem != null" >
         #{submitSystem,jdbcType=VARCHAR},
       </if>
+      <if test="payPassword != null" >
+        #{payPassword,jdbcType=VARCHAR},
+      </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
+      </if>
+      <if test="retain1 != null" >
+        #{retain1,jdbcType=VARCHAR},
+      </if>
+      <if test="retain2 != null" >
+        #{retain2,jdbcType=VARCHAR},
+      </if>
+      <if test="retain3 != null" >
+        #{retain3,jdbcType=VARCHAR},
+      </if>
+      <if test="retain4 != null" >
+        #{retain4,jdbcType=VARCHAR},
+      </if>
+      <if test="retain5 != null" >
+        #{retain5,jdbcType=VARCHAR},
+      </if>
+      <if test="retain6 != null" >
+        #{retain6,jdbcType=VARCHAR},
+      </if>
+      <if test="retain7 != null" >
+        #{retain7,jdbcType=VARCHAR},
+      </if>
+      <if test="retain8 != null" >
+        #{retain8,jdbcType=VARCHAR},
+      </if>
+      <if test="retain9 != null" >
+        #{retain9,jdbcType=VARCHAR},
+      </if>
+      <if test="retain10 != null" >
+        #{retain10,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -261,8 +346,41 @@
       <if test="record.submitSystem != null" >
         submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
       </if>
+      <if test="record.payPassword != null" >
+        payPassword = #{record.payPassword,jdbcType=VARCHAR},
+      </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.retain1 != null" >
+        retain1 = #{record.retain1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain2 != null" >
+        retain2 = #{record.retain2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain3 != null" >
+        retain3 = #{record.retain3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain4 != null" >
+        retain4 = #{record.retain4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain5 != null" >
+        retain5 = #{record.retain5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain6 != null" >
+        retain6 = #{record.retain6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain7 != null" >
+        retain7 = #{record.retain7,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain8 != null" >
+        retain8 = #{record.retain8,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain9 != null" >
+        retain9 = #{record.retain9,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain10 != null" >
+        retain10 = #{record.retain10,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -286,7 +404,18 @@
       createTime = #{record.createTime,jdbcType=DATE},
       submitTime = #{record.submitTime,jdbcType=DATE},
       submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER}
+      payPassword = #{record.payPassword,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      retain1 = #{record.retain1,jdbcType=VARCHAR},
+      retain2 = #{record.retain2,jdbcType=VARCHAR},
+      retain3 = #{record.retain3,jdbcType=VARCHAR},
+      retain4 = #{record.retain4,jdbcType=VARCHAR},
+      retain5 = #{record.retain5,jdbcType=VARCHAR},
+      retain6 = #{record.retain6,jdbcType=VARCHAR},
+      retain7 = #{record.retain7,jdbcType=VARCHAR},
+      retain8 = #{record.retain8,jdbcType=VARCHAR},
+      retain9 = #{record.retain9,jdbcType=VARCHAR},
+      retain10 = #{record.retain10,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>

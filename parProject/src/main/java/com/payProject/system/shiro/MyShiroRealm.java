@@ -24,6 +24,8 @@ import com.payProject.system.mapper.ResourcesMapper;
 import com.payProject.system.mapper.RoleMapper;
 import com.payProject.system.mapper.UserMapper;
 
+import cn.hutool.core.collection.CollUtil;
+
 /**
  * shiro身份校验核心类
  * 
@@ -71,11 +73,11 @@ public class MyShiroRealm extends AuthorizingRealm {
 		UserExample example = new UserExample();
 		UserExample.Criteria criteria = example.createCriteria();
 		criteria.andUserNameEqualTo(username);
-		User user = (User) userMapper.selectByExample(example);
-		if(user == null) {
-			//当返回值为null的时候   密码验证期会验证不通过   相关的授权操作不会发生
+		List<User> userList = userMapper.selectByExample(example);
+		if(CollUtil.isEmpty(userList)) {
 			return null;
 		}
+		User user = CollUtil.getFirst(userList);
 		/**
 		 * principal		            用户数据	
 		 * hashedCredentials	密码

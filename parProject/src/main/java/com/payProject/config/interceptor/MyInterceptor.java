@@ -53,6 +53,8 @@ public class MyInterceptor implements HandlerInterceptor {
 	public void postHandle(HttpServletRequest req, HttpServletResponse resp, Object arg2, ModelAndView arg3)
 			throws Exception {
 		req.setAttribute("ctx", req.getContextPath());//前端全局变量
+		resp.setContentType("text/html;charset=utf-8"); 
+		resp.setCharacterEncoding("utf-8");
 		System.out.println("MyInterceptor01--->postHandle()执行控制器之后且在渲染视图前调用此方法....");
 	}
 }

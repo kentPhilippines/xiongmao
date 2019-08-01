@@ -23,13 +23,13 @@
       <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
         <div class="layui-form-item">
           <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
-          <input type="text" name="username" id="LAY-user-login-username" lay-verify="required" placeholder="用户名" class="layui-input">
+          <input type="text" name="userName" id="LAY-user-login-username"  placeholder="用户名" class="layui-input">
         </div>
         <div class="layui-form-item">
           <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
-          <input type="password" name="password" id="LAY-user-login-password" lay-verify="required" placeholder="密码" class="layui-input">
+          <input type="password" name="userPassword" id="LAY-user-login-password"  placeholder="密码" class="layui-input">
         </div>
-        <div class="layui-form-item">
+        <!-- <div class="layui-form-item">   这里可以换成为  google动态验证码
           <div class="layui-row">
             <div class="layui-col-xs7">
               <label class="layadmin-user-login-icon layui-icon layui-icon-vercode" for="LAY-user-login-vercode"></label>
@@ -41,9 +41,9 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="layui-form-item" style="margin-bottom: 20px;">
-          <a href="forget.html" class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;">忘记密码？</a>
+          <a href="forget.html" class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;">注册账号</a>
         </div>
         <div class="layui-form-item">
           <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="LAY-user-login-submit">登 入</button>
@@ -53,4 +53,5 @@
   </div>
   </form>
 </body>
-<script type="text/javascript" src="${ctx}/static/js/system/index/login.js"></script>
+<script type="text/javascript">var ctx = '${ctx}';</script>
+<script type="text/javascript" src="${ctx}/static/js/system/index/login.js" ></script>

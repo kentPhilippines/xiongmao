@@ -26,9 +26,9 @@ public class User {
 	 */
     private String userName;
     /**
-	 * <p>登录密码</p>
-	 * 不可为null
-	 */
+   	 * <p>登录密码</p>
+   	 * 不可为null
+   	 */
     private String userPassword;
     /**
 	 * <p>加密盐</p>
@@ -61,12 +61,12 @@ public class User {
 	 */
     private String userAddress;
     /**
-	 * <p>用户所在城市</p>
-	 */
+   	 * <p>用户所在城市</p>
+   	 */
     private String userCity;
     /**
-	 * <p>用户数据创建时间</p>
-	 */
+   	 * <p>用户数据创建时间</p>
+   	 */
     private Date createTime;
     /**
 	 * <p>用户提交时间</p>
@@ -79,11 +79,55 @@ public class User {
    	 */
     private String submitSystem;
     /**
+	 * <p>支付密码</p>
+	 */
+    private String payPassword;
+    /**
 	 * <p>用户状态</p>
 	 * <strong><u>状态:1可使用；0不可使用</u></strong>		
 	 * <div>该字段需要建立全局常量</div>		
 	 */
     private Integer status;
+	/**
+	 * 保留字段目前没有业务拓展的需求用不到
+	 */
+    private String retain1;
+    /**
+	 * 保留字段目前没有业务拓展的需求用不到
+	 */
+    private String retain2;
+    /**
+	 * 保留字段目前没有业务拓展的需求用不到
+	 */
+    private String retain3;
+    /**
+	 * 保留字段目前没有业务拓展的需求用不到
+	 */
+    private String retain4;
+    /**
+	 * 保留字段目前没有业务拓展的需求用不到
+	 */
+    private String retain5;
+    /**
+	 * 保留字段目前没有业务拓展的需求用不到
+	 */
+    private String retain6;
+    /**
+	 * 保留字段目前没有业务拓展的需求用不到
+	 */
+    private String retain7;
+    /**
+	 * 保留字段目前没有业务拓展的需求用不到
+	 */
+    private String retain8;
+    /**
+	 * 保留字段目前没有业务拓展的需求用不到
+	 */
+    private String retain9;
+    /**
+	 * 保留字段目前没有业务拓展的需求用不到
+	 */
+    private String retain10;
 
     public Integer getId() {
         return id;
@@ -205,12 +249,100 @@ public class User {
         this.submitSystem = submitSystem == null ? null : submitSystem.trim();
     }
 
+    public String getPayPassword() {
+        return payPassword;
+    }
+
+    public void setPayPassword(String payPassword) {
+        this.payPassword = payPassword == null ? null : payPassword.trim();
+    }
+
     public Integer getStatus() {
         return status;
     }
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getRetain1() {
+        return retain1;
+    }
+
+    public void setRetain1(String retain1) {
+        this.retain1 = retain1 == null ? null : retain1.trim();
+    }
+
+    public String getRetain2() {
+        return retain2;
+    }
+
+    public void setRetain2(String retain2) {
+        this.retain2 = retain2 == null ? null : retain2.trim();
+    }
+
+    public String getRetain3() {
+        return retain3;
+    }
+
+    public void setRetain3(String retain3) {
+        this.retain3 = retain3 == null ? null : retain3.trim();
+    }
+
+    public String getRetain4() {
+        return retain4;
+    }
+
+    public void setRetain4(String retain4) {
+        this.retain4 = retain4 == null ? null : retain4.trim();
+    }
+
+    public String getRetain5() {
+        return retain5;
+    }
+
+    public void setRetain5(String retain5) {
+        this.retain5 = retain5 == null ? null : retain5.trim();
+    }
+
+    public String getRetain6() {
+        return retain6;
+    }
+
+    public void setRetain6(String retain6) {
+        this.retain6 = retain6 == null ? null : retain6.trim();
+    }
+
+    public String getRetain7() {
+        return retain7;
+    }
+
+    public void setRetain7(String retain7) {
+        this.retain7 = retain7 == null ? null : retain7.trim();
+    }
+
+    public String getRetain8() {
+        return retain8;
+    }
+
+    public void setRetain8(String retain8) {
+        this.retain8 = retain8 == null ? null : retain8.trim();
+    }
+
+    public String getRetain9() {
+        return retain9;
+    }
+
+    public void setRetain9(String retain9) {
+        this.retain9 = retain9 == null ? null : retain9.trim();
+    }
+
+    public String getRetain10() {
+        return retain10;
+    }
+
+    public void setRetain10(String retain10) {
+        this.retain10 = retain10 == null ? null : retain10.trim();
     }
 
     @Override

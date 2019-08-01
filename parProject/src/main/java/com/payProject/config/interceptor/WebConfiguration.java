@@ -25,8 +25,8 @@ public class WebConfiguration implements WebMvcConfigurer{
 	    @Override
 	    public void addInterceptors(InterceptorRegistry registry) {
 	    	   System.out.println("----------------------------------------拦截器配置-------------------------------------拦截器--------------------------------------------------------------------------------------------------------");
-	       registry.addInterceptor(inteceptor)
-	               .addPathPatterns("/**").excludePathPatterns("/**/*.htm ")     
+	       registry.addInterceptor(inteceptor).addPathPatterns("/**/*.htm")
+	               .addPathPatterns("/**")
 	               //放行静态资源
 	               .excludePathPatterns("/img/**","/css/**","/fonts/**","/js/**");
 	    }
