@@ -11,7 +11,7 @@ var LoginCls = {
 		},
 		initNode: function(){
 			this.$LoginAjaxSucFn = this.SucFn;
-			this.$LoginAjaxErrFn = this.errFn;
+			this.$LoginAjaxErrFn = "暂无权限";
 			this.$requestType = "post";//请求方式
 			this.loginBut = $("[lay-filter = LAY-user-login-submit]");
 		},
@@ -49,13 +49,6 @@ var LoginCls = {
 				layer.msg(data.message)
 				return;
 			}
-		},
-		/**
-		 * 异步请求失败
-		 * @param data 回调结果集
-		 */
-		errFn:function(data){
-			layer.msg("服务器故障")
 		},
 		checkIsNull:function(object){
 			$arr=object.split('&');

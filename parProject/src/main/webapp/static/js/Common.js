@@ -31,7 +31,7 @@
                     if (typeof sucFn == 'function') sucFn(res);
                 },
                 error: function (err) {
-                    if (typeof errFn == 'function') errFn(err);
+            			layer.msg(err)
                 }
             })
         },

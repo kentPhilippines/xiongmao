@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.payProject.config.interceptor.MyInterceptor;
 import com.payProject.system.shiro.filter.KickoutSessionControlFilter;
 
 import org.apache.shiro.codec.Base64;
@@ -23,6 +24,8 @@ import org.apache.shiro.mgt.SecurityManager;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author K
@@ -31,6 +34,7 @@ import org.crazycake.shiro.RedisSessionDAO;
  */
 @Configuration
 public class ShiroConfig {
+	Logger log = LoggerFactory.getLogger(ShiroConfig.class);
 	@Value("${spring.redis.host}")
 	private String host;
 	@Value("${spring.redis.port}")
@@ -47,6 +51,7 @@ public class ShiroConfig {
 	 */
 	 @Value("${spring.shiro.maxLoginSession}")
 	 private int maxOnlineSession; 
+	 
 	/**
 	 * <p>ShiroFilterFactoryBean 处理拦截资源文件问题。</p>
 	 * <li>注意：单独一个ShiroFilterFactoryBean配置是或报错的，以为在</li>
@@ -58,28 +63,34 @@ public class ShiroConfig {
 	 * <li>3、部分过滤器可指定参数，如perms，roles</li>
 	 *
 	 */
+	 
 	@Bean
 	public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
+		log.info("---shiroFilter---:shiro过滤器发挥作用");
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-
-		// 必须设置 SecurityManager
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
-
 		// 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
 		shiroFilterFactoryBean.setLoginUrl("/login");
 		// 登录成功后要跳转的链接
 		shiroFilterFactoryBean.setSuccessUrl("/index");
 		// 未授权界面;
-		shiroFilterFactoryBean.setUnauthorizedUrl("/error");
-		
+		shiroFilterFactoryBean.setUnauthorizedUrl("/common/errors/error");
 		//自定义拦截器
 		Map<String, Filter> filtersMap = new LinkedHashMap<String, Filter>();
 		//限制同一帐号同时在线的个数。
 		filtersMap.put("kickout", kickoutSessionControlFilter());
 		shiroFilterFactoryBean.setFilters(filtersMap);
-		
+		log.info("---------------------shiroFilter--------------------:shiro过滤器发挥作用------->权限过滤器");
 		// 权限控制map.
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
+			/**
+			 * 这里地方应该以接口数据实现  需要优化
+			 */	
+		filterChainDefinitionMap.put("/static/**", "anon");
+		filterChainDefinitionMap.put("/loginOnline", "anon");//
+		filterChainDefinitionMap.put("/index", "user");//首页拦截
+		filterChainDefinitionMap.put("/system/**", "user");/* "roles[admin]"角色必须是admin才可以*/
+		filterChainDefinitionMap.put("/**", "user"); 
 		// 配置不会被拦截的链接 顺序判断
 		// 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		// 从数据库获取动态的权限
@@ -92,6 +103,12 @@ public class ShiroConfig {
 				.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
 	}
+	
+	
+	
+	
+	
+	
 
 	@Bean
 	public SecurityManager securityManager() {
@@ -102,8 +119,6 @@ public class ShiroConfig {
 		securityManager.setCacheManager(cacheManager());
 		// 自定义session管理 使用redis
 		securityManager.setSessionManager(sessionManager());
-		//注入记住我管理器;
-	    securityManager.setRememberMeManager(rememberMeManager());
 		return securityManager;
 	}
 
@@ -114,9 +129,20 @@ public class ShiroConfig {
 	@Bean
 	public MyShiroRealm myShiroRealm() {
 		MyShiroRealm myShiroRealm = new MyShiroRealm();
+		myShiroRealm.setCredentialsMatcher(MyHashedCredentialsMatcher());
 		return myShiroRealm;
 	}
 
+	@Bean
+	public MyHashedCredentialsMatcher MyHashedCredentialsMatcher() {
+		MyHashedCredentialsMatcher matcher = new MyHashedCredentialsMatcher();
+		matcher.setHashAlgorithmName("MD5");//加密方法
+		//TODO  这里需要优化
+		matcher.setHashIterations(2);//加密迭代次数
+		//TODO  这里需要优化
+		matcher.setStoredCredentialsHexEncoded(true);
+		return matcher;
+	}
 	/**
 	 *<p> 配置shiro redisManager</p>
 	 * <li>使用的是shiro-redis开源插件</li>
@@ -177,17 +203,6 @@ public class ShiroConfig {
        return simpleCookie;
     }
     
-    /**
-     * <p>cookie管理对象;记住我功能</p>
-     * @return
-     */
-    public CookieRememberMeManager rememberMeManager(){
-       CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
-       cookieRememberMeManager.setCookie(rememberMeCookie());
-       //rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
-       cookieRememberMeManager.setCipherKey(Base64.decode("3AvVhmFLUs0KTA3Kprsdag=="));
-       return cookieRememberMeManager;
-    }
     
     /**
      *<p> 限制同一账号登录同时登录人数控制</p>

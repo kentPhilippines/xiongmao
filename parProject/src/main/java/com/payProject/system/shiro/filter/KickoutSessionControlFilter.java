@@ -27,7 +27,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 /**
- * @author 作者 z77z
+ * @author 作者 K
  * @date 创建时间：2017年3月5日 下午1:16:38
  * 1.读取当前登录用户名，获取在缓存中的sessionId队列
  * 2.判断队列的长度，大于最大登录限制的时候，按踢出规则
@@ -78,7 +78,7 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
         }
         Session session = subject.getSession();
         User user = (User) subject.getPrincipal();
-        String username = user.getUserName();
+        String username = user.getUserId();
         Serializable sessionId = session.getId();
         Deque<Serializable> deque = cache.get(username);//读取缓存
         //如果此用户没有session队列，也就是还没有登录过，缓存中没有

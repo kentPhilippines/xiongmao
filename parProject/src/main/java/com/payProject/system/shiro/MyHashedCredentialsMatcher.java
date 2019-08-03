@@ -6,12 +6,10 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.cache.CacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.stereotype.Component;
 
 /**
  * <p>密码验证类</p>
@@ -24,18 +22,19 @@ import org.springframework.stereotype.Component;
  * </p>
  * 
  */
-@Component
 public class MyHashedCredentialsMatcher extends HashedCredentialsMatcher {
 	/**
 	 * <p>密码错误最大次数</p>
 	 */
-	@Value("${spring.shiro.retryTimes}")
-	private Integer retryTimes;
+	private Integer retryTimes = 5;
 	@Autowired
 	StringRedisTemplate stringRedisTemplate;
 	public void setRetryTimes(Integer retryTimes) {
 		this.retryTimes = retryTimes;
 	}
+	
+	
+	
 	/**
 	 * <p>登录验证核心</p>
 	 * <li>1,首先从缓存钟取登录错误次数</li>
@@ -54,7 +53,6 @@ public class MyHashedCredentialsMatcher extends HashedCredentialsMatcher {
 		 if (count == null) {
 			 opsForValue.set(username, "0", 1, TimeUnit.DAYS); 
 		 } 
-		 opsForValue.get(username);
 		 if (Integer.parseInt(count) >= retryTimes) { 
 		   throw new ExcessiveAttemptsException();
 		   }

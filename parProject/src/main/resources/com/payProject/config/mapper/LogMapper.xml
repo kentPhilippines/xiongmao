@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.payProject.config.mapper.LogMapper" >
+  <resultMap id="BaseResultMap" type="com.payProject.config.entity.Log" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="clientIp" property="clientIp" jdbcType="VARCHAR" />
+    <result column="requertUrl" property="requertUrl" jdbcType="VARCHAR" />
+    <result column="metHod" property="metHod" jdbcType="VARCHAR" />
+    <result column="param" property="param" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="startTime" property="startTime" jdbcType="VARCHAR" />
+    <result column="endTime" property="endTime" jdbcType="VARCHAR" />
+    <result column="totalTime" property="totalTime" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="submitTime" property="submitTime" jdbcType="TIMESTAMP" />
+    <result column="submitSystem" property="submitSystem" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="retain1" property="retain1" jdbcType="VARCHAR" />
+    <result column="retain2" property="retain2" jdbcType="VARCHAR" />
+    <result column="retain3" property="retain3" jdbcType="VARCHAR" />
+    <result column="retain4" property="retain4" jdbcType="VARCHAR" />
+    <result column="retain5" property="retain5" jdbcType="VARCHAR" />
+    <result column="retain6" property="retain6" jdbcType="VARCHAR" />
+    <result column="retain7" property="retain7" jdbcType="VARCHAR" />
+    <result column="retain8" property="retain8" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.payProject.config.entity.Log" extends="BaseResultMap" >
+    <result column="returnData" property="returnData" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, clientIp, requertUrl, metHod, param, operator, startTime, endTime, totalTime, 
+    createTime, submitTime, submitSystem, status, retain1, retain2, retain3, retain4, 
+    retain5, retain6, retain7, retain8
+  </sql>
+  <sql id="Blob_Column_List" >
+    returnData
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.payProject.config.entity.LogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from system_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payProject.config.entity.LogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from system_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from system_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from system_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.payProject.config.entity.Log" useGeneratedKeys="true" keyProperty="id" >
+    insert into system_log (clientIp, requertUrl, metHod, 
+      param, operator, startTime, 
+      endTime, totalTime, createTime, 
+      submitTime, submitSystem, status, 
+      retain1, retain2, retain3, 
+      retain4, retain5, retain6, 
+      retain7, retain8, returnData
+      )
+    values (#{clientIp,jdbcType=VARCHAR}, #{requertUrl,jdbcType=VARCHAR}, #{metHod,jdbcType=VARCHAR}, 
+      #{param,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, 
+      #{endTime,jdbcType=VARCHAR}, #{totalTime,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{submitTime,jdbcType=TIMESTAMP}, #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{retain1,jdbcType=VARCHAR}, #{retain2,jdbcType=VARCHAR}, #{retain3,jdbcType=VARCHAR}, 
+      #{retain4,jdbcType=VARCHAR}, #{retain5,jdbcType=VARCHAR}, #{retain6,jdbcType=VARCHAR}, 
+      #{retain7,jdbcType=VARCHAR}, #{retain8,jdbcType=VARCHAR}, #{returnData,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.payProject.config.entity.Log" useGeneratedKeys="true" keyProperty="id" >
+    insert into system_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="clientIp != null" >
+        clientIp,
+      </if>
+      <if test="requertUrl != null" >
+        requertUrl,
+      </if>
+      <if test="metHod != null" >
+        metHod,
+      </if>
+      <if test="param != null" >
+        param,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="startTime != null" >
+        startTime,
+      </if>
+      <if test="endTime != null" >
+        endTime,
+      </if>
+      <if test="totalTime != null" >
+        totalTime,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="submitTime != null" >
+        submitTime,
+      </if>
+      <if test="submitSystem != null" >
+        submitSystem,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="retain1 != null" >
+        retain1,
+      </if>
+      <if test="retain2 != null" >
+        retain2,
+      </if>
+      <if test="retain3 != null" >
+        retain3,
+      </if>
+      <if test="retain4 != null" >
+        retain4,
+      </if>
+      <if test="retain5 != null" >
+        retain5,
+      </if>
+      <if test="retain6 != null" >
+        retain6,
+      </if>
+      <if test="retain7 != null" >
+        retain7,
+      </if>
+      <if test="retain8 != null" >
+        retain8,
+      </if>
+      <if test="returnData != null" >
+        returnData,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="clientIp != null" >
+        #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="requertUrl != null" >
+        #{requertUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="metHod != null" >
+        #{metHod,jdbcType=VARCHAR},
+      </if>
+      <if test="param != null" >
+        #{param,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="totalTime != null" >
+        #{totalTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="submitTime != null" >
+        #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="submitSystem != null" >
+        #{submitSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="retain1 != null" >
+        #{retain1,jdbcType=VARCHAR},
+      </if>
+      <if test="retain2 != null" >
+        #{retain2,jdbcType=VARCHAR},
+      </if>
+      <if test="retain3 != null" >
+        #{retain3,jdbcType=VARCHAR},
+      </if>
+      <if test="retain4 != null" >
+        #{retain4,jdbcType=VARCHAR},
+      </if>
+      <if test="retain5 != null" >
+        #{retain5,jdbcType=VARCHAR},
+      </if>
+      <if test="retain6 != null" >
+        #{retain6,jdbcType=VARCHAR},
+      </if>
+      <if test="retain7 != null" >
+        #{retain7,jdbcType=VARCHAR},
+      </if>
+      <if test="retain8 != null" >
+        #{retain8,jdbcType=VARCHAR},
+      </if>
+      <if test="returnData != null" >
+        #{returnData,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.payProject.config.entity.LogExample" resultType="java.lang.Integer" >
+    select count(*) from system_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update system_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.clientIp != null" >
+        clientIp = #{record.clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requertUrl != null" >
+        requertUrl = #{record.requertUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metHod != null" >
+        metHod = #{record.metHod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.param != null" >
+        param = #{record.param,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operator != null" >
+        operator = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null" >
+        startTime = #{record.startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endTime != null" >
+        endTime = #{record.endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalTime != null" >
+        totalTime = #{record.totalTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.submitTime != null" >
+        submitTime = #{record.submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.submitSystem != null" >
+        submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.retain1 != null" >
+        retain1 = #{record.retain1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain2 != null" >
+        retain2 = #{record.retain2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain3 != null" >
+        retain3 = #{record.retain3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain4 != null" >
+        retain4 = #{record.retain4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain5 != null" >
+        retain5 = #{record.retain5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain6 != null" >
+        retain6 = #{record.retain6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain7 != null" >
+        retain7 = #{record.retain7,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain8 != null" >
+        retain8 = #{record.retain8,jdbcType=VARCHAR},
+      </if>
+      <if test="record.returnData != null" >
+        returnData = #{record.returnData,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update system_log
+    set id = #{record.id,jdbcType=INTEGER},
+      clientIp = #{record.clientIp,jdbcType=VARCHAR},
+      requertUrl = #{record.requertUrl,jdbcType=VARCHAR},
+      metHod = #{record.metHod,jdbcType=VARCHAR},
+      param = #{record.param,jdbcType=VARCHAR},
+      operator = #{record.operator,jdbcType=VARCHAR},
+      startTime = #{record.startTime,jdbcType=VARCHAR},
+      endTime = #{record.endTime,jdbcType=VARCHAR},
+      totalTime = #{record.totalTime,jdbcType=VARCHAR},
+      createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      submitTime = #{record.submitTime,jdbcType=TIMESTAMP},
+      submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      retain1 = #{record.retain1,jdbcType=VARCHAR},
+      retain2 = #{record.retain2,jdbcType=VARCHAR},
+      retain3 = #{record.retain3,jdbcType=VARCHAR},
+      retain4 = #{record.retain4,jdbcType=VARCHAR},
+      retain5 = #{record.retain5,jdbcType=VARCHAR},
+      retain6 = #{record.retain6,jdbcType=VARCHAR},
+      retain7 = #{record.retain7,jdbcType=VARCHAR},
+      retain8 = #{record.retain8,jdbcType=VARCHAR},
+      returnData = #{record.returnData,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update system_log
+    set id = #{record.id,jdbcType=INTEGER},
+      clientIp = #{record.clientIp,jdbcType=VARCHAR},
+      requertUrl = #{record.requertUrl,jdbcType=VARCHAR},
+      metHod = #{record.metHod,jdbcType=VARCHAR},
+      param = #{record.param,jdbcType=VARCHAR},
+      operator = #{record.operator,jdbcType=VARCHAR},
+      startTime = #{record.startTime,jdbcType=VARCHAR},
+      endTime = #{record.endTime,jdbcType=VARCHAR},
+      totalTime = #{record.totalTime,jdbcType=VARCHAR},
+      createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      submitTime = #{record.submitTime,jdbcType=TIMESTAMP},
+      submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      retain1 = #{record.retain1,jdbcType=VARCHAR},
+      retain2 = #{record.retain2,jdbcType=VARCHAR},
+      retain3 = #{record.retain3,jdbcType=VARCHAR},
+      retain4 = #{record.retain4,jdbcType=VARCHAR},
+      retain5 = #{record.retain5,jdbcType=VARCHAR},
+      retain6 = #{record.retain6,jdbcType=VARCHAR},
+      retain7 = #{record.retain7,jdbcType=VARCHAR},
+      retain8 = #{record.retain8,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.payProject.config.entity.Log" >
+    update system_log
+    <set >
+      <if test="clientIp != null" >
+        clientIp = #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="requertUrl != null" >
+        requertUrl = #{requertUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="metHod != null" >
+        metHod = #{metHod,jdbcType=VARCHAR},
+      </if>
+      <if test="param != null" >
+        param = #{param,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        startTime = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        endTime = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="totalTime != null" >
+        totalTime = #{totalTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="submitTime != null" >
+        submitTime = #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="submitSystem != null" >
+        submitSystem = #{submitSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="retain1 != null" >
+        retain1 = #{retain1,jdbcType=VARCHAR},
+      </if>
+      <if test="retain2 != null" >
+        retain2 = #{retain2,jdbcType=VARCHAR},
+      </if>
+      <if test="retain3 != null" >
+        retain3 = #{retain3,jdbcType=VARCHAR},
+      </if>
+      <if test="retain4 != null" >
+        retain4 = #{retain4,jdbcType=VARCHAR},
+      </if>
+      <if test="retain5 != null" >
+        retain5 = #{retain5,jdbcType=VARCHAR},
+      </if>
+      <if test="retain6 != null" >
+        retain6 = #{retain6,jdbcType=VARCHAR},
+      </if>
+      <if test="retain7 != null" >
+        retain7 = #{retain7,jdbcType=VARCHAR},
+      </if>
+      <if test="retain8 != null" >
+        retain8 = #{retain8,jdbcType=VARCHAR},
+      </if>
+      <if test="returnData != null" >
+        returnData = #{returnData,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.payProject.config.entity.Log" >
+    update system_log
+    set clientIp = #{clientIp,jdbcType=VARCHAR},
+      requertUrl = #{requertUrl,jdbcType=VARCHAR},
+      metHod = #{metHod,jdbcType=VARCHAR},
+      param = #{param,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      startTime = #{startTime,jdbcType=VARCHAR},
+      endTime = #{endTime,jdbcType=VARCHAR},
+      totalTime = #{totalTime,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      submitTime = #{submitTime,jdbcType=TIMESTAMP},
+      submitSystem = #{submitSystem,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      retain1 = #{retain1,jdbcType=VARCHAR},
+      retain2 = #{retain2,jdbcType=VARCHAR},
+      retain3 = #{retain3,jdbcType=VARCHAR},
+      retain4 = #{retain4,jdbcType=VARCHAR},
+      retain5 = #{retain5,jdbcType=VARCHAR},
+      retain6 = #{retain6,jdbcType=VARCHAR},
+      retain7 = #{retain7,jdbcType=VARCHAR},
+      retain8 = #{retain8,jdbcType=VARCHAR},
+      returnData = #{returnData,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.payProject.config.entity.Log" >
+    update system_log
+    set clientIp = #{clientIp,jdbcType=VARCHAR},
+      requertUrl = #{requertUrl,jdbcType=VARCHAR},
+      metHod = #{metHod,jdbcType=VARCHAR},
+      param = #{param,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      startTime = #{startTime,jdbcType=VARCHAR},
+      endTime = #{endTime,jdbcType=VARCHAR},
+      totalTime = #{totalTime,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      submitTime = #{submitTime,jdbcType=TIMESTAMP},
+      submitSystem = #{submitSystem,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      retain1 = #{retain1,jdbcType=VARCHAR},
+      retain2 = #{retain2,jdbcType=VARCHAR},
+      retain3 = #{retain3,jdbcType=VARCHAR},
+      retain4 = #{retain4,jdbcType=VARCHAR},
+      retain5 = #{retain5,jdbcType=VARCHAR},
+      retain6 = #{retain6,jdbcType=VARCHAR},
+      retain7 = #{retain7,jdbcType=VARCHAR},
+      retain8 = #{retain8,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,21 +1,20 @@
 package com.payProject.system.entity;
 
-import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import com.payProject.system.entity.base.BaseEntity;
 /**
  * <p>用户数据表</p>
  * @author K
  *
  */
-public class User {
+public class User extends BaseEntity<User>{
 	/**
-	 * <p>数据id</p>
-	 * 数据库自动生成
-	 * <strong><u>主键,唯一索引</u></strong>
+	 * 
 	 */
-    private Integer id;
-    /**
+	private static final long serialVersionUID = 4415258459504769269L;
+	/**
    	 * <p>用户id</p>
    	 * 不可重复，建议自动生成
    	 * <strong><u>唯一索引</u></strong>
@@ -64,20 +63,6 @@ public class User {
    	 * <p>用户所在城市</p>
    	 */
     private String userCity;
-    /**
-   	 * <p>用户数据创建时间</p>
-   	 */
-    private Date createTime;
-    /**
-	 * <p>用户提交时间</p>
-	 */
-    private Date submitTime;
-    /**
-   	 * <p>提交系统</p>
-   	 * <strong><u>全局索引</u></strong>
-   	 * <div>该字段用户区分系统数据</div>
-   	 */
-    private String submitSystem;
     /**
 	 * <p>支付密码</p>
 	 */
@@ -128,14 +113,6 @@ public class User {
 	 * 保留字段目前没有业务拓展的需求用不到
 	 */
     private String retain10;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getUserId() {
         return userId;
@@ -225,29 +202,6 @@ public class User {
         this.userCity = userCity == null ? null : userCity.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getSubmitTime() {
-        return submitTime;
-    }
-
-    public void setSubmitTime(Date submitTime) {
-        this.submitTime = submitTime;
-    }
-
-    public String getSubmitSystem() {
-        return submitSystem;
-    }
-
-    public void setSubmitSystem(String submitSystem) {
-        this.submitSystem = submitSystem == null ? null : submitSystem.trim();
-    }
 
     public String getPayPassword() {
         return payPassword;
@@ -344,6 +298,7 @@ public class User {
     public void setRetain10(String retain10) {
         this.retain10 = retain10 == null ? null : retain10.trim();
     }
+    
 
     @Override
     public String toString() {

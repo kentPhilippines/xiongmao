@@ -19,18 +19,18 @@ public class JsonResult {
 		return new JsonResult(true, null, null);
 	}
 	/**
-	 * <p>返回结果为成功,无返回提示,无结果集</p>
+	 * <p>返回结果为成功,返回提示,无结果集</p>
 	 * <li>boolean success : true // 请求操作成功</li>
 	 * <li>String  message : message // 提示消息message</li>
 	 * <li>Object  result  : null // 返回结果集null</li>
 	 * @param message	提示消息message
 	 * @return
 	 */
-	public static JsonResult buildSuccessResult(String message) {
+	public static JsonResult buildSuccessMessage(String message) {
 		return new JsonResult(true, message, null);
 	}
 	/**
-	 * <p>返回结果为成功,无返回提示,无结果集</p>
+	 * <p>返回结果为成功,无返回提示,结果集</p>
 	 * <li>boolean success : true // 请求操作成功</li>
 	 * <li>String  message : null // 提示消息null</li>
 	 * <li>Object  result  : result // 返回结果集result</li>
@@ -53,7 +53,7 @@ public class JsonResult {
 		return new JsonResult(true, message, result);
 	}
 	/**
-	 * <p>返回结果为成功,无返回提示,无结果集</p>
+	 * <p>返回结果为失败,无返回提示,无结果集</p>
 	 * <li>boolean success : false // 请求操作成功</li>
 	 * <li>String  message : null // 提示消息null</li>
 	 * <li>Object  result  : null // 返回结果集null</li>
@@ -63,7 +63,7 @@ public class JsonResult {
 		return new JsonResult(false, null, null);
 	}
 	/**
-	 * <p>返回结果为成功,无返回提示,无结果集</p>
+	 * <p>返回结果为失败,无返回提示,无结果集</p>
 	 * <li>boolean success : false // 请求操作成功</li>
 	 * <li>String  message : message // 提示消息message</li>
 	 * <li>Object  result  : null // 返回结果集null</li>

@@ -5,20 +5,25 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.github.pagehelper.Page;
+import com.payProject.config.base.mapperBase.MyMapper;
 import com.payProject.system.entity.User;
 import com.payProject.system.entity.UserExample;
 
 @Mapper
-public interface UserMapper {
-    int countByExample(UserExample example);
-
-    int insert(User record);
-
-    int insertSelective(User record);
-
-    List<User> selectByExample(UserExample example);
-
-    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
-
-    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
+public interface UserMapper  extends  MyMapper<User,UserExample>{
+    /**
+     * <p>查询所有的</p>
+     * @return
+     */
+	Page<User> selectUserAll();
+	
+	
+	
+	/**
+	 * <p>分页查询用户</p>
+	 * @param example	查询条件
+	 * @return  分页数据
+	 */
+	Page<User>  selectPageByExample(UserExample example);
 }

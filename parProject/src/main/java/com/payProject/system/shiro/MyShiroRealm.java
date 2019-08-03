@@ -1,7 +1,10 @@
 package com.payProject.system.shiro;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -10,6 +13,7 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -43,9 +47,10 @@ public class MyShiroRealm extends AuthorizingRealm {
 	RoleMapper  roleMapper;
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		User user = (User) principals.getPrimaryPrincipal();
-		List<Resources> list = resourcesMapper.findResourceByUserId(user.getUserId());
-		List<Role> roleList = roleMapper.findByUserId(user.getId());
+		Object user = principals.getPrimaryPrincipal();
+		Map<String, Object> objectToMap = objectToMap(user);
+		List<Resources> list = resourcesMapper.findResourceByUserId(objectToMap.get("userId").toString());
+		List<Role> roleList = roleMapper.findByUserId(objectToMap.get("userId").toString());
 		// 遍历角色集合，将角色名称保存到set集合中
 		Set<String> stringRoles = new HashSet<String>();
 		for(Role role:roleList){
@@ -72,7 +77,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 		String username = upToken.getUsername();
 		UserExample example = new UserExample();
 		UserExample.Criteria criteria = example.createCriteria();
-		criteria.andUserNameEqualTo(username);
+		criteria.andUserIdEqualTo(username);
 		List<User> userList = userMapper.selectByExample(example);
 		if(CollUtil.isEmpty(userList)) {
 			return null;
@@ -87,4 +92,26 @@ public class MyShiroRealm extends AuthorizingRealm {
 		 */
 		return new SimpleAuthenticationInfo(user,user.getUserPassword(),ByteSource.Util.bytes(user.getUserSalt()),"MyShiroRealm");
 	}
+	/**
+	 * <p>实体类对象转map</p>
+	 * @param obj
+	 * @return
+	 */
+	public static Map<String, Object> objectToMap(Object obj) {
+        Map<String, Object> map = new HashMap<>();
+        if (obj == null) {
+            return map;
+        }
+        Class clazz = obj.getClass();
+        Field[] fields = clazz.getDeclaredFields();
+        try { for (Field field : fields) {
+            field.setAccessible(true);
+            map.put(field.getName(), field.get(obj));
+        }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
 }

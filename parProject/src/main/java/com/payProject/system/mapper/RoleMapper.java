@@ -32,8 +32,8 @@ public interface RoleMapper {
 
     /**
      * <p>根据用户id查询用户对应的角色信息</p>
-     * @param id		<Strong>用户id</Strong>
+     * @param string		<Strong>用户id</Strong>
      * @return			<Strong>用户对应角色信息</Strong>
      */
-	List<Role> findByUserId(Integer id);
+	List<Role> findByUserId(String userId);
 }

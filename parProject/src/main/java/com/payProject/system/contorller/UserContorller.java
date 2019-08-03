@@ -1,16 +1,22 @@
 package com.payProject.system.contorller;
 
+import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.payProject.config.common.JsonResult;
+import com.payProject.config.common.PageResult;
 import com.payProject.system.entity.User;
-import com.payProject.system.service.UserRoleService;
 import com.payProject.system.service.UserService;
 import com.payProject.system.util.EncryptUtil;
 
@@ -32,15 +38,15 @@ public class UserContorller {
 	@ResponseBody
 	@PostMapping("/user/addUser")
 	public JsonResult addUser(User user){
-		User users = userService.findUserByName(user.getUserName());
+		User users = userService.findUserByName(user.getUserId());
 		if(ObjectUtil.isNull(users)){
-		Map<String, String> map = EncryptUtil.encryptPassword(user.getUserName(), user.getUserPassword());
+		Map<String, String> map = EncryptUtil.encryptPassword(user.getUserId(), user.getUserPassword());
 		systemUser(user);//这里使用只为获取用户支付密码
 		user.setUserPassword(map.get("password"));
 		user.setUserSalt(map.get("salt"));
 		Boolean flag = userService.addUser(user);
 		if(flag)
-			return JsonResult.buildSuccessResult("增加成功");
+			return JsonResult.buildSuccessMessage("增加成功");
 		return JsonResult.buildFailResult("增加失败");	
 	}
 	return  JsonResult.buildFailResult("当前用户名已存在");
@@ -55,9 +61,7 @@ public class UserContorller {
 	public User systemUser(User user) {
 		String randomNumbers = RandomUtil.randomNumbers(10);//登录密码
 		String randomNumbers2 = RandomUtil.randomNumbers(10);//支付密码
-		Map<String, String> map = EncryptUtil.encryptPassword(user.getUserName(),randomNumbers);
-		user.setUserPassword(map.get("password"));
-		user.setUserSalt(map.get("salt"));
+		Map<String, String> map = EncryptUtil.encryptPassword(randomNumbers);
 		Map<String, String> encryptPassword = EncryptUtil.encryptPassword(randomNumbers2);
 		user.setPayPassword(encryptPassword.get("payPassword"));
 		return user;
@@ -74,12 +78,50 @@ public class UserContorller {
 	 */
 	@ResponseBody
 	@RequestMapping("/user/userList")
-	public JsonResult userList( ){
-		return null;
+	public PageResult<User> userList(User user,String page,String limit){
+		 PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(limit));
+		 List<User> list = userService.findPageUserByUser(user);
+		 PageInfo<User> pageInfo = new PageInfo<User>(list);
+		 PageResult<User> pageR = new PageResult<User>();
+			pageR.setData(pageInfo.getList());
+			pageR.setCode("0");
+			pageR.setCount(String.valueOf(pageInfo.getTotal()));
+		return pageR;
 	}
-	
 	@RequestMapping("/user/userAdd")
 	public String userAdd( ){
 		return "/system/user/userAdd";
 	}
+	@ResponseBody
+	@RequestMapping("/user/caeateAccount")
+	public JsonResult caeateAccount( ){
+		String account = createAccount();
+		return JsonResult.buildSuccessResult(account);
+	}
+	/**
+	 * 生成一个随机数账号
+	 * @return
+	 */
+	private String createAccount() {
+		String UserId =  RandomUtil.randomNumbers(10);//登录账号
+		User users = userService.findUserByName(UserId);
+		if(ObjectUtil.isNull(users))
+			return UserId ;
+		return createAccount();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
