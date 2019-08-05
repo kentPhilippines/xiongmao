@@ -2,7 +2,6 @@ package com.payProject.system.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class RoleExample {
@@ -104,92 +103,6 @@ public class RoleExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
-        }
-
-        public Criteria andIdIsNull() {
-            addCriterion("id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdIsNotNull() {
-            addCriterion("id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdEqualTo(Integer value) {
-            addCriterion("id =", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdNotEqualTo(Integer value) {
-            addCriterion("id <>", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdGreaterThan(Integer value) {
-            addCriterion("id >", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("id >=", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdLessThan(Integer value) {
-            addCriterion("id <", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdLessThanOrEqualTo(Integer value) {
-            addCriterion("id <=", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdIn(List<Integer> values) {
-            addCriterion("id in", values, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdNotIn(List<Integer> values) {
-            addCriterion("id not in", values, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdBetween(Integer value1, Integer value2) {
-            addCriterion("id between", value1, value2, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("id not between", value1, value2, "id");
-            return (Criteria) this;
         }
 
         public Criteria andRoleIdIsNull() {
@@ -322,123 +235,123 @@ public class RoleExample {
             return (Criteria) this;
         }
 
-        public Criteria andRoleCreateTimeIsNull() {
-            addCriterion("roleCreateTime is null");
+        public Criteria andCreateTimeIsNull() {
+            addCriterion("createTime is null");
             return (Criteria) this;
         }
 
-        public Criteria andRoleCreateTimeIsNotNull() {
-            addCriterion("roleCreateTime is not null");
+        public Criteria andCreateTimeIsNotNull() {
+            addCriterion("createTime is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRoleCreateTimeEqualTo(Date value) {
-            addCriterionForJDBCDate("roleCreateTime =", value, "roleCreateTime");
+        public Criteria andCreateTimeEqualTo(Date value) {
+            addCriterion("createTime =", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andRoleCreateTimeNotEqualTo(Date value) {
-            addCriterionForJDBCDate("roleCreateTime <>", value, "roleCreateTime");
+        public Criteria andCreateTimeNotEqualTo(Date value) {
+            addCriterion("createTime <>", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andRoleCreateTimeGreaterThan(Date value) {
-            addCriterionForJDBCDate("roleCreateTime >", value, "roleCreateTime");
+        public Criteria andCreateTimeGreaterThan(Date value) {
+            addCriterion("createTime >", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andRoleCreateTimeGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("roleCreateTime >=", value, "roleCreateTime");
+        public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("createTime >=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andRoleCreateTimeLessThan(Date value) {
-            addCriterionForJDBCDate("roleCreateTime <", value, "roleCreateTime");
+        public Criteria andCreateTimeLessThan(Date value) {
+            addCriterion("createTime <", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andRoleCreateTimeLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("roleCreateTime <=", value, "roleCreateTime");
+        public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("createTime <=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andRoleCreateTimeIn(List<Date> values) {
-            addCriterionForJDBCDate("roleCreateTime in", values, "roleCreateTime");
+        public Criteria andCreateTimeIn(List<Date> values) {
+            addCriterion("createTime in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andRoleCreateTimeNotIn(List<Date> values) {
-            addCriterionForJDBCDate("roleCreateTime not in", values, "roleCreateTime");
+        public Criteria andCreateTimeNotIn(List<Date> values) {
+            addCriterion("createTime not in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andRoleCreateTimeBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("roleCreateTime between", value1, value2, "roleCreateTime");
+        public Criteria andCreateTimeBetween(Date value1, Date value2) {
+            addCriterion("createTime between", value1, value2, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andRoleCreateTimeNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("roleCreateTime not between", value1, value2, "roleCreateTime");
+        public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("createTime not between", value1, value2, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andRoleSubmitTimeIsNull() {
-            addCriterion("roleSubmitTime is null");
+        public Criteria andSubmitTimeIsNull() {
+            addCriterion("submitTime is null");
             return (Criteria) this;
         }
 
-        public Criteria andRoleSubmitTimeIsNotNull() {
-            addCriterion("roleSubmitTime is not null");
+        public Criteria andSubmitTimeIsNotNull() {
+            addCriterion("submitTime is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRoleSubmitTimeEqualTo(Date value) {
-            addCriterionForJDBCDate("roleSubmitTime =", value, "roleSubmitTime");
+        public Criteria andSubmitTimeEqualTo(Date value) {
+            addCriterion("submitTime =", value, "submitTime");
             return (Criteria) this;
         }
 
-        public Criteria andRoleSubmitTimeNotEqualTo(Date value) {
-            addCriterionForJDBCDate("roleSubmitTime <>", value, "roleSubmitTime");
+        public Criteria andSubmitTimeNotEqualTo(Date value) {
+            addCriterion("submitTime <>", value, "submitTime");
             return (Criteria) this;
         }
 
-        public Criteria andRoleSubmitTimeGreaterThan(Date value) {
-            addCriterionForJDBCDate("roleSubmitTime >", value, "roleSubmitTime");
+        public Criteria andSubmitTimeGreaterThan(Date value) {
+            addCriterion("submitTime >", value, "submitTime");
             return (Criteria) this;
         }
 
-        public Criteria andRoleSubmitTimeGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("roleSubmitTime >=", value, "roleSubmitTime");
+        public Criteria andSubmitTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("submitTime >=", value, "submitTime");
             return (Criteria) this;
         }
 
-        public Criteria andRoleSubmitTimeLessThan(Date value) {
-            addCriterionForJDBCDate("roleSubmitTime <", value, "roleSubmitTime");
+        public Criteria andSubmitTimeLessThan(Date value) {
+            addCriterion("submitTime <", value, "submitTime");
             return (Criteria) this;
         }
 
-        public Criteria andRoleSubmitTimeLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("roleSubmitTime <=", value, "roleSubmitTime");
+        public Criteria andSubmitTimeLessThanOrEqualTo(Date value) {
+            addCriterion("submitTime <=", value, "submitTime");
             return (Criteria) this;
         }
 
-        public Criteria andRoleSubmitTimeIn(List<Date> values) {
-            addCriterionForJDBCDate("roleSubmitTime in", values, "roleSubmitTime");
+        public Criteria andSubmitTimeIn(List<Date> values) {
+            addCriterion("submitTime in", values, "submitTime");
             return (Criteria) this;
         }
 
-        public Criteria andRoleSubmitTimeNotIn(List<Date> values) {
-            addCriterionForJDBCDate("roleSubmitTime not in", values, "roleSubmitTime");
+        public Criteria andSubmitTimeNotIn(List<Date> values) {
+            addCriterion("submitTime not in", values, "submitTime");
             return (Criteria) this;
         }
 
-        public Criteria andRoleSubmitTimeBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("roleSubmitTime between", value1, value2, "roleSubmitTime");
+        public Criteria andSubmitTimeBetween(Date value1, Date value2) {
+            addCriterion("submitTime between", value1, value2, "submitTime");
             return (Criteria) this;
         }
 
-        public Criteria andRoleSubmitTimeNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("roleSubmitTime not between", value1, value2, "roleSubmitTime");
+        public Criteria andSubmitTimeNotBetween(Date value1, Date value2) {
+            addCriterion("submitTime not between", value1, value2, "submitTime");
             return (Criteria) this;
         }
 

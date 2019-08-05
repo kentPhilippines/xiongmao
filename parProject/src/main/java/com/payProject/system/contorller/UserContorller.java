@@ -1,5 +1,6 @@
 package com.payProject.system.contorller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,12 +18,14 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.payProject.config.common.JsonResult;
 import com.payProject.config.common.PageResult;
+import com.payProject.config.exception.ParamException;
 import com.payProject.system.entity.User;
 import com.payProject.system.service.UserService;
 import com.payProject.system.util.EncryptUtil;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.StrUtil;
 
 @Controller
 @RequestMapping("/system")
@@ -38,7 +42,7 @@ public class UserContorller {
 	@ResponseBody
 	@PostMapping("/user/addUser")
 	public JsonResult addUser(User user){
-		User users = userService.findUserByName(user.getUserId());
+		User users = userService.findUserByUserId(user.getUserId());
 		if(ObjectUtil.isNull(users)){
 		Map<String, String> map = EncryptUtil.encryptPassword(user.getUserId(), user.getUserPassword());
 		systemUser(user);//这里使用只为获取用户支付密码
@@ -104,24 +108,47 @@ public class UserContorller {
 	 */
 	private String createAccount() {
 		String UserId =  RandomUtil.randomNumbers(10);//登录账号
-		User users = userService.findUserByName(UserId);
+		User users = userService.findUserByUserId(UserId);
 		if(ObjectUtil.isNull(users))
 			return UserId ;
 		return createAccount();
 	}
 	
 	
+	@ResponseBody
+	@RequestMapping("/user/userDel")
+	public JsonResult userDel(User user ){
+	if( StrUtil.isBlank(user.getUserId())) {
+		throw new ParamException("请求参数无效");
+	}
+		boolean flag  = userService.deleteUserByUserId(user.getUserId());
+		
+		if(flag) {
+			return JsonResult.buildSuccessMessage("删除成功");
+		}
+		return JsonResult.buildFailResult();
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping("/user/userEditShow")
+	public String userEditShow(User user ,Model m){
+	if( StrUtil.isBlank(user.getUserId())) {
+		throw new ParamException("请求参数无效");
+	}
+	User findUserByUserId = userService.findUserByUserId(user.getUserId());
+	m.addAttribute("user", findUserByUserId);
+		return "/system/user/userEdit";
+	}
+	@ResponseBody
+	@RequestMapping("/user/userEdit")
+	public JsonResult userEdit(User user ){
+		if( StrUtil.isBlank(user.getUserId())) {
+			throw new ParamException("请求参数无效");
+		}
+		user.setCreateTime(null);
+		boolean flag  = userService.UpdateUserByUserId(user);
+		if(flag) {
+			return JsonResult.buildSuccessMessage("修改成功");
+		}
+		return JsonResult.buildFailResult();
+	}
 }

@@ -5,16 +5,7 @@ import java.util.Map;
 
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
-import com.payProject.config.exception.ParamException;
-import com.payProject.system.contorller.UserContorller;
-
-import cn.hutool.core.util.StrUtil;
 
 /**
  * <p>权限密码加密，这个类可以用来做密码注册</p>

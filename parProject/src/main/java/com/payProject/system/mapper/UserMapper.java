@@ -26,4 +26,13 @@ public interface UserMapper  extends  MyMapper<User,UserExample>{
 	 * @return  分页数据
 	 */
 	Page<User>  selectPageByExample(UserExample example);
+
+
+
+	/**
+	 * <p>根据用户id删除用户</p>
+	 * @param userId 
+	 * @return
+	 */
+	int deleteByUserId(String userId);
 }

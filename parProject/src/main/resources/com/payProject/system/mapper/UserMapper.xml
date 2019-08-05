@@ -439,8 +439,8 @@
       order by ${orderByClause}
     </if>
   </select>
-  
-  
-  
-  
+  <delete id="deleteByUserId" parameterType="java.lang.String" >
+    delete from system_user
+    where userId = #{userId,jdbcType=INTEGER}
+  </delete>
 </mapper>

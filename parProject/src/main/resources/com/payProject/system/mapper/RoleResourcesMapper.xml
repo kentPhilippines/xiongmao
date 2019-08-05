@@ -5,8 +5,8 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="roleId" property="roleId" jdbcType="INTEGER" />
     <result column="resourcesId" property="resourcesId" jdbcType="INTEGER" />
-    <result column="createTime" property="createTime" jdbcType="DATE" />
-    <result column="submitTime" property="submitTime" jdbcType="DATE" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="submitTime" property="submitTime" jdbcType="TIMESTAMP" />
     <result column="submitSystem" property="submitSystem" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
@@ -76,7 +76,7 @@
     <if test="distinct" >
       distinct
     </if>
-    'false' as QUERYID,
+    'true' as QUERYID,
     <include refid="Base_Column_List" />
     from system_role_resources
     <if test="_parameter != null" >
@@ -96,12 +96,18 @@
     delete from system_role_resources
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByExample" parameterType="com.payProject.system.entity.RoleResourcesExample" >
+    delete from system_role_resources
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
   <insert id="insert" parameterType="com.payProject.system.entity.RoleResources" useGeneratedKeys="true" keyProperty="id" >
     insert into system_role_resources (roleId, resourcesId, createTime, 
       submitTime, submitSystem, status
       )
-    values (#{roleId,jdbcType=INTEGER}, #{resourcesId,jdbcType=INTEGER}, #{createTime,jdbcType=DATE}, 
-      #{submitTime,jdbcType=DATE}, #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
+    values (#{roleId,jdbcType=INTEGER}, #{resourcesId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{submitTime,jdbcType=TIMESTAMP}, #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.payProject.system.entity.RoleResources" useGeneratedKeys="true" keyProperty="id" >
@@ -134,10 +140,10 @@
         #{resourcesId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=DATE},
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="submitTime != null" >
-        #{submitTime,jdbcType=DATE},
+        #{submitTime,jdbcType=TIMESTAMP},
       </if>
       <if test="submitSystem != null" >
         #{submitSystem,jdbcType=VARCHAR},
@@ -166,10 +172,10 @@
         resourcesId = #{record.resourcesId,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null" >
-        createTime = #{record.createTime,jdbcType=DATE},
+        createTime = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.submitTime != null" >
-        submitTime = #{record.submitTime,jdbcType=DATE},
+        submitTime = #{record.submitTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.submitSystem != null" >
         submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
@@ -187,8 +193,8 @@
     set id = #{record.id,jdbcType=INTEGER},
       roleId = #{record.roleId,jdbcType=INTEGER},
       resourcesId = #{record.resourcesId,jdbcType=INTEGER},
-      createTime = #{record.createTime,jdbcType=DATE},
-      submitTime = #{record.submitTime,jdbcType=DATE},
+      createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      submitTime = #{record.submitTime,jdbcType=TIMESTAMP},
       submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null" >
@@ -205,10 +211,10 @@
         resourcesId = #{resourcesId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
-        createTime = #{createTime,jdbcType=DATE},
+        createTime = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="submitTime != null" >
-        submitTime = #{submitTime,jdbcType=DATE},
+        submitTime = #{submitTime,jdbcType=TIMESTAMP},
       </if>
       <if test="submitSystem != null" >
         submitSystem = #{submitSystem,jdbcType=VARCHAR},
@@ -223,8 +229,8 @@
     update system_role_resources
     set roleId = #{roleId,jdbcType=INTEGER},
       resourcesId = #{resourcesId,jdbcType=INTEGER},
-      createTime = #{createTime,jdbcType=DATE},
-      submitTime = #{submitTime,jdbcType=DATE},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      submitTime = #{submitTime,jdbcType=TIMESTAMP},
       submitSystem = #{submitSystem,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}

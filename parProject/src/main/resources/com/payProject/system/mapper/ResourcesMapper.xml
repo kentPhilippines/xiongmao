@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.payProject.system.mapper.ResourcesMapper" >
   <resultMap id="BaseResultMap" type="com.payProject.system.entity.Resources" >
-    <result column="id" property="id" jdbcType="INTEGER" />
     <result column="resourcesId" property="resourcesId" jdbcType="INTEGER" />
     <result column="resourcesName" property="resourcesName" jdbcType="VARCHAR" />
     <result column="resourcesType" property="resourcesType" jdbcType="INTEGER" />
     <result column="resourcesKey" property="resourcesKey" jdbcType="VARCHAR" />
+    <result column="parentId" property="parentId" jdbcType="INTEGER" />
     <result column="resourcesUrl" property="resourcesUrl" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="createTime" property="createTime" jdbcType="DATE" />
-    <result column="submitTime" property="submitTime" jdbcType="DATE" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="submitTime" property="submitTime" jdbcType="TIMESTAMP" />
     <result column="submitSystem" property="submitSystem" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
@@ -73,15 +73,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, resourcesId, resourcesName, resourcesType, resourcesKey, resourcesUrl, description, 
-    createTime, submitTime, submitSystem, status
+    resourcesId, resourcesName, resourcesType, resourcesKey, parentId, resourcesUrl, 
+    description, createTime, submitTime, submitSystem, status
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payProject.system.entity.ResourcesExample" >
     select
     <if test="distinct" >
       distinct
     </if>
-    'false' as QUERYID,
+    'true' as QUERYID,
     <include refid="Base_Column_List" />
     from system_resources
     <if test="_parameter != null" >
@@ -91,17 +91,23 @@
       order by ${orderByClause}
     </if>
   </select>
-  <insert id="insert" parameterType="com.payProject.system.entity.Resources" useGeneratedKeys="true" keyProperty="id" >
+  <delete id="deleteByExample" parameterType="com.payProject.system.entity.ResourcesExample" >
+    delete from system_resources
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.payProject.system.entity.Resources" >
     insert into system_resources (resourcesId, resourcesName, resourcesType, 
-      resourcesKey, resourcesUrl, description, 
-      createTime, submitTime, submitSystem, 
-      status)
+      resourcesKey, parentId, resourcesUrl, 
+      description, createTime, submitTime, 
+      submitSystem, status)
     values (#{resourcesId,jdbcType=INTEGER}, #{resourcesName,jdbcType=VARCHAR}, #{resourcesType,jdbcType=INTEGER}, 
-      #{resourcesKey,jdbcType=VARCHAR}, #{resourcesUrl,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=DATE}, #{submitTime,jdbcType=DATE}, #{submitSystem,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER})
+      #{resourcesKey,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, #{resourcesUrl,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{submitTime,jdbcType=TIMESTAMP}, 
+      #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.payProject.system.entity.Resources" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insertSelective" parameterType="com.payProject.system.entity.Resources" >
     insert into system_resources
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="resourcesId != null" >
@@ -115,6 +121,9 @@
       </if>
       <if test="resourcesKey != null" >
         resourcesKey,
+      </if>
+      <if test="parentId != null" >
+        parentId,
       </if>
       <if test="resourcesUrl != null" >
         resourcesUrl,
@@ -148,6 +157,9 @@
       <if test="resourcesKey != null" >
         #{resourcesKey,jdbcType=VARCHAR},
       </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
       <if test="resourcesUrl != null" >
         #{resourcesUrl,jdbcType=VARCHAR},
       </if>
@@ -155,10 +167,10 @@
         #{description,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=DATE},
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="submitTime != null" >
-        #{submitTime,jdbcType=DATE},
+        #{submitTime,jdbcType=TIMESTAMP},
       </if>
       <if test="submitSystem != null" >
         #{submitSystem,jdbcType=VARCHAR},
@@ -177,9 +189,6 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update system_resources
     <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
       <if test="record.resourcesId != null" >
         resourcesId = #{record.resourcesId,jdbcType=INTEGER},
       </if>
@@ -192,6 +201,9 @@
       <if test="record.resourcesKey != null" >
         resourcesKey = #{record.resourcesKey,jdbcType=VARCHAR},
       </if>
+      <if test="record.parentId != null" >
+        parentId = #{record.parentId,jdbcType=INTEGER},
+      </if>
       <if test="record.resourcesUrl != null" >
         resourcesUrl = #{record.resourcesUrl,jdbcType=VARCHAR},
       </if>
@@ -199,10 +211,10 @@
         description = #{record.description,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null" >
-        createTime = #{record.createTime,jdbcType=DATE},
+        createTime = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.submitTime != null" >
-        submitTime = #{record.submitTime,jdbcType=DATE},
+        submitTime = #{record.submitTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.submitSystem != null" >
         submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
@@ -217,19 +229,39 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update system_resources
-    set id = #{record.id,jdbcType=INTEGER},
-      resourcesId = #{record.resourcesId,jdbcType=INTEGER},
+    set resourcesId = #{record.resourcesId,jdbcType=INTEGER},
       resourcesName = #{record.resourcesName,jdbcType=VARCHAR},
       resourcesType = #{record.resourcesType,jdbcType=INTEGER},
       resourcesKey = #{record.resourcesKey,jdbcType=VARCHAR},
+      parentId = #{record.parentId,jdbcType=INTEGER},
       resourcesUrl = #{record.resourcesUrl,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
-      createTime = #{record.createTime,jdbcType=DATE},
-      submitTime = #{record.submitTime,jdbcType=DATE},
+      createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      submitTime = #{record.submitTime,jdbcType=TIMESTAMP},
       submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+  <select id="findResourceByUserId" parameterType="Srting" resultType="com.payProject.system.entity.Resources">
+  	SELECT
+	  r.*
+	FROM
+	  system_resources r
+	WHERE r.resourcesId IN
+	  (SELECT
+	    rr.resourcesId
+	  FROM
+	    system_role_resources rr
+	  WHERE rr.roleId IN
+	    (SELECT
+	      ur.role
+	    FROM
+	      system_user_role ur
+	    WHERE ur.userId = #{userId,jdbcType=VARCHAR}))
+  
+  </select>
+  
+  
 </mapper>

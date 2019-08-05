@@ -1,13 +1,17 @@
 package com.payProject.system.entity;
 
-import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class Resources {
-    private Integer id;
+import com.payProject.system.entity.base.BaseEntity;
 
-    private Integer resourcesId;
+public class Resources extends BaseEntity<Resources>{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer resourcesId;
 
     private String resourcesName;
 
@@ -15,25 +19,12 @@ public class Resources {
 
     private String resourcesKey;
 
+    private Integer parentId;
+
     private String resourcesUrl;
 
     private String description;
 
-    private Date createTime;
-
-    private Date submitTime;
-
-    private String submitSystem;
-
-    private Integer status;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getResourcesId() {
         return resourcesId;
@@ -67,6 +58,14 @@ public class Resources {
         this.resourcesKey = resourcesKey == null ? null : resourcesKey.trim();
     }
 
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
     public String getResourcesUrl() {
         return resourcesUrl;
     }
@@ -83,37 +82,6 @@ public class Resources {
         this.description = description == null ? null : description.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getSubmitTime() {
-        return submitTime;
-    }
-
-    public void setSubmitTime(Date submitTime) {
-        this.submitTime = submitTime;
-    }
-
-    public String getSubmitSystem() {
-        return submitSystem;
-    }
-
-    public void setSubmitSystem(String submitSystem) {
-        this.submitSystem = submitSystem == null ? null : submitSystem.trim();
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 
     @Override
     public String toString() {

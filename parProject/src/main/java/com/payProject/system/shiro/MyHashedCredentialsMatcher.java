@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
+import cn.hutool.core.util.StrUtil;
+
 /**
  * <p>密码验证类</p>
  * <li>这个类重写shiro的密码验证方法</li>
@@ -50,8 +52,9 @@ public class MyHashedCredentialsMatcher extends HashedCredentialsMatcher {
 		String username = (String) token.getPrincipal();
 		 ValueOperations<String, String> opsForValue = stringRedisTemplate.opsForValue(); 
 		 String count = (String) opsForValue.get(username); 
-		 if (count == null) {
+		 if (StrUtil.isBlank(count)) {
 			 opsForValue.set(username, "0", 1, TimeUnit.DAYS); 
+			 count = "0";
 		 } 
 		 if (Integer.parseInt(count) >= retryTimes) { 
 		   throw new ExcessiveAttemptsException();

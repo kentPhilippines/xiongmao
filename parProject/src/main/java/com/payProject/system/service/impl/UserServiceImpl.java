@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserMapper userDao;
 	@Override
-	public User findUserByName(String userId) {
+	public User findUserByUserId(String userId) {
 		UserExample example = new UserExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(userId);
@@ -42,9 +42,9 @@ public class UserServiceImpl implements UserService {
 	}
 	@Override
 	public List<User> findPageUserByUser(User user) {
-		// Page<User> list  = userDao.selectUserAll();
 		UserExample example = new UserExample(); 
-		Criteria criteria = example.createCriteria(); example.setOrderByClause("createTime ASC");
+		Criteria criteria = example.createCriteria(); 
+		example.setOrderByClause("createTime ASC");
 		if(StrUtil.isNotBlank(user.getUserId())) {
 			criteria.andUserIdLike(user.getUserId()); 
 		}else if(StrUtil.isNotBlank(user.getUserName())) {
@@ -56,18 +56,18 @@ public class UserServiceImpl implements UserService {
 			} 
 		List<User> selectByExample = userDao.selectByExample(example);
 		return selectByExample;
-		/*
-		 * UserExample example = new UserExample(); Criteria criteria =
-		 * example.createCriteria(); example.setOrderByClause("createTime ASC");
-		 * if(StrUtil.isNotBlank(user.getUserId())) {
-		 * criteria.andUserIdLike(user.getUserId()); }else
-		 * if(StrUtil.isNotBlank(user.getUserName())) {
-		 * criteria.andUserNameLike(user.getUserId()); }else if
-		 * (StrUtil.isNotBlank(user.getUserMail())) {
-		 * criteria.andUserMailLike(user.getUserMail()); }else if
-		 * (StrUtil.isNotBlank(user.getUserPhone())) {
-		 * criteria.andUserPhoneLike(user.getUserPhone()); } List<User> userList =
-		 * userDao.selectByExample(example); return userList;
-		 */
+	}
+	@Override
+	public boolean deleteUserByUserId(String userId) {
+		int i = userDao.deleteByUserId(userId);
+		return i>0;
+	}
+	@Override
+	public boolean UpdateUserByUserId(User user) {
+		UserExample example = new UserExample(); 
+		Criteria criteria = example.createCriteria(); 
+		criteria.andIdEqualTo(user.getId());
+		int updateByExampleSelective = userDao.updateByExampleSelective(user, example);
+		return updateByExampleSelective >0;
 	}
 }
