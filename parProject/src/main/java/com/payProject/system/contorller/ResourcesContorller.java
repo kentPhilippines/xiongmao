@@ -16,7 +16,9 @@ import com.github.pagehelper.PageInfo;
 import com.payProject.config.common.JsonResult;
 import com.payProject.config.common.PageResult;
 import com.payProject.config.exception.ParamException;
+import com.payProject.system.entity.Resources;
 import com.payProject.system.entity.Role;
+import com.payProject.system.service.ResourcesService;
 import com.payProject.system.service.RoleService;
 
 import cn.hutool.core.util.StrUtil;
@@ -24,82 +26,75 @@ import cn.hutool.core.util.StrUtil;
 @Controller
 @RequestMapping("/system")
 public class ResourcesContorller {
-	Logger log = LoggerFactory.getLogger(RoleContorller.class);
+	Logger log = LoggerFactory.getLogger(ResourcesContorller.class);
 	@Autowired
-	RoleService roleService;
-	/**
-	 * 根据传入的信息给  user 表  和role表增加信息
-	 * @param 	user	用户信息
-	 * @param 	userRoleList	角色状态数组
-	 * @return 	boolean数据    true为成功    false为失败
-	 * 
-	 */
+	ResourcesService resourcesService;
 	@ResponseBody
-	@PostMapping("/role/addRole")
-	public JsonResult addUser(Role role){
-		log.info("增加角色参数"+role.toString());
-		if( StrUtil.isBlank(role.getRoleName())) 
-			throw new ParamException("请求参数无效");
-		Boolean flag = roleService.addRole(role);
+	@PostMapping("/resources/addResources")
+	public JsonResult addResources(Resources resources){
+		log.info("增加资源参数"+resources.toString());
+		if( StrUtil.isBlank(resources.getResourcesName()) || StrUtil.isBlank(resources.getResourcesKey()) ||null == resources.getLevel() ) 
+			throw new ParamException("必填参数未填");
+		Boolean flag = resourcesService.addResources(resources);
 		if(flag)
 			return JsonResult.buildSuccessMessage("增加成功");
 		return JsonResult.buildFailResult("增加失败");	
 	}
 
 	
-	@RequestMapping("/role/roleShow")
+	@RequestMapping("/resources/resourcesShow")
 	public String roleShow( ){
-		return "/system/role/roleShow";
+		return "/system/resources/resourcesShow";
 	}
-	
-	/**
-	 * <p>用户展示</p>
-	 * @return 2019-07-31
-	 */
 	@ResponseBody
-	@RequestMapping("/role/roleList")
-	public PageResult<Role> userList(Role role,String page,String limit){
+	@RequestMapping("/resources/resourcesList")
+	public PageResult<Resources> userList(Resources resources,String page,String limit){
 		 PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(limit));
-		 List<Role> list = roleService.findPageRoleByRser(role);
-		 PageInfo<Role> pageInfo = new PageInfo<Role>(list);
-		 PageResult<Role> pageR = new PageResult<Role>();
+		 List<Resources> list = resourcesService.findPageResourcesByResources(resources);
+		 PageInfo<Resources> pageInfo = new PageInfo<Resources>(list);
+		 PageResult<Resources> pageR = new PageResult<Resources>();
 			pageR.setData(pageInfo.getList());
 			pageR.setCode("0");
 			pageR.setCount(String.valueOf(pageInfo.getTotal()));
 			log.info(pageR.toString());
 		return pageR;
 	}
-	@RequestMapping("/role/roleAdd")
+	@RequestMapping("/resources/resourcesAdd")
 	public String roleAdd( ){
-		return "/system/role/roleAdd";
+		return "/system/resources/resourcesAdd";
 	}
 	
 	@ResponseBody
-	@RequestMapping("/role/roleDel")
-	public JsonResult roleDel(Role role ){
-		boolean flag  = roleService.deleteRoleByRole(role);
+	@RequestMapping("/resources/resourcesDel")
+	public JsonResult roleDel(Resources resources ){
+		boolean flag  = resourcesService.deleteResourcesByResources(resources);
 		if(flag) {
 			return JsonResult.buildSuccessMessage("删除成功");
 		}
 		return JsonResult.buildFailResult();
 	}
 	
-	@RequestMapping("/role/roleEditShow")
-	public String userEditShow(Role role ,Model m){
-	if(null == role.getRoleId()) 
+	@RequestMapping("/resources/resourcesEditShow")
+	public String userEditShow(Resources resources ,Model m){
+	if(null == resources.getResourcesId()) 
 		throw new ParamException("请求参数无效");
-	Role roleBean = roleService.findRoleByRoleId(role.getRoleId());
-	log.info("修改角色星系的时候获取角色的详细信息"+roleBean.toString());
-	m.addAttribute("role", roleBean);
-		return "/system/role/roleEdit";
+	Resources resourcesBean = resourcesService.findResourcesByResourcesId(resources.getResourcesId());
+	Integer level = resourcesBean.getLevel();//本级菜单
+	List<Resources> menu = resourcesService.findParentMenuByLevel(level);
+	m.addAttribute("menu", menu);
+	log.info("菜单列表"+menu.toString());
+	log.info("修改资源的时候获取资源的详细信息"+resourcesBean.toString());
+	m.addAttribute("resources", resourcesBean);
+		return "/system/resources/resourcesEdit";
 	}
 	@ResponseBody
-	@RequestMapping("/role/roleEdit")
-	public JsonResult userEdit(Role role){
-		if(null == role.getRoleId()) 
+	@RequestMapping("/resources/resourcesEdit")
+	public JsonResult userEdit(Resources resources){
+		log.info("菜单修改请求参数"+resources.toString());
+		if(null == resources.getResourcesId()) 
 			throw new ParamException("请求参数无效");
-		role.setCreateTime(null);
-		boolean flag  = roleService.UpdateRoleByRole(role);
+		resources.setCreateTime(null);
+		boolean flag  = resourcesService.UpdateResourcesByResources(resources);
 		if(flag) {
 			return JsonResult.buildSuccessMessage("修改成功");
 		}

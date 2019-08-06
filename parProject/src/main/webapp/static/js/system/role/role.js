@@ -150,7 +150,7 @@ var RoleClas = {
 				    if(obj.event === 'del'){
 				      layer.confirm('真的删除行么', function(index){
 				    	var url = $("[lay-event='del']").attr("url");
-				    	 var deta =  {userId : obj.data.userId};
+				    	 var deta =  {roleId : obj.data.roleId};
 				    	CommonUtil.ObjextAjax(url,deta,RoleClas.AjaxSucFn,true,'无权限或网络错误，请联系开发人员处理','post');
 				      });
 				    } else if(obj.event === 'edit'){
@@ -167,7 +167,7 @@ var RoleClas = {
 		},
 		query : function(){
 			$("[lay-filter='LAY-user-back-search']").on("click",function(){
-				 var userId = $('[name="roleName"]').val();//获取输入框的值
+				 var roleName = $('[name="roleName"]').val();//获取输入框的值
 				RoleClas.reload({roleName:roleName})
 			})
 		},

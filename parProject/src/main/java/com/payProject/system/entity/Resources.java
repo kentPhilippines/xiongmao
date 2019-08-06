@@ -22,11 +22,11 @@ public class Resources extends BaseEntity<Resources>{
     private String resourcesName;
     /**
 	 * <p>资源类型</p>
+	 * <p>目前暂时未定义这个数据类型,可留下备用</p>
 	 */
     private Integer resourcesType;
     /**
-   	 * <p>资源类型</p>
-   	 * <p>目前暂时未定义这个数据类型,可留下备用</p>
+   	 * <p>同类资源key</p>
    	 */
     private String resourcesKey;
     /**
