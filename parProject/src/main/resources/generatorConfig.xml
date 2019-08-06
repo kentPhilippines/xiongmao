@@ -103,16 +103,16 @@
         注意，table里面很多参数都是对javaModelGenerator，context等元素的默认属性的一个复写；
      -->
            <!-- <property name="useActualColumnNames" value="false"/>-->
-            <table tableName="system_role" domainObjectName="Role"   enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="true"  enableSelectByExample="true"  selectByExampleQueryId="true">
+            <!-- <table tableName="system_role" domainObjectName="Role"   enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="true"  enableSelectByExample="true"  selectByExampleQueryId="true">
+                    <property name="my.isgen.usekeys" value="true"/>
+                    <property name="useActualColumnNames" value="true"/>
+                    <generatedKey column="id" sqlStatement="JDBC"/>
+                </table>  -->
+            <table tableName="system_resources" domainObjectName="Resources"   enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="true"  enableSelectByExample="true"  selectByExampleQueryId="true">
                     <property name="my.isgen.usekeys" value="true"/>
                     <property name="useActualColumnNames" value="true"/>
                     <generatedKey column="id" sqlStatement="JDBC"/>
                 </table> 
-          <!--   <table tableName="system_resources" domainObjectName="Resources"   enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="true"  enableSelectByExample="true"  selectByExampleQueryId="true">
-                    <property name="my.isgen.usekeys" value="true"/>
-                    <property name="useActualColumnNames" value="true"/>
-                    <generatedKey column="id" sqlStatement="JDBC"/>
-                </table> -->
           <!--   <table tableName="system_user_role" domainObjectName="UserRole"  enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="false"  enableSelectByExample="true"  selectByExampleQueryId="false">
                     <property name="my.isgen.usekeys" value="true"/>
                     <property name="useActualColumnNames" value="true"/>
