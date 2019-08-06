@@ -30,6 +30,7 @@ import cn.hutool.core.util.StrUtil;
 @Controller
 @RequestMapping("/system")
 public class UserContorller {
+	Logger log = LoggerFactory.getLogger(UserContorller.class);
 	@Autowired
 	UserService userService;
 	/**
@@ -42,6 +43,7 @@ public class UserContorller {
 	@ResponseBody
 	@PostMapping("/user/addUser")
 	public JsonResult addUser(User user){
+		log.info("增加用户请求参数"+user.toString());
 		User users = userService.findUserByUserId(user.getUserId());
 		if(ObjectUtil.isNull(users)){
 		Map<String, String> map = EncryptUtil.encryptPassword(user.getUserId(), user.getUserPassword());
@@ -83,6 +85,7 @@ public class UserContorller {
 	@ResponseBody
 	@RequestMapping("/user/userList")
 	public PageResult<User> userList(User user,String page,String limit){
+		log.info("查询用户请求参数"+user.toString());
 		 PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(limit));
 		 List<User> list = userService.findPageUserByUser(user);
 		 PageInfo<User> pageInfo = new PageInfo<User>(list);
@@ -90,6 +93,7 @@ public class UserContorller {
 			pageR.setData(pageInfo.getList());
 			pageR.setCode("0");
 			pageR.setCount(String.valueOf(pageInfo.getTotal()));
+			log.info("增加用户相应参数"+pageR.toString());
 		return pageR;
 	}
 	@RequestMapping("/user/userAdd")

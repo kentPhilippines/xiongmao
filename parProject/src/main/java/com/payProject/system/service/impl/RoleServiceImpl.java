@@ -55,6 +55,7 @@ public class RoleServiceImpl implements RoleService {
 		if(!StrUtil.isBlank(role.getRoleName()))
 			create.andRoleNameLike(role.getRoleName());
 		List<Role> selectByExample = roleDao.selectByExample(example);
+		log.info("分页查询角色信息");
 		return selectByExample;
 	}
 

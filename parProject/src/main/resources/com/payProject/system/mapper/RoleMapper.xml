@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.payProject.system.entity.Role" >
     <result column="roleId" property="roleId" jdbcType="INTEGER" />
     <result column="roleName" property="roleName" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
     <result column="submitTime" property="submitTime" jdbcType="TIMESTAMP" />
     <result column="SubmitSystem" property="submitSystem" jdbcType="VARCHAR" />
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    roleId, roleName, createTime, submitTime, SubmitSystem, status
+    roleId, roleName, remark, createTime, submitTime, SubmitSystem, status
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payProject.system.entity.RoleExample" >
     select
@@ -92,12 +93,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.payProject.system.entity.Role" >
-    insert into system_role (roleId, roleName, createTime, 
-      submitTime, SubmitSystem, status
-      )
-    values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{submitTime,jdbcType=TIMESTAMP}, #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
-      )
+    insert into system_role (roleId, roleName, remark, 
+      createTime, submitTime, SubmitSystem, 
+      status)
+    values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{submitTime,jdbcType=TIMESTAMP}, #{submitSystem,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.payProject.system.entity.Role" >
     insert into system_role
@@ -107,6 +108,9 @@
       </if>
       <if test="roleName != null" >
         roleName,
+      </if>
+      <if test="remark != null" >
+        remark,
       </if>
       <if test="createTime != null" >
         createTime,
@@ -127,6 +131,9 @@
       </if>
       <if test="roleName != null" >
         #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -157,6 +164,9 @@
       <if test="record.roleName != null" >
         roleName = #{record.roleName,jdbcType=VARCHAR},
       </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
       <if test="record.createTime != null" >
         createTime = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -178,6 +188,7 @@
     update system_role
     set roleId = #{record.roleId,jdbcType=INTEGER},
       roleName = #{record.roleName,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
       createTime = #{record.createTime,jdbcType=TIMESTAMP},
       submitTime = #{record.submitTime,jdbcType=TIMESTAMP},
       SubmitSystem = #{record.submitSystem,jdbcType=VARCHAR},

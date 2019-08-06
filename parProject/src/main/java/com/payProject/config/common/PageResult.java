@@ -1,5 +1,8 @@
 package com.payProject.config.common;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.github.pagehelper.Page;
 
 public class PageResult<T>{
@@ -35,4 +38,8 @@ public class PageResult<T>{
 	public void setCount(String count) {
 		this.count = count;
 	}
+	@Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 }

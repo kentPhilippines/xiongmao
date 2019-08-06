@@ -19,7 +19,8 @@ var UserEditCls = {
 					userWechar:$("[name=userWechar]").val(),
 					userAddress:$("[name=userAddress]").val(),
 					userCity:$("[name=userCity]").val(),
-					userType:$("[name=userType]").val()
+					userType:$("[name=userType]").val(),
+					status:$("[name=status]").val(),
 			}
 		},
 		bindEvent : function(){
@@ -184,6 +185,7 @@ var UserClas = {
 					      ,{field: 'userAddress', title: '用户地址', width: 135, sort: true}
 					      ,{field: 'userCity', title: '用户所在城市', width: 135, sort: true}
 					      ,{field: 'createTime', title: '创建时间', width: 135, sort: true}
+					      ,{fixed: 'status', title:'是否为有效数据', width:150}
 					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:150}
 				    ]]
 				    , id: 'mytable'
@@ -234,7 +236,4 @@ var UserClas = {
 		
 }
 $(function(){
-	UserClas.init();
-	UserAddCls.init();
-	UserEditCls.init();
 })

@@ -108,7 +108,7 @@
   </div>
   <div class="layui-body" id="LAY_app_body">
      <iframe id="mainFrame" name="mainFrame"
-						src="${ctx}/system/user/userShow"
+						src="${ctx}/system/role/roleShow"
 						style="overflow: visible; height: 100%; scrolling="yes"
 						frameborder="no" width="100%" height="650"
 						marginheight = "50px"

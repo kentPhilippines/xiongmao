@@ -10,7 +10,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-<link href="${ctx}/static/css/system/user.css" rel="stylesheet" type="text/css" />
 <%@include file="../../common/common.jsp"%>
 <body layadmin-themealias="default" style=" background-color: #c4c0c7;">
 	<div class="layui-fluid" style="padding: 15px;">
@@ -61,3 +60,8 @@
 </body>
 </html>
 <script type="text/javascript" src="${ctx}/static/js/system/user/user.js" ></script>
+<script>
+$(function(){
+	UserClas.init();
+})
+</script>

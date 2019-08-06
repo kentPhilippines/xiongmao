@@ -1,37 +1,33 @@
-var UserEditCls = {
-
+var RoleEditCls = {
 		init : function(){
 			this.initNode();
 			this.bindEvent();
 		}, 
 		initNode : function(){
+			debugger;
 			this.$but = $(".layui-layer-btn0");
 		},
 		initData : function(){
-			debugger;
+			/**
+			 * 这里后期还需要修改角色所对应的资源问题,所以现在暂时不做
+			 */
 			this.$data ={
-					id:$("[name=id]").val(),
-					userId:$("[name=userId]").val(),
-					userName:$("[name=userName]").val(),
-					userPhone:$("[name=userPhone]").val(),
-					userMail:$("[name=userMail]").val(),
-					userQQ:$("[name=userQQ]").val(),
-					userWechar:$("[name=userWechar]").val(),
-					userAddress:$("[name=userAddress]").val(),
-					userCity:$("[name=userCity]").val(),
-					userType:$("[name=userType]").val()
+					roleId:$("[name=roleId]").val(),
+					roleName:$("[name=roleName]").val(),
+					remark:$("[name=remark]").val(),
+					status:$("[name=status]").val(),
 			}
 		},
 		bindEvent : function(){
-			this.$but.on("click",this.userEdit)
+			this.$but.on("click",this.roleEdit)
 		},
-		userEdit : function(){
-			UserEditCls.initData();
-			CommonUtil.ObjextAjax($(this).attr("url"),UserEditCls.$data,UserAddCls.$addUserAjaxSucFn,true,UserAddCls.$accountAjaxErrFn,UserAddCls.$requestType)
+		roleEdit : function(){
+			debugger;
+			RoleEditCls.initData();
+			CommonUtil.ObjextAjax($(this).attr("url"),RoleEditCls.$data,RoleAddCls.AjaxSucFn,true,"暂无权限",RoleAddCls.$requestType)
 		}
 }
-
-var UserAddCls = {
+var RoleAddCls = {
 		init : function(){
 			this.initNode();
 			this.bindEvent();
@@ -40,51 +36,25 @@ var UserAddCls = {
 		initNode: function(){
 			this.$accountAjaxSucFn = this.SucFn;
 			this.$accountAjaxErrFn = "暂无权限";
-			this.$addUserAjaxSucFn = this.AjaxSucFn;
-			this.$UserName = $("[name = userId]");
-			this.$unselect = $(".layui-unselect");
+			this.$addRoleAjaxSucFn = this.AjaxSucFn;
+			this.$UserName = $("[name = roleId]");
 			this.$requestType = "post";//请求方式
-			this.$but = $("#Account");
 			this.$enter = $(".layui-layer-btn0");
-			
 		},
 		initData : function(){
-			this.$user = $("#UserForm").serialize();
+			this.$role = $("#RoleForm").serialize();
 		},
 		bindEvent : function(){
-			this.$but.on("click",this.account);
-			this.$unselect.on("click",this.addClass)
-			this.$enter.on("click",this.addUser)
+			this.$enter.on("click",this.addRole)
 		},
-		addUser : function(){
-			UserAddCls.initData();
-			if(UserAddCls.checkParam()){
-				 $("[name='userPassword']").val("");
-				 $("[name='password']").val("");
+		addRole : function(){
+			debugger;
+			RoleAddCls.initData();
+			if(RoleAddCls.checkParam()){
+				 $("[name='roleName']").val("");
 				 return;
 			};
-			CommonUtil.ObjextAjax($(this).attr("url"),UserAddCls.$user,UserAddCls.$addUserAjaxSucFn,true,UserAddCls.$accountAjaxErrFn,UserAddCls.$requestType)
-		},
-		addClass:function(){
-			if($(this).hasClass("layui-form-onswitch")){
-				$(this).removeClass("layui-form-onswitch");
-				$("[em='em']").html("无效")
-			} else {
-				$(this).addClass("layui-form-onswitch");
-				$("[em='em']").html("有效")
-			};
-		},
-		account : function(){
-			/**
-	         * ajax封装
-	         * @param url	JS连接
-	         * @param data	数据对象
-	         * @param sucFn	成功的方法
-	         * @param isAsync	是否数据同步 true  or false    默认为true
-	         * @param errFn	错误的方法
-	         * @param requestType	请求类型    get post  delete put ...
-	         */
-  			CommonUtil.ObjextAjax($(this).attr("url"),"account",UserAddCls.$accountAjaxSucFn,true,UserAddCls.$accountAjaxErrFn,UserAddCls.$requestType)
+			CommonUtil.ObjextAjax($(this).attr("url"),RoleAddCls.$role,RoleAddCls.$addRoleAjaxSucFn,true,RoleAddCls.$accountAjaxErrFn,RoleAddCls.$requestType)
 		},
 		SucFn :function(data){
 			if(data && data.success){
@@ -96,22 +66,12 @@ var UserAddCls = {
 			}
 		},
 		checkParam : function(){
-			$pass1 = $("[name='userPassword']").val();
-			$pass2 = $("[name='password']").val();
+			$pass1 = $("[name='roleName']").val();
 			if(!$pass1){
 				layer.msg("参数为空");
 				return true;
 			}
-			if(!$pass2){
-				layer.msg("参数为空");
-				return true;
-			}
-			if($pass1 != $pass2){
-				 layer.msg("密码不一致");
-				return true;
-			}
 			return false;
-			
 		},
 		AjaxSucFn : function(data){
 			if(data && data.success){
@@ -124,26 +84,26 @@ var UserAddCls = {
 			}
 		}
 }
-var UserClas = {
+var RoleClas = {
 		init : function(){
 			this.initNode();
 			this.bindEvent()
-			this.userShowInit();
+			this.RoleShowInit();
 			this.query();
 		},
 		initNode : function(){
-			this.$UserAdd = $("[data-type='add']");
+			this.$RoleAdd = $("[data-type='add']");
 			this.$table = $("#LAY-user-back-manage");
 		},
 		bindEvent : function() {
-			this.$UserAdd.on("click",this.UserAdd);
+			this.$RoleAdd.on("click",this.RoleAdd);
 		},
-		UserAdd : function(){
+		RoleAdd : function(){
 			$url = $(this).attr("addUrl");
 			$width = '630px';
 			$higth = '500px';
 			$title = '添加用户';
-			UserClas.layuiOpen($url,$width,$higth,$title)
+			RoleClas.layuiOpen($url,$width,$higth,$title)
 		},
 		layuiOpen : function(url,width,higth,title){
 		var lock  = true;//防止重复弹出,加锁
@@ -166,74 +126,65 @@ var UserClas = {
 				});
 			}
 		},
-		userShowInit : function(){
+		RoleShowInit : function(){
 			layui.use('table', function(){
-				UserClas.$ObjectTable = layui.table;
-				UserClas.$ObjectTable.render({
-				    elem: UserClas.$table
-				    ,url:UserClas.$table.attr('url')
+				RoleClas.$ObjectTable = layui.table;
+				RoleClas.$ObjectTable.render({
+				    elem: RoleClas.$table
+				    ,url:RoleClas.$table.attr('url')
 				    ,cols: [[
-					      ,{field: 'roleId', title: '角色ID', width:150}
-					      ,{field: 'roleName', title: '角色姓名', width:150, sort: true}
-					      ,{field: 'userMail', title: '邮箱', width: 150}
-					      ,{field: 'userPhone', title: '手机', width: 150, sort: true}
-					      ,{field: 'userQQ', title: '用户QQ', width: 135, sort: true}
-					      ,{field: 'userWechar', title: '用户微信', width: 135}
-					      ,{field: 'userType', title: '用户类型', width: 135, sort: true}
-					      ,{field: 'userAddress', title: '用户地址', width: 135, sort: true}
-					      ,{field: 'userCity', title: '用户所在城市', width: 135, sort: true}
+					      {field: 'roleId', title: '角色ID', width:150,sort: true, fixed: 'left'}
+					      ,{field: 'roleName', title: '角色姓名', width:150}
+					      ,{field: 'remark', title: '说明', width: 250}
+					      ,{field: 'resources', title: '角色权限', width: 135}
 					      ,{field: 'createTime', title: '创建时间', width: 135, sort: true}
+					      ,{field: 'status', title: '状态', width: 135, sort: true}
 					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:150}
 				    ]]
 				    , id: 'mytable'
 				    ,page: true
 				  });
 				  //监听行工具事件
-				UserClas.$ObjectTable.on('tool(LAY-user-back-manage)', function(obj){
+				RoleClas.$ObjectTable.on('tool(LAY-user-back-manage)', function(obj){
 				    var data = obj.data;
 				    if(obj.event === 'del'){
 				      layer.confirm('真的删除行么', function(index){
 				    	var url = $("[lay-event='del']").attr("url");
 				    	 var deta =  {userId : obj.data.userId};
-				    	CommonUtil.ObjextAjax(url,deta,UserClas.AjaxSucFn,true,'无权限或网络错误，请联系开发人员处理','post');
+				    	CommonUtil.ObjextAjax(url,deta,RoleClas.AjaxSucFn,true,'无权限或网络错误，请联系开发人员处理','post');
 				      });
 				    } else if(obj.event === 'edit'){
 				    	debugger;
 				    	$url = $("[lay-event='edit']").attr("url");
-				    	$url = $url + '?' + 'userId='+ obj.data.userId
+				    	$url = $url + '?' + 'roleId='+ obj.data.roleId
 						$width = '630px';
 						$higth = '500px';
-						$title = '修改用户信息';
-				    	UserClas.layuiOpen($url,$width,$higth,$title);
+						$title = '修改角色信息';
+						RoleClas.layuiOpen($url,$width,$higth,$title);
 				    }
 				  });
 				});
 		},
 		query : function(){
 			$("[lay-filter='LAY-user-back-search']").on("click",function(){
-				 var userId = $('[name="userId"]').val();//获取输入框的值
-				UserClas.reload({userId:userId})
+				 var userId = $('[name="roleName"]').val();//获取输入框的值
+				RoleClas.reload({roleName:roleName})
 			})
 		},
 		AjaxSucFn : function(data){
 			if(data && data.success){
 				layer.msg(data.message);
-				UserClas.reload({"":""})
+				RoleClas.reload({"":""})
 			}else if(data && !data.success){
 				layer.msg(data.message)
 			}
 		},
 		 reload:function(param){
-			UserClas.$ObjectTable.reload('mytable',{ page:{  curr: 1} //重新从第 1 页开始
+			RoleClas.$ObjectTable.reload('mytable',{ page:{  curr: 1} //重新从第 1 页开始
 				                        , where: param//这里传参  向后台
-				                        , url: 'userList'//后台做模糊搜索接口路径
+				                        , url: 'roleList'//后台做模糊搜索接口路径
 				                        , method: 'post'
 				                          });
 		} 
 		
 }
-$(function(){
-	UserClas.init();
-	/*UserAddCls.init();
-	UserEditCls.init();*/
-})

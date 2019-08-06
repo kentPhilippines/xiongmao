@@ -7,8 +7,11 @@ import com.payProject.system.entity.User;
 import com.payProject.system.entity.UserExample;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface ResourcesMapper extends  MyMapper<Resources,ResourcesExample>{
     int countByExample(ResourcesExample example);
 

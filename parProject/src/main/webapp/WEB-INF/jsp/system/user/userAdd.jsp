@@ -10,7 +10,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
 	<%@include file="../../common/common.jsp"%>
-<link href="${ctx}/static/css/system/user.css" rel="stylesheet" type="text/css" />
 <body layadmin-themealias="default">
 <form id="UserForm" class="form-signin" action="javascript:0" method="post" novalidate="novalidate">
 	<div class="layui-form" lay-filter="layuiadmin-form-admin"
@@ -60,13 +59,15 @@
 		      </select>
 		    </div>
  		</div>
-		<!-- <div class="layui-form-item">
-			<label class="layui-form-label">账号类别</label>
-			<div class="layui-input-inline">
-				<input type="text" name="role" lay-verify="required"
-					placeholder="请输入角色类型" autocomplete="off" class="layui-input">
-			</div>
-		</div> -->
+		 <div class="layui-form-item">
+		    <label class="layui-form-label">账号类别</label>
+		    <div class="layui-input-inline">
+		      <select name="userType" lay-filter="aihao"><!-- 不能这么写,后期 优化  -->
+		        <option value="0" selected="selected">内部账户</option>
+		        <option value="1" >外部账户</option> 
+		      </select>
+		    </div>
+ 		</div>
 		<div class="layui-form-item">
 		    <label class="layui-form-label">状态</label>
 		    <div class="layui-input-inline">
@@ -89,3 +90,8 @@ layui.use('form', function(){
 });
 </script>
 <script type="text/javascript" src="${ctx}/static/js/system/user/user.js" ></script>
+<script>
+$(function(){
+	UserAddCls.init();
+})
+</script>

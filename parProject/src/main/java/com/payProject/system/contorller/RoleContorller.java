@@ -3,7 +3,10 @@ package com.payProject.system.contorller;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,13 +21,17 @@ import com.payProject.system.entity.Role;
 import com.payProject.system.entity.User;
 import com.payProject.system.service.RoleService;
 import com.payProject.system.service.UserService;
+import com.payProject.system.service.impl.RoleServiceImpl;
 import com.payProject.system.util.EncryptUtil;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 
+@Controller
+@RequestMapping("/system")
 public class RoleContorller {
+	Logger log = LoggerFactory.getLogger(RoleContorller.class);
 	@Autowired
 	RoleService roleService;
 	/**
@@ -37,6 +44,7 @@ public class RoleContorller {
 	@ResponseBody
 	@PostMapping("/role/addRole")
 	public JsonResult addUser(Role role){
+		log.info("增加角色参数"+role.toString());
 		if( StrUtil.isBlank(role.getRoleName())) 
 			throw new ParamException("请求参数无效");
 		Boolean flag = roleService.addRole(role);
@@ -56,7 +64,7 @@ public class RoleContorller {
 	 * @return 2019-07-31
 	 */
 	@ResponseBody
-	@RequestMapping("/role/userList")
+	@RequestMapping("/role/roleList")
 	public PageResult<Role> userList(Role role,String page,String limit){
 		 PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(limit));
 		 List<Role> list = roleService.findPageRoleByRser(role);
@@ -65,9 +73,10 @@ public class RoleContorller {
 			pageR.setData(pageInfo.getList());
 			pageR.setCode("0");
 			pageR.setCount(String.valueOf(pageInfo.getTotal()));
+			log.info(pageR.toString());
 		return pageR;
 	}
-	@RequestMapping("/Role/roleAdd")
+	@RequestMapping("/role/roleAdd")
 	public String roleAdd( ){
 		return "/system/role/roleAdd";
 	}
@@ -84,16 +93,17 @@ public class RoleContorller {
 	
 	@RequestMapping("/role/roleEditShow")
 	public String userEditShow(Role role ,Model m){
-	if(null != role.getRoleId()) 
+	if(null == role.getRoleId()) 
 		throw new ParamException("请求参数无效");
 	Role roleBean = roleService.findRoleByRoleId(role.getRoleId());
-	m.addAttribute("user", roleBean);
+	log.info("修改角色星系的时候获取角色的详细信息"+roleBean.toString());
+	m.addAttribute("role", roleBean);
 		return "/system/role/roleEdit";
 	}
 	@ResponseBody
 	@RequestMapping("/role/roleEdit")
-	public JsonResult userEdit(Role role ){
-		if(null != role.getRoleId()) 
+	public JsonResult userEdit(Role role){
+		if(null == role.getRoleId()) 
 			throw new ParamException("请求参数无效");
 		role.setCreateTime(null);
 		boolean flag  = roleService.UpdateRoleByRole(role);
