@@ -1,12 +1,17 @@
 package com.payProject.system.contorller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,18 +19,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.payProject.config.common.Constant;
 import com.payProject.config.common.JsonResult;
 import com.payProject.config.common.PageResult;
 import com.payProject.config.exception.ParamException;
+import com.payProject.system.entity.Resources;
 import com.payProject.system.entity.Role;
-import com.payProject.system.entity.User;
+import com.payProject.system.entity.RoleResources;
+import com.payProject.system.service.ResourcesService;
+import com.payProject.system.service.RoleResourcesService;
 import com.payProject.system.service.RoleService;
-import com.payProject.system.service.UserService;
-import com.payProject.system.service.impl.RoleServiceImpl;
-import com.payProject.system.util.EncryptUtil;
+import com.payProject.system.util.LayuiTreeBean;
+import com.payProject.system.util.MapUtil;
+import com.payProject.system.util.TreeUtil;
 
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 
 @Controller
@@ -34,6 +41,10 @@ public class RoleContorller {
 	Logger log = LoggerFactory.getLogger(RoleContorller.class);
 	@Autowired
 	RoleService roleService;
+	@Autowired
+	ResourcesService resourcesService;
+	@Autowired
+	RoleResourcesService roleResourcesService;
 	/**
 	 * 根据传入的信息给  user 表  和role表增加信息
 	 * @param 	user	用户信息
@@ -112,4 +123,50 @@ public class RoleContorller {
 		}
 		return JsonResult.buildFailResult();
 	}
+	/**
+	 * <p>获取角色对应的资源信息</p>
+	 * @param role
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping("/role/roleByResourcesShow")
+	public String roleByResourcesShow(Role role,Model m) {
+		if(StrUtil.isBlankIfStr(role.getRoleId()) ) 
+			throw new ParamException("必传参数为空");
+		m.addAttribute("roleId", role.getRoleId());
+		return"/system/plugIn/tree";
+	}
+	@ResponseBody
+	@RequestMapping("/role/getTree")
+	public List<LayuiTreeBean> getTree(String roleId) {
+		if(StrUtil.isBlankIfStr(roleId)) 
+			throw new ParamException("必传参数为空");
+		List<Integer> findRourcesByRoleId = resourcesService.findRourcesByRoleId(Integer.valueOf(roleId));
+		List<Resources> list  = resourcesService.findRourcesByAll();
+	//	List<Integer> rourcesIdlist  = resourcesService.findRourcesIdByUserId(user.get(Constant.User.USER_ID()).toString());
+		List<LayuiTreeBean> layuiTreeBeanList = TreeUtil.getLayuiTreeBeanList(list, findRourcesByRoleId);
+		return layuiTreeBeanList;
+	} 
+	
+	@ResponseBody
+	@RequestMapping("/role/roleAddResource")
+	@Transactional
+	public JsonResult roleAddResource(String roleId ,	String resource) {
+		if(StrUtil.isBlank(roleId))
+			throw new ParamException("必传参数为空");
+		if(StrUtil.isBlank(resource))
+			throw new ParamException("必传参数为空");
+		List<String> split = StrUtil.splitTrim(resource, ',');
+		List<RoleResources> list = new ArrayList<RoleResources>();
+		for(String i : split) {
+			RoleResources roleR = new RoleResources();
+			roleR.setRoleId(Integer.valueOf(roleId));
+			roleR.setResourcesId(Integer.valueOf(i));
+			list.add(roleR);
+			roleR = null ; //置为null会优先回收
+		}
+		Boolean flag  = roleResourcesService.addRoleResource(list,roleId);
+		return flag?JsonResult.buildSuccessMessage("角色和资源绑定成功"):JsonResult.buildFailResult("角色和资源绑定失败");
+	}
+	
 }

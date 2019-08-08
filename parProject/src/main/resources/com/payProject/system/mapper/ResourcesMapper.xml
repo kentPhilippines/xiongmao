@@ -340,6 +340,7 @@
     </if>
   </update>
   <select id="findResourceByUserId" parameterType="String" resultType="com.payProject.system.entity.Resources">
+	  /*根据用户信息用户对应的资源信息*/
 	  SELECT
 		  r.*
 		FROM
@@ -357,5 +358,18 @@
 		    WHERE  ur.userId IN (
 		SELECT id FROM SYSTEM_USER WHERE USERId = #{userId,jdbcType=VARCHAR}
     )))
+  </select>
+  <!--  -->
+  <select id="findRourcesByRoleId" parameterType="Integer" resultType="com.payProject.system.entity.Resources">
+  /*根据角色信息查询角色所对应的资源信息*/
+  	SELECT 
+  <include refid="Base_Column_List" />
+	FROM 
+		system_resources   
+	WHERE 
+		resourcesId IN (
+			SELECT resourcesId FROM `system_role_resources`
+			WHERE roleId = #{roleId}
+		)
   </select>
 </mapper>

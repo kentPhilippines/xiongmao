@@ -5,7 +5,6 @@ import java.util.List;
 import com.payProject.system.entity.Resources;
 
 public interface ResourcesService {
-
 	/**
 	 * <p>新增一个资源</p>
 	 * @param resources	关于资源的实体类,该类的资源URL和资源名是必传参数
@@ -48,5 +47,25 @@ public interface ResourcesService {
 	 * @return
 	 */
 	List<Resources> findParentMenuByLevel(Integer level);
+
+	/**
+	 * <p>根据用户名获取用户对应的资源信息</p>
+	 * @param userId	用户id
+	 * @return
+	 */
+	List<Integer> findRourcesIdByUserId(String userId);
+
+	/**
+	 * <p>根据角色id获取角色所对应的资源信息</p>
+	 * @param roleId		角色id
+	 * @return
+	 */
+	List<Integer> findRourcesByRoleId(Integer roleId);
+
+	/**
+	 * <p>查询所有的资源数据</p>
+	 * @return
+	 */
+	List<Resources> findRourcesByAll();
 
 }

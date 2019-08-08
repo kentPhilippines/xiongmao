@@ -28,7 +28,7 @@ var UserEditCls = {
 		},
 		userEdit : function(){
 			UserEditCls.initData();
-			CommonUtil.ObjextAjax($(this).attr("url"),UserEditCls.$data,UserAddCls.$addUserAjaxSucFn,true,UserAddCls.$accountAjaxErrFn,UserAddCls.$requestType)
+			CommonUtil.ObjextAjax($(this).attr("url"),UserEditCls.$data,UserAddCls.AjaxSucFn,true,"暂无权限","post")
 		}
 }
 
@@ -176,16 +176,16 @@ var UserClas = {
 				    ,cols: [[
 				    	 {field: 'id', title: 'ID', hide :true, width:150,   fixed: 'left'}
 					      ,{field: 'userId', title: '用户ID', width:150}
-					      ,{field: 'userName', title: '姓名', width:150, sort: true}
-					      ,{field: 'userMail', title: '邮箱', width: 150}
-					      ,{field: 'userPhone', title: '手机', width: 150, sort: true}
-					      ,{field: 'userQQ', title: '用户QQ', width: 135, sort: true}
-					      ,{field: 'userWechar', title: '用户微信', width: 135}
-					      ,{field: 'userType', title: '用户类型', width: 135, sort: true}
-					      ,{field: 'userAddress', title: '用户地址', width: 135, sort: true}
+					      ,{field: 'userName', title: '姓名', width:130, sort: true}
+					      ,{field: 'userMail', title: '邮箱', width: 110}
+					      ,{field: 'userPhone', title: '手机', width: 110, sort: true}
+					      ,{field: 'userQQ', title: '用户QQ', width: 115, sort: true}
+					      ,{field: 'userWechar', title: '用户微信', width: 115}
+					      ,{field: 'userType', title: '用户类型', width: 115, sort: true}
+					      ,{field: 'userAddress', title: '用户地址', width: 115, sort: true}
 					      ,{field: 'userCity', title: '用户所在城市', width: 135, sort: true}
 					      ,{field: 'createTime', title: '创建时间', width: 135, sort: true}
-					      ,{fixed: 'status', title:'是否为有效数据', width:150}
+					      ,{field: 'right1', title: '角色和资源', toolbar: '#roleAndRShow', width: 135}
 					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:150}
 				    ]]
 				    , id: 'mytable'
@@ -201,12 +201,18 @@ var UserClas = {
 				    	CommonUtil.ObjextAjax(url,deta,UserClas.AjaxSucFn,true,'无权限或网络错误，请联系开发人员处理','post');
 				      });
 				    } else if(obj.event === 'edit'){
-				    	debugger;
 				    	$url = $("[lay-event='edit']").attr("url");
 				    	$url = $url + '?' + 'userId='+ obj.data.userId
 						$width = '630px';
 						$higth = '500px';
 						$title = '修改用户信息';
+				    	UserClas.layuiOpen($url,$width,$higth,$title);
+				    } else if(obj.event === 'roleAndR'){
+				    	$url = $("[lay-event='roleAndR']").attr("url");
+				    	$url = $url + '?' + 'userId='+ obj.data.userId
+						$width = '630px';
+						$higth = '500px';
+						$title = '角色资源详情';
 				    	UserClas.layuiOpen($url,$width,$higth,$title);
 				    }
 				  });

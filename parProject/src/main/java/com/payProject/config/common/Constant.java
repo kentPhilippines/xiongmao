@@ -42,7 +42,13 @@ public final class Constant {
  
 		private static final String USER_IN_SESSION = "user_in_session";
 		private static final String USER_NAME = "username";
+		private static final String USER_ID = "userId";
+		
  
+		public static String USER_ID() {
+			return USER_ID;
+		}
+
 		// 私有
 		private User() {
 			super();
@@ -52,10 +58,31 @@ public final class Constant {
 		public static String USER_IN_SESSION() {
 			return USER_IN_SESSION;
 		}
- 
 		//
 		public static String USER_NAME() {
 			return USER_NAME;
+		}
+	}
+	/*******************************Tree常量列表*********************************/
+	/**
+	 * Tree 存放和Tree类相关的常量
+	 ***/
+	public static final class Tree {
+		private static final String LEVELONE = "0";//一级菜单
+		private static final String LEVELTWO = "1";//二级菜单
+		private static final String LEVELTHREE = "2";//三级菜单
+		
+		private Tree() {
+			super();
+		}
+		public static String LEVELONE() {
+			return LEVELONE;
+		}
+		public static String LEVELTWO() {
+			return LEVELTWO;
+		}
+		public static String LEVELTHREE() {
+			return LEVELTHREE;
 		}
 	}
  

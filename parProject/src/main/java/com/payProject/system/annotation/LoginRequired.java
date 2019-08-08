@@ -6,7 +6,11 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
+/**
+ * <p>目前暂时未使用</p>
+ * @author ADMIN
+ *
+ */
 @Target(ElementType.METHOD)             
 @Retention(RetentionPolicy.RUNTIME)     
 @Documented                             

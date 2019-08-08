@@ -1,6 +1,6 @@
 package com.payProject.system.contorller;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,24 +8,32 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.payProject.config.common.JsonResult;
 import com.payProject.config.common.PageResult;
 import com.payProject.config.exception.ParamException;
+import com.payProject.system.entity.Role;
+import com.payProject.system.entity.RoleResources;
 import com.payProject.system.entity.User;
+import com.payProject.system.entity.UserRole;
+import com.payProject.system.service.RoleService;
+import com.payProject.system.service.UserRoleService;
 import com.payProject.system.service.UserService;
 import com.payProject.system.util.EncryptUtil;
+import com.payProject.system.util.TransferBean;
+import com.payProject.system.util.TransferUtil;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 
 @Controller
 @RequestMapping("/system")
@@ -33,6 +41,10 @@ public class UserContorller {
 	Logger log = LoggerFactory.getLogger(UserContorller.class);
 	@Autowired
 	UserService userService;
+	@Autowired
+	RoleService roleService;
+	@Autowired
+	UserRoleService userRoleService;
 	/**
 	 * 根据传入的信息给  user 表  和role表增加信息
 	 * @param 	user	用户信息
@@ -42,6 +54,7 @@ public class UserContorller {
 	 */
 	@ResponseBody
 	@PostMapping("/user/addUser")
+	@Transactional
 	public JsonResult addUser(User user){
 		log.info("增加用户请求参数"+user.toString());
 		User users = userService.findUserByUserId(user.getUserId());
@@ -121,6 +134,7 @@ public class UserContorller {
 	
 	@ResponseBody
 	@RequestMapping("/user/userDel")
+	@Transactional
 	public JsonResult userDel(User user ){
 	if( StrUtil.isBlank(user.getUserId())) {
 		throw new ParamException("请求参数无效");
@@ -154,5 +168,51 @@ public class UserContorller {
 			return JsonResult.buildSuccessMessage("修改成功");
 		}
 		return JsonResult.buildFailResult();
+	}
+	
+	
+	
+	/**
+	 * <p>这里因为在纠结于用数据id还是用userId作为唯一的关系标识,所以逻辑有些乱但是目前不影响功能的完善</p>
+	 * @param userId
+	 * @param m
+	 * @return
+	 */
+	@RequestMapping("/user/roleAndRShow")
+	public String  roleAndRShow(String userId,Model m) {
+		if(StrUtil.isBlank(userId))
+			throw new ParamException("请求参数无效");
+		User findUserByUserId = userService.findUserByUserId(userId);//保存的话我们统一保存用户的数据id号,因为后期userId这个字段可能会做数据延申
+		String id = String.valueOf(findUserByUserId.getId());
+		m.addAttribute("userId", id);
+		List<Integer>checkedList  = userRoleService.findUserLationshipByUserId(id);
+		List<Role> roleList = roleService.findRoleAll();
+		List<TransferBean> transferBeanList = TransferUtil.getTransferBeanList(roleList);
+		m.addAttribute("roleList", JSONUtil.toJsonPrettyStr(transferBeanList));
+		m.addAttribute("roleNotList", JSONUtil.toJsonPrettyStr(checkedList));
+		return "/system/plugIn/transfer";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/user/bindingRole")
+	@Transactional
+	public JsonResult  bindingRole(String roles ,String  userId) {
+		if(StrUtil.isBlank(userId))
+			throw new ParamException("必传参数为空");
+		if(StrUtil.isBlank(roles))
+			throw new ParamException("必传参数为空");
+		List<String> split = StrUtil.splitTrim(roles, ',');
+		List<UserRole> list = new ArrayList<UserRole>();
+		for(String i : split) {
+			UserRole roleR = new UserRole();
+			roleR.setUserId(userId);
+			roleR.setRole(Integer.valueOf(i));
+			list.add(roleR);
+			roleR = null ; //置为null会优先回收
+		}
+		Boolean flag = userRoleService.addUserRole(list , userId);
+		if(flag)
+			return JsonResult.buildSuccessMessage("用户角色绑定成功");
+		return JsonResult.buildFailResult("用户角色绑定失败");
 	}
 }

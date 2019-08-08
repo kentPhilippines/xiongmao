@@ -229,4 +229,41 @@
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <insert id="insertUserRole" parameterType="list">
+   insert into system_user_role
+      ( userId,
+        role,
+        createTime,
+        submitTime,
+        submitSystem,
+        status )
+        value
+     <foreach collection="list"  item="bean" separator=",">
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="bean.userId != null" >
+	        #{bean.userId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="bean.role != null" >
+	        #{bean.role,jdbcType=INTEGER},
+	      </if>
+	      <if test="bean.createTime != null" >
+	        #{bean.createTime,jdbcType=DATE},
+	      </if>
+	      <if test="bean.submitTime != null" >
+	        #{bean.submitTime,jdbcType=DATE},
+	      </if>
+	      <if test="bean.submitSystem != null" >
+	        #{bean.submitSystem,jdbcType=VARCHAR},
+	      </if>
+	      <if test="bean.status != null" >
+	        #{bean.status,jdbcType=INTEGER},
+	      </if>
+	    </trim>
+  	</foreach>
+  </insert>
+  <delete id="deleteByUserId" parameterType="java.lang.Integer" >
+    delete from system_user_role
+    where userId = #{id,jdbcType=INTEGER}
+  </delete>
 </mapper>

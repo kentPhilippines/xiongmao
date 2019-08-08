@@ -77,4 +77,12 @@ public class RoleServiceImpl implements RoleService {
 		return updateByExampleSelective >0;
 	}
 
+	@Override
+	public List<Role> findRoleAll() {
+		RoleExample example = new RoleExample();
+		Criteria create = example.createCriteria();
+		List<Role> selectByExample = roleDao.selectByExample(example);
+		return selectByExample;
+	}
+
 }

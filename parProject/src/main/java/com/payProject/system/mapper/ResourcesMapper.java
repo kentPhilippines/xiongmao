@@ -16,9 +16,10 @@ public interface ResourcesMapper extends  MyMapper<Resources,ResourcesExample> {
      * @return
      */
 	List<Resources> findResourceByUserId(String userId);
-    
-    
-    
-    
-
+	/**
+	 * <p>根据角色id角色所对应的资源信息</p>
+	 * @param roleId	角色id
+	 * @return
+	 */
+	List<Resources> findRourcesByRoleId(Integer roleId);
 }

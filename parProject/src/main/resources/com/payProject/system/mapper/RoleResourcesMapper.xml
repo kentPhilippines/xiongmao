@@ -235,4 +235,42 @@
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  
+  <insert id="insertByRoleIdAndResourcesId" parameterType="list" >
+    insert into system_role_resources
+	( roleId,      
+        resourcesId,
+        createTime,
+        submitTime,
+        submitSystem,
+        status
+    ) values
+    <foreach collection="list" item="bean" separator="," >
+    <trim prefix=" (" suffix=")" suffixOverrides="," >
+      <if test="bean.roleId != null" >
+        #{bean.roleId,jdbcType=INTEGER},
+      </if>
+      <if test="bean.resourcesId != null" >
+        #{bean.resourcesId,jdbcType=INTEGER},
+      </if>
+      <if test="bean.createTime != null" >
+        #{bean.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bean.submitTime != null" >
+        #{bean.submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bean.submitSystem != null" >
+        #{bean.submitSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="bean.status != null" >
+        #{bean.status,jdbcType=INTEGER},
+      </if>
+    </trim>
+    </foreach>
+  </insert>
+  
+  
+  
 </mapper>

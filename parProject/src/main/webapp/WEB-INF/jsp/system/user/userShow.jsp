@@ -57,6 +57,9 @@
  	 <a class="layui-btn layui-btn-xs" lay-event="edit" url = "${ctx}/system/user/userEditShow">编辑</a>
  	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" url = "${ctx}/system/user/userDel">删除</a>
 	</script>
+	<script type="text/html" id="roleAndRShow">
+ 	 <a class="layui-btn layui-btn-xs" lay-event="roleAndR" url = "${ctx}/system/user/roleAndRShow">角色资源详情</a>
+	</script>
 </body>
 </html>
 <script type="text/javascript" src="${ctx}/static/js/system/user/user.js" ></script>

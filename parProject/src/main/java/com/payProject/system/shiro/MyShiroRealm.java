@@ -20,6 +20,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
+import com.payProject.config.common.Constant;
 import com.payProject.system.entity.Resources;
 import com.payProject.system.entity.Role;
 import com.payProject.system.entity.User;
@@ -27,6 +28,7 @@ import com.payProject.system.entity.UserExample;
 import com.payProject.system.mapper.ResourcesMapper;
 import com.payProject.system.mapper.RoleMapper;
 import com.payProject.system.mapper.UserMapper;
+import com.payProject.system.util.MapUtil;
 
 import cn.hutool.core.collection.CollUtil;
 
@@ -48,9 +50,9 @@ public class MyShiroRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		Object user = principals.getPrimaryPrincipal();
-		Map<String, Object> objectToMap = objectToMap(user);
-		List<Resources> list = resourcesMapper.findResourceByUserId(objectToMap.get("userId").toString());
-		List<Role> roleList = roleMapper.findByUserId(objectToMap.get("userId").toString());
+		Map<String, Object> objectToMap = MapUtil.objectToMap(user);
+		List<Resources> list = resourcesMapper.findResourceByUserId(objectToMap.get(Constant.User.USER_ID()).toString());
+		List<Role> roleList = roleMapper.findByUserId(objectToMap.get(Constant.User.USER_ID()).toString());
 		// 遍历角色集合，将角色名称保存到set集合中
 		Set<String> stringRoles = new HashSet<String>();
 		for(Role role:roleList){
@@ -92,26 +94,6 @@ public class MyShiroRealm extends AuthorizingRealm {
 		 */
 		return new SimpleAuthenticationInfo(user,user.getUserPassword(),ByteSource.Util.bytes(user.getUserSalt()),"MyShiroRealm");
 	}
-	/**
-	 * <p>实体类对象转map</p>
-	 * @param obj
-	 * @return
-	 */
-	public static Map<String, Object> objectToMap(Object obj) {
-        Map<String, Object> map = new HashMap<>();
-        if (obj == null) {
-            return map;
-        }
-        Class clazz = obj.getClass();
-        Field[] fields = clazz.getDeclaredFields();
-        try { for (Field field : fields) {
-            field.setAccessible(true);
-            map.put(field.getName(), field.get(obj));
-        }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return map;
-    }
+	
 
 }

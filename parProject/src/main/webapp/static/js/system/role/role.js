@@ -139,6 +139,7 @@ var RoleClas = {
 					      ,{field: 'resources', title: '角色权限', width: 135}
 					      ,{field: 'createTime', title: '创建时间', width: 135, sort: true}
 					      ,{field: 'status', title: '状态', width: 135, sort: true}
+					      ,{field: 'resource', title: '资源信息',toolbar: '#resourceShow', width: 135}
 					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:150}
 				    ]]
 				    , id: 'mytable'
@@ -154,12 +155,18 @@ var RoleClas = {
 				    	CommonUtil.ObjextAjax(url,deta,RoleClas.AjaxSucFn,true,'无权限或网络错误，请联系开发人员处理','post');
 				      });
 				    } else if(obj.event === 'edit'){
-				    	debugger;
 				    	$url = $("[lay-event='edit']").attr("url");
 				    	$url = $url + '?' + 'roleId='+ obj.data.roleId
 						$width = '630px';
 						$higth = '500px';
 						$title = '修改角色信息';
+						RoleClas.layuiOpen($url,$width,$higth,$title);
+				    }else if(obj.event === 'resourcesShow'){
+				    	$url = $("[lay-event='resourcesShow']").attr("url");
+				    	$url = $url + '?' + 'roleId='+ obj.data.roleId
+						$width = '830px';
+						$higth = '600px';
+						$title = '选择角色资源';
 						RoleClas.layuiOpen($url,$width,$higth,$title);
 				    }
 				  });

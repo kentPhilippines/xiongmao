@@ -12,12 +12,8 @@ import com.payProject.config.baseDao.PageView;
 
 public class BaseEntity<T>  implements Serializable{
 	/**
-	 * 
 	 */
 	private static final long serialVersionUID = -995780691708761737L;
-	/**
-	 * 
-	 */
 	/**
 	 * <p>数据id</p>
 	 * 数据库自动生成

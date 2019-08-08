@@ -35,4 +35,9 @@ public interface RoleService {
 	 * @return
 	 */
 	boolean UpdateRoleByRole(Role role);
+	/**
+	 * <p>查询所有的角色数据</p>
+	 * @return	角色数据
+	 */
+	List<Role> findRoleAll();
 }
