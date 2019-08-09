@@ -23,4 +23,4 @@
 <script type="text/javascript">
 	var roleId =${roleId}
 </script>
-<script type="text/javascript" src="${ctx}/static/js/system/tree/tree.js" ></script>
+<script type="text/javascript" src="${ctx}/static/js/system/plugIn/tree.js" ></script>

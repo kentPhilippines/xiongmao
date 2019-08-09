@@ -12,5 +12,5 @@ public interface RoleResourcesService {
 	 * 2019-08-07
 	 */
 	Boolean addRoleResource(List<RoleResources> list,String roleId);
-
+	
 }

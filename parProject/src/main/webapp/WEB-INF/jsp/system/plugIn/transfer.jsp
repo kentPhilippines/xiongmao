@@ -45,6 +45,7 @@ layui.use(['transfer', 'layer', 'util'], function(){
     	  newArr.push(getData[j].value);
         };
        var roles = '';
+       debugger;
         for (var i = 0; i < newArr.length; i++) {
       	  roles += newArr[i]+','
        }

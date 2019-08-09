@@ -89,16 +89,6 @@ public class ResourcesServiceImpl implements ResourcesService{
 	}
 
 	@Override
-	public List<Integer> findRourcesIdByUserId(String userId) {
-		List<Resources> findResourceByUserId = resourcesDao.findResourceByUserId(userId);
-		List<Integer> list = new ArrayList<Integer>();
-		for(Resources bean : findResourceByUserId) {
-			list.add(bean.getResourcesId());
-		}
-		return list;
-	}
-
-	@Override
 	public List<Integer> findRourcesByRoleId(Integer roleId) {
 		List<Resources> list1  =  resourcesDao.findRourcesByRoleId(roleId);
 		List<Integer> list = new ArrayList<Integer>();
@@ -113,6 +103,12 @@ public class ResourcesServiceImpl implements ResourcesService{
 		ResourcesExample example = new ResourcesExample();
 		List<Resources> selectByExample = resourcesDao.selectByExample(example);
 		return selectByExample;
+	}
+
+	@Override
+	public List<Resources> findRourcesIdByUserId(String userId) {
+		List<Resources> findResourceByUserId = resourcesDao.findResourceByUserId(userId);
+		return findResourceByUserId;
 	}
 
 }

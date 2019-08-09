@@ -29,7 +29,12 @@ import com.payProject.system.entity.User;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
-
+/**
+ * <p>系统情况日志记录</p>
+ * @author K
+ * 2019-08-01
+ *
+ */
 @Aspect
 @Component
 public class SystemLogAspect {
@@ -40,7 +45,6 @@ private final Logger logger = LoggerFactory.getLogger(this.getClass());
     
     @Pointcut("execution(public * com.payProject.config.contorller..*(..))")
     public void systemLog() {}
-    @LoginRequired(required = true)
     @Around(value = "systemLog()")
     public void doAround(ProceedingJoinPoint joinPoint) throws Throwable {
     	//2、有无日志监控注解，有则输出
@@ -59,7 +63,6 @@ private final Logger logger = LoggerFactory.getLogger(this.getClass());
     	        long totalTime = endTime - startTime;
     	            logger.info("**********Method: {}, Start: {}, End: {}, Total: {}ms**********", methodName, DateUtil.formatDateTime(new Date(startTime)),   DateUtil.formatDateTime(new Date(endTime)), totalTime);
     	        //3、入系统日志表
-    	            
     	        if(joinPoint.getArgs().length > 0){
     	        	log.setParam(JSONUtil.parse(joinPoint.getArgs()[0]).toString());
     	        }

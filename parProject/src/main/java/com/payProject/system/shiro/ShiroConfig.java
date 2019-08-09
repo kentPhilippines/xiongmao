@@ -88,9 +88,9 @@ public class ShiroConfig {
 			 */	
 		filterChainDefinitionMap.put("/static/**", "anon");
 		filterChainDefinitionMap.put("/loginOnline", "anon");//
-		filterChainDefinitionMap.put("/index", "anon");//首页拦截
-		filterChainDefinitionMap.put("/system/**", "anon");/* "roles[admin]"角色必须是admin才可以*/
-		filterChainDefinitionMap.put("/**", "anon"); 
+		filterChainDefinitionMap.put("/index", "authc");//首页拦截
+		filterChainDefinitionMap.put("/system/**", "authc");/* "roles[admin]"角色必须是admin才可以*/
+		filterChainDefinitionMap.put("/**", "authc"); 
 		// 配置不会被拦截的链接 顺序判断
 		// 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		// 从数据库获取动态的权限

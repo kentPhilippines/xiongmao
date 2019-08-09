@@ -1,5 +1,7 @@
 package com.payProject.system.entity;
 
+import java.util.List;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -84,7 +86,18 @@ public class Resources extends BaseEntity<Resources>{
    	 */
     private String retain6;
 
-    public Integer getResourcesId() {
+    
+    private List<Resources> sumList;
+    
+    public List<Resources> getSumList() {
+		return sumList;
+	}
+
+	public void setSumList(List<Resources> sumList) {
+		this.sumList = sumList;
+	}
+
+	public Integer getResourcesId() {
         return resourcesId;
     }
 

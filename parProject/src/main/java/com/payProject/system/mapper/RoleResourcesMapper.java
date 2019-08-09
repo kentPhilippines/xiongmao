@@ -28,4 +28,5 @@ public interface RoleResourcesMapper extends  MyMapper<RoleResources,RoleResourc
      * @return
      */
     int insertByRoleIdAndResourcesId(@Param("list")List<RoleResources> list);
+    
 }

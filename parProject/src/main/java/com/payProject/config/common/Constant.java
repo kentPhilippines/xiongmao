@@ -41,7 +41,7 @@ public final class Constant {
 	public static final class User {
  
 		private static final String USER_IN_SESSION = "user_in_session";
-		private static final String USER_NAME = "username";
+		private static final String USER_NAME = "userName";
 		private static final String USER_ID = "userId";
 		
  

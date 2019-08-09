@@ -48,12 +48,6 @@ public interface ResourcesService {
 	 */
 	List<Resources> findParentMenuByLevel(Integer level);
 
-	/**
-	 * <p>根据用户名获取用户对应的资源信息</p>
-	 * @param userId	用户id
-	 * @return
-	 */
-	List<Integer> findRourcesIdByUserId(String userId);
 
 	/**
 	 * <p>根据角色id获取角色所对应的资源信息</p>
@@ -67,5 +61,13 @@ public interface ResourcesService {
 	 * @return
 	 */
 	List<Resources> findRourcesByAll();
+	
+	
+	/**
+	 * <p>根据用户名获取用户对应的资源信息</p>
+	 * @param userId	用户id
+	 * @return
+	 */
+	List<Resources> findRourcesIdByUserId(String id);
 
 }

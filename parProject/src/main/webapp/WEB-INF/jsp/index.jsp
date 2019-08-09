@@ -2,6 +2,7 @@
 <%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
 <meta name="renderer" content="webkit">
@@ -18,16 +19,6 @@
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
       <li class="layui-nav-item"><a href="">控制台</a></li>
-      <li class="layui-nav-item"><a href="">商品管理</a></li>
-      <li class="layui-nav-item">
-	    <a href="javascript:;">解决方案</a>
-	    <dl class="layui-nav-child">
-	      <dd><a href="">移动模块</a></dd>
-	      <dd><a href="">后台模版</a></dd>
-	      <dd class="layui-this"><a href="">选中项</a></dd>
-	      <dd><a href="">电商平台</a></dd>
-	    </dl>
-  	</li>
       <li class="layui-nav-item"><a href="">用户</a></li>
 	  <li class="layui-nav-item ">
 	    <a href="javascript:;">产品</a>
@@ -50,62 +41,53 @@
       <li class="layui-nav-item upbit1">
       	<span class="layui-nav-more upbit-more"></span>
         <a href="javascript:;">
-          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-          贤心
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img"><!-- 图片要替换 -->
+          ${user.userName}
         </a>
         <dl class="layui-nav-child layui-anim topUserShow layui-anim-upbit">
           <dd><a href="">基本资料</a></dd>
           <dd><a href="">安全设置</a></dd>
         </dl>
       </li>
-      <li class="layui-nav-item"><a href="">退了</a></li>
+      <li class="layui-nav-item"><a href="${ctx}/logout">退了</a></li>
     </ul>
   </div>
   <div class="layui-side layui-bg-black">
     <div class="layui-side-scroll">
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-        <li class="layui-nav-item ">
-          <a class="" href="javascript:;" rank ="1"><span class="layui-nav-more"></span>所有商品</a>
-          <dl class="layui-nav-child">
-            <dd><a href="javascript:;" rank ="2">列表一</a></dd>
-            <dd><a href="javascript:;">列表二</a></dd>
-            <dd><a href="javascript:;">列表三</a></dd>
-            <dd><a href="">超链接</a></dd>
-          </dl>
-        </li>
-        <li class="layui-nav-item ">
-          <a class="" href="javascript:;" rank ="1"><span class="layui-nav-more"></span>所有商品</a>
-          <dl class="layui-nav-child">
-             <dd data-name="content"   >
-                  <a href="javascript:;" rank ="2">
-                  	内容系统
-                  	<span class="layui-nav-more"></span>
-                  </a>
-                  <dl class="layui-nav-child">
-                    <dd data-name="list">
-                    	<a lay-href="app/content/list.html" rank ="3">文章列表</a>
-                    </dd>
-                  </dl>
-                </dd>
-            <dd><a href="javascript:;">列表二</a></dd>
-            <dd><a href="javascript:;">列表三</a></dd>
-            <dd><a href="">超链接</a></dd>
-          </dl>
+      <c:forEach var="menu" items="${menuList}">
+       <li class="layui-nav-item ">
+          <a class="" url="${menu.resourcesUrl}" ><span class="layui-nav-more"></span>${menu.resourcesName}</a>
+	         <c:if test="${menu.sumList.size() >0}">
+	            <dl class="layui-nav-child">
+	           <c:forEach var="sumMenu" items="${menu.sumList}" >
+		        <c:choose>
+						<c:when test="${sumMenu.sumList.size() >0 }">
+							 <dd data-name="content"   >
+									 <a url="${sumMenu.resourcesUrl }" rank ="2">
+									 <span class="layui-nav-more"></span>
+				                  	</a>
+				                  	 <dl class="layui-nav-child">
+						                    <dd data-name="list">
+						                    	<a lay-href="app/content/list.html" rank ="3">文章列表</a>
+						                    </dd>
+						             </dl>
+					              </dd>
+						</c:when>
+						<c:otherwise>
+						  <dd><a url="${sumMenu.resourcesUrl }" rank ="2" >${sumMenu.resourcesName }</a></dd>
+						</c:otherwise>	        
+		        </c:choose>
+		        </c:forEach>
+		          </dl>
+	         </c:if>
         </li> 
-        <li class="layui-nav-item  ">
-          <a href="javascript:;"><span class="layui-nav-more"></span>解决方案</a>
-          <dl class="layui-nav-child">
-            <dd><a href="javascript:;" >列表一</a></dd>
-            <dd><a href="javascript:;">列表二</a></dd>
-            <dd><a href="">超链接</a></dd>
-          </dl>
-        </li>
-        <li class="layui-nav-item"><a href="">云市场</a></li>
-        <li class="layui-nav-item"><a href="">发布商品</a></li>
+      </c:forEach>
       </ul>
     </div>
   </div>
+  <div style="padding: 15px;">
   <div class="layui-body" id="LAY_app_body">
      <iframe id="mainFrame" name="mainFrame"
 						src="${ctx}/system/user/userShow"
@@ -115,18 +97,24 @@
 						marginwidth ="10px"
 						>
 	</iframe>
-    <div style="padding: 15px;">内容主体区域
     </div> 
   </div>  
   <div class="layui-footer">
-    © layui.com - 底部固定区域
+    © 支付创造未来
   </div>
 </div>
 </body>
 </html>
-<script>
+<script >
 layui.use('element', function(){
   var element = layui.element;
 });
+var mainFrame = $("#mainFrame");
+var menu = $("[rank]");
+menu.on("click",function(){
+	var url = $(this).attr("url");
+	if(url){
+		mainFrame.attr("src",'${ctx}'+url);
+	}
+});
 </script>
-<script type="text/javascript" src="${ctx}/static/js/system/index/index.js"/>
