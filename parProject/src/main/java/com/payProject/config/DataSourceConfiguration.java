@@ -10,9 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.payProject.config.baseDao.Dialect;
-import com.payProject.config.baseDao.MySQLDialect;
-import com.payProject.config.baseDao.PagePlugin;
 
 
 
@@ -29,7 +26,7 @@ public class DataSourceConfiguration {
 	public SqlSessionFactoryBean sessionFactoryBean() {
 		SqlSessionFactoryBean sqlSession = new SqlSessionFactoryBean();
 		sqlSession.setDataSource(dataSource());
-		sqlSession.setPlugins(pagePlugin());
+		//sqlSession.setPlugins();
 		return null;
 	}
 	
@@ -49,24 +46,16 @@ public class DataSourceConfiguration {
 	 * @return
 	 */
 	//@Bean
-	public  Interceptor[] pagePlugin(){
-		PagePlugin myPagePlugin = myPagePlugin();
-		return null;
-	}
-	
-	//@SuppressWarnings("static-access")
-	//@Bean
-	public PagePlugin myPagePlugin() {
-		PagePlugin pagePl = new PagePlugin();
-		pagePl.setDialectObject(dialect());
-		pagePl.setPageSqlId(pageSqlId);
-		return pagePl;
-	}
-	
-//	@Bean
-	public Dialect dialect() {
-		Dialect dialect = new MySQLDialect();
-		return dialect;
-	}
+	/*
+	 * public Interceptor[] pagePlugin(){ PagePlugin myPagePlugin = myPagePlugin();
+	 * return null; }
+	 * 
+	 * //@SuppressWarnings("static-access") //@Bean public PagePlugin myPagePlugin()
+	 * { PagePlugin pagePl = new PagePlugin(); pagePl.setDialectObject(dialect());
+	 * pagePl.setPageSqlId(pageSqlId); return pagePl; }
+	 * 
+	 * // @Bean public Dialect dialect() { Dialect dialect = new MySQLDialect();
+	 * return dialect; }
+	 */
 	
 }

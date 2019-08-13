@@ -22,7 +22,6 @@ var RoleEditCls = {
 			this.$but.on("click",this.roleEdit)
 		},
 		roleEdit : function(){
-			debugger;
 			RoleEditCls.initData();
 			CommonUtil.ObjextAjax($(this).attr("url"),RoleEditCls.$data,RoleAddCls.AjaxSucFn,true,"暂无权限",RoleAddCls.$requestType)
 		}
@@ -136,7 +135,6 @@ var RoleClas = {
 					      {field: 'roleId', title: '角色ID', width:150,sort: true, fixed: 'left'}
 					      ,{field: 'roleName', title: '角色姓名', width:150}
 					      ,{field: 'remark', title: '说明', width: 250}
-					      ,{field: 'resources', title: '角色权限', width: 135}
 					      ,{field: 'createTime', title: '创建时间', width: 135, sort: true}
 					      ,{field: 'status', title: '状态', width: 135, sort: true}
 					      ,{field: 'resource', title: '资源信息',toolbar: '#resourceShow', width: 135}

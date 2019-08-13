@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.payProject.config.common.Constant;
 import com.payProject.config.common.Constant.User;
+import com.payProject.config.exception.OtherErrors;
 import com.payProject.system.annotation.LoginRequired;
 import com.payProject.system.entity.Resources;
 import com.payProject.system.service.ResourcesService;
@@ -28,6 +29,8 @@ import com.payProject.system.service.UserRoleService;
 import com.payProject.system.service.UserService;
 import com.payProject.system.util.MapUtil;
 import com.payProject.system.util.MenuUtil;
+
+import cn.hutool.core.util.StrUtil;
 @Controller
 @RequestMapping("/")
 public class IndexContorller {
@@ -45,7 +48,6 @@ public class IndexContorller {
 	 * @param m
 	 * @return
 	 */
-	 @LoginRequired(required = true)
 	 @RequestMapping("/index")
 	 public String index(Model m,HttpServletRequest request) {
 		 /**
@@ -62,6 +64,8 @@ public class IndexContorller {
 		 Map<String, Object> objectToMap = MapUtil.objectToMap(attribute);
 		 com.payProject.system.entity.User user = MapUtil.mapToBean(objectToMap,com.payProject.system.entity.User.class);
 		 String userId = (String)objectToMap.get(Constant.User.USER_ID());
+		 if(StrUtil.isBlank(userId))
+				throw  new OtherErrors("用户未登录，或登录数据错误");
 		 /*2,获取用户的所有菜单资源并转换信息*/
 		 /*3,拿到当前用户的登录信息*/
 		 /*4,获取其他登录跳转页面URL*/
@@ -72,4 +76,9 @@ public class IndexContorller {
 		 /*5,日志记录,该功能由aop完成*/
 	        return "index";
 	    }
+	 @RequestMapping("/homePage")
+	 public String homePage(Model m,HttpServletRequest request) {
+		return "homePage";
+	 }
+	 
 }
