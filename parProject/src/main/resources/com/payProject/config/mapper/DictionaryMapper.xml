@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.payProject.config.mapper.DictionaryMapper" >
+  <resultMap id="BaseResultMap" type="com.payProject.config.entity.Dictionary" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="dataKey" property="dataKey" jdbcType="VARCHAR" />
+    <result column="dataValue" property="dataValue" jdbcType="VARCHAR" />
+    <result column="dataType" property="dataType" jdbcType="VARCHAR" />
+    <result column="dateSource" property="dateSource" jdbcType="VARCHAR" />
+    <result column="use" property="use" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="submitTime" property="submitTime" jdbcType="TIMESTAMP" />
+    <result column="submitSystem" property="submitSystem" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, dataKey, dataValue, dataType, dateSource, use, createTime, submitTime, submitSystem, 
+    status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payProject.config.entity.DictionaryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from manage_data_dictionary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from manage_data_dictionary
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from manage_data_dictionary
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.payProject.config.entity.DictionaryExample" >
+    delete from manage_data_dictionary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.payProject.config.entity.Dictionary" useGeneratedKeys="true" keyProperty="id" >
+    insert into manage_data_dictionary (dataKey, dataValue, dataType, 
+      dateSource, use, createTime, 
+      submitTime, submitSystem, status
+      )
+    values (#{dataKey,jdbcType=VARCHAR}, #{dataValue,jdbcType=VARCHAR}, #{dataType,jdbcType=VARCHAR}, 
+      #{dateSource,jdbcType=VARCHAR}, #{use,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{submitTime,jdbcType=TIMESTAMP}, #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.payProject.config.entity.Dictionary" useGeneratedKeys="true" keyProperty="id" >
+    insert into manage_data_dictionary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dataKey != null" >
+        dataKey,
+      </if>
+      <if test="dataValue != null" >
+        dataValue,
+      </if>
+      <if test="dataType != null" >
+        dataType,
+      </if>
+      <if test="dateSource != null" >
+        dateSource,
+      </if>
+      <if test="use != null" >
+        use,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="submitTime != null" >
+        submitTime,
+      </if>
+      <if test="submitSystem != null" >
+        submitSystem,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dataKey != null" >
+        #{dataKey,jdbcType=VARCHAR},
+      </if>
+      <if test="dataValue != null" >
+        #{dataValue,jdbcType=VARCHAR},
+      </if>
+      <if test="dataType != null" >
+        #{dataType,jdbcType=VARCHAR},
+      </if>
+      <if test="dateSource != null" >
+        #{dateSource,jdbcType=VARCHAR},
+      </if>
+      <if test="use != null" >
+        #{use,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="submitTime != null" >
+        #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="submitSystem != null" >
+        #{submitSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.payProject.config.entity.DictionaryExample" resultType="java.lang.Integer" >
+    select count(*) from manage_data_dictionary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update manage_data_dictionary
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.dataKey != null" >
+        dataKey = #{record.dataKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataValue != null" >
+        dataValue = #{record.dataValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataType != null" >
+        dataType = #{record.dataType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dateSource != null" >
+        dateSource = #{record.dateSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.use != null" >
+        use = #{record.use,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.submitTime != null" >
+        submitTime = #{record.submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.submitSystem != null" >
+        submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update manage_data_dictionary
+    set id = #{record.id,jdbcType=INTEGER},
+      dataKey = #{record.dataKey,jdbcType=VARCHAR},
+      dataValue = #{record.dataValue,jdbcType=VARCHAR},
+      dataType = #{record.dataType,jdbcType=VARCHAR},
+      dateSource = #{record.dateSource,jdbcType=VARCHAR},
+      use = #{record.use,jdbcType=VARCHAR},
+      createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      submitTime = #{record.submitTime,jdbcType=TIMESTAMP},
+      submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.payProject.config.entity.Dictionary" >
+    update manage_data_dictionary
+    <set >
+      <if test="dataKey != null" >
+        dataKey = #{dataKey,jdbcType=VARCHAR},
+      </if>
+      <if test="dataValue != null" >
+        dataValue = #{dataValue,jdbcType=VARCHAR},
+      </if>
+      <if test="dataType != null" >
+        dataType = #{dataType,jdbcType=VARCHAR},
+      </if>
+      <if test="dateSource != null" >
+        dateSource = #{dateSource,jdbcType=VARCHAR},
+      </if>
+      <if test="use != null" >
+        use = #{use,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="submitTime != null" >
+        submitTime = #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="submitSystem != null" >
+        submitSystem = #{submitSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.payProject.config.entity.Dictionary" >
+    update manage_data_dictionary
+    set dataKey = #{dataKey,jdbcType=VARCHAR},
+      dataValue = #{dataValue,jdbcType=VARCHAR},
+      dataType = #{dataType,jdbcType=VARCHAR},
+      dateSource = #{dateSource,jdbcType=VARCHAR},
+      use = #{use,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      submitTime = #{submitTime,jdbcType=TIMESTAMP},
+      submitSystem = #{submitSystem,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -14,12 +14,17 @@ var TreeCls = {
 			this.$btnEsc.on("click",TreeCls.exit);
 		},
 		save : function(){
+			debugger;
 			var oCks = xtree.GetChecked(); //获取末级且选中的checkbox原dom对象，返回的类型:Array
 			var arr = new Array();
             for (var i = 0; i < oCks.length; i++) {
+            	
             	 arr.push(oCks[i].value);
-            	 var parentId  =  xtree.GetParent(oCks[i].value);
+            	 var parentId  = xtree.GetParent(oCks[i].value);
+            	 var parentIds = xtree.GetParent(parentId.value);
             	 arr.push(parentId.value);
+            	 if(parentIds)
+            	 arr.push(parentIds.value);
             }
             var newArr = new Array();
               let isRepeat;

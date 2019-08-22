@@ -1,6 +1,7 @@
 package com.payProject.system.contorller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -157,6 +158,20 @@ public class RoleContorller {
 		if(StrUtil.isBlank(resource))
 			throw new ParamException("必传参数为空");
 		List<String> split = StrUtil.splitTrim(resource, ',');
+		/*
+		 * List<Resources> findRourcesByAll = resourcesService.findRourcesByAll();
+		 * Map<Integer,Resources> resouMap = new HashMap(); for(Resources resou :
+		 * findRourcesByAll) { resouMap.put(resou.getResourcesId(), resou); }
+		 * for(Integer resou : resouMap.keySet()) {
+		 * if(split.contains(String.valueOf(resou))) { Resources resources =
+		 * resouMap.get(resou); Integer parentId = resources.getParentId(); } }
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 */
 		List<RoleResources> list = new ArrayList<RoleResources>();
 		for(String i : split) {
 			RoleResources roleR = new RoleResources();

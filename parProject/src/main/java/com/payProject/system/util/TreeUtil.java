@@ -93,11 +93,10 @@ public class TreeUtil {
 			if(map.containsKey(Integer.valueOf(layuiTreeBean.getValue()))) {
 				List<Integer> list2 = map.get(Integer.valueOf(layuiTreeBean.getValue()));
 				layuiTreeBean.setData(getLayuiTree(list2,mapObj,map));
-			}else {
-				listBean.add(layuiTreeBean);
 			}
+				listBean.add(layuiTreeBean);
 		}
-		return listBean;
+ 		return listBean;
 	}
 
 

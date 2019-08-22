@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>layuiAdmin 后台管理员</title>
+<title>用户管理</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"

@@ -76,10 +76,9 @@ public class MenuUtil {
 				 Resources resources = beanMap.get(i);
 				 if(relationship.containsKey(i)) {
 					 List<Integer> list2 = relationship.get(i);
-					 gitMenu(list2, relationship, beanMap);
-				 }else {
+					 resources.setSumList(gitMenu(list2, relationship, beanMap));
+				 } 
 					 listBean.add(resources);
-				 }
 			 }
 		return listBean;
 	}

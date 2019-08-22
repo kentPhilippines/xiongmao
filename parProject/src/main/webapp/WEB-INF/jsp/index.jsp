@@ -64,15 +64,17 @@
 	           <c:forEach var="sumMenu" items="${menu.sumList}" >
 		        <c:choose>
 						<c:when test="${sumMenu.sumList.size() >0 }">
-							 <dd data-name="content"   >
-									 <a url="${sumMenu.resourcesUrl }" rank ="2">
+							 <dd data-name="content" >
+									 <a url="${sumMenu.resourcesUrl }" rank ="2">${sumMenu.resourcesName}
 									 <span class="layui-nav-more"></span>
 				                  	</a>
-				                  	 <dl class="layui-nav-child">
-						                    <dd data-name="list">
-						                    	<a lay-href="app/content/list.html" rank ="3">文章列表</a>
-						                    </dd>
-						             </dl>
+										<c:forEach var = "sccmu" items="${sumMenu.sumList}">
+							                  	 <dl class="layui-nav-child">
+									                    <dd data-name="list">
+									                    	<a url="${sccmu.resourcesUrl}" rank ="3">${sccmu.resourcesName}</a>
+									                    </dd>
+									             </dl>
+										</c:forEach>
 					              </dd>
 						</c:when>
 						<c:otherwise>

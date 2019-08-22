@@ -162,7 +162,7 @@ var UserClas = {
 						  },
 					end : function(){
 						lock = true
-						location.reload();
+						UserClas.reload({"":""});
 					}
 				});
 			}

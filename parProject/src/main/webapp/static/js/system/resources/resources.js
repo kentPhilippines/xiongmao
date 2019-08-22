@@ -123,7 +123,7 @@ var ResourcesClas = {
 						  },
 					end : function(){
 						lock = true
-						location.reload();
+						ResourcesClas.reload({"":""});
 					}
 				});
 			}

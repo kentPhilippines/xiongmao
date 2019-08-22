@@ -120,7 +120,7 @@ var RoleClas = {
 						  },
 					end : function(){
 						lock = true
-						location.reload();
+						RoleClas.reload({"":""});
 					}
 				});
 			}

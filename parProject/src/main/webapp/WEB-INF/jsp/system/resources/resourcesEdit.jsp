@@ -56,7 +56,7 @@
 			<label class="layui-form-label">资源等级</label>
 			<div class="layui-input-inline">
 				<input type="text" name="level" lay-verify="required"
-					placeholder="请输入资源等级（2，3级资源路径必填）"    autocomplete="off" class="layui-input" value="${resources.rank}">
+					placeholder="请输入资源等级（2，3级资源路径必填）"    autocomplete="off" class="layui-input" value="${resources.level}">
 			</div>
 		</div>
 		<div class="layui-form-item">
