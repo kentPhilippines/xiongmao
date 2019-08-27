@@ -1,8 +1,6 @@
 package com.payProject.manage.mapper;
 
 import com.payProject.config.base.mapperBase.MyMapper;
-import com.payProject.manage.entity.AccountEntity;
-import com.payProject.manage.entity.AccountEntityExample;
 import com.payProject.manage.entity.BankCardEntity;
 import com.payProject.manage.entity.BankCardEntityExample;
 import java.util.List;

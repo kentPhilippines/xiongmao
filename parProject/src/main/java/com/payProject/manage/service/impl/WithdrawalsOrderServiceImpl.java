@@ -11,6 +11,7 @@ import com.payProject.manage.entity.WithdrawalsOrderEntityExample.Criteria;
 import com.payProject.manage.mapper.WithdrawalsOrderMapper;
 import com.payProject.manage.service.WithdrawalsOrderService;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 @Service
 public class WithdrawalsOrderServiceImpl implements WithdrawalsOrderService {
@@ -31,6 +32,11 @@ public class WithdrawalsOrderServiceImpl implements WithdrawalsOrderService {
 			criteria.andOrderAccountEqualTo(withdrawalsOrder.getOrderAccount());
 		if( null != withdrawalsOrder.getOrderStatus())
 			criteria.andOrderStatusEqualTo(withdrawalsOrder.getOrderStatus());
+		if(StrUtil.isNotBlank(withdrawalsOrder.getTime())) {
+			String data = StrUtil.subPre(withdrawalsOrder.getTime(),10);
+			String data1 = StrUtil.subSuf(withdrawalsOrder.getTime(),12);
+			criteria.andCreateTimeBetween(DateUtil.parse(data), DateUtil.parse(data1));
+			} 
 		List<WithdrawalsOrderEntity> selectByExample = withdrawalsOrderDao.selectByExample(example);
 		return selectByExample;
 	}

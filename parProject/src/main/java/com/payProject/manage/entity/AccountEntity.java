@@ -6,53 +6,62 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.payProject.system.entity.base.BaseEntity;
-/**
- * <p>下游商户登记表</p>
- * @author K
- *
- */
-public class AccountEntity extends BaseEntity<AccountEntity>{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	/**
-	 * <p>账户id</p>
-	 * <p>下游商户</p>
-	 */
-	private String accountId;
-	/**
-	 * <p>账户name</p>
-	 * <p>下游商户</p>
-	 */
-    private String accountName;
-    /**
-	 * <p>账户类型</p>
-	 * <p>下游商户</p>
-	 */
-    private Integer accountType;
-    /**
-	 * <p>账户name</p>
-	 * <p>下游商户</p>
-	 */
-    private BigDecimal cashBalance;
-    /**
-	 * <p>商户冻结资金</p>
-	 * <p>下游商户</p>
-	 */	
-    private BigDecimal freezeBalance;
-    /**
-	 * <p>商户账户余额=冻结金额+可提现余额</p>
-	 * <p>下游商户</p>
-	 */		
-    private BigDecimal accountBalance;
-    /**
-	 * <p>商户日交易(充值)额度</p>
-	 * <p>下游商户</p>
-	 */
-    private BigDecimal dayDealAmount;
 
-
+public class AccountEntity  extends BaseEntity<AccountEntity>{
+	 	/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		/**
+		 * <p>账户id</p>
+		 * <p>下游商户</p>
+		 */
+		private String accountId;
+		/**
+		 * <p>账户name</p>
+		 * <p>下游商户</p>
+		 */
+	    private String accountName;
+	    /**
+		 * <p>账户类型</p>
+		 * <p>下游商户</p>
+		 */
+	    private Integer accountType;
+	    /**
+		 * <p>账户可提现</p>
+		 * <p>下游商户</p>
+		 */
+	    private BigDecimal cashBalance;
+	    /**
+		 * <p>商户冻结资金</p>
+		 * <p>下游商户</p>
+		 */	
+	    private BigDecimal freezeBalance;
+	    /**
+		 * <p>商户账户余额=冻结金额+可提现余额</p>
+		 * <p>下游商户</p>
+		 */		
+	    private BigDecimal accountBalance;
+	    /**
+		 * <p>商户日交易(充值)额度最大</p>
+		 * <p>下游商户</p>
+		 */
+	    private BigDecimal dayDealAmountMax;
+	    /**
+		 * <p>商户日交易(充值)额度最小</p>
+		 * <p>下游商户</p>
+		 */
+	    private BigDecimal dayDealAmountMin;
+	    /**
+		 * <p>累计交易</p>
+		 * <p>下游商户</p>
+		 */
+	    private BigDecimal sumDealAmount;
+	    /**
+		 * <p>累计交易（当天）</p>
+		 * <p>下游商户</p>
+		 */
+	    private BigDecimal sumDealToDayAmount;
 
     public String getAccountId() {
         return accountId;
@@ -102,12 +111,36 @@ public class AccountEntity extends BaseEntity<AccountEntity>{
         this.accountBalance = accountBalance;
     }
 
-    public BigDecimal getDayDealAmount() {
-        return dayDealAmount;
+    public BigDecimal getDayDealAmountMax() {
+        return dayDealAmountMax;
     }
 
-    public void setDayDealAmount(BigDecimal dayDealAmount) {
-        this.dayDealAmount = dayDealAmount;
+    public void setDayDealAmountMax(BigDecimal dayDealAmountMax) {
+        this.dayDealAmountMax = dayDealAmountMax;
+    }
+
+    public BigDecimal getDayDealAmountMin() {
+        return dayDealAmountMin;
+    }
+
+    public void setDayDealAmountMin(BigDecimal dayDealAmountMin) {
+        this.dayDealAmountMin = dayDealAmountMin;
+    }
+
+    public BigDecimal getSumDealAmount() {
+        return sumDealAmount;
+    }
+
+    public void setSumDealAmount(BigDecimal sumDealAmount) {
+        this.sumDealAmount = sumDealAmount;
+    }
+
+    public BigDecimal getSumDealToDayAmount() {
+        return sumDealToDayAmount;
+    }
+
+    public void setSumDealToDayAmount(BigDecimal sumDealToDayAmount) {
+        this.sumDealToDayAmount = sumDealToDayAmount;
     }
 
 

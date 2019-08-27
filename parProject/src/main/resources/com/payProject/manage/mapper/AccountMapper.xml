@@ -9,7 +9,10 @@
     <result column="cashBalance" property="cashBalance" jdbcType="DECIMAL" />
     <result column="freezeBalance" property="freezeBalance" jdbcType="DECIMAL" />
     <result column="accountBalance" property="accountBalance" jdbcType="DECIMAL" />
-    <result column="dayDealAmount" property="dayDealAmount" jdbcType="DECIMAL" />
+    <result column="dayDealAmountMax" property="dayDealAmountMax" jdbcType="DECIMAL" />
+    <result column="dayDealAmountMin" property="dayDealAmountMin" jdbcType="DECIMAL" />
+    <result column="SumDealAmount" property="sumDealAmount" jdbcType="DECIMAL" />
+    <result column="SumDealToDayAmount" property="sumDealToDayAmount" jdbcType="DECIMAL" />
     <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
     <result column="submitTime" property="submitTime" jdbcType="TIMESTAMP" />
     <result column="submitSystem" property="submitSystem" jdbcType="VARCHAR" />
@@ -75,7 +78,8 @@
   </sql>
   <sql id="Base_Column_List" >
     id, accountId, accountName, accountType, cashBalance, freezeBalance, accountBalance, 
-    dayDealAmount, createTime, submitTime, submitSystem, status
+    dayDealAmountMax, dayDealAmountMin, SumDealAmount, SumDealToDayAmount, createTime, 
+    submitTime, submitSystem, status
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payProject.manage.entity.AccountEntityExample" >
     select
@@ -111,11 +115,13 @@
   <insert id="insert" parameterType="com.payProject.manage.entity.AccountEntity" useGeneratedKeys="true" keyProperty="id" >
     insert into manage_account (accountId, accountName, accountType, 
       cashBalance, freezeBalance, accountBalance, 
-      dayDealAmount, createTime, submitTime, 
+      dayDealAmountMax, dayDealAmountMin, SumDealAmount, 
+      SumDealToDayAmount, createTime, submitTime, 
       submitSystem, status)
     values (#{accountId,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, #{accountType,jdbcType=INTEGER}, 
       #{cashBalance,jdbcType=DECIMAL}, #{freezeBalance,jdbcType=DECIMAL}, #{accountBalance,jdbcType=DECIMAL}, 
-      #{dayDealAmount,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{submitTime,jdbcType=TIMESTAMP}, 
+      #{dayDealAmountMax,jdbcType=DECIMAL}, #{dayDealAmountMin,jdbcType=DECIMAL}, #{sumDealAmount,jdbcType=DECIMAL}, 
+      #{sumDealToDayAmount,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{submitTime,jdbcType=TIMESTAMP}, 
       #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.payProject.manage.entity.AccountEntity" useGeneratedKeys="true" keyProperty="id" >
@@ -139,8 +145,17 @@
       <if test="accountBalance != null" >
         accountBalance,
       </if>
-      <if test="dayDealAmount != null" >
-        dayDealAmount,
+      <if test="dayDealAmountMax != null" >
+        dayDealAmountMax,
+      </if>
+      <if test="dayDealAmountMin != null" >
+        dayDealAmountMin,
+      </if>
+      <if test="sumDealAmount != null" >
+        SumDealAmount,
+      </if>
+      <if test="sumDealToDayAmount != null" >
+        SumDealToDayAmount,
       </if>
       <if test="createTime != null" >
         createTime,
@@ -174,8 +189,17 @@
       <if test="accountBalance != null" >
         #{accountBalance,jdbcType=DECIMAL},
       </if>
-      <if test="dayDealAmount != null" >
-        #{dayDealAmount,jdbcType=DECIMAL},
+      <if test="dayDealAmountMax != null" >
+        #{dayDealAmountMax,jdbcType=DECIMAL},
+      </if>
+      <if test="dayDealAmountMin != null" >
+        #{dayDealAmountMin,jdbcType=DECIMAL},
+      </if>
+      <if test="sumDealAmount != null" >
+        #{sumDealAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="sumDealToDayAmount != null" >
+        #{sumDealToDayAmount,jdbcType=DECIMAL},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -221,8 +245,17 @@
       <if test="record.accountBalance != null" >
         accountBalance = #{record.accountBalance,jdbcType=DECIMAL},
       </if>
-      <if test="record.dayDealAmount != null" >
-        dayDealAmount = #{record.dayDealAmount,jdbcType=DECIMAL},
+      <if test="record.dayDealAmountMax != null" >
+        dayDealAmountMax = #{record.dayDealAmountMax,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dayDealAmountMin != null" >
+        dayDealAmountMin = #{record.dayDealAmountMin,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sumDealAmount != null" >
+        SumDealAmount = #{record.sumDealAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sumDealToDayAmount != null" >
+        SumDealToDayAmount = #{record.sumDealToDayAmount,jdbcType=DECIMAL},
       </if>
       <if test="record.createTime != null" >
         createTime = #{record.createTime,jdbcType=TIMESTAMP},
@@ -250,7 +283,10 @@
       cashBalance = #{record.cashBalance,jdbcType=DECIMAL},
       freezeBalance = #{record.freezeBalance,jdbcType=DECIMAL},
       accountBalance = #{record.accountBalance,jdbcType=DECIMAL},
-      dayDealAmount = #{record.dayDealAmount,jdbcType=DECIMAL},
+      dayDealAmountMax = #{record.dayDealAmountMax,jdbcType=DECIMAL},
+      dayDealAmountMin = #{record.dayDealAmountMin,jdbcType=DECIMAL},
+      SumDealAmount = #{record.sumDealAmount,jdbcType=DECIMAL},
+      SumDealToDayAmount = #{record.sumDealToDayAmount,jdbcType=DECIMAL},
       createTime = #{record.createTime,jdbcType=TIMESTAMP},
       submitTime = #{record.submitTime,jdbcType=TIMESTAMP},
       submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
@@ -280,8 +316,17 @@
       <if test="accountBalance != null" >
         accountBalance = #{accountBalance,jdbcType=DECIMAL},
       </if>
-      <if test="dayDealAmount != null" >
-        dayDealAmount = #{dayDealAmount,jdbcType=DECIMAL},
+      <if test="dayDealAmountMax != null" >
+        dayDealAmountMax = #{dayDealAmountMax,jdbcType=DECIMAL},
+      </if>
+      <if test="dayDealAmountMin != null" >
+        dayDealAmountMin = #{dayDealAmountMin,jdbcType=DECIMAL},
+      </if>
+      <if test="sumDealAmount != null" >
+        SumDealAmount = #{sumDealAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="sumDealToDayAmount != null" >
+        SumDealToDayAmount = #{sumDealToDayAmount,jdbcType=DECIMAL},
       </if>
       <if test="createTime != null" >
         createTime = #{createTime,jdbcType=TIMESTAMP},
@@ -306,7 +351,10 @@
       cashBalance = #{cashBalance,jdbcType=DECIMAL},
       freezeBalance = #{freezeBalance,jdbcType=DECIMAL},
       accountBalance = #{accountBalance,jdbcType=DECIMAL},
-      dayDealAmount = #{dayDealAmount,jdbcType=DECIMAL},
+      dayDealAmountMax = #{dayDealAmountMax,jdbcType=DECIMAL},
+      dayDealAmountMin = #{dayDealAmountMin,jdbcType=DECIMAL},
+      SumDealAmount = #{sumDealAmount,jdbcType=DECIMAL},
+      SumDealToDayAmount = #{sumDealToDayAmount,jdbcType=DECIMAL},
       createTime = #{createTime,jdbcType=TIMESTAMP},
       submitTime = #{submitTime,jdbcType=TIMESTAMP},
       submitSystem = #{submitSystem,jdbcType=VARCHAR},

@@ -42,12 +42,14 @@ var MerchantsClas = {
 				 var bankCard = $('[name="bankCard"]').val();//获取输入框的值
 				 var orderAccount = $('[name="orderAccount"]').val();//获取输入框的值
 				 var orderStatus = $('[name="orderStatus"]').val();//获取输入框的值
+				 var createTime = $('[name="createTime"]').val();//获取输入框的值
 				MerchantsClas.reload({
 					orderId:orderId,
 					associatedId:associatedId,
 					bankCard:bankCard,
 					orderAccount:orderAccount,
-					orderStatus:orderStatus
+					orderStatus:orderStatus,
+					Time:createTime
 				})
 			})
 		},

@@ -60,7 +60,10 @@ public class ExceptionOrderEntity extends BaseEntity<ExceptionOrderEntity>{
      */
     private String explain;
     
-    
+    /**
+     * <p>时间范围</p>
+     */
+    private String Time;
     
     private String retain1;
     private String retain2;
@@ -72,7 +75,18 @@ public class ExceptionOrderEntity extends BaseEntity<ExceptionOrderEntity>{
     private String retain8;
     private String retain9;
 
-    public String getOrderExceptId() {
+    
+    
+    
+    public String getTime() {
+		return Time;
+	}
+
+	public void setTime(String time) {
+		Time = time;
+	}
+
+	public String getOrderExceptId() {
         return orderExceptId;
     }
 

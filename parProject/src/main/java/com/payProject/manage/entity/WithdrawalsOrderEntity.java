@@ -69,6 +69,11 @@ public class WithdrawalsOrderEntity extends BaseEntity<WithdrawalsOrderEntity>{
      */
     private String dealChannel;
 
+    /**
+     * <p>时间范围</p>
+     */
+    private String Time;
+    
     private String retain1;
     private String retain2;
     private String retain3;
@@ -78,7 +83,16 @@ public class WithdrawalsOrderEntity extends BaseEntity<WithdrawalsOrderEntity>{
     private String retain7;
     private String retain8;
     private String retain9;
-    public String getOrderId() {
+    
+    public String getTime() {
+		return Time;
+	}
+
+	public void setTime(String time) {
+		Time = time;
+	}
+
+	public String getOrderId() {
         return orderId;
     }
 

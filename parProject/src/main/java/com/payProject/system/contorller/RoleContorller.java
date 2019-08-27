@@ -108,7 +108,7 @@ public class RoleContorller {
 	if(null == role.getRoleId()) 
 		throw new ParamException("请求参数无效");
 	Role roleBean = roleService.findRoleByRoleId(role.getRoleId());
-	log.info("修改角色星系的时候获取角色的详细信息"+roleBean.toString());
+	log.info("修改角色信息的时候获取角色的详细信息"+roleBean.toString());
 	m.addAttribute("role", roleBean);
 		return "/system/role/roleEdit";
 	}

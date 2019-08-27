@@ -19,9 +19,13 @@ import com.payProject.config.common.PageResult;
 import com.payProject.config.exception.ParamException;
 import com.payProject.manage.entity.BankCardEntity;
 import com.payProject.manage.entity.DealOrderEntity;
+import com.payProject.manage.entity.ExceptionOrderEntity;
+import com.payProject.manage.entity.RunOrder;
 import com.payProject.manage.entity.WithdrawalsOrderEntity;
 import com.payProject.manage.service.BankCardService;
 import com.payProject.manage.service.DealOrderService;
+import com.payProject.manage.service.OrderErrorService;
+import com.payProject.manage.service.OrderRunService;
 import com.payProject.manage.service.WithdrawalsOrderService;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -31,13 +35,14 @@ import cn.hutool.core.util.StrUtil;
 @RequestMapping("/manage/order")
 public class OrderContorller {
 	Logger log = LoggerFactory.getLogger(OrderContorller.class);
-	
 	@Autowired
 	DealOrderService dealOrderServiceImpl;
 	@Autowired
 	WithdrawalsOrderService	withdrawalsOrderServiceImpl;
-	
-	
+	@Autowired
+	OrderErrorService orderErrorServiceImpl;
+	@Autowired
+	OrderRunService	orderRunServiceImpl;
 	@RequestMapping("/dealOrderShow")
 	public String dealOrderShow( ){
 		return "/manage/deal/dealOrderShow";
@@ -45,7 +50,7 @@ public class OrderContorller {
 	@ResponseBody
 	@RequestMapping("/dealOrderList")
 	public PageResult<DealOrderEntity> dealOrderList(DealOrderEntity dealOrder,String page,String limit){
-		log.info("查询银行卡请求参数"+dealOrder.toString());
+		log.info("交易订单列表请求参数："+dealOrder.toString());
 		 PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(limit));
 		 List<DealOrderEntity> list = dealOrderServiceImpl.findPageDealOrderByDealOrder(dealOrder);
 		 PageInfo<DealOrderEntity> pageInfo = new PageInfo<DealOrderEntity>(list);
@@ -53,7 +58,7 @@ public class OrderContorller {
 			pageR.setData(pageInfo.getList());
 			pageR.setCode("0");
 			pageR.setCount(String.valueOf(pageInfo.getTotal()));
-			log.info("增加银行卡相应参数"+pageR.toString());
+			log.info("交易订单列表响应结果集："+pageR.toString());
 		return pageR;
 	}
 	@RequestMapping("/merchantsShow")
@@ -63,7 +68,7 @@ public class OrderContorller {
 	@ResponseBody
 	@RequestMapping("/merchantsList")
 	public PageResult<WithdrawalsOrderEntity> merchantsList(WithdrawalsOrderEntity withdrawalsOrder,String page,String limit){
-		log.info("查询银行卡请求参数"+withdrawalsOrder.toString());
+		log.info("代付订单列表请求参数："+withdrawalsOrder.toString());
 		PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(limit));
 		List<WithdrawalsOrderEntity> list = withdrawalsOrderServiceImpl.findPageWithdrawalsByWithdrawals(withdrawalsOrder);
 		PageInfo<WithdrawalsOrderEntity> pageInfo = new PageInfo<WithdrawalsOrderEntity>(list);
@@ -71,15 +76,43 @@ public class OrderContorller {
 		pageR.setData(pageInfo.getList());
 		pageR.setCode("0");
 		pageR.setCount(String.valueOf(pageInfo.getTotal()));
-		log.info("增加银行卡相应参数"+pageR.toString());
+		log.info("代付订单列表相应结果集："+pageR.toString());
 		return pageR;
 	}
-	
-	
-	
-	
-	
-	
-
-
+	@RequestMapping("/orderError")
+	public String orderErrorShow( ){
+		return "/manage/except/orderErrorShow";
+	}
+	@ResponseBody
+	@RequestMapping("/orderErrorList")
+	public PageResult<ExceptionOrderEntity> orderErrorList(ExceptionOrderEntity orderError,String page,String limit){
+		log.info("异常订单列表请求参数："+orderError.toString());
+		PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(limit));
+		List<ExceptionOrderEntity> list = orderErrorServiceImpl.findPageOrderErrorByOrderError(orderError);
+		PageInfo<ExceptionOrderEntity> pageInfo = new PageInfo<ExceptionOrderEntity>(list);
+		PageResult<ExceptionOrderEntity> pageR = new PageResult<ExceptionOrderEntity>();
+		pageR.setData(pageInfo.getList());
+		pageR.setCode("0");
+		pageR.setCount(String.valueOf(pageInfo.getTotal()));
+		log.info("异常订单列表相应结果集："+pageR.toString());
+		return pageR;
+	}
+	@RequestMapping("/orderRunShow")
+	public String orderRunShow( ){
+		return "/manage/run/runOrderShow";
+	}
+	@ResponseBody
+	@RequestMapping("/orderRunList")
+	public PageResult<RunOrder> orderRunList(RunOrder runOrder,String page,String limit){
+		log.info("查询订单流水请求参数"+runOrder.toString());
+		PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(limit));
+		List<RunOrder> list = orderRunServiceImpl.findPageRunOrderByRunOrder(runOrder);
+		PageInfo<RunOrder> pageInfo = new PageInfo<RunOrder>(list);
+		PageResult<RunOrder> pageR = new PageResult<RunOrder>();
+		pageR.setData(pageInfo.getList());
+		pageR.setCode("0");
+		pageR.setCount(String.valueOf(pageInfo.getTotal()));
+		log.info("查询订单流水相应结果集"+pageR.toString());
+		return pageR;
+	}
 }

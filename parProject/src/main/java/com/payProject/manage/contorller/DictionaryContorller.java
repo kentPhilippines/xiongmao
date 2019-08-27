@@ -54,7 +54,7 @@ public class DictionaryContorller {
 	@ResponseBody
 	@RequestMapping("/dictionaryList")
 	public PageResult<Dictionary> dictionaryList(Dictionary dictionary,String page,String limit){
-		log.info("查询银行卡请求参数"+dictionary.toString());
+		log.info("查询数据字典参数："+dictionary.toString());
 		 PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(limit));
 		 List<Dictionary> list = dictionaryService.findDictionaryByDictionary(dictionary);
 		 PageInfo<Dictionary> pageInfo = new PageInfo<Dictionary>(list);
@@ -62,7 +62,7 @@ public class DictionaryContorller {
 			pageR.setData(pageInfo.getList());
 			pageR.setCode("0");
 			pageR.setCount(String.valueOf(pageInfo.getTotal()));
-			log.info("增加银行卡相应参数"+pageR.toString());
+			log.info("数据字典响应结果集："+pageR.toString());
 		return pageR;
 	}
 	@RequestMapping("/dictionaryAdd")

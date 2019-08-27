@@ -3,6 +3,7 @@
 	<script type="text/javascript" src="${ctx}/static/js/layui/layui.js"></script>
 	<script type="text/javascript" src="${ctx}/static/js/Common.js"></script>
 	<link href="${ctx}/static/css/system/common.css" rel="stylesheet" type="text/css" />
+	<link href="${ctx}/static/layAutoComplete/layuiAutocomplete.css" rel="stylesheet" type="text/css" />
 	<%-- <script type="text/javascript" src="${ctx}/static/js/layui/lay/modules/util.js"></script>
 	<script type="text/javascript" src="${ctx}/static/js/layui/lay/modules/upload.js"></script>
 	<script type="text/javascript" src="${ctx}/static/js/layui/lay/modules/tree.js"></script>

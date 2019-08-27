@@ -28,7 +28,12 @@ public class BankCard {
 		List<NameValuePair> params = new ArrayList<>();
 		params.add(new BasicNameValuePair("url", url1));
 		String sendHttpsGet = HttpUtil.sendHttpsGet("http://tinyurl.com/api-create.php", params);
-		QRCodeUtil.encode(sendHttpsGet, "C:/Users/ADMIN/Pictures/Feedback/{5F6E618A-0465-4906-B660-E1115B4E2DEC}/Capture001.png", "E:/img", true);
+		
+		
+		
+		
+		
+		QRCodeUtil.encode("alipays://platformapi/startapp?appId=20000067&url=www.baidu.com", "C:/Users/ADMIN/Pictures/Feedback/{5F6E618A-0465-4906-B660-E1115B4E2DEC}/Capture001.png", "E:/img", true);
 	}
 		
 }

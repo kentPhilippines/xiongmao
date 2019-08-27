@@ -546,63 +546,243 @@ public class AccountEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andDayDealAmountIsNull() {
-            addCriterion("dayDealAmount is null");
+        public Criteria andDayDealAmountMaxIsNull() {
+            addCriterion("dayDealAmountMax is null");
             return (Criteria) this;
         }
 
-        public Criteria andDayDealAmountIsNotNull() {
-            addCriterion("dayDealAmount is not null");
+        public Criteria andDayDealAmountMaxIsNotNull() {
+            addCriterion("dayDealAmountMax is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDayDealAmountEqualTo(BigDecimal value) {
-            addCriterion("dayDealAmount =", value, "dayDealAmount");
+        public Criteria andDayDealAmountMaxEqualTo(BigDecimal value) {
+            addCriterion("dayDealAmountMax =", value, "dayDealAmountMax");
             return (Criteria) this;
         }
 
-        public Criteria andDayDealAmountNotEqualTo(BigDecimal value) {
-            addCriterion("dayDealAmount <>", value, "dayDealAmount");
+        public Criteria andDayDealAmountMaxNotEqualTo(BigDecimal value) {
+            addCriterion("dayDealAmountMax <>", value, "dayDealAmountMax");
             return (Criteria) this;
         }
 
-        public Criteria andDayDealAmountGreaterThan(BigDecimal value) {
-            addCriterion("dayDealAmount >", value, "dayDealAmount");
+        public Criteria andDayDealAmountMaxGreaterThan(BigDecimal value) {
+            addCriterion("dayDealAmountMax >", value, "dayDealAmountMax");
             return (Criteria) this;
         }
 
-        public Criteria andDayDealAmountGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("dayDealAmount >=", value, "dayDealAmount");
+        public Criteria andDayDealAmountMaxGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("dayDealAmountMax >=", value, "dayDealAmountMax");
             return (Criteria) this;
         }
 
-        public Criteria andDayDealAmountLessThan(BigDecimal value) {
-            addCriterion("dayDealAmount <", value, "dayDealAmount");
+        public Criteria andDayDealAmountMaxLessThan(BigDecimal value) {
+            addCriterion("dayDealAmountMax <", value, "dayDealAmountMax");
             return (Criteria) this;
         }
 
-        public Criteria andDayDealAmountLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("dayDealAmount <=", value, "dayDealAmount");
+        public Criteria andDayDealAmountMaxLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("dayDealAmountMax <=", value, "dayDealAmountMax");
             return (Criteria) this;
         }
 
-        public Criteria andDayDealAmountIn(List<BigDecimal> values) {
-            addCriterion("dayDealAmount in", values, "dayDealAmount");
+        public Criteria andDayDealAmountMaxIn(List<BigDecimal> values) {
+            addCriterion("dayDealAmountMax in", values, "dayDealAmountMax");
             return (Criteria) this;
         }
 
-        public Criteria andDayDealAmountNotIn(List<BigDecimal> values) {
-            addCriterion("dayDealAmount not in", values, "dayDealAmount");
+        public Criteria andDayDealAmountMaxNotIn(List<BigDecimal> values) {
+            addCriterion("dayDealAmountMax not in", values, "dayDealAmountMax");
             return (Criteria) this;
         }
 
-        public Criteria andDayDealAmountBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("dayDealAmount between", value1, value2, "dayDealAmount");
+        public Criteria andDayDealAmountMaxBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("dayDealAmountMax between", value1, value2, "dayDealAmountMax");
             return (Criteria) this;
         }
 
-        public Criteria andDayDealAmountNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("dayDealAmount not between", value1, value2, "dayDealAmount");
+        public Criteria andDayDealAmountMaxNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("dayDealAmountMax not between", value1, value2, "dayDealAmountMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayDealAmountMinIsNull() {
+            addCriterion("dayDealAmountMin is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayDealAmountMinIsNotNull() {
+            addCriterion("dayDealAmountMin is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayDealAmountMinEqualTo(BigDecimal value) {
+            addCriterion("dayDealAmountMin =", value, "dayDealAmountMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayDealAmountMinNotEqualTo(BigDecimal value) {
+            addCriterion("dayDealAmountMin <>", value, "dayDealAmountMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayDealAmountMinGreaterThan(BigDecimal value) {
+            addCriterion("dayDealAmountMin >", value, "dayDealAmountMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayDealAmountMinGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("dayDealAmountMin >=", value, "dayDealAmountMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayDealAmountMinLessThan(BigDecimal value) {
+            addCriterion("dayDealAmountMin <", value, "dayDealAmountMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayDealAmountMinLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("dayDealAmountMin <=", value, "dayDealAmountMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayDealAmountMinIn(List<BigDecimal> values) {
+            addCriterion("dayDealAmountMin in", values, "dayDealAmountMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayDealAmountMinNotIn(List<BigDecimal> values) {
+            addCriterion("dayDealAmountMin not in", values, "dayDealAmountMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayDealAmountMinBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("dayDealAmountMin between", value1, value2, "dayDealAmountMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andDayDealAmountMinNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("dayDealAmountMin not between", value1, value2, "dayDealAmountMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealAmountIsNull() {
+            addCriterion("SumDealAmount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealAmountIsNotNull() {
+            addCriterion("SumDealAmount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealAmountEqualTo(BigDecimal value) {
+            addCriterion("SumDealAmount =", value, "sumDealAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealAmountNotEqualTo(BigDecimal value) {
+            addCriterion("SumDealAmount <>", value, "sumDealAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealAmountGreaterThan(BigDecimal value) {
+            addCriterion("SumDealAmount >", value, "sumDealAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealAmountGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("SumDealAmount >=", value, "sumDealAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealAmountLessThan(BigDecimal value) {
+            addCriterion("SumDealAmount <", value, "sumDealAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealAmountLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("SumDealAmount <=", value, "sumDealAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealAmountIn(List<BigDecimal> values) {
+            addCriterion("SumDealAmount in", values, "sumDealAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealAmountNotIn(List<BigDecimal> values) {
+            addCriterion("SumDealAmount not in", values, "sumDealAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealAmountBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("SumDealAmount between", value1, value2, "sumDealAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealAmountNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("SumDealAmount not between", value1, value2, "sumDealAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealToDayAmountIsNull() {
+            addCriterion("SumDealToDayAmount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealToDayAmountIsNotNull() {
+            addCriterion("SumDealToDayAmount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealToDayAmountEqualTo(BigDecimal value) {
+            addCriterion("SumDealToDayAmount =", value, "sumDealToDayAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealToDayAmountNotEqualTo(BigDecimal value) {
+            addCriterion("SumDealToDayAmount <>", value, "sumDealToDayAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealToDayAmountGreaterThan(BigDecimal value) {
+            addCriterion("SumDealToDayAmount >", value, "sumDealToDayAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealToDayAmountGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("SumDealToDayAmount >=", value, "sumDealToDayAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealToDayAmountLessThan(BigDecimal value) {
+            addCriterion("SumDealToDayAmount <", value, "sumDealToDayAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealToDayAmountLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("SumDealToDayAmount <=", value, "sumDealToDayAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealToDayAmountIn(List<BigDecimal> values) {
+            addCriterion("SumDealToDayAmount in", values, "sumDealToDayAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealToDayAmountNotIn(List<BigDecimal> values) {
+            addCriterion("SumDealToDayAmount not in", values, "sumDealToDayAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealToDayAmountBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("SumDealToDayAmount between", value1, value2, "sumDealToDayAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andSumDealToDayAmountNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("SumDealToDayAmount not between", value1, value2, "sumDealToDayAmount");
             return (Criteria) this;
         }
 

@@ -46,12 +46,19 @@
 					    <label class="layui-form-label">订单状态</label>
 					    <div class="layui-input-block">
 					      <select name="orderStatus" lay-filter="aihao"><!-- 不能这么写,后期 优化  -->
+					        <option value="" >全部</option>
 					        <option value="1" >处理中</option>
 					        <option value="2" >成功</option> 
 					        <option value="3" >失败</option> 
 					      </select>
 					      </div>
 					</div>
+				    <div class="layui-inline">
+				      <label class="layui-form-label">日期范围</label>
+				      <div class="layui-input-inline">
+				        <input type="text" class="layui-input" id="createTime"  name = "createTime"  placeholder=" - ">
+				      </div>
+				    </div>
 					<div class="layui-inline">
 						<button class="layui-btn != " lay-submit=""
 							lay-filter="LAY-user-back-search">
@@ -73,6 +80,13 @@
 </html>
 <script type="text/javascript" src="${ctx}/static/js/manage/deal/deal.js" ></script>
 <script>
+layui.use('laydate', function(){
+	  var laydate = layui.laydate;
+	  laydate.render({
+		    elem: '#createTime'
+		    ,range: true
+		  });
+})
 $(function(){
 	DealOrderClas.init();
 })

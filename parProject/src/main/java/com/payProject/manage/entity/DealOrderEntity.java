@@ -80,26 +80,38 @@ public class DealOrderEntity  extends BaseEntity<DealOrderEntity>{
      */
     private String dealChannel;
 
+    
+    /**
+     * <p>时间范围</p>
+     */
+    private String Time;
+    
     private String retain1;
-
     private String retain2;
-
     private String retain3;
-
     private String retain4;
-
     private String retain5;
-
     private String retain6;
-
     private String retain7;
-
     private String retain8;
 
+    
+    
+    
     private String dealDescribe;
 
+    
+    
 
-    public String getOrderId() {
+    public String getTime() {
+		return Time;
+	}
+
+	public void setTime(String time) {
+		Time = time;
+	}
+
+	public String getOrderId() {
         return orderId;
     }
 
