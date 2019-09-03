@@ -153,7 +153,8 @@ public class TestRSA {
         Signature signature = Signature.getInstance("MD5withRSA");
         signature.initVerify(key);
         signature.update(srcData.getBytes());
-        return signature.verify(Base64.decodeBase64(sign.getBytes()));
+        boolean verify = signature.verify(Base64.decodeBase64(sign.getBytes()));
+        return verify;
     }
     public static void main(String[] args) {
         try {

@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
  * <li>4,目前没有什么卵用</li>
  * @author K
  * 2019-08-03
- *
  */
 @Component
 public class MyInterceptor implements HandlerInterceptor {

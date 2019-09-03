@@ -80,16 +80,6 @@ public class AccountContorller<E> {
 		m.addAttribute("accountList", JSONUtil.toJsonPrettyStr(acco));
 		return "/manage/account/accountFeeAdd";
 	}
-	private List<AutocompleteResult<E>> changeList(List<E> accountList) {
-		
-		
-		
-		
-		
-		
-		
-		return null;
-	}
 	@RequestMapping("/accountFee")
 	public String accountFee(Model m  ){
 		List<Channel> channelList  = channelServiceImpl.findChannelByAll();
