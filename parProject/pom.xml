@@ -19,12 +19,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
         </dependency>
-        <dependency>
-              <groupId>junit</groupId>
-              <artifactId>junit</artifactId>
-              <version>3.8.1</version>
-              <scope>test</scope>
-        </dependency>
        <!--  servlet依赖. -->
         <dependency>
               <groupId>javax.servlet</groupId>
@@ -113,11 +107,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>
-		<dependency>
-	      <groupId>log4j</groupId>
-	      <artifactId>log4j</artifactId>
-	      <version>1.2.16</version>
-	    </dependency>
+		   <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.2</version>
+        </dependency>
 			    <!-- 引入aop-->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
@@ -141,31 +135,6 @@
     <artifactId>commons-lang3</artifactId>
     <version>3.6</version>
 </dependency>
-	 <!--    <dependency>分页插件
-		   <groupId>com.github.pagehelper</groupId>
-		   <artifactId>pagehelper-spring-boot-starter</artifactId>
-		   <version>1.2.3</version>
-		   <exclusions>
-		      <exclusion>
-		         <artifactId>mybatis-spring-boot-starter</artifactId>
-		         <groupId>org.mybatis.spring.boot</groupId>
-		      </exclusion>
-		   </exclusions>
-		</dependency>
-		mapper
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
-            <version>1.1.0</version>
-        </dependency>
-        pagehelper
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.1.0</version>
-        </dependency> -->
-        <!-- JUnit test dependency -->
-        <!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
 		<dependency>
 		    <groupId>com.google.zxing</groupId>
 		    <artifactId>core</artifactId>
@@ -179,16 +148,16 @@
    	<properties>
         <java.version>1.8</java.version>
     </properties>
-    <build>
+       <build>
         <plugins>
+            
+            <!-- 忽略无web.xml警告 -->
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.1.6.RELEASE</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
             </plugin>
              <plugin>
                 <groupId>org.mybatis.generator</groupId>
@@ -210,5 +179,30 @@
                 </dependencies>
             </plugin>
         </plugins>
+        <!-- 添加為可打jar包 -->
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/**</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/**</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/webapp</directory>
+                <includes>
+                    <include>**/**</include>
+                </includes>
+                <targetPath>META-INF/resources</targetPath>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+        <finalName>ROOT</finalName>
     </build>
 </project>

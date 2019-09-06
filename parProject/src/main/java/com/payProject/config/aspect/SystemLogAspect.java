@@ -22,8 +22,6 @@ import com.payProject.config.annotation.LogMonitor;
 import com.payProject.config.common.Constant;
 import com.payProject.config.entity.Log;
 import com.payProject.config.mapper.LogMapper;
-import com.payProject.config.util.IPUtil;
-import com.payProject.system.annotation.LoginRequired;
 import com.payProject.system.entity.User;
 
 import cn.hutool.core.date.DateUtil;
@@ -66,7 +64,7 @@ private final Logger logger = LoggerFactory.getLogger(this.getClass());
     	        if(joinPoint.getArgs().length > 0){
     	        	log.setParam(JSONUtil.parse(joinPoint.getArgs()[0]).toString());
     	        }
-    	        log.setClientIp(IPUtil.getClientIp(request));
+    	        log.setClientIp(getClientIp(request));
     	        log.setMetHod(joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()");
     	        log.setOperator(ObjectUtil.isNull(user)?"系统未登录刷新":user.getUserId());
     	        log.setRequertUrl(request.getRequestURI());
@@ -78,5 +76,30 @@ private final Logger logger = LoggerFactory.getLogger(this.getClass());
     	}else {
     		joinPoint.proceed();//执行方法
     	}
+    }
+    
+    
+    public static String getClientIp(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("http_client_ip");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        // 如果是多级代理，那么取第一个ip为客户ip
+        if (ip != null && ip.indexOf(",") != -1) {
+            ip = ip.substring(ip.lastIndexOf(",") + 1, ip.length()).trim();
+        }
+        return ip;
     }
 }
