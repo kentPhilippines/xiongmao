@@ -256,6 +256,27 @@ var AccountClas = {
 					}
 				});
 		},
+		layuiOpen : function(url,width,higth,title){
+			var lock  = true;//防止重复弹出,加锁
+				if(lock){
+					layer.open({
+						type: 2,
+						title:title,
+						shadeClose: true,
+						shade: false,
+						maxmin: true, //开启最大化最小化按钮
+						area: [width,higth],
+						content: url,
+						success: function(){
+							lock  = false;
+							  },
+						end : function(){
+							lock = true
+							AccountClas.reload({"":""});
+						}
+					});
+				}
+			},
 		AccountShowInit : function(){
 			layui.use('table', function(){
 				AccountClas.$ObjectTable = layui.table;
@@ -264,17 +285,17 @@ var AccountClas = {
 				    ,url:AccountClas.$table.attr('url')
 				    ,cols: [[
 				    	   {field: 'id', title: 'ID', hide :true, width:150,   fixed: 'left'}
-					      ,{field: 'accountId', title: '商户编号', width:160}
+					      ,{field: 'accountId', title: '商户编号', width:130}
 					      ,{field: 'accountName', title: '商户名称', width:160}
-					      ,{field: 'cashBalance', title: '可提现余额', width: 160}
-					      ,{field: 'freezeBalance', title: '冻结资金', width: 160}
-					      ,{field: 'accountBalance', title: '可提现余额', width: 160}
-					      ,{field: 'dayDealAmountMax', title: '商户日交易额度', width: 160}
-					      ,{field: 'dayDealAmountMin', title: '交易最低限额', width: 160}
-					      ,{field: 'sumDealAmount', title: '累计交易额', width: 160}
-					      ,{field: 'sumDealToDayAmount', title: '当天累计交易额', width: 160}
+					      ,{field: 'cashBalance', title: '可提现余额', width: 130}
+					      ,{field: 'freezeBalance', title: '冻结资金', width: 130}
+					      ,{field: 'accountBalance', title: '总余额', width: 130}
+					      ,{field: 'dayDealAmountMax', title: '商户日交易额度', width: 130}
+					      ,{field: 'dayDealAmountMin', title: '交易最低限额', width: 130}
+					      ,{field: 'sumDealAmount', title: '累计交易额', width: 130}
+					      ,{field: 'sumDealToDayAmount', title: '当天累计交易额', width: 130}
 					      ,{field: 'createTime', title: '创建时间', width: 135, sort: true}
-					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:150}
+					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:200}
 				    ]]
 				    , id: 'mytable'
 				    ,page: true
@@ -292,7 +313,22 @@ var AccountClas = {
 				    	var url = $("[lay-event='edit']").attr("url");
 				    	url = url +   '?accountId='+obj.data.accountId
 				    	window.location.href=url;
-				    }  
+				    }   else if(obj.event === 'addAmount'){//加钱
+				    	var url = $("[lay-event='addAmount']").attr("url");
+				    	url = url +   '?accountId='+obj.data.accountId
+						$width = '630px';
+						$higth = '500px';
+						$title = '给用户加钱';
+						AccountClas.layuiOpen(url,$width,$higth,$title);
+				    } else if(obj.event === 'amountDel'){//减钱
+				    	var url = $("[lay-event='edit']").attr("url");
+				    	url = url +   '?accountId='+obj.data.accountId
+						$width = '630px';
+						$higth = '500px';
+						$title = '冻结';
+						AccountClas.layuiOpen(url,$width,$higth,$title);
+				    }
+				    
 				  });
 				});
 		},

@@ -37,7 +37,7 @@ import cn.hutool.core.util.StrUtil;
 public class LoginContorller {
 	Logger log = LoggerFactory.getLogger(LoginContorller.class);
 	/**
-	 * 主页面跳转，在这之前需要验证权限
+	 *<p> 主页面跳转，在这之前需要验证权限</p>
 	 * @param m
 	 * @return
 	 */
@@ -92,6 +92,7 @@ public class LoginContorller {
 	 }
 	 @GetMapping("logout")
 		public String logout() {
+		 	log.info(SecurityUtils.getSubject().getSession().getAttribute(Constant.User.USER_IN_SESSION())+"--------------->退出登录");
 			SecurityUtils.getSubject().logout();
 			return "login";
 		}

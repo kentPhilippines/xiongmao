@@ -17,11 +17,11 @@ var DealOrderClas = {
 				    	 {field: 'id', title: 'ID', hide :true, width:150,   fixed: 'left'}
 					      ,{field: 'orderId', title: '交易订单编号', width:120}
 					      ,{field: 'associatedId', title: '全局关联订单', width:130}
-					      ,{field: 'orderStatus', title: '状态', width: 100}
+					      ,{field: 'orderStatus', title: '状态', width: 100,templet:'#orderStatus' , style:'background-color: #009688; color: #fff;'}
 					      ,{field: 'dealAmount', title: '订单交易金额', width: 120}
 					      ,{field: 'dealFee', title: '订单手续费', width: 120}
 					      ,{field: 'actualAmount', title: '订单交易实际到账金额', width: 150}
-					      ,{field: 'orderType', title: '订单类型', width: 115}
+					      ,{field: 'orderType', title: '订单类型', width: 115 ,templet:'#orderType'}
 					      ,{field: 'orderAccount', title: '订单关联商户号', width: 135 }
 					      ,{field: 'externalOrderId', title: '外部订单号', width: 135 }
 					      ,{field: 'dealCardId', title: '入款账号', width: 135}

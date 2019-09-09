@@ -56,7 +56,7 @@
 				    <div class="layui-inline">
 				      <label class="layui-form-label">日期范围</label>
 				      <div class="layui-input-inline">
-				        <input type="text" class="layui-input" id="createTime"  name = "createTime"  placeholder=" - ">
+				        <input type="text" class="layui-input" id="createTime"   name = "createTime"  placeholder=" - ">
 				      </div>
 				    </div>
 					<div class="layui-inline">
@@ -72,14 +72,33 @@
 			</div>  
 		</div>
 	</div>
-	<%--	<script type="text/html" id="operation">
- 	 <a class="layui-btn layui-btn-xs" lay-event="edit" url = "${ctx}/manage/dealOrder/bankCardEditShow">编辑</a>
- 	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" url = "${ctx}/manage/bankCard/bankCardDel">删除</a>
-	</script>--%>
+	<script type="text/html" id="operation">
+ 	 <a class="layui-btn layui-btn-xs" lay-event="edit" url = "${ctx}/manage/dealOrder/bankCardEditShow">置为成功</a>
+ 	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" url = "${ctx}/manage/bankCard/bankCardDel">置为失败</a>
+	</script>
 </body>
 </html>
 <script type="text/javascript" src="${ctx}/static/js/manage/deal/deal.js" ></script>
+<script type="text/html" id="orderStatus">
+			{{#  if(d.orderStatus == '1'){ }}
+				<span class="label radius"style="background-color:red;" >处理中</span>
+			{{# }else if(d.orderStatus == '2'){ }}
+				<span class="label label-success radius" style="background-color:#009688;">成功</span>
+			{{# }else{  }}
+				<span class="label label-danger radius">未收到回调</span>
+			{{# } }}
+</script>
+<script type="text/html" id="orderType">
+			{{#  if(d.orderType == '1'){ }}
+				<span class="label radius" >自然交易</span>
+			{{# }else{  }}
+				<span class="label label-danger radius" style="background-color: red">人工操作</span>
+			{{# } }}
+</script>
 <script>
+layui.use('table', function(){
+	  var table = layui.table;
+})
 layui.use('laydate', function(){
 	  var laydate = layui.laydate;
 	  laydate.render({
@@ -91,3 +110,4 @@ $(function(){
 	DealOrderClas.init();
 })
 </script>
+

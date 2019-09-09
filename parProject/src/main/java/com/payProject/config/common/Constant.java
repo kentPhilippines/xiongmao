@@ -26,7 +26,34 @@ public final class Constant {
 		private static final Integer ACCOUNT_FEE_STUSTA3 = 3;//自动切换
 		
 		private static final String ACCOUNTNAME = "请修改商户名";//商户命名首次默认值
-		
+		/**
+		 * <p>流水訂單處理狀態</p>
+		 * <p>自然處理</p>
+		 */
+		public static final Integer RUN_STATUS_1 = 1;//1自然處理
+		/**
+		 * <p>流水訂單處理狀態</p>
+		 * <p>人工處理</p>
+		 */
+		public static final Integer RUN_STATUS_2 = 2;//2人工處理
+		/**
+		 * <p>流水訂單類型</p>
+		 */
+		public static final Integer RUN_TYPE_DEAL = 1;//交易
+		public static final Integer RUN_SYSTEM_ADD_MONEY = 2;//系統加錢
+		public static final Integer RUN_DEAL_FEE = 3;//交易手續費
+		public static final Integer RUN_SYSTEM_DELETE_MONEY = 4;//系統減款
+		public static final Integer RUN_WITHDRAWALS_PAY = 5;//代付
+		public static final Integer RUN_WITHDRAWALS_PAY_FEE = 6;//代付手續費
+		public static final Integer RUN_FREEZE = 7;//凍結
+		public static final Integer RUN_UN_FREEZE = 8;//解凍
+		/**
+		 * <p>订单生成表头</p>
+		 */
+		public static final String ORDERDEAL = "DE";//交易订单
+		public static final String ORDERRUN = "RUN";//流水订单
+		public static final String ORDERWIT = "WIT";//代付订单
+		public static final String ORDERALL = "ALL";//所有订单
 		
 		
 		

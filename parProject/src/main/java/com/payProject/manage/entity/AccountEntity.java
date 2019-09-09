@@ -63,7 +63,33 @@ public class AccountEntity  extends BaseEntity<AccountEntity>{
 		 */
 	    private BigDecimal sumDealToDayAmount;
 
-    public String getAccountId() {
+	    /**
+		 * <p>加款描述</p>
+		 * <p>匹配流水表</p>
+		 */
+	    private String dealDescribe;
+	    /**
+	     * <p>加款金额</p>
+	     */
+	    private String amount;
+	    
+	    public String getAmount() {
+			return amount;
+		}
+
+		public void setAmount(String amount) {
+			this.amount = amount;
+		}
+
+		public String getDealDescribe() {
+			return dealDescribe;
+		}
+
+		public void setDealDescribe(String dealDescribe) {
+			this.dealDescribe = dealDescribe;
+		}
+
+	public String getAccountId() {
         return accountId;
     }
 

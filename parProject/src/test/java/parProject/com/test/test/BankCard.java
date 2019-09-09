@@ -1,12 +1,13 @@
 package parProject.com.test.test;
-import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-
-import com.payProject.manage.util.QRCodeUtil;
 public class BankCard {
 	public static void main(String[] args) throws Exception {
 		String bankAccount = "武涛";
@@ -34,5 +35,7 @@ public class BankCard {
 		 */
 	
 	}
-		
+	
+	
+	
 }

@@ -68,7 +68,7 @@
 				</div>
 			</div>
 			  <div class="layui-card-body">
-				<table id="LAY-user-back-manage" url = "${ctx}/manage/order/dealOrderList" lay-filter="LAY-user-back-manage"></table>
+				<table id="LAY-user-back-manage" url = "${ctx}/manage/order/merchantsList" lay-filter="LAY-user-back-manage"></table>
 			</div>  
 		</div>
 	</div>

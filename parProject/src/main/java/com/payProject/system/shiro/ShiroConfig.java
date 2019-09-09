@@ -51,19 +51,16 @@ public class ShiroConfig {
 	 */
 	 @Value("${spring.shiro.maxLoginSession}")
 	 private int maxOnlineSession; 
-	 
 	/**
 	 * <p>ShiroFilterFactoryBean 处理拦截资源文件问题。</p>
 	 * <li>注意：单独一个ShiroFilterFactoryBean配置是或报错的，以为在</li>
 	 * <li> 初始化ShiroFilterFactoryBean的时候需要注入：SecurityManager</li>
-	 *
 	 * <p>Filter Chain定义说明 </p>
 	 * <li>1、一个URL可以配置多个Filter，使用逗号分隔 </li>
 	 * <li>2、当设置多个过滤器时，全部验证通过，才视为通过</li>
 	 * <li>3、部分过滤器可指定参数，如perms，roles</li>
 	 *
 	 */
-	 
 	@Bean
 	public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		log.info("---shiroFilter---:shiro过滤器发挥作用");
@@ -90,7 +87,8 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/loginOnline", "anon");//
 		filterChainDefinitionMap.put("/index", "authc");//首页拦截
 		filterChainDefinitionMap.put("/system/**", "authc");/* "roles[admin]"角色必须是admin才可以*/
-		filterChainDefinitionMap.put("/**", "authc"); 
+		filterChainDefinitionMap.put("/manage/**", "authc");/* "roles[admin]"角色必须是admin才可以*/
+		filterChainDefinitionMap.put("/**", "authc"); //所有全部拦截
 		// 配置不会被拦截的链接 顺序判断
 		// 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		// 从数据库获取动态的权限
@@ -219,7 +217,7 @@ public class ShiroConfig {
     	//是否踢出后来登录的，默认是false；即后者登录的用户踢出前者登录的用户；踢出顺序。
     	kickoutSessionControlFilter.setKickoutAfter(false);
     	//同一个用户最大的会话数，默认1；比如2的意思是同一个用户允许最多同时两个人登录；
-    	kickoutSessionControlFilter.setMaxSession(maxOnlineSession);
+    	kickoutSessionControlFilter.setMaxSession(5);
     	//被踢出后重定向到的地址；
     	kickoutSessionControlFilter.setKickoutUrl(outLoginUrl);
         return kickoutSessionControlFilter;

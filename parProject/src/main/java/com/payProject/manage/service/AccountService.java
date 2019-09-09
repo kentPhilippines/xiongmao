@@ -2,6 +2,8 @@ package com.payProject.manage.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.payProject.manage.entity.AccountEntity;
 import com.payProject.manage.entity.AccountFee;
 import com.payProject.manage.entity.AccountInfo;
@@ -127,5 +129,12 @@ public interface AccountService {
 	 * @return
 	 */
 	Boolean updataAccount(AccountEntity account);
+
+	/**
+	 * <p>商户加钱</p>
+	 * @param account
+	 * @return
+	 */
+	Boolean addAmount(HttpServletRequest request,AccountEntity account);
 
 }

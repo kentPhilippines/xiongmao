@@ -14,7 +14,7 @@ var MerchantsClas = {
 				    elem: MerchantsClas.$table
 				    ,url:MerchantsClas.$table.attr('url')
 				    ,cols: [[
-				    	 {field: 'id', title: 'ID', hide :true, width:150,   fixed: 'left'}
+				    	  {field: 'id', title: 'ID', hide :true, width:150,   fixed: 'left'}
 					      ,{field: 'orderId', title: '代付订单编号', width:120}
 					      ,{field: 'associatedId', title: '全局关联订单', width:130}
 					      ,{field: 'orderStatus', title: '状态', width: 100}

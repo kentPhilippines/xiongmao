@@ -38,8 +38,8 @@ public class DictionaryContorller {
 	@ResponseBody
 	@PostMapping("/dictionaryInsert")
 	@Transactional
-	public JsonResult bankCardInsert(Dictionary dictionary){
-		log.info("增加银行卡请求参数"+dictionary.toString());
+	public JsonResult dictionaryInsert(Dictionary dictionary){
+		log.info("增加数据字典请求参数："+dictionary.toString());
 			Boolean flag = dictionaryService.addDictionary(dictionary);
 			if(flag)
 				return JsonResult.buildSuccessMessage("增加成功");

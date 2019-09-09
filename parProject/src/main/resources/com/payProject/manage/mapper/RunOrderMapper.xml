@@ -92,7 +92,7 @@
   <sql id="Base_Column_List" >
     id, createTime, orderRunId, orderId, runStatus, runType, orderAccount, runOrderAmount, 
     orderGenerationIp, cardRunD, cardNameRunD, cardRunW, cardNameRunW, submitTime, submitSystem, 
-    status, retain1, retain2, retain3, retain4, retain5, retain6, retain7, retain8, retain9
+    status, retain1, retain2, retain3, retain4, retain5, retain6, retain7, retain8, retain9,dealDescribe
   </sql>
   <sql id="Blob_Column_List" >
     dealDescribe

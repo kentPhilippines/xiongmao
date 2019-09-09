@@ -1,6 +1,9 @@
 package com.payProject.manage.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,7 @@ import com.payProject.manage.mapper.AccountFeeMapper;
 import com.payProject.manage.mapper.AccountInfoMapper;
 import com.payProject.manage.mapper.AccountMapper;
 import com.payProject.manage.service.AccountService;
+import com.payProject.manage.service.OrderRunService;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
@@ -28,6 +32,8 @@ public class AccountServiceImpl implements AccountService {
 	AccountInfoMapper accountInfoDao;
 	@Autowired
 	AccountFeeMapper accountFeeDao;
+	@Autowired
+	OrderRunService OrderRunServiceImpl;
 	@Override
 	public List<AccountEntity> findPageAccountByAccount(AccountEntity account) {
 		AccountEntityExample example = new AccountEntityExample();
@@ -185,5 +191,37 @@ public class AccountServiceImpl implements AccountService {
 		criteria.andAccountIdEqualTo(account.getAccountId());
 		int updateByExampleSelective = accountDao.updateByExampleSelective(account, example);
 		return updateByExampleSelective > 0 && updateByExampleSelective < 2;
+	}
+	/**
+	 * <p>加钱逻辑</p>
+	 * ###########################
+		1,生成账户加钱流水记录
+		2,流水成功则修改账户金额
+	 */
+	@Override
+	public Boolean addAmount(HttpServletRequest request,AccountEntity account) {
+		AccountEntity findAccountByAccountId = findAccountByAccountId(account.getAccountId());
+		//流水生成
+		BigDecimal amountB = new BigDecimal( account.getAmount());
+		findAccountByAccountId.setDealDescribe(account.getDealDescribe());
+		boolean addAmount = OrderRunServiceImpl.addAmount(request, findAccountByAccountId,amountB);
+		if(addAmount) {//生成成功  修改账户
+			BigDecimal accountBalance = findAccountByAccountId.getAccountBalance();
+			BigDecimal cashBalance = findAccountByAccountId.getCashBalance();
+			accountBalance = accountBalance.add(amountB);
+			cashBalance = cashBalance.add(amountB);
+			AccountEntity entity = new AccountEntity();
+			entity.setCashBalance(cashBalance);
+			entity.setAccountBalance(accountBalance);
+			entity.setCreateTime(null);
+			AccountEntityExample example  = new AccountEntityExample();
+			AccountEntityExample.Criteria criteria = example.createCriteria();
+			criteria.andAccountIdEqualTo(account.getAccountId());
+			int updateByPrimaryKey = accountDao.updateByExampleSelective(entity,example);
+			return updateByPrimaryKey > 0 && updateByPrimaryKey < 2;
+		}else {
+			return false;
+		}
+		
 	}
 }

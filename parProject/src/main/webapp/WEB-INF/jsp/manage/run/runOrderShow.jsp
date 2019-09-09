@@ -90,7 +90,36 @@
 </body>
 </html>
 <script type="text/javascript" src="${ctx}/static/js/manage/run/runOrder.js" ></script>
+<script type="text/html" id="runType">
+			{{#  if(d.runType == '1'){ }}
+				<span class="label radius" >交易</span>
+			{{# }else if(d.runType == '2'){ }}
+				<span class="label label-success radius" style="background-color:red;">系统加款</span>
+			{{# }else if(d.runType == '3'){ }}
+				<span class="label label-success radius"style="background-color:red;" >交易手续费</span>
+			{{# }else if(d.runType == '4'){ }}
+				<span class="label label-success radius" style="background-color:red;">系统扣款</span>
+			{{# }else if(d.runType == '5'){ }}
+				<span class="label label-success radius" >代付</span>
+			{{# }else if(d.runType == '6'){ }}
+				<span class="label label-success radius"style="background-color:red;">代付手续费</span>
+			{{# }else if(d.runType == '7'){ }}
+				<span class="label label-success radius" >冻结</span>
+			{{# }else{  }}
+				<span class="label label-danger radius">解冻</span>
+			{{# } }}
+</script>
+<script type="text/html" id="runStatus">
+			{{#  if(d.runStatus == '1'){ }}
+				<span class="label radius" >自然处理</span>
+			{{# }else{  }}
+				<span class="label label-danger radius" style="background-color: #61f54f;color: #fff">人工操作</span>
+			{{# } }}
+</script>
 <script>
+layui.use('table', function(){
+	  var table = layui.table;
+})
 layui.use('laydate', function(){
 	  var laydate = layui.laydate;
 	  laydate.render({

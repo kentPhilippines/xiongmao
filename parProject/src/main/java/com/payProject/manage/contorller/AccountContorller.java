@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -257,9 +260,6 @@ public class AccountContorller<E> {
 		m.addAttribute("accountFee", accountFee);
 		return "/manage/account/accountFeeEditShow";
 	}
-	
-	
-	
 	@ResponseBody
 	@RequestMapping("/accountFeeEdit")
 	@Transactional
@@ -283,6 +283,32 @@ public class AccountContorller<E> {
 	if(flag)	
 		return JsonResult.buildSuccessMessage("商户账户修改成功");
 	throw new OtherErrors("修改失败");
+	}
+	
+	@RequestMapping("/addAmount")
+	public String addAmount(AccountEntity  account,Model m) throws Exception{
+		if(StrUtil.isBlank(account.getAccountId())  )
+			throw new ParamException("无法确定唯一账户，数据传输有误");
+		AccountEntity account1  = accountServiceImpl.findAccountByAccountId(account.getAccountId());
+		m.addAttribute("account", account1);
+		return "/manage/account/accountAmountAdd";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/accountAmountAdd")
+	@Transactional
+	public JsonResult accountAmountAdd(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String accountId = request.getParameter("accountId");
+		String dealDescribe = request.getParameter("dealDescribe");
+		String amount = request.getParameter("amount");
+		AccountEntity  account = new AccountEntity();
+		account.setAmount(amount);
+		account.setAccountId(accountId);
+		account.setDealDescribe(dealDescribe);
+		Boolean flag = accountServiceImpl.addAmount(request,account);
+	if(flag)	
+		return JsonResult.buildSuccessMessage("商户加钱成功");
+	throw new OtherErrors("加钱失败");
 	}
 	
 	
