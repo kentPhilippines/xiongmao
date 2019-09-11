@@ -13,4 +13,11 @@ public interface DealOrderService {
 	 */
 	List<DealOrderEntity> findPageDealOrderByDealOrder(DealOrderEntity dealOrder);
 
+	/**
+	 * <p>根据订单号查询订单具体信息</p>
+	 * @param orderId
+	 * @return
+	 */
+	DealOrderEntity findDealOrderByOrderId(String orderId);
+
 }

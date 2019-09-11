@@ -57,7 +57,23 @@
 </body>
 </html>
 <script type="text/javascript" src="${ctx}/static/js/manage/bankCard/bankCard.js" ></script>
+<script type="text/html" id="bankType">
+			{{#  if(d.bankType == '0'){ }}
+				<span class="label radius" style="background-color:#f9c248;">收款卡</span> 
+			{{# }else if(d.bankType == '1'){ }}
+				<span class="label label-success radius"  >中转卡</span>
+			{{# }else if(d.bankType == '2'){ }}
+				<span class="label label-success radius" style="background-color:red;color：#fff">出款卡</span>
+			{{# }else if(d.bankType == '3'){ }}
+				<span class="label label-success radius"  >冻结卡</span>
+			{{# }else if(d.bankType == '4'){ }}
+				<span class="label label-success radius" >测试卡</span>
+			{{# } }}
+</script>
 <script>
+layui.use('table', function(){
+	  var table = layui.table;
+})
 $(function(){
 	BankCardClas.init();
 })

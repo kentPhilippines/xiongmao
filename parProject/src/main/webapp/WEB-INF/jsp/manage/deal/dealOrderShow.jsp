@@ -73,8 +73,9 @@
 		</div>
 	</div>
 	<script type="text/html" id="operation">
- 	 <a class="layui-btn layui-btn-xs" lay-event="edit" url = "${ctx}/manage/dealOrder/bankCardEditShow">置为成功</a>
- 	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" url = "${ctx}/manage/bankCard/bankCardDel">置为失败</a>
+ 	 <a class="layui-btn layui-btn-xs" lay-event="notify" url = "${ctx}/manage/order/notifyOrderSu">置为成功</a>
+ 	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="notify" url = "${ctx}/manage/order/notifyOrderEr">置为失败</a>
+ 	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="notify" url = "${ctx}/manage/order/notifyOrderNo">补发通知</a>
 	</script>
 </body>
 </html>
@@ -84,8 +85,10 @@
 				<span class="label radius"style="background-color:red;" >处理中</span>
 			{{# }else if(d.orderStatus == '2'){ }}
 				<span class="label label-success radius" style="background-color:#009688;">成功</span>
-			{{# }else{  }}
-				<span class="label label-danger radius">未收到回调</span>
+			{{# }else if(d.orderStatus == '3'){ }}
+				<span class="label label-success radius" style="background-color:#243332;">未收到回调</span>
+			{{# }else if(d.orderStatus == '4'){ }}
+				<span class="label label-success radius" style="background-color:#009688;">失败</span>
 			{{# } }}
 </script>
 <script type="text/html" id="orderType">

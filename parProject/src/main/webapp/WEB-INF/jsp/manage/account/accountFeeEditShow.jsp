@@ -94,6 +94,23 @@
 		      </select>
 		    </div>
  		</div>
+ 		<div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">冻结百分比</label>
+	      <div class="layui-input-inline">
+	        <input type="text"   name="accountSette"  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" value = "${entity.accountSette}">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">冻结模式</label>
+	      <div class="layui-input-inline">
+		      <select name="settlementType" lay-verify="required">
+		        <option value="D1" <c:if test="${entity.settlementType == D1}">select:"select"</c:if>>D1</option>
+		        <option value="T1"<c:if test="${entity.settlementType == T1}">select:"select"</c:if>>T1</option>
+		      </select>
+	      </div>
+	    </div>
+	  </div>
 		<div class="layui-layer-btn layui-layer-btn-">
 			<a class="layui-layer-btn0" url = "${ctx}/manage/account/accountFeeEdit">确定</a>
 			<a class="layui-layer-btn1">取消</a>

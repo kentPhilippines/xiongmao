@@ -59,7 +59,7 @@ public class BankCardEntity extends BaseEntity<BankCardEntity>{
      */
     private String bankNote;
    
-    private String retain1;
+    private String retain1;//银行卡允许交易额度
     private String retain2;
     private String retain3;
     private String retain4;

@@ -72,13 +72,42 @@ public class AccountEntity  extends BaseEntity<AccountEntity>{
 	     * <p>加款金额</p>
 	     */
 	    private String amount;
+	    /**
+	     * <p>是否开通交易服务</p>
+	     * <p>1开通</p>
+	     * <p>0暂停</p>
+	     */
+	    private Integer isDeal;
+	    /**
+	     * <p>是否开通代付服务</p>
+	     * <p>1开通</p>
+	     * <p>0暂停</p>
+	     */
+	    private Integer isDpay;
 	    
-	    public String getAmount() {
+	    
+	    public Integer getIsDpay() {
+			return isDpay;
+		}
+
+		public void setIsDpay(Integer isDpay) {
+			this.isDpay = isDpay;
+		}
+
+		public String getAmount() {
 			return amount;
 		}
 
 		public void setAmount(String amount) {
 			this.amount = amount;
+		}
+
+		public Integer getIsDeal() {
+			return isDeal;
+		}
+
+		public void setIsDeal(Integer isDeal) {
+			this.isDeal = isDeal;
 		}
 
 		public String getDealDescribe() {

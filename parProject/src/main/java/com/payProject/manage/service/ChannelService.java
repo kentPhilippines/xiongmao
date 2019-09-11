@@ -41,7 +41,7 @@ public interface ChannelService {
 	 */
 	Boolean addChannel(Channel channel);
 	/**
-	 * <p>根据渠道号拆线呢渠道信息</p>
+	 * <p>根据渠道号查询渠道信息</p>
 	 * @param channelNo
 	 * @return
 	 */
@@ -104,5 +104,11 @@ public interface ChannelService {
 	 * @return
 	 */
 	boolean deleteChannelByI(Integer id);
+	/**
+	 * <p>根据渠道id修改渠道</p>
+	 * @param first
+	 * @return
+	 */
+	boolean updataChannel(Channel first);
 
 }

@@ -55,6 +55,34 @@ public final class Constant {
 		public static final String ORDERWIT = "WIT";//代付订单
 		public static final String ORDERALL = "ALL";//所有订单
 		
+		/**
+		 * <p>费率状态</p>
+		 */
+		public static final Integer FEE_STATUS1 = 1;//1启用2停用3自动切换
+		public static final Integer FEE_STATUS2 = 2;//1启用2停用3自动切换
+		public static final Integer FEE_STATUS3 = 3;//1启用2停用3自动切换
+		
+		
+		
+		
+		
+		/**
+		 * <p>订单状态</p>
+		 * 1*处理中2成功3未收到回调4失败
+		 */
+		public static final Integer DEAL_STATUS_AF = 1;//处理中
+		/**
+		 * <p>订单成功</p>
+		 */
+		public static final Integer DEAL_STATUS_SU = 2;//成功
+		/**
+		 * <p>订单未收到回调</p>
+		 */
+		public static final Integer DEAL_STATUS_NOTF = 3;//未收到回调
+		/**
+		 * <p>订单失败</p>
+		 */
+		public static final Integer DEAL_STATUS_ER = 4;//失败
 		
 		
 		

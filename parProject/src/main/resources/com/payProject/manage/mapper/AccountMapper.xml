@@ -17,6 +17,8 @@
     <result column="submitTime" property="submitTime" jdbcType="TIMESTAMP" />
     <result column="submitSystem" property="submitSystem" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="isDeal" property="isDeal" jdbcType="INTEGER" />
+    <result column="isDpay" property="isDpay" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -79,7 +81,7 @@
   <sql id="Base_Column_List" >
     id, accountId, accountName, accountType, cashBalance, freezeBalance, accountBalance, 
     dayDealAmountMax, dayDealAmountMin, SumDealAmount, SumDealToDayAmount, createTime, 
-    submitTime, submitSystem, status
+    submitTime, submitSystem, status,isDeal,isDpay
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payProject.manage.entity.AccountEntityExample" >
     select
@@ -117,12 +119,12 @@
       cashBalance, freezeBalance, accountBalance, 
       dayDealAmountMax, dayDealAmountMin, SumDealAmount, 
       SumDealToDayAmount, createTime, submitTime, 
-      submitSystem, status)
+      submitSystem, status,isDeal,isDpay)
     values (#{accountId,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, #{accountType,jdbcType=INTEGER}, 
       #{cashBalance,jdbcType=DECIMAL}, #{freezeBalance,jdbcType=DECIMAL}, #{accountBalance,jdbcType=DECIMAL}, 
       #{dayDealAmountMax,jdbcType=DECIMAL}, #{dayDealAmountMin,jdbcType=DECIMAL}, #{sumDealAmount,jdbcType=DECIMAL}, 
       #{sumDealToDayAmount,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{submitTime,jdbcType=TIMESTAMP}, 
-      #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
+      #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},#{isDeal,jdbcType=INTEGER},#{isDpay,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.payProject.manage.entity.AccountEntity" useGeneratedKeys="true" keyProperty="id" >
     insert into manage_account
@@ -169,6 +171,12 @@
       <if test="status != null" >
         status,
       </if>
+      <if test="isDeal != null" >
+        isDeal,
+      </if>
+      <if test="isDpay != null" >
+        isDpay,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="accountId != null" >
@@ -212,6 +220,12 @@
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isDeal != null" >
+        #{isDeal,jdbcType=INTEGER},
+      </if>
+      <if test="isDpay != null" >
+        #{isDpay,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -269,6 +283,12 @@
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
       </if>
+      <if test="record.isDeal != null" >
+        isDeal = #{record.isDeal,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDpay != null" >
+        isDpay = #{record.isDpay,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -290,7 +310,9 @@
       createTime = #{record.createTime,jdbcType=TIMESTAMP},
       submitTime = #{record.submitTime,jdbcType=TIMESTAMP},
       submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER}
+      status = #{record.status,jdbcType=INTEGER},
+      isDeal = #{record.isDeal,jdbcType=INTEGER},
+      isDpay = #{record.isDpay,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -340,6 +362,12 @@
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
       </if>
+      <if test="isDeal != null" >
+        isDeal = #{isDeal,jdbcType=INTEGER},
+      </if>
+      <if test="isDpay != null" >
+        isDpay = #{isDpay,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -358,7 +386,9 @@
       createTime = #{createTime,jdbcType=TIMESTAMP},
       submitTime = #{submitTime,jdbcType=TIMESTAMP},
       submitSystem = #{submitSystem,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER}
+      status = #{status,jdbcType=INTEGER},
+      isDeal = #{isDeal,jdbcType=INTEGER},
+      isDpay = #{isDpay,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

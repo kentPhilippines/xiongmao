@@ -66,7 +66,6 @@ var AccountFeeAddCls = {
 				 $("[name='channelProduct']").val("");
 				 return;
 			};
-			debugger;
 			CommonUtil.ObjextAjax($(this).attr("url"),
 					AccountFeeAddCls.$AccountFeeForm,
 					AccountFeeAddCls.$addAccountFeeAjaxSucFn, true,
@@ -74,7 +73,6 @@ var AccountFeeAddCls = {
 					AccountFeeAddCls.$requestType)
 		},
 		checkParam : function(){
-			debugger;
 			$pass1 = $("[name='accountId']").val();
 			$pass2 = $("[name='accountChannel']").val();
 			$pass3 = $("[name='channelProduct']").val();
@@ -151,11 +149,13 @@ var AccountFeeClas = {
 						,{field: 'accountId', title: '商户编号', width:160}
 						,{field: 'accountChannel', title: '账户渠道', width:160}
 						,{field: 'channelProduct', title: '产品类型', width: 160}
-						,{field: 'accountFee', title: '费率', width: 160}
-						,{field: 'accountCost', title: '费率成本', width: 160}
-						,{field: 'withdrawal', title: '取款手续费', width: 160}
+						,{field: 'accountFee', title: '费率', width: 130}
+						,{field: 'accountCost', title: '费率成本', width: 130}
+						,{field: 'withdrawal', title: '取款手续费', width: 130}
+						,{field: 'accountSette', title: '冻结百分比', width: 130}
+						,{field: 'settlementType', title: '冻结类型', width: 130}
 						,{field: 'withdrawalCost', title: '取款手续费成本', width: 160}
-						,{field: 'feeStautus', title: '费率状态', width: 160}
+						,{field: 'feeStautus', title: '费率状态', width: 130,templet:'#feeStautus'}
 						,{field: 'createTime', title: '创建时间', width: 135, sort: true}
 						,{fixed: 'right', title:'操作', toolbar: '#operation', width:150}
 						]]
@@ -295,7 +295,7 @@ var AccountClas = {
 					      ,{field: 'sumDealAmount', title: '累计交易额', width: 130}
 					      ,{field: 'sumDealToDayAmount', title: '当天累计交易额', width: 130}
 					      ,{field: 'createTime', title: '创建时间', width: 135, sort: true}
-					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:200}
+					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:230}
 				    ]]
 				    , id: 'mytable'
 				    ,page: true
@@ -321,13 +321,20 @@ var AccountClas = {
 						$title = '给用户加钱';
 						AccountClas.layuiOpen(url,$width,$higth,$title);
 				    } else if(obj.event === 'amountDel'){//减钱
-				    	var url = $("[lay-event='edit']").attr("url");
+				    	var url = $("[lay-event='amountDel']").attr("url");
 				    	url = url +   '?accountId='+obj.data.accountId
 						$width = '630px';
 						$higth = '500px';
 						$title = '冻结';
 						AccountClas.layuiOpen(url,$width,$higth,$title);
-				    }
+				    } else if(obj.event === 'amountFre'){//冻结
+						var url = $("[lay-event='amountFre']").attr("url");
+						url = url +   '?accountId='+obj.data.accountId
+						$width = '630px';
+						$higth = '500px';
+						$title = '冻结';
+						AccountClas.layuiOpen(url,$width,$higth,$title);
+				}
 				    
 				  });
 				});

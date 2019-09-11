@@ -980,6 +980,10 @@ public class AccountEntityExample {
             addCriterion("status is null");
             return (Criteria) this;
         }
+        public Criteria andIsDealIsNull() {
+        	addCriterion("isDeal is null");
+        	return (Criteria) this;
+        }
 
         public Criteria andStatusIsNotNull() {
             addCriterion("status is not null");
@@ -989,6 +993,14 @@ public class AccountEntityExample {
         public Criteria andStatusEqualTo(Integer value) {
             addCriterion("status =", value, "status");
             return (Criteria) this;
+        }
+        public Criteria andIsDealEqualTo(Integer value) {
+        	addCriterion("isDeal =", value, "isDeal");
+        	return (Criteria) this;
+        }
+        public Criteria andIsDpayEqualTo(Integer value) {
+        	addCriterion("isDpay =", value, "isDpay");
+        	return (Criteria) this;
         }
 
         public Criteria andStatusNotEqualTo(Integer value) {

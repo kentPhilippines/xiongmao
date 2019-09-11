@@ -84,14 +84,14 @@ public class DictionaryContorller {
 		return JsonResult.buildFailResult();
 	}
 	
-	@RequestMapping("/bankCardEditShow")
-	public String bankCardEditShow(Dictionary dictionary ,Model m){
-	if(  null == dictionary.getId() ) {
-		throw new ParamException("请求参数无效");
-	}
-	Dictionary dictionary1 = dictionaryService.findDictionaryById(dictionary.getId());
-	m.addAttribute("dictionary", dictionary1);
-		return "/manage/bankCard/bankCardEdit";
+	@RequestMapping("/dictionaryEditShow")
+	public String dictionaryEditShow(Dictionary dictionary ,Model m){
+		if(  null == dictionary.getId() ) {
+			throw new ParamException("请求参数无效");
+		}
+		Dictionary dictionary1 = dictionaryService.findDictionaryById(dictionary.getId());
+		m.addAttribute("dictionary", dictionary1);
+			return "/manage/bankCard/bankCardEdit";
 	}
 	@ResponseBody
 	@RequestMapping("/bankCardEdit")

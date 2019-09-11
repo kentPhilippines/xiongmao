@@ -7,6 +7,7 @@
     <result column="channelAccount" property="channelAccount" jdbcType="VARCHAR" />
     <result column="channelName" property="channelName" jdbcType="VARCHAR" />
     <result column="channelStautus" property="channelStautus" jdbcType="INTEGER" />
+    <result column="channelType" property="channelType" jdbcType="INTEGER" />
     <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
     <result column="submitTime" property="submitTime" jdbcType="TIMESTAMP" />
     <result column="submitSystem" property="submitSystem" jdbcType="VARCHAR" />
@@ -72,7 +73,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, channelNo, channelAccount, channelName, channelStautus, createTime, submitTime, 
-    submitSystem, status
+    submitSystem, status,channelType
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payProject.manage.entity.ChannelExample" >
     select
@@ -108,10 +109,10 @@
   <insert id="insert" parameterType="com.payProject.manage.entity.Channel" useGeneratedKeys="true" keyProperty="id" >
     insert into manage_channel (channelNo, channelAccount, channelName, 
       channelStautus, createTime, submitTime, 
-      submitSystem, status)
+      submitSystem, status,channelType)
     values (#{channelNo,jdbcType=VARCHAR}, #{channelAccount,jdbcType=VARCHAR}, #{channelName,jdbcType=VARCHAR}, 
       #{channelStautus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{submitTime,jdbcType=TIMESTAMP}, 
-      #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
+      #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},#{channelType,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.payProject.manage.entity.Channel" useGeneratedKeys="true" keyProperty="id" >
     insert into manage_channel
@@ -127,6 +128,9 @@
       </if>
       <if test="channelStautus != null" >
         channelStautus,
+      </if>
+      <if test="channelType != null" >
+        channelType,
       </if>
       <if test="createTime != null" >
         createTime,
@@ -153,6 +157,9 @@
       </if>
       <if test="channelStautus != null" >
         #{channelStautus,jdbcType=INTEGER},
+      </if>
+      <if test="channelType != null" >
+        #{channelType,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -192,6 +199,9 @@
       <if test="record.channelStautus != null" >
         channelStautus = #{record.channelStautus,jdbcType=INTEGER},
       </if>
+      <if test="record.channelType != null" >
+        channelType = #{record.channelType,jdbcType=INTEGER},
+      </if>
       <if test="record.createTime != null" >
         createTime = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -216,6 +226,7 @@
       channelAccount = #{record.channelAccount,jdbcType=VARCHAR},
       channelName = #{record.channelName,jdbcType=VARCHAR},
       channelStautus = #{record.channelStautus,jdbcType=INTEGER},
+      channelType = #{record.channelType,jdbcType=INTEGER},
       createTime = #{record.createTime,jdbcType=TIMESTAMP},
       submitTime = #{record.submitTime,jdbcType=TIMESTAMP},
       submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
@@ -239,6 +250,9 @@
       <if test="channelStautus != null" >
         channelStautus = #{channelStautus,jdbcType=INTEGER},
       </if>
+      <if test="channelType != null" >
+        channelType = #{channelType,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null" >
         createTime = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -260,6 +274,7 @@
       channelAccount = #{channelAccount,jdbcType=VARCHAR},
       channelName = #{channelName,jdbcType=VARCHAR},
       channelStautus = #{channelStautus,jdbcType=INTEGER},
+      channelType = #{channelType,jdbcType=INTEGER},
       createTime = #{createTime,jdbcType=TIMESTAMP},
       submitTime = #{submitTime,jdbcType=TIMESTAMP},
       submitSystem = #{submitSystem,jdbcType=VARCHAR},

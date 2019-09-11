@@ -17,8 +17,6 @@ var BankCardEditCls = {
 					treasurer : $("[name='treasurer']").val(""),
 					liabilities : $("[name='liabilities']").val(""),
 					bankCard : $("[name='bankCard']").val(""),
-					
-					 
 			}
 		},
 		bindEvent : function(){
@@ -168,7 +166,7 @@ var BankCardClas = {
 				    ,cols: [[
 				    	 {field: 'id', title: 'ID', hide :true, width:150,   fixed: 'left'}
 					      ,{field: 'bankId', title: '银行本地编号', width:100}
-					      ,{field: 'bankType', title: '银行类别', width:100}
+					      ,{field: 'bankType', title: '银行类别', width:100,templet:'#bankType' }
 					      ,{field: 'bankCard', title: '银行卡号', width: 160}
 					      ,{field: 'bankName', title: '银行名称', width: 160}
 					      ,{field: 'cardholder', title: '持卡人', width: 115}
@@ -176,6 +174,7 @@ var BankCardClas = {
 					      ,{field: 'treasurer', title: '财务主管', width: 115}
 					      ,{field: 'liabilities', title: '银行卡负责人', width: 115}
 					      ,{field: 'bankAmount', title: '卡上余额', width: 135, sort: true}
+					      ,{field: 'retain1', title: '允许交易额度', width: 135, sort: true}
 					      ,{field: 'createTime', title: '创建时间', width: 135, sort: true}
 					      ,{field: 'bankNote', title: '银行卡备注', width: 135}
 					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:150}

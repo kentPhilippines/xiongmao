@@ -68,6 +68,12 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
+			<label class="layui-form-label">允许交易额度</label>
+			<div class="layui-input-inline">
+				<input type="text" name="retain1" lay-verify="required" placeholder="请输入额度" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
 			<label class="layui-form-label">备注</label>
 			<div class="layui-input-inline">
 				<input type="text" name="bankNote" lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input">

@@ -177,6 +177,14 @@ public class ChannelServiceImpl implements ChannelService {
 		int deleteByPrimaryKey = ChannelFeeDao.deleteByPrimaryKey(id);
 		return deleteByPrimaryKey > 0 && deleteByPrimaryKey < 2;
 	}
+	@Override
+	public boolean updataChannel(Channel first) {
+		ChannelExample example  = new ChannelExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andChannelNoEqualTo(first.getChannelNo());
+		int updateByExampleSelective = ChannelDao.updateByExampleSelective(first, example);
+		return updateByExampleSelective > 0 && updateByExampleSelective < 2;
+	}
 
 
 }

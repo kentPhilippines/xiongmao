@@ -27,4 +27,26 @@ public interface OrderRunService {
 	 */
 	boolean addAmount(HttpServletRequest request,AccountEntity accountId,BigDecimal amount);
 
+
+
+	/**
+	 * <p>商户账户冻结资金</p>
+	 * @param request
+	 * @param findAccountByAccountId
+	 * @param amountB
+	 * @return
+	 */
+	boolean delAmount(HttpServletRequest request, AccountEntity findAccountByAccountId, BigDecimal amountB);
+
+
+
+	/**
+	 * <p>商户资金冻结</p>
+	 * @param request
+	 * @param findAccountByAccountId
+	 * @param amountB
+	 * @return
+	 */
+	boolean freAmount(HttpServletRequest request, AccountEntity findAccountByAccountId, BigDecimal amountB);
+
 }

@@ -13,6 +13,7 @@ import com.payProject.manage.entity.DealOrderEntityExample.Criteria;
 import com.payProject.manage.mapper.DealOrderMapper;
 import com.payProject.manage.service.DealOrderService;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 @Service
@@ -40,6 +41,17 @@ public class DealOrderServiceImpl implements DealOrderService {
 			} 
 		List<DealOrderEntity> selectByExample = dealOrderDao.selectByExample(example);
 		return selectByExample;
+	}
+	@Override
+	public DealOrderEntity findDealOrderByOrderId(String orderId) {
+		DealOrderEntityExample example = new DealOrderEntityExample();
+		Criteria criteria = example.createCriteria();
+		if(StrUtil.isNotBlank(orderId))
+			criteria.andOrderIdEqualTo(orderId);
+		List<DealOrderEntity> selectByExample = dealOrderDao.selectByExample(example);
+		if(CollUtil.isNotEmpty(selectByExample))
+			return CollUtil.getFirst(selectByExample);
+		return null;
 	}
 
 }

@@ -47,6 +47,7 @@
 	<script type="text/html" id="operation">
  	 <a class="layui-btn layui-btn-xs" lay-event="addAmount" url = "${ctx}/manage/account/addAmount">加款</a>
  	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="amountDel" url = "${ctx}/manage/account/amountDel">减款</a>
+ 	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="amountFre" url = "${ctx}/manage/account/amountFre">冻结</a>
  	 <a class="layui-btn layui-btn-xs" lay-event="edit" url = "${ctx}/manage/account/accountEditShow">编辑</a>
  	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" url = "${ctx}/manage/account/accountDel">删除</a>
 	</script>

@@ -57,7 +57,17 @@
 </body>
 </html>
 <script type="text/javascript" src="${ctx}/static/js/manage/account/account.js" ></script>
+<script type="text/html" id="feeStautus">
+			{{#  if(d.feeStautus == '1'){ }}
+				<span class="label radius" >可使用</span>
+			{{# }else{  }}
+				<span class="label label-danger radius" style="background-color: red">不可使用</span>
+			{{# } }}
+</script>
 <script>
+layui.use('table', function(){
+	  var table = layui.table;
+})
 $(function(){
 	AccountFeeClas.init();
 })

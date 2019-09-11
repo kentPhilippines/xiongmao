@@ -418,7 +418,8 @@ var ChannelClas = {
 					      ,{field: 'channelNo', title: '渠道本地编号', width:160}
 					      ,{field: 'channelAccount', title: '渠道实际代号', width:160}
 					      ,{field: 'channelName', title: '渠道名', width: 160}
-					      ,{field: 'channelStautus', title: '渠道状态', width: 160}
+					      ,{field: 'channelStautus', title: '渠道状态', width: 160,templet:'#channelStautus'}
+					      ,{field: 'channelType', title: '渠道类型', width: 160,templet:'#channelType' }
 					      ,{field: 'createTime', title: '创建时间', width: 135, sort: true}
 					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:150}
 				    ]]

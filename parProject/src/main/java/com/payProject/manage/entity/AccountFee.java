@@ -39,7 +39,28 @@ public class AccountFee extends BaseEntity<AccountFee>{
 	 * <p>费率状态</p>
 	 */
     private Integer feeStautus;
-    public String getAccountId() {
+    /**	
+	 * <p>冻结百分比</p>
+	 */
+    private String accountSette;
+    /**	
+	 * <p>冻结模式T1/D1</p>
+	 */
+    private String settlementType;
+    
+    public String getAccountSette() {
+		return accountSette;
+	}
+	public void setAccountSette(String accountSette) {
+		this.accountSette = accountSette;
+	}
+	public String getSettlementType() {
+		return settlementType;
+	}
+	public void setSettlementType(String settlementType) {
+		this.settlementType = settlementType;
+	}
+	public String getAccountId() {
         return accountId;
     }
     public void setAccountId(String accountId) {

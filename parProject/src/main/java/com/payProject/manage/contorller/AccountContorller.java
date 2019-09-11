@@ -24,6 +24,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.payProject.config.common.PageResult;
 import com.payProject.config.common.AutocompleteResult;
+import com.payProject.config.common.Constant;
 import com.payProject.config.common.Constant.Common;
 import com.payProject.config.exception.OtherErrors;
 import com.payProject.config.exception.ParamException;
@@ -178,7 +179,7 @@ public class AccountContorller<E> {
     		throw new ParamException("获取商户accountId失败");
     	AccountEntity account  = accountServiceImpl.findAccountByAccountId(accountId);
     	AccountInfo entity  =  accountServiceImpl.findAccountInfoByNo(accountId);
-    	m.addAttribute("entity", account);
+    	m.addAttribute("account", account);
     	m.addAttribute("bean", entity);
 		return "/manage/account/accountlUpdata";
     }
@@ -229,13 +230,16 @@ public class AccountContorller<E> {
 	public JsonResult addaccountFee(AccountFee account) throws Exception{
 		if(StrUtil.isBlank(account.getAccountId()))
 			throw new ParamException("增加费率异常");
+		AccountFee entity1 = accountServiceImpl.findAccountFeeBy(account.getAccountId(),Common.ACCOUNT_FEE_STUSTA1());//理论上可以查询到一条费率状态
+		if(ObjectUtil.isNotNull(entity1))
+			throw new OtherErrors("当前商户存在一条费率状态为启用，请先关闭");
 		AccountFee entity  = accountServiceImpl.findAccountFeeByAll(account.getAccountChannel(),account.getAccountId(),account.getChannelProduct(),account.getFeeStautus());
 		if(ObjectUtil.isNotNull(entity))
 			throw new OtherErrors("当前商户费率添加重复，请修改费率状态，仅存在唯一一条启用费率");
 		Boolean flag = accountServiceImpl.addAccountFee(account);
 	if(flag)	
 		return JsonResult.buildSuccessMessage("商户费率增加成功");
-	throw new OtherErrors("增加用户失败");
+	throw new OtherErrors("增加费率失败");
 	}
 	
 	@ResponseBody
@@ -301,6 +305,8 @@ public class AccountContorller<E> {
 		String accountId = request.getParameter("accountId");
 		String dealDescribe = request.getParameter("dealDescribe");
 		String amount = request.getParameter("amount");
+		if(StrUtil.isBlank(dealDescribe) || StrUtil.isBlank(amount))
+			throw new ParamException("必传参数为空");
 		AccountEntity  account = new AccountEntity();
 		account.setAmount(amount);
 		account.setAccountId(accountId);
@@ -310,7 +316,59 @@ public class AccountContorller<E> {
 		return JsonResult.buildSuccessMessage("商户加钱成功");
 	throw new OtherErrors("加钱失败");
 	}
+	@RequestMapping("/amountDel")
+	public String amountDel(AccountEntity  account,Model m) throws Exception{
+		if(StrUtil.isBlank(account.getAccountId())  )
+			throw new ParamException("无法确定唯一账户，数据传输有误");
+		AccountEntity account1  = accountServiceImpl.findAccountByAccountId(account.getAccountId());
+		m.addAttribute("account", account1);
+		return "/manage/account/accountAmountDel";
+	}
 	
+	@ResponseBody
+	@RequestMapping("/accountAmountDel")
+	@Transactional
+	public JsonResult accountAmountDel(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String accountId = request.getParameter("accountId");
+		String dealDescribe = request.getParameter("dealDescribe");
+		String amount = request.getParameter("amount");
+		if(StrUtil.isBlank(dealDescribe) || StrUtil.isBlank(amount))
+			throw new ParamException("必传参数为空");
+		AccountEntity  account = new AccountEntity();
+		account.setAmount(amount);
+		account.setAccountId(accountId);
+		account.setDealDescribe(dealDescribe);
+		Boolean flag = accountServiceImpl.delAmount(request,account);
+	if(flag)	
+		return JsonResult.buildSuccessMessage("商户加钱成功");
+	throw new OtherErrors("加钱失败");
+	}
+	@RequestMapping("/amountFre")
+	public String amountFre(AccountEntity  account,Model m) throws Exception{
+		if(StrUtil.isBlank(account.getAccountId())  )
+			throw new ParamException("无法确定唯一账户，数据传输有误");
+		AccountEntity account1  = accountServiceImpl.findAccountByAccountId(account.getAccountId());
+		m.addAttribute("account", account1);
+		return "/manage/account/accountAmountFre";
+	}
+	@ResponseBody
+	@RequestMapping("/accountAmountFre")
+	@Transactional
+	public JsonResult accountAmountFre(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String accountId = request.getParameter("accountId");
+		String dealDescribe = request.getParameter("dealDescribe");
+		String amount = request.getParameter("amount");
+		if(StrUtil.isBlank(dealDescribe) || StrUtil.isBlank(amount))
+			throw new ParamException("必传参数为空");
+		AccountEntity  account = new AccountEntity();
+		account.setAmount(amount);
+		account.setAccountId(accountId);
+		account.setDealDescribe(dealDescribe);
+		Boolean flag = accountServiceImpl.freAmount(request,account);
+	if(flag)	
+		return JsonResult.buildSuccessMessage("商户冻钱成功");
+	throw new OtherErrors("冻结失败");
+	}
 	
 	
 }

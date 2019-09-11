@@ -15,6 +15,8 @@
     <result column="submitTime" property="submitTime" jdbcType="TIMESTAMP" />
     <result column="submitSystem" property="submitSystem" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="accountSette" property="accountSette" jdbcType="VARCHAR" />
+    <result column="settlementType" property="settlementType" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -76,7 +78,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, accountId, accountChannel, ChannelProduct, accountFee, accountCost, withdrawal, 
-    withdrawalCost, FeeStautus, createTime, submitTime, submitSystem, status
+    withdrawalCost, FeeStautus, createTime, submitTime, submitSystem, status,accountSette,settlementType
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payProject.manage.entity.AccountFeeExample" >
     select
@@ -113,12 +115,13 @@
     insert into manage_account_fee (accountId, accountChannel, ChannelProduct, 
       accountFee, accountCost, withdrawal, 
       withdrawalCost, FeeStautus, createTime, 
-      submitTime, submitSystem, status
+      submitTime, submitSystem, status,accountSette,settlementType
       )
     values (#{accountId,jdbcType=VARCHAR}, #{accountChannel,jdbcType=VARCHAR}, #{channelProduct,jdbcType=VARCHAR}, 
       #{accountFee,jdbcType=VARCHAR}, #{accountCost,jdbcType=VARCHAR}, #{withdrawal,jdbcType=VARCHAR}, 
       #{withdrawalCost,jdbcType=VARCHAR}, #{feeStautus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{submitTime,jdbcType=TIMESTAMP}, #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
+      #{submitTime,jdbcType=TIMESTAMP}, #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},#{accountSette,jdbcType=VARCHAR}
+      ,#{settlementType,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.payProject.manage.entity.AccountFee" useGeneratedKeys="true" keyProperty="id" >
@@ -160,6 +163,12 @@
       <if test="status != null" >
         status,
       </if>
+      <if test="accountSette != null" >
+        accountSette,
+      </if>
+      <if test="settlementType != null" >
+        settlementType,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="accountId != null" >
@@ -197,6 +206,12 @@
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
+      </if>
+       <if test="accountSette != null" >
+           #{accountSette,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementType != null" >
+        #{settlementType,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -248,6 +263,12 @@
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
       </if>
+      <if test="record.settlementType != null" >
+        settlementType = #{record.settlementType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountSette != null" >
+        accountSette = #{record.accountSette,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -267,7 +288,9 @@
       createTime = #{record.createTime,jdbcType=TIMESTAMP},
       submitTime = #{record.submitTime,jdbcType=TIMESTAMP},
       submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER}
+      status = #{record.status,jdbcType=INTEGER},
+      settlementType = #{record.settlementType,jdbcType=VARCHAR},
+      accountSette = #{record.accountSette,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -311,6 +334,12 @@
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
       </if>
+      <if test="settlementType != null" >
+        settlementType = #{settlementType,jdbcType=VARCHAR},
+      </if>
+      <if test="accountSette != null" >
+        accountSette = #{accountSette,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -327,7 +356,9 @@
       createTime = #{createTime,jdbcType=TIMESTAMP},
       submitTime = #{submitTime,jdbcType=TIMESTAMP},
       submitSystem = #{submitSystem,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER}
+      status = #{status,jdbcType=INTEGER},
+      accountSette = #{accountSette,jdbcType=INTEGER},
+      settlementType = #{settlementType,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

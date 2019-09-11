@@ -137,4 +137,29 @@ public interface AccountService {
 	 */
 	Boolean addAmount(HttpServletRequest request,AccountEntity account);
 
+	/**
+	 * <p>商户冻结资金</p>
+	 * @param request
+	 * @param account
+	 * @return
+	 */
+	Boolean delAmount(HttpServletRequest request, AccountEntity account);
+
+	/**
+	 * <p>商户资金冻结</p>
+	 * @param request
+	 * @param account
+	 * @return
+	 */
+	Boolean freAmount(HttpServletRequest request, AccountEntity account);
+
+	/**
+	 * <p>根据费率状态和Appid查询唯一费率</p>
+	 * <p>当前账户只存在唯一一条费率状态为可使用,其他全部为 不可使用</p>
+	 * @param accountId	 账户
+	 * @param feeStatus1  费率状态
+	 * @return
+	 */
+	AccountFee findAccountFeeBy(String accountId, Integer feeStatus1);
+
 }

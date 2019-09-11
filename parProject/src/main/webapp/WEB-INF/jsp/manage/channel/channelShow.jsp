@@ -51,7 +51,24 @@
 </body>
 </html>
 <script type="text/javascript" src="${ctx}/static/js/manage/channel/channel.js" ></script>
+<script type="text/html" id="channelStautus">
+			{{#  if(d.channelStautus == '1'){ }}
+				<span class="label radius" >启用</span>
+			{{# }else if(d.channelStautus == '2'){ }}
+				<span class="label label-success radius" style="background-color:red;" >停用</span>
+			{{# } }}
+</script>
+<script type="text/html" id="channelType">
+			{{#  if(d.channelType == '1'){ }}
+				<span class="label radius"style="background-color:red;coloe:#efeeee" >本渠道</span>
+			{{# }else if(d.channelType == '0'){ }}
+				<span class="label label-success radius"  >外渠道</span>
+			{{# } }}
+</script>
 <script>
+layui.use('form', function(){
+	  var form = layui.form;
+	});
 $(function(){
 	ChannelClas.init();
 })

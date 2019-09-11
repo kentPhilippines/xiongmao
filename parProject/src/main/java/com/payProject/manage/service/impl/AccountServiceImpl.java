@@ -222,6 +222,68 @@ public class AccountServiceImpl implements AccountService {
 		}else {
 			return false;
 		}
+	}
+	@Override
+	public Boolean delAmount(HttpServletRequest request, AccountEntity account) {
+		AccountEntity findAccountByAccountId = findAccountByAccountId(account.getAccountId());
+		//流水生成
+		BigDecimal amountB = new BigDecimal( account.getAmount());
+		findAccountByAccountId.setDealDescribe(account.getDealDescribe());
+		boolean addAmount = OrderRunServiceImpl.delAmount(request, findAccountByAccountId,amountB);
+		if(addAmount) {//生成成功  修改账户
+			BigDecimal accountBalance = findAccountByAccountId.getAccountBalance();
+			BigDecimal cashBalance = findAccountByAccountId.getCashBalance();
+			accountBalance = accountBalance.subtract(amountB);
+			cashBalance = cashBalance.subtract(amountB);
+			AccountEntity entity = new AccountEntity();
+			entity.setCashBalance(cashBalance);
+			entity.setAccountBalance(accountBalance);
+			entity.setCreateTime(null);
+			AccountEntityExample example  = new AccountEntityExample();
+			AccountEntityExample.Criteria criteria = example.createCriteria();
+			criteria.andAccountIdEqualTo(account.getAccountId());
+			int updateByPrimaryKey = accountDao.updateByExampleSelective(entity,example);
+			return updateByPrimaryKey > 0 && updateByPrimaryKey < 2;
+		}else {
+			return false;
+		}
 		
+	}
+	@Override
+	public Boolean freAmount(HttpServletRequest request, AccountEntity account) {
+		AccountEntity findAccountByAccountId = findAccountByAccountId(account.getAccountId());
+		//流水生成
+		BigDecimal amountB = new BigDecimal( account.getAmount());
+		findAccountByAccountId.setDealDescribe(account.getDealDescribe());
+		boolean addAmount = OrderRunServiceImpl.freAmount(request, findAccountByAccountId,amountB);
+		if(addAmount) {//生成成功  修改账户
+			BigDecimal freezeBalance = findAccountByAccountId.getFreezeBalance();
+			BigDecimal cashBalance = findAccountByAccountId.getCashBalance();
+			cashBalance = cashBalance.subtract(amountB);
+			freezeBalance = freezeBalance.add(amountB);
+			AccountEntity entity = new AccountEntity();
+			entity.setCashBalance(cashBalance);
+			entity.setFreezeBalance(freezeBalance);
+			entity.setCreateTime(null);
+			AccountEntityExample example  = new AccountEntityExample();
+			AccountEntityExample.Criteria criteria = example.createCriteria();
+			criteria.andAccountIdEqualTo(account.getAccountId());
+			int updateByPrimaryKey = accountDao.updateByExampleSelective(entity,example);
+			return updateByPrimaryKey > 0 && updateByPrimaryKey < 2;
+		}else {
+			return false;
+		}
+		
+	}
+	@Override
+	public AccountFee findAccountFeeBy(String accountId, Integer feeStatus1) {
+		AccountFeeExample example  = new AccountFeeExample();
+		com.payProject.manage.entity.AccountFeeExample.Criteria criteria = example.createCriteria();
+		criteria.andAccountIdEqualTo(accountId);
+		criteria.andFeeStautusEqualTo(feeStatus1);
+		List<AccountFee> selectByExample = accountFeeDao.selectByExample(example);
+		if(CollUtil.isNotEmpty(selectByExample)) 
+			return CollUtil.getFirst(selectByExample);
+		return null;
 	}
 }

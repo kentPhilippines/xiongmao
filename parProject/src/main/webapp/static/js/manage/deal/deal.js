@@ -28,12 +28,23 @@ var DealOrderClas = {
 					      ,{field: 'dealChannel', title: '交易渠道', width: 135}
 					      ,{field: 'dealDescribe', title: '交易备注', width: 135}
 					      ,{field: 'createTime', title: '交易时间', width: 135, sort: true}
-					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:150}
+					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:230}
 				    ]]
 				    , id: 'mytable'
 				    ,page: true
 				  });
 				  //监听行工具事件
+				DealOrderClas.$ObjectTable.on('tool(LAY-user-back-manage)', function(obj){
+				    var data = obj.data;
+				    if(obj.event === 'notify'){
+				      layer.confirm('确定这么做', function(index){
+				    	var url = $("[lay-event='notify']").attr("url");
+				    	 var deta =  {orderId : obj.data.orderId};
+				    	CommonUtil.ObjextAjax(url,deta,DealOrderClas.AjaxSucFn,true,'无权限或网络错误，请联系开发人员处理','post');
+				      });
+				    }  
+				    
+				  });
 				});
 		},
 		query : function(){
@@ -58,7 +69,7 @@ var DealOrderClas = {
 		AjaxSucFn : function(data){
 			if(data && data.success){
 				layer.msg(data.message);
-				BankCardClas.reload({"":""})
+				DealOrderClas.reload({"":""})
 			}else if(data && !data.success){
 				layer.msg(data.message)
 			}

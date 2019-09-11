@@ -26,6 +26,7 @@ import com.payProject.manage.entity.PayType;
 import com.payProject.manage.service.ChannelService;
 import com.payProject.system.entity.User;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 
@@ -51,6 +52,13 @@ public class ChannelContorller {
 	public String channelPayType( ){
 		return "/manage/channel/channelPayType";
 	} 
+	@RequestMapping("/channelRunList")
+	public String channelRunList( ){
+		return "/manage/channel/channelRunList";
+	} 
+	
+	
+	
 	@ResponseBody
 	@RequestMapping("/channelList")
 	public PageResult<Channel> channelList(Channel channel,String page,String limit){
@@ -228,6 +236,37 @@ public class ChannelContorller {
 		}else {
 			throw new OtherErrors("删除失败");
 		}
+	}
+	@RequestMapping("/channelEditShow")
+	public String channelEditShow(Channel channel,Model m ){
+		if(StrUtil.isBlank(channel.getChannelNo())  )
+			throw new ParamException("无法确定唯一账户，数据传输有误");
+		List<Channel> findChannelByChannelId = channelServiceImpl.findChannelByChannelId(channel.getChannelNo());
+		Channel channelL = CollUtil.getFirst(findChannelByChannelId);
+		m.addAttribute("channel", channelL);
+		return "/manage/channel/channelEdit";
+	} 
+	
+	@ResponseBody
+	@RequestMapping("/channelEdit")
+	@Transactional
+	public JsonResult channelEdit(Channel channel,Model m ){
+		if(StrUtil.isBlank(channel.getChannelNo())  )
+			throw new ParamException("无法确定唯一账户，数据传输有误");
+		List<Channel> findChannelByChannelId = channelServiceImpl.findChannelByChannelId(channel.getChannelNo());
+		if(CollUtil.isEmpty(findChannelByChannelId)) {
+			throw new OtherErrors("当前渠道不存在或数据错误");
+		}
+		Channel first = CollUtil.getFirst(findChannelByChannelId);
+		first.setChannelName(StrUtil.isBlank(channel.getChannelName())?channel.getChannelName() :first.getChannelName());
+		first.setChannelStautus(null != channel.getChannelStautus() ?channel.getChannelStautus() : first.getChannelStautus());
+		first.setChannelType(null != channel.getChannelType() ? channel.getChannelType():first.getChannelType());
+		first.setChannelAccount(StrUtil.isBlank(channel.getChannelAccount())?channel.getChannelAccount() :first.getChannelAccount());
+		boolean flag = channelServiceImpl.updataChannel(first);
+		if(flag) {
+			return 	JsonResult.buildSuccessMessage("渠道修改成功");
+		}
+		return JsonResult.buildFailResult("渠道修改失败");
 	}
 	
 	

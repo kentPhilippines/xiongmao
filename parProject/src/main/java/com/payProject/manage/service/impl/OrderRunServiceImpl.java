@@ -86,4 +86,34 @@ public class OrderRunServiceImpl implements OrderRunService {
 	             }
 	             return request.getRemoteAddr();
   }
+	@Override
+	public boolean delAmount(HttpServletRequest request, AccountEntity account, BigDecimal amountB) {
+		RunOrder  runBean  = new RunOrder();
+		runBean.setOrderRunId(DealNumber.GetRunOrder());
+		runBean.setRunStatus(Constant.Common.RUN_STATUS_2);
+		runBean.setRunType(Constant.Common.RUN_SYSTEM_DELETE_MONEY);
+		runBean.setOrderAccount(account.getAccountId());
+		runBean.setRunOrderAmount(amountB.toString());
+		runBean.setDealDescribe(account.getDealDescribe());
+		runBean.setOrderGenerationIp(getLocalIp(request));
+		runBean.setCardRunD("SYS");
+		runBean.setCardRunW(account.getAccountId());//系統賬戶簡稱
+		int insertSelective = runOrderDao.insertSelective(runBean);
+		return insertSelective > 0 && insertSelective <2;
+	}
+	@Override
+	public boolean freAmount(HttpServletRequest request, AccountEntity account, BigDecimal amountB) {
+		RunOrder  runBean  = new RunOrder();
+		runBean.setOrderRunId(DealNumber.GetRunOrder());
+		runBean.setRunStatus(Constant.Common.RUN_STATUS_2);
+		runBean.setRunType(Constant.Common.RUN_FREEZE);
+		runBean.setOrderAccount(account.getAccountId());
+		runBean.setRunOrderAmount(amountB.toString());
+		runBean.setDealDescribe(account.getDealDescribe());
+		runBean.setOrderGenerationIp(getLocalIp(request));
+		runBean.setCardRunD("SYS");
+		runBean.setCardRunW(account.getAccountId());//系統賬戶簡稱
+		int insertSelective = runOrderDao.insertSelective(runBean);
+		return insertSelective > 0 && insertSelective <2;
+	}
 }

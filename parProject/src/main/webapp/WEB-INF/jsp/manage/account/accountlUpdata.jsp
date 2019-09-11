@@ -37,13 +37,13 @@
 	    <div class="layui-inline">
 	      <label class="layui-form-label">账户编号</label>
 	      <div class="layui-input-inline">
-	        <input type="text" readonly = "unselectable='on'"  name="accountId"  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" value = "${entity.accountId}">
+	        <input type="text" readonly = "unselectable='on'"  name="accountId"  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" value = "${account.accountId}">
 	      </div>
 	    </div>
 	    <div class="layui-inline">
 	      <label class="layui-form-label">账户昵称</label>
 	      <div class="layui-input-inline">
-	        <input type="text" name="accountName" autocomplete="off" class="layui-input" value = "${entity.accountName}">
+	        <input type="text" name="accountName" autocomplete="off" class="layui-input" value = "${account.accountName}">
 	      </div>
 	    </div>
 	  </div>
@@ -51,20 +51,38 @@
 	    <div class="layui-inline">
 	      <label class="layui-form-label">交易额度范围（日）</label>
 	      <div class="layui-input-inline" style="width: 100px;">
-	        <input type="text" name="dayDealAmountMin" placeholder="￥" autocomplete="off" class="layui-input" value = "${entity.dayDealAmountMin }">
+	        <input type="text" name="dayDealAmountMin" placeholder="￥" autocomplete="off" class="layui-input" value = "${account.dayDealAmountMin }">
 	      </div>
 	      <div class="layui-form-mid">-</div>
 	      <div class="layui-input-inline" style="width: 100px;">
-	        <input type="text" name="dayDealAmountMax" placeholder="￥" autocomplete="off" class="layui-input" value = "${entity.dayDealAmountMax }">
+	        <input type="text" name="dayDealAmountMax" placeholder="￥" autocomplete="off" class="layui-input" value = "${account.dayDealAmountMax }">
 	      </div>
 	    </div>
 	  </div>
 	  <div class="layui-form-item">
-	    <label class="layui-form-label">用户是否可用</label>
+	    <label class="layui-form-label">商户类型</label>
 	    <div class="layui-input-inline">
-	      <select name="accountType" lay-verify="required">
-	        <option value="0" <c:if test="${entity.accountType == 0}">select:"select"</c:if>>可用</option>
-	        <option value="1"<c:if test="${entity.accountType == 1}">select:"select"</c:if>>停用</option>
+	      <select name="accountType" lay-verify="required" >
+	        <option value="0" <c:if test="${account.accountType eq 0}">selected : "selected"</c:if>>本渠道商户</option>
+	        <option value="1"<c:if test="${account.accountType eq 1}">selected : "selected"</c:if>>外渠道商户</option>
+	      </select>
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">用户是否开通交易</label>
+	    <div class="layui-input-inline">
+	      <select name="isDeal" lay-verify="required">
+	        <option value="0" <c:if test="${account.isDeal eq 0}"> selected : "selected"</c:if>>交易停用</option>
+	        <option value="1"<c:if test="${account.isDeal eq 1}"> selected : "selected"</c:if>>交易开启 </option>
+	      </select>
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">用户是否开通代付</label>
+	    <div class="layui-input-inline">
+	      <select name="isDpay" lay-verify="required">
+	        <option value="0" <c:if test="${account.isDeal eq 0}"> selected : "selected"</c:if>>代付停用</option>
+	        <option value="1"<c:if test="${account.isDeal eq 1}"> selected : "selected"</c:if>>代付开启 </option>
 	      </select>
 	    </div>
 	  </div>

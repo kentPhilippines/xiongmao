@@ -20,9 +20,19 @@ public class Channel extends BaseEntity<Channel>{
     private String channelName;
 
     private Integer channelStautus;
+    private Integer channelType;
+    
 
 
-    public String getChannelNo() {
+    public Integer getChannelType() {
+		return channelType;
+	}
+
+	public void setChannelType(Integer channelType) {
+		this.channelType = channelType;
+	}
+
+	public String getChannelNo() {
         return channelNo;
     }
 

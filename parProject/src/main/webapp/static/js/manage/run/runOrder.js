@@ -35,7 +35,6 @@ var RunOrderClas = {
 		query : function(){
 			$("[lay-filter='LAY-user-back-search']").on("click",function(){
 				 var orderRunId = $('[name="orderRunId"]').val();//获取输入框的值
-				 var associatedId = $('[name="orderRunId"]').val();//获取输入框的值
 				 var cardRunD = $('[name="cardRunD"]').val();//获取输入框的值
 				 var cardRunW = $('[name="cardRunW"]').val();//获取输入框的值
 				 var orderAccount = $('[name="orderAccount"]').val();//获取输入框的值
@@ -62,7 +61,7 @@ var RunOrderClas = {
 		 reload:function(param){
 			RunOrderClas.$ObjectTable.reload('mytable',{ page:{  curr: 1} //重新从第 1 页开始
 				                        , where: param//这里传参  向后台
-				                        , url: 'merchantsList'//后台做模糊搜索接口路径
+				                        , url: 'orderRunList'//后台做模糊搜索接口路径
 				                        , method: 'post'
 				                          });
 		} 

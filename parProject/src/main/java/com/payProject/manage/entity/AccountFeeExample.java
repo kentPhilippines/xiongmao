@@ -179,7 +179,14 @@ public class AccountFeeExample {
             addCriterion("accountId =", value, "accountId");
             return (Criteria) this;
         }
-
+        public Criteria andSettlementTypeEqualTo(String value) {
+        	addCriterion("settlementType =", value, "settlementType");
+        	return (Criteria) this;
+        }
+        public Criteria andAccountSetteEqualTo(String value) {
+        	addCriterion("accountSette =", value, "accountSette");
+        	return (Criteria) this;
+        }
         public Criteria andAccountIdNotEqualTo(String value) {
             addCriterion("accountId <>", value, "accountId");
             return (Criteria) this;
