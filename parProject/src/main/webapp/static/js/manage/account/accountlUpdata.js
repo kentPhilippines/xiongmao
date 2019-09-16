@@ -1,3 +1,71 @@
+var UpdataPayPasswordShow = {
+		init : function(){
+			this.initNode();
+			this.bindEvent();
+		}, 
+		initNode : function(){
+			this.$but = $("[data-type='updataPassword']");
+		},
+		bindEvent : function(){
+			this.$but.on("click",this.open)
+		},
+		open : function(){
+			$url = $(this).attr("Url");
+			$width = '430px';
+			$higth = '500px';
+			$title = '修改密码';
+		layer.open({
+			type: 2,
+			title:$title,
+			shadeClose: true,
+			shade: false,
+			shade: 0.5,
+			id:'LAY_layuipro',
+			maxmin: true, //开启最大化最小化按钮
+			area: [$width,$higth],
+			content: $url,
+			success: function(){
+			},
+			end : function(){
+				window.location.reload();
+			}
+		});
+		}
+}
+var UpdataPassWord = {
+		init : function(){
+			this.initNode();
+			this.bindEvent();
+		}, 
+		initNode : function(){
+			this.$but = $("[data-type='updataPassword']");
+		},
+		bindEvent : function(){
+			this.$but.on("click",this.open)
+		},
+		open : function(){
+			$url = $(this).attr("Url");
+			$width = '430px';
+			$higth = '500px';
+			$title = '修改密码';
+		layer.open({
+			type: 2,
+			title:$title,
+			shadeClose: true,
+			shade: false,
+			shade: 0.5,
+			id:'LAY_layuipro',
+			maxmin: true, //开启最大化最小化按钮
+			area: [$width,$higth],
+			content: $url,
+			success: function(){
+			},
+			end : function(){
+				window.location.reload();
+			}
+		});
+		}
+}
 var AccountlAmountDel = {
 		init : function(){
 			this.initNode();
@@ -106,7 +174,8 @@ var AccountlEdit = {
 					dayDealAmountMax:$("[name=dayDealAmountMax]").val(),
 					accountType:$("[name=accountType]").val(),
 					havaInterface:$("[name=havaInterface]").val(),
-					isDeal:$("[name=isDeal]").val()
+					isDeal:$("[name=isDeal]").val(),
+					bankCard:$("[name=bankCard]").val()
 			}
 		},
 		bindEvent : function(){

@@ -185,6 +185,20 @@ public class ChannelServiceImpl implements ChannelService {
 		int updateByExampleSelective = ChannelDao.updateByExampleSelective(first, example);
 		return updateByExampleSelective > 0 && updateByExampleSelective < 2;
 	}
-
-
+	@Override
+	public List<ChannelFee> findChannelFeeById(Integer id) {
+		ChannelFeeExample example  = new ChannelFeeExample();
+		com.payProject.manage.entity.ChannelFeeExample.Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(id);
+		List<ChannelFee> selectByExample = ChannelFeeDao.selectByExample(example);
+		return selectByExample;
+	}
+	@Override
+	public boolean updataChannelFee(ChannelFee first) {
+		ChannelFeeExample example  = new ChannelFeeExample();
+		com.payProject.manage.entity.ChannelFeeExample.Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(first.getId());
+		int updateByExample = ChannelFeeDao.updateByExample(first, example);
+		return updateByExample > 0 && updateByExample < 2;
+	}
 }

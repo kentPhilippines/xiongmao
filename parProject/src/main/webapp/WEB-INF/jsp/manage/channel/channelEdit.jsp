@@ -40,8 +40,8 @@
 		    <label class="layui-form-label">渠道状态</label>
 		    <div class="layui-input-inline">
 		      <select name="channelStautus" lay-filter="aihao">
-		        <option value="1"<c:if test="${channel.channelStautus eq 1}"> selected : "selected"</c:if> >有效</option>
-		        <option value="2"<c:if test="${channel.channelStautus eq 2}"> selected : "selected"</c:if> >停用</option>
+		        <option value="1"<c:if test="${channel.channelStautus eq 1}"> selected = "selected"</c:if> >有效</option>
+		        <option value="2"<c:if test="${channel.channelStautus eq 2}"> selected = "selected"</c:if> >停用</option>
 		      </select>
 		    </div>
 		</div>
@@ -49,8 +49,8 @@
 		    <label class="layui-form-label">渠道类别</label>
 		    <div class="layui-input-inline">
 		      <select name="channelType" lay-filter="aihao">
-		        <option value="1"<c:if test="${channel.channelStautus eq 1}"> selected : "selected"</c:if>>本渠道</option>
-		        <option value="0"<c:if test="${channel.channelStautus eq 0}"> selected : "selected"</c:if>>外渠道</option>
+		        <option value="1"<c:if test="${channel.channelStautus eq 1}"> selected = "selected"</c:if>>本渠道</option>
+		        <option value="0"<c:if test="${channel.channelStautus eq 0}"> selected = "selected"</c:if>>外渠道</option>
 		      </select>
 		    </div>
 		</div>

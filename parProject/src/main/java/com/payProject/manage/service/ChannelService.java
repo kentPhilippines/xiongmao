@@ -110,5 +110,17 @@ public interface ChannelService {
 	 * @return
 	 */
 	boolean updataChannel(Channel first);
+	/**
+	 * <p>根据渠道费率ID查询渠道费率</p>
+	 * @param id
+	 * @return
+	 */
+	List<ChannelFee> findChannelFeeById(Integer id);
+	/**
+	 * <p>修改渠道费率，根据渠道费率Id</p>
+	 * @param first
+	 * @return
+	 */
+	boolean updataChannelFee(ChannelFee first);
 
 }

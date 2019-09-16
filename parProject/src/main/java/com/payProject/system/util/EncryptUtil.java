@@ -7,6 +7,8 @@ import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.stereotype.Component;
 
+import com.payProject.config.common.Constant;
+
 /**
  * <p>权限密码加密，这个类可以用来做密码注册</p>
  * <li><strong>用户注册的时候必须使用这个类,不然会造成密码错误</strong></li>
@@ -29,12 +31,12 @@ public class EncryptUtil {
 	 */
 	public static  Map<String,String> encryptPassword(String userId,String password){
 		String salt1 = userId;
-		String salt2 = new SecureRandomNumberGenerator().nextBytes().toHex();
-		SimpleHash hash = new SimpleHash(algorithmName, password, salt1 + salt2, hashIterations);
+	//	String salt2 = new SecureRandomNumberGenerator().nextBytes().toHex();
+		SimpleHash hash = new SimpleHash(algorithmName, password, salt1 , hashIterations);
 		String encodedPassword = hash.toHex();  
 		Map<String,String> map = new HashMap<>();
-		map.put("password", encodedPassword);
-		map.put("salt", salt1 + salt2);
+		map.put(Constant.Common.PASSWORD, encodedPassword);
+		map.put(Constant.Common.SALT, salt1 );
 		return map;
 	}
 	/**
@@ -43,11 +45,11 @@ public class EncryptUtil {
 	 * @return
 	 */
 	public static  Map<String,String> encryptPassword(String payPassword){
-		String salt2 = new SecureRandomNumberGenerator().nextBytes().toHex();
+		String salt2 = ""; //new SecureRandomNumberGenerator().nextBytes().toHex();
 		SimpleHash hash = new SimpleHash(algorithmName, payPassword,salt2, hashIterations);
 		String payPassword1 = hash.toHex();
 		Map<String,String> map = new HashMap<>();
-		map.put("payPassword", payPassword1);
+		map.put(Constant.Common.PAYPASSWORD, payPassword1);
 		return map;
 	}
 	// 手动测试密码加密方法

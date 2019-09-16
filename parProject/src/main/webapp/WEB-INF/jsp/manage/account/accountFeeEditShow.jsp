@@ -88,9 +88,9 @@
 		    <label class="layui-form-label">费率状态</label>
 		    <div class="layui-input-inline">
 		      <select name="feeStautus" lay-filter="aihao">
-		        <option value="1" <c:if test="${accountFee.feeStautus == 1}">select:'select'</c:if> >启用</option>
-		        <option value="2" <c:if test="${accountFee.feeStautus == 2}">select:'select'</c:if>>停用</option>
-		        <option value="3" <c:if test="${accountFee.feeStautus == 3}">select:'select'</c:if>>自动切换</option>
+		        <option value="1" <c:if test="${accountFee.feeStautus eq 1}"> selected = "selected"</c:if> >启用</option>
+		        <option value="2" <c:if test="${accountFee.feeStautus eq 2}"> selected = "selected"</c:if>>停用</option>
+		        <option value="3" <c:if test="${accountFee.feeStautus eq 3}"> selected = "selected"</c:if>>自动切换</option>
 		      </select>
 		    </div>
  		</div>
@@ -98,15 +98,15 @@
 	    <div class="layui-inline">
 	      <label class="layui-form-label">冻结百分比</label>
 	      <div class="layui-input-inline">
-	        <input type="text"   name="accountSette"  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" value = "${entity.accountSette}">
+	        <input type="text"   name="accountSette"  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" value = "${accountFee.accountSette}">
 	      </div>
 	    </div>
 	    <div class="layui-inline">
 	      <label class="layui-form-label">冻结模式</label>
 	      <div class="layui-input-inline">
 		      <select name="settlementType" lay-verify="required">
-		        <option value="D1" <c:if test="${entity.settlementType == D1}">select:"select"</c:if>>D1</option>
-		        <option value="T1"<c:if test="${entity.settlementType == T1}">select:"select"</c:if>>T1</option>
+		        <option value="D1" <c:if test="${accountFee.settlementType eq 'D1'}"> selected="selected"</c:if>>D1</option>
+		        <option value="T1"<c:if test="${accountFee.settlementType eq 'T1'}"> selected="selected"</c:if>>T1</option>
 		      </select>
 	      </div>
 	    </div>

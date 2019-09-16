@@ -63,9 +63,14 @@ public final class Constant {
 		public static final Integer FEE_STATUS3 = 3;//1启用2停用3自动切换
 		
 		
+		public static final String PASSWORD = "password";//密码标识
+		public static final String SALT = "salt";//密码标识
+		public static final String PAYPASSWORD = "payPassword";//支付密码标识
 		
 		
 		
+		public static final Integer USER_NEI = 1;//内部商户号
+		public static final Integer USER_WAI = 2;//外部商户号
 		/**
 		 * <p>订单状态</p>
 		 * 1*处理中2成功3未收到回调4失败

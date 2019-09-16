@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>交易订单管理</title>
+<title>渠道管理</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -14,49 +14,36 @@
 <body layadmin-themealias="default" style=" background-color: #c4c0c7;">
 	<div class="layui-fluid" style="padding: 15px;">
 		<div class="layui-card"  style="padding: 15px;">
-			<div class="layui-form layui-card-header layuiadmin-card-header-auto" style="height:120px">
+			<div class="layui-form layui-card-header layuiadmin-card-header-auto">
 				<div class="layui-form-item">
 					<div class="layui-inline">
-						<label class="layui-form-label">订单单号</label>
+						<label class="layui-form-label">记录编号</label>
 						<div class="layui-input-block">
-							<input type="text" name="orderId" placeholder="请输入" autocomplete="off" class="layui-input">
+							<input type="text" name="accountId" placeholder="记录编号" autocomplete="off" class="layui-input">
 						</div>
 					</div>
 					<div class="layui-inline">
-						<label class="layui-form-label">关联订单</label>
+						<label class="layui-form-label">订单编号</label>
 						<div class="layui-input-block">
-							<input type="text" name="associatedId" placeholder="请输入" autocomplete="off" class="layui-input">
+							<input type="text" name="orderId" placeholder="订单编号" autocomplete="off" class="layui-input">
 						</div>
 					</div> 
 					<div class="layui-inline">
-						<label class="layui-form-label">代付卡号</label>
+						<label class="layui-form-label">提现卡号</label>
 						<div class="layui-input-block">
-							<input type="text" name="bankCard" placeholder="请输入" autocomplete="off" class="layui-input">
-						</div>
-					</div> 
-				</div>
-				<div class="layui-form-item">
-					<div class="layui-inline">
-						<label class="layui-form-label">代付商户号</label>
-						<div class="layui-input-block">
-							<input type="text" name="orderAccount" placeholder="请输入" autocomplete="off" class="layui-input">
+							<input type="text" name="retain1" placeholder="卡号" autocomplete="off" class="layui-input">
 						</div>
 					</div> 
 					<div class="layui-inline">
-					    <label class="layui-form-label">订单状态</label>
-					    <div class="layui-input-block">
-					      <select name="orderStatus" lay-filter="aihao"><!-- 不能这么写,后期 优化  -->
-					        <option value="" >全部</option>
-					        <option value="1" >处理中</option>
-					        <option value="2" >成功</option> 
-					        <option value="3" >失败</option> 
-					      </select>
-					      </div>
-					</div>
-					<div class="layui-inline">
+						<label class="layui-form-label">审批人</label>
+						<div class="layui-input-block">
+							<input type="text" name="approver" placeholder="审批人" autocomplete="off" class="layui-input">
+						</div>
+					</div> 
+					 <div class="layui-inline">
 				      <label class="layui-form-label">日期范围</label>
 				      <div class="layui-input-inline">
-				        <input type="text" class="layui-input" id="createTime"  name = "createTime"  placeholder=" - ">
+				        <input type="text" class="layui-input" id="createTime"   name = "createTime"  placeholder=" - ">
 				      </div>
 				    </div>
 					<div class="layui-inline">
@@ -67,27 +54,30 @@
 					</div>
 				</div>
 			</div>
-			  <div class="layui-card-body">
-				<table id="LAY-user-back-manage" url = "${ctx}/manage/order/merchantsList" lay-filter="LAY-user-back-manage"></table>
-			</div>  
+			<div class="layui-card-body">
+				<div style="padding-bottom: 10px;">
+					<button class="layui-btn layuiadmin-btn-admin" data-type="add" addUrl = "${ctx}/manage/merchants/withdrawals">申请提现</button>
+				</div>
+				<table id="LAY-user-back-manage" url = "${ctx}/manage/merchants/withdrawalsRecordList" lay-filter="LAY-user-back-manage"></table>
+			</div>
 		</div>
 	</div>
-	<%--	<script type="text/html" id="operation">
- 	 <a class="layui-btn layui-btn-xs" lay-event="edit" url = "${ctx}/manage/dealOrder/bankCardEditShow">编辑</a>
- 	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" url = "${ctx}/manage/bankCard/bankCardDel">删除</a>
-	</script>--%>
+	<script type="text/html" id="operation">
+ 	 <a class="layui-btn layui-btn-xs" lay-event="addAmount" url = "${ctx}/manage/account/addAmount">查看提现结果</a>
+ 	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="amountDel" url = "${ctx}/manage/account/amountDel">提醒审批</a>
+	</script>
 </body>
-</html> 
+</html>
 <script type="text/javascript" src="${ctx}/static/js/manage/merchants/merchants.js" ></script>
 <script>
+$(function(){
+	WithdrawalsRecordClas.init();
+})
 layui.use('laydate', function(){
 	  var laydate = layui.laydate;
 	  laydate.render({
 		    elem: '#createTime'
 		    ,range: true
 		  });
-})
-$(function(){
-	MerchantsClas.init();
 })
 </script>

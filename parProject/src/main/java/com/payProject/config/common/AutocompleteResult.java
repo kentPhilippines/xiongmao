@@ -1,6 +1,6 @@
 package com.payProject.config.common;
 
-public class AutocompleteResult<T> {
+public class AutocompleteResult  {
 	private String name;
 	private String pinyin;
 	public String getName() {

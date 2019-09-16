@@ -95,8 +95,8 @@
 	      <label class="layui-form-label">冻结模式</label>
 	      <div class="layui-input-inline">
 		      <select name="settlementType" lay-verify="required">
-		        <option value="D1" >D1</option>
-		        <option value="T1">T1</option>
+		        <option value="D1"  >D1</option>
+		        <option value="T1"selected="selected">T1</option>
 		      </select>
 	      </div>
 	    </div>

@@ -73,7 +73,7 @@ public class DictionaryContorller {
 	@ResponseBody
 	@RequestMapping("/dictionaryDel")
 	@Transactional
-	public JsonResult dictionaryDel(Dictionary dictionary ){
+	public JsonResult dictionary(Dictionary dictionary ){
 		if(  null == dictionary.getId() ) {
 			throw new ParamException("请求参数无效");
 		}
@@ -94,8 +94,8 @@ public class DictionaryContorller {
 			return "/manage/bankCard/bankCardEdit";
 	}
 	@ResponseBody
-	@RequestMapping("/bankCardEdit")
-	public JsonResult bankCardEdit(Dictionary dictionary){
+	@RequestMapping("/dictionaryEdit")
+	public JsonResult dictionaryEdit(Dictionary dictionary){
 		if(  null == dictionary.getId() ) {
 			throw new ParamException("请求参数无效");
 		}

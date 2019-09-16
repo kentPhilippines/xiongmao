@@ -44,13 +44,6 @@
 					placeholder="请输入成本费率如：0.005" id="LAY-user-login-password" autocomplete="off"     class="layui-input">
 			</div>
 		</div>
- 		<div class="layui-form-item">
-			<label class="layui-form-label" style="width: 100px;">日结百分比</label>
-			<div class="layui-input-inline">
-				<input type="text" name="settle" lay-verify="required"
-					placeholder="请输入日结百分比如：90" id="LAY-user-login-password" autocomplete="off"     class="layui-input">
-			</div>
-		</div>
 		<div class="layui-form-item">
 		    <label class="layui-form-label" style="width: 100px;">状态</label>
 		    <div class="layui-input-inline">

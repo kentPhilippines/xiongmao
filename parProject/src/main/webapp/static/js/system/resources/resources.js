@@ -114,6 +114,8 @@ var ResourcesClas = {
 					type: 2,
 					title:title,
 					shadeClose: true,
+					shade: 0.5,
+					id:'LAY_layuipro',
 					shade: false,
 					maxmin: true, //开启最大化最小化按钮
 					area: [width,higth],

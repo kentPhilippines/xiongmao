@@ -73,9 +73,12 @@
 		</div>
 	</div>
 	<script type="text/html" id="operation">
- 	 <a class="layui-btn layui-btn-xs" lay-event="notify" url = "${ctx}/manage/order/notifyOrderSu">置为成功</a>
- 	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="notify" url = "${ctx}/manage/order/notifyOrderEr">置为失败</a>
- 	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="notify" url = "${ctx}/manage/order/notifyOrderNo">补发通知</a>
+	{{#  if(d.orderStatus == '1'){ }}
+ 		<a class="layui-btn layui-btn-xs" lay-event="notify" url = "${ctx}/manage/order/notifyOrderSu">置为成功</a>
+ 		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="notify" url = "${ctx}/manage/order/notifyOrderEr">置为失败</a>
+	{{# }else if(d.orderStatus != '1'){ }}
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="notify" url = "${ctx}/manage/order/notifyOrderNo">补发通知</a>
+	{{# } }}
 	</script>
 </body>
 </html>

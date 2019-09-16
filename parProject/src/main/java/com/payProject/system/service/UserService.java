@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.github.pagehelper.Page;
 import com.payProject.config.common.PageResult;
+import com.payProject.manage.entity.UserAccount;
 import com.payProject.system.entity.User;
 
 public interface UserService {
@@ -41,6 +42,35 @@ public interface UserService {
 	 * @return
 	 */
 	boolean UpdateUserByUserId(User user);
+	/**
+	 * <p>查询所有的用户外部账户号</p>
+	 * @return
+	 */
+	List<User> findUserAll();
+	/**
+	 * <p>绑定账户号和商户号</p>
+	 * @param userAccount
+	 * @return
+	 */
+	boolean addUserAccount(UserAccount userAccount);
+	/**
+	 * <p>分页查询账户关联情况</p>
+	 * @param account
+	 * @return
+	 */
+	List<UserAccount> findPageUserAccountByAccount(UserAccount account);
+	/**
+	 * <p>删除账户号商户号对应关系</p>
+	 * @param id
+	 * @return
+	 */
+	boolean deleteUserAccount(Integer id);
+	/**
+	 * <p>根据账户号查询对应的商户号</p>
+	 * @param userId
+	 * @return
+	 */
+	List<UserAccount> findUserAccountByUserId(String userId);
 	
 	
 	

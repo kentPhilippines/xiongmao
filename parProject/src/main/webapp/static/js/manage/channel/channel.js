@@ -192,6 +192,8 @@ var PayTypeClas = {
 					type: 2,
 					title:title,
 					shadeClose: true,
+					shade: 0.5,
+					id:'LAY_layuipro',
 					shade: false,
 					maxmin: true, //开启最大化最小化按钮
 					area: [width,higth],
@@ -292,6 +294,8 @@ var ChannelFeeClas = {
 					title:title,
 					shadeClose: true,
 					shade: false,
+					shade: 0.5,
+					id:'LAY_layuipro',
 					maxmin: true, //开启最大化最小化按钮
 					area: [width,higth],
 					content: url,
@@ -396,6 +400,8 @@ var ChannelClas = {
 					title:title,
 					shadeClose: true,
 					shade: false,
+					shade: 0.5,
+					id:'LAY_layuipro',
 					maxmin: true, //开启最大化最小化按钮
 					area: [width,higth],
 					content: url,

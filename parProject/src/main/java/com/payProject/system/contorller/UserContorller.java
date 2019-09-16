@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.payProject.config.common.Constant;
 import com.payProject.config.common.JsonResult;
 import com.payProject.config.common.PageResult;
 import com.payProject.config.exception.ParamException;
@@ -60,9 +61,11 @@ public class UserContorller {
 		User users = userService.findUserByUserId(user.getUserId());
 		if(ObjectUtil.isNull(users)){
 		Map<String, String> map = EncryptUtil.encryptPassword(user.getUserId(), user.getUserPassword());
-		systemUser(user);//这里使用只为获取用户支付密码
-		user.setUserPassword(map.get("password"));
-		user.setUserSalt(map.get("salt"));
+		//systemUser(user);//这里使用只为获取用户支付密码
+		Map<String, String> encryptPassword = EncryptUtil.encryptPassword(user.getPayPassword());
+		user.setPayPassword(encryptPassword.get(Constant.Common.PAYPASSWORD));
+		user.setUserPassword(map.get(Constant.Common.PASSWORD));
+		user.setUserSalt(map.get(Constant.Common.SALT));
 		Boolean flag = userService.addUser(user);
 		if(flag)
 			return JsonResult.buildSuccessMessage("增加成功");

@@ -286,4 +286,9 @@ public class AccountServiceImpl implements AccountService {
 			return CollUtil.getFirst(selectByExample);
 		return null;
 	}
+	@Override
+	public List<AccountEntity> findBankCardByAccountId(List<String> accountList) {
+		List<AccountEntity> account = accountDao.findBankCardByAccountId(accountList);
+		return account;
+	}
 }

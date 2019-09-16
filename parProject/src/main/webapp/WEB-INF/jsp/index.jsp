@@ -45,8 +45,8 @@
           ${user.userName}
         </a>
         <dl class="layui-nav-child layui-anim topUserShow layui-anim-upbit">
-          <dd><a href="">基本资料</a></dd>
-          <dd><a href="">安全设置</a></dd>
+          <dd><a rank = "1" url="manage/account/show">基本资料</a></dd>
+          <dd><a rank = "1" url="">安全设置</a></dd>
         </dl>
       </li>
       <li class="layui-nav-item"><a href="${ctx}/logout">退了</a></li>

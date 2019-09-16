@@ -1,5 +1,6 @@
 package com.payProject.manage.mapper;
 
+import com.payProject.manage.entity.AccountEntity;
 import com.payProject.manage.entity.AccountFee;
 import com.payProject.manage.entity.AccountFeeExample;
 import java.util.List;
@@ -29,4 +30,5 @@ public interface AccountFeeMapper {
     int updateByPrimaryKeySelective(AccountFee record);
 
     int updateByPrimaryKey(AccountFee record);
+
 }

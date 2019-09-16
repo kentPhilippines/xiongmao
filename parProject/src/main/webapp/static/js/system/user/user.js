@@ -99,16 +99,18 @@ var UserAddCls = {
 		checkParam : function(){
 			$pass1 = $("[name='userPassword']").val();
 			$pass2 = $("[name='password']").val();
-			if(!$pass1){
-				layer.msg("参数为空");
-				return true;
-			}
-			if(!$pass2){
+			$pass3 = $("[name='payPassword']").val();
+			$pass4 = $("[name='payPassword1']").val();
+			if(!$pass1 || !$pass2 || !$pass3 || !$pass4){
 				layer.msg("参数为空");
 				return true;
 			}
 			if($pass1 != $pass2){
 				 layer.msg("密码不一致");
+				return true;
+			}
+			if($pass3 != $pass4){
+				layer.msg("密码不一致");
 				return true;
 			}
 			return false;
@@ -154,6 +156,8 @@ var UserClas = {
 					title:title,
 					shadeClose: true,
 					shade: false,
+					shade: 0.5,
+					id:'LAY_layuipro',
 					maxmin: true, //开启最大化最小化按钮
 					area: [width,higth],
 					content: url,

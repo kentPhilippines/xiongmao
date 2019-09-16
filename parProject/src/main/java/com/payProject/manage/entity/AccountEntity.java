@@ -85,8 +85,16 @@ public class AccountEntity  extends BaseEntity<AccountEntity>{
 	     */
 	    private Integer isDpay;
 	    
-	    
-	    public Integer getIsDpay() {
+	    private String bankCard;
+	    public String getBankCard() {
+			return bankCard;
+		}
+
+		public void setBankCard(String bankCard) {
+			this.bankCard = bankCard;
+		}
+
+		public Integer getIsDpay() {
 			return isDpay;
 		}
 

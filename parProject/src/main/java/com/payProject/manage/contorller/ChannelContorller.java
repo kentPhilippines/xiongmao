@@ -269,7 +269,43 @@ public class ChannelContorller {
 		return JsonResult.buildFailResult("渠道修改失败");
 	}
 	
+	@RequestMapping("/channelFeeEditShow")
+	public String channelFeeEditShow(ChannelFee channelFee,Model m ){
+		if(null == channelFee.getId() )
+			throw new ParamException("无法确定唯一账号费率");
+		List<ChannelFee> findChannelByChannelId = channelServiceImpl.findChannelFeeById(channelFee.getId());
+		ChannelFee channelL = CollUtil.getFirst(findChannelByChannelId);
+		List<Channel> channelList  = channelServiceImpl.findChannelByAll();
+		List<PayType> payList  = channelServiceImpl.findPayTypeByAll();
+		m.addAttribute("channelList", channelList);
+		m.addAttribute("payList", payList);		
+		m.addAttribute("channelFee", channelL);
+		return "/manage/channel/channelFeeEdit";
+	}
 	
+
+	@ResponseBody
+	@RequestMapping("/channelFeeEdit")
+	@Transactional
+	public JsonResult channelFeeEdit(ChannelFee channelFee,Model m ){
+		if(null == channelFee.getId() )
+			throw new ParamException("无法确定唯一账户，数据传输有误");
+		List<ChannelFee> findChannelByChannelId = channelServiceImpl.findChannelFeeById(channelFee.getId());
+		if(CollUtil.isEmpty(findChannelByChannelId)) {
+			throw new OtherErrors("当前渠道不存在或数据错误");
+		}
+		ChannelFee first = CollUtil.getFirst(findChannelByChannelId);
+		first.setChannelNo(StrUtil.isBlank(channelFee.getChannelNo())?channelFee.getChannelNo():first.getChannelNo());
+		first.setChannelName(StrUtil.isBlank(channelFee.getChannelName())?channelFee.getChannelName():first.getChannelName());
+		first.setPayType(StrUtil.isBlank(channelFee.getPayType())?channelFee.getPayType():first.getPayType());
+		first.setFee(StrUtil.isBlank(channelFee.getFee())?channelFee.getFee():first.getFee());
+		first.setStatus(null==channelFee.getStatus()?channelFee.getStatus():first.getStatus());
+		boolean flag = channelServiceImpl.updataChannelFee(first);
+		if(flag) {
+			return 	JsonResult.buildSuccessMessage("渠道费率修改成功");
+		}
+		return JsonResult.buildFailResult("渠道费率修改失败");
+	}
 	
 	
 	

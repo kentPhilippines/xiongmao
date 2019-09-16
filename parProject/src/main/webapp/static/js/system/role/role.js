@@ -112,6 +112,8 @@ var RoleClas = {
 					title:title,
 					shadeClose: true,
 					shade: false,
+					shade: 0.5,
+					id:'LAY_layuipro',
 					maxmin: true, //开启最大化最小化按钮
 					area: [width,higth],
 					content: url,

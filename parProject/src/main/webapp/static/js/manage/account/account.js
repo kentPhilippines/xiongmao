@@ -1,3 +1,189 @@
+var AccountUserAddCls = {
+		init : function(){
+			this.initNode();
+			this.bindEvent();
+			this.initData();
+		},
+		initNode: function(){
+			this.$AjaxErrFn = "暂无权限";
+			this.$addAccountUserAjaxSucFn = this.AjaxSucFn;
+			this.$unselect = $(".layui-unselect");
+			this.$requestType = "post";//请求方式
+			this.$enter = $(".layui-layer-btn0");
+		},
+		initData : function(){
+			this.$AccountUserForm = $("#AccountUserForm").serialize();
+		},
+		bindEvent : function(){
+			this.$enter.on("click",this.addAccountUser)
+		},
+		addAccountUser : function(){
+			AccountUserAddCls.initData();
+			if(AccountUserAddCls.checkParam()){
+				 $("[name='accountId']").val("");
+				 $("[name='userId']").val("");
+				 return;
+			};
+			CommonUtil.ObjextAjax($(this).attr("url"),
+					AccountUserAddCls.$AccountUserForm,
+					AccountUserAddCls.$addAccountUserAjaxSucFn, true,
+					AccountUserAddCls.$AjaxErrFn,
+					AccountUserAddCls.$requestType)
+		},
+		checkParam : function(){
+			$pass1 = $("[name='accountId']").val();
+			$pass8 = $("[name='userId']").val();
+			if(!$pass1  || !$pass8){
+				layer.msg("参数为空");
+				return true;
+			}
+			return false;
+			
+		},
+		AjaxSucFn : function(data){
+			if(data && data.success){
+				layer.msg(""+data.message)
+				parent.layer.closeAll();
+				return;
+			}else if(data && !data.success){
+				layer.msg(""+data.message)
+				return;
+			}
+		}
+}
+
+
+
+
+var AccountUserClas = {
+		init : function(){
+			this.initNode();
+			this.bindEvent()
+			this. AccountShowInit();
+			this.query();
+		},
+		initNode : function(){
+			this.$AccountUserAdd = $("[data-type='add']");
+			this.$table = $("#LAY-user-back-manage");
+		},
+		bindEvent : function() {
+			this.$AccountUserAdd.on("click",this.AccountUserAdd);
+		},
+		AccountUserAdd : function(){
+			var url = $(this).attr("addUrl")
+			$width = '630px';
+			$higth = '500px';
+			$title = '关联账户';
+			AccountUserClas.layuiOpen(url,$width,$higth,$title);
+		},
+		layuiOpen : function(url,width,higth,title){
+				layer.open({
+					type: 2,
+					title:title,
+					shade: 0.5,
+					id:'LAY_layuipro',
+					shadeClose: true,
+					shade: false,
+					maxmin: true, //开启最大化最小化按钮
+					area: [width,higth],
+					content: url,
+					success: function(){
+						  },
+					end : function(){
+						lock = true
+						AccountUserClas.reload({"":""});
+					}
+				});
+		},
+		layuiOpen : function(url,width,higth,title){
+			var lock  = true;//防止重复弹出,加锁
+				if(lock){
+					layer.open({
+						type: 2,
+						title:title,
+						shadeClose: true,
+						shade: 0.5,
+						id:'LAY_layuipro',
+						shade: false,
+						maxmin: true, //开启最大化最小化按钮
+						area: [width,higth],
+						content: url,
+						success: function(){
+							lock  = false;
+							  },
+						end : function(){
+							AccountUserClas.reload({"":""});
+						}
+					});
+				}
+			},
+		AccountShowInit : function(){
+			layui.use('table', function(){
+				AccountUserClas.$ObjectTable = layui.table;
+				AccountUserClas.$ObjectTable.render({
+				    elem: AccountUserClas.$table
+				    ,url:AccountUserClas.$table.attr('url')
+				    ,cols: [[
+				    	   {field: 'id', title: 'id', hide :true, width:150,   fixed: 'left'}
+					      ,{field: 'accountId', title: '商户编号', width:130}
+					      ,{field: 'accountName', title: '商户名称', width:160}
+					      ,{field: 'userId', title: '账户id', width: 130}
+					      ,{field: 'userName', title: '账户昵称', width: 130}
+					      ,{field: 'createTime', title: '创建时间', width: 135, sort: true}
+					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:230}
+				    ]]
+				    , id: 'mytable'
+				    ,page: true
+				  });
+				  //监听行工具事件
+				AccountUserClas.$ObjectTable.on('tool(LAY-user-back-manage)', function(obj){
+				    var data = obj.data;
+				    if(obj.event === 'del'){
+				      layer.confirm('真的删除行么', function(index){
+				    	var url = $("[lay-event='del']").attr("url");
+				    	 var deta =  {id : obj.data.id};
+				    	CommonUtil.ObjextAjax(url,deta,AccountUserClas.AjaxSucFn,true,'无权限或网络错误，请联系开发人员处理','post');
+				      });
+				    }      
+				  });
+				});
+		},
+		query : function(){
+			$("[lay-filter='LAY-user-back-search']").on("click",function(){
+				 var accountId = $('[name="accountId"]').val();//获取输入框的值
+				 var userId = $('[name="userId"]').val();//获取输入框的值
+				AccountUserClas.reload({accountId:accountId,userId:userId})
+			})
+		},
+		AjaxSucFn : function(data){
+			if(data && data.success){
+				layer.msg(""+data.message);
+				AccountUserClas.reload({"":""});
+			}else if(data && !data.success){
+				layer.msg(""+data.message)
+			}
+		},
+		 reload:function(param){
+			AccountUserClas.$ObjectTable.reload('mytable',{ page:{  curr: 1} //重新从第 1 页开始
+				                        , where: param//这里传参  向后台
+				                        , url: 'userAccountList'//后台做模糊搜索接口路径
+				                        , method: 'post'
+				                          });
+		} 
+		
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 var AccountFeeEditCls = {
 		init : function(){
@@ -18,6 +204,8 @@ var AccountFeeEditCls = {
 					withdrawal:$("[name=withdrawal]").val(),
 					withdrawalCost:$("[name=withdrawalCost]").val(),
 					feeStautus:$("[name=feeStautus]").val(),
+					settlementType:$("[name=settlementType]").val(),
+					accountSette:$("[name=accountSette]").val()
 			}
 		},
 		bindEvent : function(){
@@ -81,7 +269,7 @@ var AccountFeeAddCls = {
 			$pass6 = $("[name='withdrawal']").val();
 			$pass7 = $("[name='withdrawalCost']").val();
 			$pass8 = $("[name='feeStautus']").val();
-			if(!$pass1 ||!$pass2 ||!$pass3 ||!$pass4 ||!$pass5 ||!$pass3 ||!$pass2 ||!$pass3){
+			if(!$pass1 ||!$pass2 ||!$pass3 ||!$pass4 ||!$pass5 ||!$pass6 ||!$pass7 ||!$pass8){
 				layer.msg("参数为空");
 				return true;
 			}
@@ -127,13 +315,14 @@ var AccountFeeClas = {
 				title:title,
 				shadeClose: true,
 				shade: false,
+				shade: 0.5,
+				id:'LAY_layuipro',
 				maxmin: true, //开启最大化最小化按钮
 				area: [width,higth],
 				content: url,
 				success: function(){
 				},
 				end : function(){
-					lock = true
 					AccountFeeClas.reload({"":""});
 				}
 			});
@@ -243,6 +432,8 @@ var AccountClas = {
 				layer.open({
 					type: 2,
 					title:title,
+					shade: 0.5,
+					id:'LAY_layuipro',
 					shadeClose: true,
 					shade: false,
 					maxmin: true, //开启最大化最小化按钮
@@ -263,6 +454,8 @@ var AccountClas = {
 						type: 2,
 						title:title,
 						shadeClose: true,
+						shade: 0.5,
+						id:'LAY_layuipro',
 						shade: false,
 						maxmin: true, //开启最大化最小化按钮
 						area: [width,higth],

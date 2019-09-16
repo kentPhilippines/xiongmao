@@ -18,4 +18,10 @@ public interface AccountMapper extends  MyMapper<AccountEntity,AccountEntityExam
     AccountEntity selectByPrimaryKey(Integer id);
     int updateByPrimaryKeySelective(AccountEntity record);
     int updateByPrimaryKey(AccountEntity record);
+    /**
+     * <p>根据商户号集合查询对应的商户号取款银行卡</p>
+     * @param accountList
+     * @return
+     */
+	List<AccountEntity> findBankCardByAccountId(List<String> accountList);
 }

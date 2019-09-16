@@ -44,6 +44,20 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
+			<label class="layui-form-label">支付密码</label>
+			<div class="layui-input-inline">
+				<input type="password" name="payPassword" lay-verify="required" 
+					placeholder="请输入密码"  id="LAY-user-login-password" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">确认支付密码</label>
+			<div class="layui-input-inline">
+				<input type="password" name="payPassword1" lay-verify="pass"
+					placeholder="请确认密码" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
 			<label class="layui-form-label">邮箱</label>
 			<div class="layui-input-inline">
 				<input type="text" name="userMail" lay-verify="email"
@@ -54,17 +68,8 @@
 		    <label class="layui-form-label">账号类别</label>
 		    <div class="layui-input-inline">
 		      <select name="userType" lay-filter="aihao">
-		        <option value="0">内部账户</option>
-		        <option value="1">外部账户</option>
-		      </select>
-		    </div>
- 		</div>
-		 <div class="layui-form-item">
-		    <label class="layui-form-label">账号类别</label>
-		    <div class="layui-input-inline">
-		      <select name="userType" lay-filter="aihao"><!-- 不能这么写,后期 优化  -->
-		        <option value="0" selected="selected">内部账户</option>
-		        <option value="1" >外部账户</option> 
+		        <option value="1">内部账户</option>
+		        <option value="2">外部账户</option>
 		      </select>
 		    </div>
  		</div>

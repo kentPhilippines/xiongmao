@@ -162,4 +162,11 @@ public interface AccountService {
 	 */
 	AccountFee findAccountFeeBy(String accountId, Integer feeStatus1);
 
+	/**
+	 * <p>根据商户号集合查询所对应的取款银行卡</p>
+	 * @param accountList
+	 * @return
+	 */
+	List<AccountEntity> findBankCardByAccountId(List<String> accountList);
+
 }

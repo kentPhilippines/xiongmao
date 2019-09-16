@@ -19,6 +19,7 @@
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="isDeal" property="isDeal" jdbcType="INTEGER" />
     <result column="isDpay" property="isDpay" jdbcType="INTEGER" />
+     <result column="bankCard" property="bankCard" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -81,7 +82,7 @@
   <sql id="Base_Column_List" >
     id, accountId, accountName, accountType, cashBalance, freezeBalance, accountBalance, 
     dayDealAmountMax, dayDealAmountMin, SumDealAmount, SumDealToDayAmount, createTime, 
-    submitTime, submitSystem, status,isDeal,isDpay
+    submitTime, submitSystem, status,isDeal,isDpay,bankCard
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payProject.manage.entity.AccountEntityExample" >
     select
@@ -124,7 +125,10 @@
       #{cashBalance,jdbcType=DECIMAL}, #{freezeBalance,jdbcType=DECIMAL}, #{accountBalance,jdbcType=DECIMAL}, 
       #{dayDealAmountMax,jdbcType=DECIMAL}, #{dayDealAmountMin,jdbcType=DECIMAL}, #{sumDealAmount,jdbcType=DECIMAL}, 
       #{sumDealToDayAmount,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{submitTime,jdbcType=TIMESTAMP}, 
-      #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},#{isDeal,jdbcType=INTEGER},#{isDpay,jdbcType=INTEGER})
+      #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},#{isDeal,jdbcType=INTEGER},#{isDpay,jdbcType=INTEGER}
+      #{bankCard,jdbcType=VARCHAR}
+      )
+      
   </insert>
   <insert id="insertSelective" parameterType="com.payProject.manage.entity.AccountEntity" useGeneratedKeys="true" keyProperty="id" >
     insert into manage_account
@@ -167,6 +171,9 @@
       </if>
       <if test="submitSystem != null" >
         submitSystem,
+      </if>
+      <if test="bankCard != null" >
+        bankCard,
       </if>
       <if test="status != null" >
         status,
@@ -217,6 +224,9 @@
       </if>
       <if test="submitSystem != null" >
         #{submitSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCard != null" >
+        #{bankCard,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
@@ -280,6 +290,9 @@
       <if test="record.submitSystem != null" >
         submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
       </if>
+      <if test="record.bankCard != null" >
+        bankCard = #{record.bankCard,jdbcType=VARCHAR},
+      </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
       </if>
@@ -310,6 +323,7 @@
       createTime = #{record.createTime,jdbcType=TIMESTAMP},
       submitTime = #{record.submitTime,jdbcType=TIMESTAMP},
       submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
+      bankCard = #{record.bankCard,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
       isDeal = #{record.isDeal,jdbcType=INTEGER},
       isDpay = #{record.isDpay,jdbcType=INTEGER}
@@ -359,6 +373,9 @@
       <if test="submitSystem != null" >
         submitSystem = #{submitSystem,jdbcType=VARCHAR},
       </if>
+      <if test="bankCard != null" >
+        submitSystem = #{bankCard,jdbcType=VARCHAR},
+      </if>
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
       </if>
@@ -386,9 +403,20 @@
       createTime = #{createTime,jdbcType=TIMESTAMP},
       submitTime = #{submitTime,jdbcType=TIMESTAMP},
       submitSystem = #{submitSystem,jdbcType=VARCHAR},
+      bankCard = #{bankCard,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       isDeal = #{isDeal,jdbcType=INTEGER},
       isDpay = #{isDpay,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+   <select id="findBankCardByAccountId" resultMap="BaseResultMap" parameterType="list">
+      select t1.bankCard from  manage_account t1
+      where  
+    <foreach collection="list" index="index" item="bean"  >
+         <trim prefix="(" suffix=")" suffixOverrides="or" >
+         t1.accountId =    #{bean}
+          </trim>
+    </foreach>
+    
+  </select>
 </mapper>

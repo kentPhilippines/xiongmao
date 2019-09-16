@@ -63,17 +63,25 @@
 	    <label class="layui-form-label">商户类型</label>
 	    <div class="layui-input-inline">
 	      <select name="accountType" lay-verify="required" >
-	        <option value="0" <c:if test="${account.accountType eq 0}">selected : "selected"</c:if>>本渠道商户</option>
-	        <option value="1"<c:if test="${account.accountType eq 1}">selected : "selected"</c:if>>外渠道商户</option>
+	        <option value="0" <c:if test="${account.accountType eq 0}">selected = "selected"</c:if>>本渠道商户</option>
+	        <option value="1"<c:if test="${account.accountType eq 1}">selected = "selected"</c:if>>外渠道商户</option>
 	      </select>
 	    </div>
 	  </div>
 	  <div class="layui-form-item">
+	  <div class="layui-inline">
+	      <label class="layui-form-label">到账银行卡</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="bankCard" autocomplete="off" class="layui-input" value = "${account.bankCard}">
+	      </div>
+	    </div>
+	   </div>
+	  <div class="layui-form-item">
 	    <label class="layui-form-label">用户是否开通交易</label>
 	    <div class="layui-input-inline">
 	      <select name="isDeal" lay-verify="required">
-	        <option value="0" <c:if test="${account.isDeal eq 0}"> selected : "selected"</c:if>>交易停用</option>
-	        <option value="1"<c:if test="${account.isDeal eq 1}"> selected : "selected"</c:if>>交易开启 </option>
+	        <option value="0" <c:if test="${account.isDeal eq 0}"> selected = "selected"</c:if>>交易停用</option>
+	        <option value="1"<c:if test="${account.isDeal eq 1}"> selected = "selected"</c:if>>交易开启 </option>
 	      </select>
 	    </div>
 	  </div>
@@ -81,8 +89,8 @@
 	    <label class="layui-form-label">用户是否开通代付</label>
 	    <div class="layui-input-inline">
 	      <select name="isDpay" lay-verify="required">
-	        <option value="0" <c:if test="${account.isDeal eq 0}"> selected : "selected"</c:if>>代付停用</option>
-	        <option value="1"<c:if test="${account.isDeal eq 1}"> selected : "selected"</c:if>>代付开启 </option>
+	        <option value="0" <c:if test="${account.isDeal eq 0}"> selected = "selected"</c:if>>代付停用</option>
+	        <option value="1"<c:if test="${account.isDeal eq 1}"> selected = "selected"</c:if>>代付开启 </option>
 	      </select>
 	    </div>
 	  </div>

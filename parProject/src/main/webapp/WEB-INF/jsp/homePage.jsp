@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>layuiAdmin 后台管理员</title>
+<title>个人主页展示页面</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"

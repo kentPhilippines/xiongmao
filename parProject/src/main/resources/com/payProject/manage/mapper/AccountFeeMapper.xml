@@ -120,7 +120,8 @@
     values (#{accountId,jdbcType=VARCHAR}, #{accountChannel,jdbcType=VARCHAR}, #{channelProduct,jdbcType=VARCHAR}, 
       #{accountFee,jdbcType=VARCHAR}, #{accountCost,jdbcType=VARCHAR}, #{withdrawal,jdbcType=VARCHAR}, 
       #{withdrawalCost,jdbcType=VARCHAR}, #{feeStautus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{submitTime,jdbcType=TIMESTAMP}, #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},#{accountSette,jdbcType=VARCHAR}
+      #{submitTime,jdbcType=TIMESTAMP}, #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
+      ,#{accountSette,jdbcType=VARCHAR}
       ,#{settlementType,jdbcType=VARCHAR}
       )
   </insert>

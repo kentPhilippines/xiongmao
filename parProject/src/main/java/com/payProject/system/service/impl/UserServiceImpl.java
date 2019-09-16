@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.Page;
+import com.payProject.manage.entity.UserAccount;
+import com.payProject.manage.entity.UserAccountExample;
+import com.payProject.manage.mapper.UserAccountMapper;
 import com.payProject.system.entity.User;
 import com.payProject.system.entity.UserExample;
 import com.payProject.system.entity.UserExample.Criteria;
@@ -22,6 +25,8 @@ public class UserServiceImpl implements UserService {
 	Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 	@Autowired
 	UserMapper userDao;
+	@Autowired
+	UserAccountMapper userAccountDao;
 	@Override
 	public User findUserByUserId(String userId) {
 		UserExample example = new UserExample();
@@ -69,5 +74,38 @@ public class UserServiceImpl implements UserService {
 		criteria.andIdEqualTo(user.getId());
 		int updateByExampleSelective = userDao.updateByExampleSelective(user, example);
 		return updateByExampleSelective >0;
+	}
+	/**
+	 * <p>该方法查询所有外部商户号</p>
+	 */
+	@Override
+	public List<User> findUserAll() {
+		UserExample example = new UserExample(); 
+		Criteria criteria = example.createCriteria(); 
+		criteria.andUserTypeEqualTo(2);
+		List<User> selectByExample = userDao.selectByExample(example);
+		return selectByExample;
+	}
+	@Override
+	public boolean addUserAccount(UserAccount userAccount) {
+		int insertSelective = userAccountDao.insertSelective(userAccount);
+		return insertSelective > 0 && insertSelective < 2;
+	}
+	@Override
+	public List<UserAccount> findPageUserAccountByAccount(UserAccount account) {
+		List<UserAccount> selectByExample = userAccountDao.selectByExampleAnd(account);
+		return selectByExample;
+	}
+	@Override
+	public boolean deleteUserAccount(Integer id) {
+		int deleteByPrimaryKey = userAccountDao.deleteByPrimaryKey(id);
+		return deleteByPrimaryKey > 0 && deleteByPrimaryKey < 2;
+	}
+	@Override
+	public List<UserAccount> findUserAccountByUserId(String userId) {
+		UserAccount account = new UserAccount();
+		account.setUserId(userId);
+		List<UserAccount> selectByExampleAnd = userAccountDao.selectByExampleAnd(account);
+		return selectByExampleAnd;
 	}
 }
