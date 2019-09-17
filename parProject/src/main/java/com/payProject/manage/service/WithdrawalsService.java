@@ -13,4 +13,18 @@ public interface WithdrawalsService {
 	 */
 	List<WithdrawalsRecord> findPageWithdrawalsByWithdrawals(WithdrawalsRecord withdrawals);
 
+	/**
+	 * <p>根据全局订单查询代付订单登记表</p>
+	 * @param associatedId
+	 * @return
+	 */
+	WithdrawalsRecord findWithdrawalsRecordByOrderAll(String associatedId);
+
+	/**
+	 * <p>修改代付登记表状态</p>
+	 * @param record
+	 * @return
+	 */
+	boolean updataOrder(WithdrawalsRecord record);
+
 }

@@ -251,10 +251,10 @@
     	t1.userId = u1.userId
     where 1=1
     <if test="userId != null and userId != ''">
-       and t1.userId like CONCAT('%',#{userId,jdbcType=VARCHAR},'%')
+       and t1.userId  = #{userId,jdbcType=VARCHAR}
     </if>
     <if test="accountId != null and accountId != ''">
-       and t1.accountId like CONCAT('%',#{accountId,jdbcType=VARCHAR},'%')
+       and t1.accountId = #{accountId,jdbcType=VARCHAR} 
     </if>
   </select>
 </mapper>

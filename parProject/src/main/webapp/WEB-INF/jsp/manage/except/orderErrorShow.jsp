@@ -86,6 +86,28 @@
 </body>
 </html>
 <script type="text/javascript" src="${ctx}/static/js/manage/exceptOrder/except.js" ></script>
+<script type="text/html" id="exceptType"> 
+			{{#  if(d.exceptType == '1'){ }}
+				<span class="label radius" style="background-color:#009688;" >交易</span>
+			{{# }else if(d.exceptType == '2'){ }}
+				<span class="label label-success radius" style="background-color:#009688;">系统加款</span>
+			{{# }else if(d.exceptType == '3'){ }}
+				<span class="label label-success radius" style="background-color:#243332;">交易手续费</span>
+			{{# }else if(d.exceptType == '4'){ }}
+				<span class="label label-success radius" style="background-color:red;">系统扣款</span>
+			{{# }else if(d.exceptType == '5'){ }}
+				<span class="label label-success radius" style="background-color:red;">代付</span>
+			{{# }else if(d.exceptType == '6'){ }}
+				<span class="label label-success radius" style="background-color:#009688;">代付手续费</span>
+			{{# } }}
+</script>
+<script type="text/html" id="exceptStatus"> 
+			{{#  if(d.exceptStatus == '1'){ }}
+				<span class="label radius" style="background-color:#009688;" >程序异常</span>
+			{{# }else if(d.exceptStatus == '2'){ }}
+				<span class="label label-success radius" style="background-color:#009688;">人工异常</span>
+			{{# } }}
+</script>
 <script>
 layui.use('laydate', function(){
 	  var laydate = layui.laydate;

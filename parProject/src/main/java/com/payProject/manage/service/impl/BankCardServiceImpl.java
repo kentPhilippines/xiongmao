@@ -1,5 +1,6 @@
 package com.payProject.manage.service.impl;
 
+import java.sql.Struct;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +11,17 @@ import com.payProject.config.exception.ParamException;
 import com.payProject.manage.entity.BankCardEntity;
 import com.payProject.manage.entity.BankCardEntityExample;
 import com.payProject.manage.entity.BankCardEntityExample.Criteria;
+import com.payProject.manage.entity.BankCardRunEntity;
+import com.payProject.manage.entity.BankCardRunEntityExample;
 import com.payProject.manage.entity.BankIsDealEntity;
 import com.payProject.manage.entity.BankIsDealEntityExample;
 import com.payProject.manage.mapper.BankCardMapper;
+import com.payProject.manage.mapper.BankCardRunMapper;
 import com.payProject.manage.mapper.BankIsDealMapper;
 import com.payProject.manage.service.BankCardService;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 @Service
 public class BankCardServiceImpl  implements BankCardService{
@@ -25,6 +30,11 @@ public class BankCardServiceImpl  implements BankCardService{
 	
 	@Autowired
 	BankIsDealMapper bankIsDealDao;
+	
+	@Autowired
+	BankCardRunMapper bankCardRunDao;
+	
+	
 	
 	public BankCardEntity findBankCardByBankCard(String bankCard) {
 		BankCardEntityExample  example = new BankCardEntityExample();
@@ -59,6 +69,8 @@ public class BankCardServiceImpl  implements BankCardService{
 			criteria.andLiabilitiesLike(bankCard.getLiabilities());
 		if(null != bankCard.getBankId())
 			criteria.andBankIdEqualTo(bankCard.getBankId());
+		if(StrUtil.isNotBlank(bankCard.getRetain2()))
+			criteria.andRetain2EqualTo(bankCard.getRetain2());
 		List<BankCardEntity> selectByExample = bankCardDao.selectByExample(example);
 		return selectByExample;
 	}
@@ -86,5 +98,35 @@ public class BankCardServiceImpl  implements BankCardService{
 		criteria.andBankCardEqualTo(bankCard.getBankCard());
 		int updateByExampleSelective = bankCardDao.updateByExampleSelective(bankCard, example);
 		return updateByExampleSelective >0;
+	}
+	@Override
+	public boolean updataBankCard(BankCardEntity bankCard) {
+		BankCardEntityExample example = new BankCardEntityExample(); 
+		Criteria criteria = example.createCriteria(); 
+		criteria.andBankCardEqualTo(bankCard.getBankCard());
+		int updateByExampleSelective = bankCardDao.updateByExampleSelective(bankCard, example);
+		return updateByExampleSelective > 0 && updateByExampleSelective < 2;
+	}
+	@Override
+	public List<BankCardRunEntity> findPageBankCardRunByBankCard(BankCardRunEntity bankCardRun) {
+		BankCardRunEntityExample example = new BankCardRunEntityExample();
+		com.payProject.manage.entity.BankCardRunEntityExample.Criteria criteria = example.createCriteria();
+		if(StrUtil.isNotBlank(bankCardRun.getWithdrawBankCard()))  
+			criteria.andWithdrawBankCardEqualTo(bankCardRun.getWithdrawBankCard());
+		if(StrUtil.isNotBlank(bankCardRun.getWithdrawAccount()))  
+			criteria.andWithdrawAccountEqualTo(bankCardRun.getWithdrawAccount());
+		if(StrUtil.isNotBlank(bankCardRun.getDealBankCard()))  
+			criteria.andDealBankCardEqualTo(bankCardRun.getDealBankCard());
+		if(StrUtil.isNotBlank(bankCardRun.getDealAccount()))  
+			criteria.andDealAccountEqualTo(bankCardRun.getDealAccount());
+		if(null != bankCardRun.getRunType())  
+			criteria.andRunTypeEqualTo(bankCardRun.getRunType());
+		if(StrUtil.isNotBlank(bankCardRun.getTime())) {
+			String data = StrUtil.subPre(bankCardRun.getTime(),10);
+			String data1 = StrUtil.subSuf(bankCardRun.getTime(),12);
+			criteria.andCreateTimeBetween(DateUtil.parse(data), DateUtil.parse(data1));
+			} 
+		List<BankCardRunEntity> selectByExample = bankCardRunDao.selectByExample(example);
+		return selectByExample;
 	}
 }

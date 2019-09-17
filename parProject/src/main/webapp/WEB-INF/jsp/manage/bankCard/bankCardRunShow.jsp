@@ -14,26 +14,57 @@
 <body layadmin-themealias="default" style=" background-color: #c4c0c7;">
 	<div class="layui-fluid" style="padding: 15px;">
 		<div class="layui-card"  style="padding: 15px;">
-			<div class="layui-form layui-card-header layuiadmin-card-header-auto">
+			<div class="layui-form layui-card-header layuiadmin-card-header-auto" style="height:120px">
 				<div class="layui-form-item">
 					<div class="layui-inline">
-						<label class="layui-form-label">银行卡号</label>
+						<label class="layui-form-label">出账卡号</label>
 						<div class="layui-input-block">
 							<input type="text" name="bankCard" placeholder="请输入" autocomplete="off" class="layui-input">
 						</div>
 					</div>
 					<div class="layui-inline">
-						<label class="layui-form-label">卡管理员</label>
+						<label class="layui-form-label">入账卡号</label>
 						<div class="layui-input-block">
-							<input type="text" name="liabilities" placeholder="请输入" autocomplete="off" class="layui-input">
+							<input type="text" name="bankCard" placeholder="请输入" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">出账账号</label>
+						<div class="layui-input-block">
+							<input type="text" name="cardRunD" placeholder="请输入出账账号" autocomplete="off" class="layui-input">
 						</div>
 					</div> 
 					<div class="layui-inline">
-						<label class="layui-form-label">银行卡别名</label>
+						<label class="layui-form-label">入账账号</label>
 						<div class="layui-input-block">
-							<input type="text" name="bankId" placeholder="请输入" autocomplete="off" class="layui-input">
+							<input type="text" name="cardRunW" placeholder="请输入入帐账号" autocomplete="off" class="layui-input">
 						</div>
+					</div> 
+					<div class="layui-inline">
+						<button class="layui-btn != " lay-submit=""
+							lay-filter="LAY-user-back-search">
+							<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+						</button>
 					</div>
+				</div>
+				<div class="layui-form-item">
+				<div class="layui-inline">
+					    <label class="layui-form-label">流水类型</label>
+					    <div class="layui-input-block">
+					      <select name="runType" lay-filter="aihao"><!-- 不能这么写,后期 优化  -->
+					        <option value="" >全部</option> 
+					        <option value="1" >商户交易</option>
+					        <option value="2" >卡商回款</option> 
+					        <option value="3" >账户入款分润</option> 
+					      </select>
+					      </div>
+					</div>
+					<div class="layui-inline">
+				      <label class="layui-form-label">日期范围</label>
+				      <div class="layui-input-inline">
+				        <input type="text" class="layui-input" id="createTime"  name = "createTime"  placeholder=" - ">
+				      </div>
+				    </div>
 					<div class="layui-inline">
 						<button class="layui-btn != " lay-submit=""
 							lay-filter="LAY-user-back-search">
@@ -42,18 +73,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="layui-card-body">
-				<div style="padding-bottom: 10px;">
-					<button class="layui-btn layuiadmin-btn-admin" data-type="add" addUrl = "${ctx}/manage/bankCard/bankCardAdd">添加银行卡</button>
-				</div>
-				<table id="LAY-user-back-manage" url = "${ctx}/manage/bankCard/bankCardList" lay-filter="LAY-user-back-manage"></table>
+			  <div class="layui-card-body">
+				<table id="LAY-user-back-manage" url = "${ctx}/manage/bankCard/bankCardRunList" lay-filter="LAY-user-back-manage"></table>
 			</div>
 		</div>
 	</div>
-	<script type="text/html" id="operation">
- 	 <a class="layui-btn layui-btn-xs" lay-event="edit" url = "${ctx}/manage/bankCard/bankCardEditShow">编辑</a>
- 	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" url = "${ctx}/manage/bankCard/bankCardDel">删除</a>
-	</script>
 </body>
 </html>
 <script type="text/javascript" src="${ctx}/static/js/manage/bankCard/bankCard.js" ></script>

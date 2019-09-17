@@ -70,6 +70,20 @@
 				<span class="label label-success radius" >测试卡</span>
 			{{# } }}
 </script>
+<script type="text/html" id="status">
+			{{#  if(d.status == '0'){ }}
+				<span class="label radius" style="background-color:#f9c248;">可使用</span> 
+			{{# }else if(d.status == '1'){ }}
+				<span class="label label-success radius" style="background-color:red;">不可使用</span>
+			{{# } }}
+</script>
+<script type="text/html" id="retain2">
+			{{#  if(d.retain2 == '1'){ }}
+				<span class="label radius" style="background-color:red;">已删除</span> 
+			{{# }else if(d.retain2 == '2'){ }}
+				<span class="label label-success radius" style="background-color:#f9c248;">未删除</span>
+			{{# } }}
+</script>
 <script>
 layui.use('table', function(){
 	  var table = layui.table;

@@ -13,4 +13,9 @@ public interface WithdrawalsOrderMapper  extends  MyMapper<WithdrawalsOrderEntit
     WithdrawalsOrderEntity selectByPrimaryKey(@Param("id") Integer id, @Param("createTime") Date createTime);
     int updateByPrimaryKeySelective(WithdrawalsOrderEntity record);
     int updateByPrimaryKey(WithdrawalsOrderEntity record);
+    /**
+     * <p>查询今日交易总额</p>
+     * @param example
+     */
+	String selectToDaySumAmountByExample(WithdrawalsOrderEntityExample example);
 }

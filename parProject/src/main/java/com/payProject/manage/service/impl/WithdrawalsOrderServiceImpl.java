@@ -1,16 +1,17 @@
 package com.payProject.manage.service.impl;
-
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.payProject.manage.entity.WithdrawalsOrderEntity;
 import com.payProject.manage.entity.WithdrawalsOrderEntityExample;
 import com.payProject.manage.entity.WithdrawalsOrderEntityExample.Criteria;
 import com.payProject.manage.mapper.WithdrawalsOrderMapper;
 import com.payProject.manage.service.WithdrawalsOrderService;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 @Service
@@ -37,8 +38,56 @@ public class WithdrawalsOrderServiceImpl implements WithdrawalsOrderService {
 			String data1 = StrUtil.subSuf(withdrawalsOrder.getTime(),12);
 			criteria.andCreateTimeBetween(DateUtil.parse(data), DateUtil.parse(data1));
 			} 
+		if(CollUtil.isNotEmpty(withdrawalsOrder.getAccountList())) {
+			List<String> accountList = withdrawalsOrder.getAccountList();
+			criteria.andAccountListEqualTo(accountList);
+		}
 		List<WithdrawalsOrderEntity> selectByExample = withdrawalsOrderDao.selectByExample(example);
 		return selectByExample;
+	}
+	@Override
+	public WithdrawalsOrderEntity findWithdrawalsByid(String id) {
+		WithdrawalsOrderEntityExample example  = new WithdrawalsOrderEntityExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(Integer.valueOf(id));
+		 List<WithdrawalsOrderEntity> selectByExample = withdrawalsOrderDao.selectByExample(example);
+		 if(CollUtil.isNotEmpty(selectByExample)) {
+			 return CollUtil.getFirst(selectByExample);
+		 }
+		return null;
+	}
+	@Override
+	public BigDecimal findToDaySumAmount(String string) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String format = sdf.format(new Date());
+		Date date = DateUtil.parse(format);
+		Date beginOfDay = DateUtil.beginOfDay(date);
+		Date endOfDay = DateUtil.endOfDay(date);
+		WithdrawalsOrderEntityExample example  = new WithdrawalsOrderEntityExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andCreateTimeBetween(beginOfDay, endOfDay);
+		criteria.andOrderAccountEqualTo(string);
+		String todayAmount = withdrawalsOrderDao.selectToDaySumAmountByExample(example);
+		return new BigDecimal(todayAmount);
+	}
+	@Override
+	public WithdrawalsOrderEntity findWithdrawalsByOrderId(String orderId) {
+		WithdrawalsOrderEntityExample example  = new WithdrawalsOrderEntityExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andOrderIdEqualTo(orderId);
+		List<WithdrawalsOrderEntity> selectByExample = withdrawalsOrderDao.selectByExample(example);
+		if(CollUtil.isNotEmpty(selectByExample)) {
+			return CollUtil.getFirst(selectByExample);
+		}
+		return null;
+	}
+	@Override
+	public boolean updataOrder(WithdrawalsOrderEntity order) {
+		WithdrawalsOrderEntityExample example  = new WithdrawalsOrderEntityExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(order.getId());
+		int updateByExample = withdrawalsOrderDao.updateByExample(order, example);
+		return updateByExample > 0 && updateByExample < 2;
 	}
 
 }

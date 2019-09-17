@@ -5,8 +5,9 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>交易订单管理</title>
+<title>代付订单管理</title>
 <meta name="renderer" content="webkit">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -72,13 +73,29 @@
 			</div>  
 		</div>
 	</div>
-	<%--	<script type="text/html" id="operation">
- 	 <a class="layui-btn layui-btn-xs" lay-event="edit" url = "${ctx}/manage/dealOrder/bankCardEditShow">编辑</a>
- 	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" url = "${ctx}/manage/bankCard/bankCardDel">删除</a>
-	</script>--%>
+	<script type="text/html" id="operation">
+ 	 <a class="layui-btn layui-btn-xs" lay-event="isCheck" url = "${ctx}/manage/merchants/isCheck">代付审核</a>
+ 	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="isDie" url = "${ctx}/manage/merchants/isDie">置为代付失败</a>
+	</script>
 </body>
 </html> 
 <script type="text/javascript" src="${ctx}/static/js/manage/merchants/merchants.js" ></script>
+<script type="text/html" id="orderStatus"> 
+			{{#  if(d.orderStatus == '1'){ }}
+				<span class="label radius"style="background-color:red;" >处理中</span>
+			{{# }else if(d.orderStatus == '2'){ }}
+				<span class="label label-success radius" style="background-color:#009688;">成功</span>
+			{{# }else if(d.orderStatus == '3'){ }}
+				<span class="label label-success radius" style="background-color:#009688;">失败</span>
+			{{# } }}
+</script>
+<script type="text/html" id="orderType"> 
+			{{#  if(d.orderType == '1'){ }}
+				<span class="label radius" >下游代付</span>
+			{{# }else{  }}
+				<span class="label label-danger radius" style="background-color: red">补充代付</span>
+			{{# } }}
+</script>
 <script>
 layui.use('laydate', function(){
 	  var laydate = layui.laydate;

@@ -86,7 +86,7 @@
   <sql id="Base_Column_List" >
     id, accountId, orderId, associatedId, amount, ip, approver, merchantsStatus, createTime, 
     submitTime, submitSystem, status, retain1, retain2, retain3, retain4, retain5, retain6, 
-    retain7
+    retain7,note
   </sql>
   <sql id="Blob_Column_List" >
     note

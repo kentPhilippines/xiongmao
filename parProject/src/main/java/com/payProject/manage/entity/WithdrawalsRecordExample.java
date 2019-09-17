@@ -597,12 +597,6 @@ public class WithdrawalsRecordExample {
          * @return
          */
         public Criteria andAccountListEqualTo(List<String> value) {
-        	StringBuffer accountList = new StringBuffer();
-        	for(String accountId:value) {
-        		accountList.append(accountId);
-        		accountList.append(",");
-        	}
-        	String removeSuffix = StrUtil.removeSuffix(accountList,",");
         	addCriterion("accountId in", value, "accountId");
         	return (Criteria) this;
         }

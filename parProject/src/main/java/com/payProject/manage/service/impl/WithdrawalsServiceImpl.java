@@ -36,5 +36,23 @@ public class WithdrawalsServiceImpl implements WithdrawalsService{
 		List<WithdrawalsRecord> selectByExample = withdrawalsRecordDao.selectByExample(example);
 		return selectByExample;
 	}
-
+	@Override
+	public WithdrawalsRecord findWithdrawalsRecordByOrderAll(String associatedId) {
+		WithdrawalsRecordExample example = new WithdrawalsRecordExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andAssociatedIdEqualTo(associatedId);
+		List<WithdrawalsRecord> selectByExample = withdrawalsRecordDao.selectByExample(example);
+		if(CollUtil.isNotEmpty(selectByExample)) {
+			return CollUtil.getFirst(selectByExample);
+		}
+		return null;
+	}
+	@Override
+	public boolean updataOrder(WithdrawalsRecord record) {
+		WithdrawalsRecordExample example = new WithdrawalsRecordExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(record.getId());
+		int updateByExample = withdrawalsRecordDao.updateByExample(record, example);
+		return updateByExample > 0 && updateByExample < 2;
+	}
 }

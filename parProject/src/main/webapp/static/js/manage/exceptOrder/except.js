@@ -17,10 +17,11 @@ var ExceptClas = {
 				    	 {field: 'id', title: 'ID', hide :true, width:150,   fixed: 'left'}
 					      ,{field: 'orderExceptId', title: '异常订单号', width:120}
 					      ,{field: 'orderId', title: '关联订单号', width:130}
-					      ,{field: 'exceptType', title: '异常类型', width: 100}
+					      ,{field: 'exceptType', title: '异常类型', width: 100,templet:'#exceptType',style:'background-color: #009688; color: #fff;' }
+					      ,{field: 'exceptStatus', title: '异常状态', width: 100,templet:'#exceptStatus',style:'background-color: #009688; color: #fff;' }
 					      ,{field: 'orderAccount', title: '订单关联商户号', width: 160}
 					      ,{field: 'exceptOrderAmount', title: '异常订单预处理金额', width: 160}
-					      ,{field: 'explain', title: '异常订单说明', width: 150}
+					      ,{field: 'explains', title: '异常订单说明', width: 230}
 					      ,{field: 'createTime', title: '交易时间', width: 135, sort: true}
 					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:150}
 				    ]]

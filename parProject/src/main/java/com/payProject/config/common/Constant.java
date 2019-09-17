@@ -25,6 +25,57 @@ public final class Constant {
 		private static final Integer ACCOUNT_FEE_STUSTA2 = 2;//费率停用状态
 		private static final Integer ACCOUNT_FEE_STUSTA3 = 3;//自动切换
 		
+		/**
+		 * <p>提现记录表状态</p>
+		 * <p>//提现状态 1成功2失败3处理中</p>
+		 */
+		/**
+		 * <p>提现成功</p>
+		 */
+		public static final Integer DPAY_STATUS_SU = 1;//提现成功
+		/**
+		 * <p>提现失败</p>
+		 */
+		public static final Integer DPAY_STATUS_ER = 2;//提现失败
+		/**
+		 * <p>提现处理中</p>
+		 */
+		public static final Integer DPAY_STATUS_WI = 3;//提现处理中
+		
+		
+		/**
+		 * <p>代付订单表状态</p>
+		 * 1处理中,2成功,3失败
+		 */
+		public static final Integer WI_DPAY_STATUS_WI = 1;//处理中
+		public static final Integer WI_DPAY_STATUS_SU = 2;//成功
+		public static final Integer WI_DPAY_STATUS_ER = 3;//失败
+		
+		/**
+		 * <p>银行卡类别</p>
+		 * 银行类别0收款卡,1中转卡,2出款卡,3冻结卡,4测试卡 
+		 */
+		/**
+		 * <p>收款卡</p>
+		 */
+		public static final Integer BANKCARDTYPE_DEAL =0;//收款卡
+		/**
+		 * <p>中轉卡</p>
+		 */
+		public static final Integer BANKCARDTYPE_TRANSFER = 1;//中轉卡
+		/**
+		 * <p>出款卡</p>
+		 */
+		public static final Integer BANKCARDTYPE_WIT = 2;//出款卡
+		/**
+		 * <p>凍結卡</p>
+		 */
+		public static final Integer BANKCARDTYPE_FREEZR = 3;//冻结卡
+		/**
+		 * <p>測試卡</p>
+		 */
+		public static final Integer BANKCARDTYPE_TEST = 4;//測試卡
+		
 		private static final String ACCOUNTNAME = "请修改商户名";//商户命名首次默认值
 		/**
 		 * <p>流水訂單處理狀態</p>
@@ -47,6 +98,8 @@ public final class Constant {
 		public static final Integer RUN_WITHDRAWALS_PAY_FEE = 6;//代付手續費
 		public static final Integer RUN_FREEZE = 7;//凍結
 		public static final Integer RUN_UN_FREEZE = 8;//解凍
+		public static final Integer RUN_DPAY_FEE_FREEZE = 9;//代付手手续费冻结
+		public static final Integer RUN_DPAY_FREEZE = 10;//代付冻结
 		/**
 		 * <p>订单生成表头</p>
 		 */

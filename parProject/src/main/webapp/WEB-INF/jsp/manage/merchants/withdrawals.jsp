@@ -51,7 +51,6 @@
 	    <label class="layui-form-label">到账银行卡</label>
 	    <div class="layui-input-inline">
 	      <select name="backCard" lay-verify="required" >
-	      	<option value="564132132113131">测试564132132113131</option>
 	      	<c:forEach var="back" items="${backCard}">
 	      	 <option value="${back}">${back}</option>
 	      	</c:forEach>
@@ -62,7 +61,6 @@
 	    <label class="layui-form-label">提现账户</label>
 	    <div class="layui-input-inline">
 	      <select name="accountId" lay-verify="required" >
-	      <option value="accountTest">测试accountTest</option>
 	      	<c:forEach var="user" items="${UserAccountList}">
 	      	 <option value="${user.accountId}">${user.accountName}</option>
 	      	</c:forEach>

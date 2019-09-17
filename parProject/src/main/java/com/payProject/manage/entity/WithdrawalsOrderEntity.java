@@ -2,6 +2,8 @@ package com.payProject.manage.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -74,7 +76,18 @@ public class WithdrawalsOrderEntity extends BaseEntity<WithdrawalsOrderEntity>{
      */
     private String Time;
     
-    private String retain1;
+    private List<String> accountList;
+    
+    
+    public List<String> getAccountList() {
+		return accountList;
+	}
+
+	public void setAccountList(List<String> accountList) {
+		this.accountList = accountList;
+	}
+
+	private String retain1;
     private String retain2;
     private String retain3;
     private String retain4;

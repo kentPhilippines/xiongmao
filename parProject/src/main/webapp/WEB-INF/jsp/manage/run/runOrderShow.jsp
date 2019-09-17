@@ -105,8 +105,12 @@
 				<span class="label label-success radius"style="background-color:red;">代付手续费</span>
 			{{# }else if(d.runType == '7'){ }}
 				<span class="label label-success radius" >冻结</span>
-			{{# }else{  }}
-				<span class="label label-danger radius">解冻</span>
+			{{# }else if(d.runType == '8'){ }}
+				<span class="label label-success radius" >解冻</span>
+			{{# }else if(d.runType == '9'){ }}
+				<span class="label label-success radius" >代付手续费冻结</span>
+			{{# }else if(d.runType == '10'){ }}
+				<span class="label label-success radius" >代付冻结</span>
 			{{# } }}
 </script>
 <script type="text/html" id="runStatus">

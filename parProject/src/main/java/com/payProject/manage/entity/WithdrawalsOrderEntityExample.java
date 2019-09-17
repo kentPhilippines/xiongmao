@@ -680,6 +680,10 @@ public class WithdrawalsOrderEntityExample {
             addCriterion("orderAccount =", value, "orderAccount");
             return (Criteria) this;
         }
+        public Criteria andAccountListEqualTo(List<String> value) {
+        	addCriterion("orderAccount in", value, "orderAccount");
+        	return (Criteria) this;
+        }
 
         public Criteria andOrderAccountNotEqualTo(String value) {
             addCriterion("orderAccount <>", value, "orderAccount");

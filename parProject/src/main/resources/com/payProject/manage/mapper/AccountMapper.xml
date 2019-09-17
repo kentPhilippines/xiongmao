@@ -411,12 +411,12 @@
   </update>
    <select id="findBankCardByAccountId" resultMap="BaseResultMap" parameterType="list">
       select t1.bankCard from  manage_account t1
-      where  
-    <foreach collection="list" index="index" item="bean"  >
-         <trim prefix="(" suffix=")" suffixOverrides="or" >
+    <where>
+     <foreach collection="list" index="index" close=")" open="(" separator="or" item="bean"  >
          t1.accountId =    #{bean}
-          </trim>
-    </foreach>
+    </foreach>   
+    </where>
+    
     
   </select>
 </mapper>

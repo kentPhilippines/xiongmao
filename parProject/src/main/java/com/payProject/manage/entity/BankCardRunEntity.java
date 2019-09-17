@@ -10,9 +10,6 @@ import com.payProject.system.entity.base.BaseEntity;
  * @author K
  */
 public class BankCardRunEntity extends BaseEntity<BankCardRunEntity>{
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = -4523538365602853694L;
 	/**
 	 * <p>出金银行卡</p>
@@ -42,7 +39,19 @@ public class BankCardRunEntity extends BaseEntity<BankCardRunEntity>{
 	 * <p>流水类型</p>
 	 */
     private Integer runType;
-    private String retain1;
+    
+    private String Time;
+    
+    
+    public String getTime() {
+		return Time;
+	}
+
+	public void setTime(String time) {
+		Time = time;
+	}
+
+	private String retain1;
 
     private String retain2;
 

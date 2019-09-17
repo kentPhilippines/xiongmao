@@ -58,7 +58,7 @@ public class ExceptionOrderEntity extends BaseEntity<ExceptionOrderEntity>{
     /**
      * <p>异常说明</p>
      */
-    private String explain;
+    private String explains;
     
     /**
      * <p>时间范围</p>
@@ -223,12 +223,12 @@ public class ExceptionOrderEntity extends BaseEntity<ExceptionOrderEntity>{
         this.retain9 = retain9 == null ? null : retain9.trim();
     }
 
-    public String getExplain() {
-        return explain;
+    public String getexplains() {
+        return explains;
     }
 
-    public void setExplain(String explain) {
-        this.explain = explain == null ? null : explain.trim();
+    public void setexplains(String explains) {
+        this.explains = explains == null ? null : explains.trim();
     }
 
     @Override

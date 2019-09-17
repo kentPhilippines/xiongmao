@@ -4,12 +4,13 @@ import java.math.BigDecimal;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.payProject.config.exception.ParamException;
 import com.payProject.system.entity.base.BaseEntity;
 /**
  * <p>银行卡详细登记表</p>
  * @author K
  */
-public class BankCardEntity extends BaseEntity<BankCardEntity>{
+public class  BankCardEntity extends BaseEntity<BankCardEntity>{
     /**
 	 * 
 	 */

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>渠道管理</title>
+<title>商户查询代付订单</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -69,6 +69,15 @@
 </body>
 </html>
 <script type="text/javascript" src="${ctx}/static/js/manage/merchants/merchants.js" ></script>
+<<script type="text/html" id="merchantsStatus">
+	{{#  if(d.merchantsStatus == '1'){ }}
+		<span class="label radius"style="background-color:red;" >成功</span>
+	{{# }else if(d.merchantsStatus == '2'){ }}
+		<span class="label label-success radius" style="background-color:#009688;">失败</span>
+	{{# }else if(d.merchantsStatus == '3'){ }}
+		<span class="label label-success radius" style="background-color:#009688;">处理中</span>
+	{{# } }}
+</script>
 <script>
 $(function(){
 	WithdrawalsRecordClas.init();

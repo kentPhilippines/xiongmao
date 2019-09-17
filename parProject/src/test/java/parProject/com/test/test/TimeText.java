@@ -5,10 +5,24 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import cn.hutool.core.date.DateUtil;
+
 public class TimeText {
 	public static void main(String[] args) {
-		String lastDay = getLastDay("2019-09-09");
-		System.out.println(lastDay); 
+		
+		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		 SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		 String format = sdf.format(new Date());
+		Date date = DateUtil.parse(format);
+		Date beginOfDay = DateUtil.beginOfDay(date);
+		Date endOfDay = DateUtil.endOfDay(date);
+		String format2 = sdf1.format(beginOfDay);
+		String format3 = sdf1.format(endOfDay);
+		
+		System.out.println(format);
+		System.out.println(format2);
+		System.out.println(format3);
+		
 	}
 	
 	public static String getLastDay(String time){

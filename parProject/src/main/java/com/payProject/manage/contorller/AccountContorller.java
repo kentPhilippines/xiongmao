@@ -561,4 +561,9 @@ public class AccountContorller<E> {
 				 throw new OtherErrors("删除商户异常");
 			}
 	    }
+	@RequestMapping("/userDealShow")
+	public String userDealShow( ) {
+		return "/manage/account/userDealShow";
+	}
+	
 }

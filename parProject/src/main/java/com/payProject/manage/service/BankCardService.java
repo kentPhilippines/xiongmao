@@ -3,6 +3,7 @@ package com.payProject.manage.service;
 import java.util.List;
 
 import com.payProject.manage.entity.BankCardEntity;
+import com.payProject.manage.entity.BankCardRunEntity;
 
 /**
  * <p>银行卡数据管理</p>
@@ -45,4 +46,16 @@ public interface BankCardService {
 	 * @return
 	 */
 	boolean UpdateBankCardByBankCardNo(BankCardEntity bankCard);
+	/**
+	 * <p>修改银行卡的状态未无效</p>
+	 * @param bankCard
+	 * @return
+	 */
+	boolean updataBankCard(BankCardEntity bankCard);
+	/**
+	 * <p>银行卡流水</p>
+	 * @param bankCardRun
+	 * @return
+	 */
+	List<BankCardRunEntity> findPageBankCardRunByBankCard(BankCardRunEntity bankCardRun);
 }
