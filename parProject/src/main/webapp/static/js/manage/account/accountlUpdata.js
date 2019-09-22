@@ -175,6 +175,7 @@ var AccountlEdit = {
 					accountType:$("[name=accountType]").val(),
 					havaInterface:$("[name=havaInterface]").val(),
 					isDeal:$("[name=isDeal]").val(),
+					isDpay:$("[name=isDpay]").val(),
 					bankCard:$("[name=bankCard]").val()
 			}
 		},

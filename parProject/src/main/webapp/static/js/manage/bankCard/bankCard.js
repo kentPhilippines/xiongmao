@@ -1,3 +1,50 @@
+var MyBankCardRunClas = {
+		init : function(){
+			this.initNode();
+			this.bankCardShowInit();
+			this.query();
+		},
+		initNode : function(){
+			this.$table = $("#LAY-user-back-manage");
+		},
+		bankCardShowInit : function(){
+			layui.use('table', function(){
+				MyBankCardRunClas.$ObjectTable = layui.table;
+				MyBankCardRunClas.$ObjectTable.render({
+					elem: MyBankCardRunClas.$table
+					,url:MyBankCardRunClas.$table.attr('url')
+					,cols: [[
+						{field: 'id', title: 'ID', hide :true, width:5,   fixed: 'left'}
+						,{field: 'withdrawAccount', title: '出金本地账户', width:160 }
+						,{field: 'withdrawAmount', title: '出金金额', width: 160}
+						,{field: 'dealBankCard', title: '到账银行卡(入金)', width: 160}
+						,{field: 'dealAccount', title: '到账本地账户(入金)', width: 160}
+						,{field: 'dealAmount', title: '到账金额(入金)', width: 160}
+						,{field: 'runType', title: '流水类型', width: 160,templet:'#runType' , style:'background-color: #009688; color: #fff;'}
+						,{field: 'createTime', title: '创建时间', width: 135, sort: true}
+						]]
+				, id: 'mytable'
+					,page: true
+				});
+			});
+		},
+		query : function(){
+			$("[lay-filter='LAY-user-back-search']").on("click",function(){
+				 var bankCard = $('[name="bankCard"]').val();//获取输入框的值
+				 var liabilities = $('[name="liabilities"]').val();//获取输入框的值
+				 var bankId = $('[name="bankId"]').val();//获取输入框的值
+				MyBankCardRunClas.reload({bankCard:bankCard,liabilities:liabilities,bankId:bankId})
+			})
+		},
+		 reload:function(param){
+			MyBankCardRunClas.$ObjectTable.reload('mytable',{ page:{  curr: 1} //重新从第 1 页开始
+				                        , where: param//这里传参  向后台
+				                        , url: 'myBankCardList'//后台做模糊搜索接口路径
+				                        , method: 'post'
+				                          });
+		} 
+		
+}
 var MyBankCardClas = {
 		init : function(){
 			this.initNode();
@@ -49,19 +96,20 @@ var MyBankCardClas = {
 				    elem: MyBankCardClas.$table
 				    ,url:MyBankCardClas.$table.attr('url')
 				    ,cols: [[
-				    	 {field: 'id', title: 'ID', hide :true, width:150,   fixed: 'left'}
+				    	{field: 'id', title: 'ID', hide :true, width:5,   fixed: 'left'}
 					      ,{field: 'bankId', title: '银行本地编号', width:100}
 					      ,{field: 'bankType', title: '银行类别', width:100,templet:'#bankType' }
-					      ,{field: 'bankCard', title: '银行卡号', width: 160}
-					      ,{field: 'bankName', title: '银行名称', width: 160}
+					      ,{field: 'bankCard', title: '银行卡号', width: 115}
+					      ,{field: 'bankName', title: '银行名称', width: 115}
 					      ,{field: 'cardholder', title: '持卡人', width: 115}
 					      ,{field: 'cardholderId', title: '持卡人身份证', width: 115}
-					      ,{field: 'treasurer', title: '上级主管代号', width: 115}
+					      ,{field: 'treasurer', title: '上级负责人', width: 115}
 					      ,{field: 'liabilities', title: '银行卡负责人', width: 115}
+					      ,{field: 'bankPhone', title: '绑定手机', width: 115}
 					      ,{field: 'bankAmount', title: '卡上余额', width: 135, sort: true}
 					      ,{field: 'retain1', title: '允许交易额度', width: 135, sort: true}
-					      ,{field: 'createTime', title: '创建时间', width: 135, sort: true}
-					      ,{field: 'bankNote', title: '银行卡备注', width: 135}
+					      ,{field: 'createTime', title: '创建时间', width: 115, sort: true}
+					      ,{field: 'bankNote', title: '银行卡备注', width: 115}
 					      ,{field: 'status', title: '是否可用', width: 135,templet:'#status' }
 					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:150}
 				    ]]
@@ -123,22 +171,25 @@ var BankCardEditCls = {
 			this.$but = $(".layui-layer-btn0");
 		},
 		initData : function(){
-			debugger;
 			this.$data ={
-					bankId : $("[name='bankId']").val(""),
-					bankCard : $("[name='bankCard']").val(""),
-					bankName : $("[name='bankName']").val(""),
-					cardholder : $("[name='cardholder']").val(""),
-					treasurer : $("[name='treasurer']").val(""),
-					liabilities : $("[name='liabilities']").val(""),
-					bankCard : $("[name='bankCard']").val(""),
+					bankId : $("[name='bankId']").val(),
+					bankCard : $("[name='bankCard']").val(),
+					bankName : $("[name='bankName']").val(),
+					cardholder : $("[name='cardholder']").val(),
+					treasurer : $("[name='treasurer']").val(),
+					liabilities : $("[name='liabilities']").val(),
+					bankPhone : $("[name='bankPhone']").val(),
+					cardholderId : $("[name='cardholderId']").val(),
+					bankNote : $("[name='bankNote']").val(),
+					retain1 : $("[name='retain1']").val(),
+					bankType : $("[name='bankType']").val()
 			}
 		},
 		bindEvent : function(){
-			this.$but.on("click",this.userEdit)
+			this.$but.on("click",this.bankCardEdit)
 		},
-		userEdit : function(){
-			UserEditCls.initData();
+		bankCardEdit : function(){
+			BankCardEditCls.initData();
 			CommonUtil.ObjextAjax($(this).attr("url"),BankCardEditCls.$data,BankCardAddCls.AjaxSucFn,true,"暂无权限","post")
 		}
 }
@@ -290,6 +341,7 @@ var BankCardClas = {
 					      ,{field: 'cardholderId', title: '持卡人身份证', width: 115}
 					      ,{field: 'treasurer', title: '财务主管', width: 115}
 					      ,{field: 'liabilities', title: '银行卡负责人', width: 115}
+					      ,{field: 'bankPhone', title: '绑定手机', width: 115}
 					      ,{field: 'bankAmount', title: '卡上余额', width: 135, sort: true}
 					      ,{field: 'retain1', title: '允许交易额度', width: 135, sort: true}
 					      ,{field: 'createTime', title: '创建时间', width: 115, sort: true}

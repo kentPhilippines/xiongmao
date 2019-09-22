@@ -47,6 +47,8 @@ public class AccountEntity  extends BaseEntity<AccountEntity>{
 		 * <p>下游商户</p>
 		 */
 	    private BigDecimal dayDealAmountMax;
+	    private BigDecimal freezeT1;//T1冻结
+	    private BigDecimal freezeD1;//D1冻结
 	    /**
 		 * <p>商户日交易(充值)额度最小</p>
 		 * <p>下游商户</p>
@@ -85,7 +87,24 @@ public class AccountEntity  extends BaseEntity<AccountEntity>{
 	     */
 	    private Integer isDpay;
 	    
-	    private String bankCard;
+	    public BigDecimal getFreezeT1() {
+			return freezeT1;
+		}
+
+		public void setFreezeT1(BigDecimal freezeT1) {
+			this.freezeT1 = freezeT1;
+		}
+
+		public BigDecimal getFreezeD1() {
+			return freezeD1;
+		}
+
+		public void setFreezeD1(BigDecimal freezeD1) {
+			this.freezeD1 = freezeD1;
+		}
+
+
+		private String bankCard;
 	    public String getBankCard() {
 			return bankCard;
 		}

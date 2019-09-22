@@ -122,5 +122,17 @@ public interface ChannelService {
 	 * @return
 	 */
 	boolean updataChannelFee(ChannelFee first);
+	/**
+	 * <p>根据账户集合查询集合里面账户所对应的所有费率集合</p>
+	 * @param accountList
+	 * @return
+	 */
+	List<ChannelFee> findChannelByAccountList(List<String> accountList);
+	/**
+	 * <p>根据支付产品编号集合查询产婆名</p>
+	 * @param payList
+	 * @return
+	 */
+	List<PayType> findPayTypeByListNo(List<String> payList);
 
 }

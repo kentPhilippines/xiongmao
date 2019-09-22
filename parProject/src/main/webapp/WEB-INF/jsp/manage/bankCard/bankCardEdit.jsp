@@ -76,8 +76,8 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">允许交易额度</label>
 			<div class="layui-input-inline">
-				<input type="text" name="cardholderId" lay-verify="email"
-					placeholder="请输入用户所在城市" autocomplete="off" class="layui-input" value = "${bankCard.cardholderId}">
+				<input type="text" name="retain1" lay-verify="email"
+					placeholder="请输入用户所在城市" autocomplete="off" class="layui-input" value = "${bankCard.retain1}">
 			</div>
 		</div>
 		<div class="layui-form-item">

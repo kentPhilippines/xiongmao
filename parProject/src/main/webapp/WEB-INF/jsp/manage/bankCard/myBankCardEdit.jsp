@@ -74,13 +74,6 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">允许交易额度</label>
-			<div class="layui-input-inline">
-				<input type="text" name="cardholderId" lay-verify="email"
-					placeholder="请输入用户所在城市" autocomplete="off" class="layui-input" value = "${bankCard.cardholderId}">
-			</div>
-		</div>
-		<div class="layui-form-item">
 		    <label class="layui-form-label">银行卡类别</label>
 		    <div class="layui-input-inline">
 		      <select name="bankType" lay-filter="aihao">

@@ -39,6 +39,10 @@ public class DealOrderServiceImpl implements DealOrderService {
 			String data1 = StrUtil.subSuf(dealOrder.getTime(),12);
 			criteria.andCreateTimeBetween(DateUtil.parse(data), DateUtil.parse(data1));
 			} 
+		if(CollUtil.isNotEmpty(dealOrder.getAccountList())) 
+			criteria.andOrderAccountListEqualTo(dealOrder.getAccountList());
+		if(CollUtil.isNotEmpty(dealOrder.getPayTypeList())) 
+			criteria.andRetain4ListEqualTo(dealOrder.getPayTypeList());
 		List<DealOrderEntity> selectByExample = dealOrderDao.selectByExample(example);
 		return selectByExample;
 	}

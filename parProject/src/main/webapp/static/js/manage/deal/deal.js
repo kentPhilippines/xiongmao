@@ -36,14 +36,25 @@ var DealOrderClas = {
 				  //监听行工具事件
 				DealOrderClas.$ObjectTable.on('tool(LAY-user-back-manage)', function(obj){
 				    var data = obj.data;
-				    if(obj.event === 'notify'){
+				    if(obj.event === 'notifyOrderSu'){
 				      layer.confirm('确定这么做', function(index){
-				    	var url = $("[lay-event='notify']").attr("url");
-				    	 var deta =  {orderId : obj.data.orderId};
+				    	var url = $("[lay-event='notifyOrderSu']").attr("url");
+				    	var deta =  {orderId : obj.data.orderId};
 				    	CommonUtil.ObjextAjax(url,deta,DealOrderClas.AjaxSucFn,true,'无权限或网络错误，请联系开发人员处理','post');
 				      });
-				    }  
-				    
+				    } else if (obj.event === 'notifyOrderEr'){
+					      layer.confirm('确定这么做', function(index){
+					    	var url = $("[lay-event='notifyOrderEr']").attr("url");
+					    	var deta =  {orderId : obj.data.orderId};
+					    	CommonUtil.ObjextAjax(url,deta,DealOrderClas.AjaxSucFn,true,'无权限或网络错误，请联系开发人员处理','post');
+					      });
+				    }else if (obj.event === 'notifyOrderNo'){
+					      layer.confirm('确定这么做', function(index){
+						    var url = $("[lay-event='notifyOrderNo']").attr("url");
+						    var deta =  {orderId : obj.data.orderId};
+						    CommonUtil.ObjextAjax(url,deta,DealOrderClas.AjaxSucFn,true,'无权限或网络错误，请联系开发人员处理','post');
+						      });
+				    }
 				  });
 				});
 		},

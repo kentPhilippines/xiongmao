@@ -65,7 +65,7 @@
 	  <div class="layui-inline">
 	      <label class="layui-form-label">到账银行卡</label>
 	      <div class="layui-input-inline">
-	        <input type="text" name="bankCard1" readonly = "unselectable='on'"  autocomplete="off" class="layui-input" value = "${account.bankCard}">
+	        <input type="text" name="bankCard1" readonly = "unselectable='on'"    class="layui-input" value = "${account.bankCard}">
 	      </div>
 	  </div>
 	  </div>

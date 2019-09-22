@@ -169,4 +169,18 @@ public interface AccountService {
 	 */
 	List<AccountEntity> findBankCardByAccountId(List<String> accountList);
 
+	/**
+	 * <p>根据商户集合查询商户信息</p>
+	 * @param accountList
+	 * @return
+	 */
+	List<AccountEntity> findAccountEntityByAccountId(List<String> accountList);
+
+	/**
+	 * <p>根据商户集合查询所有的商户费率</p>
+	 * @param accountList
+	 * @return
+	 */
+	List<AccountFee> findAccountFeeByAccountList(List<String> accountList);
+
 }

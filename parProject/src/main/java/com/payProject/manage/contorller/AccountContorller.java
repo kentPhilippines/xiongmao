@@ -1,11 +1,13 @@
 package com.payProject.manage.contorller;
 
+import java.math.BigDecimal;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +31,7 @@ import com.payProject.config.common.PageResult;
 import com.payProject.config.common.AutocompleteResult;
 import com.payProject.config.common.Constant;
 import com.payProject.config.common.Constant.Common;
+import com.payProject.config.common.DataResult;
 import com.payProject.config.exception.OtherErrors;
 import com.payProject.config.exception.ParamException;
 import com.payProject.config.common.JsonResult;
@@ -36,15 +39,20 @@ import com.payProject.manage.entity.AccountEntity;
 import com.payProject.manage.entity.AccountFee;
 import com.payProject.manage.entity.AccountInfo;
 import com.payProject.manage.entity.Channel;
+import com.payProject.manage.entity.ChannelFee;
+import com.payProject.manage.entity.DealOrderEntity;
 import com.payProject.manage.entity.PayType;
 import com.payProject.manage.entity.UserAccount;
 import com.payProject.manage.service.AccountService;
 import com.payProject.manage.service.ChannelService;
+import com.payProject.manage.service.DealOrderService;
+import com.payProject.manage.service.OrderRunService;
 import com.payProject.system.entity.User;
 import com.payProject.system.service.UserService;
 import com.payProject.system.util.EncryptUtil;
 import com.payProject.system.util.MapUtil;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
@@ -59,6 +67,10 @@ public class AccountContorller<E> {
 	ChannelService channelServiceImpl;
 	@Autowired
 	UserService userService;
+	@Autowired
+	DealOrderService dealOrderServiceImpl;
+	@Autowired
+	OrderRunService	orderRunServiceImpl;
 	@RequestMapping("/accountShow")
 	public String accountlShow( ){
 		return "/manage/account/accountList";
@@ -386,184 +398,8 @@ public class AccountContorller<E> {
 	throw new OtherErrors("冻结失败");
 	}
 	
-	/**
-	 * <p>个人资料详情</p>
-	 * @param m
-	 * @return
-	 */
-	@RequestMapping("/show")
-	public String accountShow(Model m){
-		 Subject subject = SecurityUtils.getSubject();
-		 Session session = subject.getSession();
-		 Object attribute = session.getAttribute(Constant.User.USER_IN_SESSION());
-		 Map<String, Object> objectToMap = MapUtil.objectToMap(attribute);
-		 com.payProject.system.entity.User user = MapUtil.mapToBean(objectToMap,com.payProject.system.entity.User.class);
-		 String userId = (String)objectToMap.get(Constant.User.USER_ID());
-		 if(StrUtil.isBlank(userId))
-			 throw  new OtherErrors("用户未登录，或登录数据错误");
-		 m.addAttribute("user", user);
-		return "/manage/account/accountShow";
-	}
 	
-	/**
-	 * <p>展示修改界面</p>
-	 * @param m
-	 * @param account
-	 * @return
-	 */
-	@RequestMapping("/updataPasswordShow")
-	public String updataPasswordShow(Model m ,User  user) {
-		if(StrUtil.isBlank(user.getUserId()))
-			throw new ParamException("商户号有误,请联系客服人员处理");
-		User findUserByUserId = userService.findUserByUserId(user.getUserId());
-		m.addAttribute("userId", findUserByUserId.getUserId());
-		return "/manage/account/passwordUpdata";
-	}
-	@RequestMapping("/updataPayPasswordShow")
-	public String updataPayPasswordShow(Model m ,User  user) {
-		if(StrUtil.isBlank(user.getUserId()))
-			throw new ParamException("商户号有误,请联系客服人员处理");
-		User findUserByUserId = userService.findUserByUserId(user.getUserId());
-		m.addAttribute("userId", findUserByUserId.getUserId());
-		m.addAttribute("isPay", "isPay");
-		return "/manage/account/passwordUpdata";
-	}
 	
-	@ResponseBody
-	@RequestMapping("/updataPassword")
-	@Transactional
-	public JsonResult updataPassword(Model m ,User  user,String password){
-		if(StrUtil.isBlank(password))
-			throw new ParamException("有误");
-		User findUserByUserId = userService.findUserByUserId(user.getUserId());
-		Map<String, String> encryptPassword = EncryptUtil.encryptPassword(findUserByUserId.getUserId(), user.getUserPassword());
-		String pass = encryptPassword.get(Constant.Common.PASSWORD);
-		String password1 = "";
-		if(pass.equals(findUserByUserId.getUserPassword())){
-			Map<String, String> encryptPassword2 = EncryptUtil.encryptPassword(user.getUserId(),password);
-			password1 = encryptPassword2.get(Constant.Common.PASSWORD);//获得新密码
-		}else {
-			return JsonResult.buildFailResult("旧密码验证错误");
-		}
-		if(StrUtil.isBlank(password))
-			return JsonResult.buildFailResult("未获取密码");
-		findUserByUserId.setUserPassword(password1);
-		boolean updateUserByUserId = userService.UpdateUserByUserId(findUserByUserId);
-		if(updateUserByUserId) {
-			SecurityUtils.getSubject().logout();
-			return JsonResult.buildSuccessMessage("修改成功，请重新登录");
-		}
-		return JsonResult.buildFailResult("未知错误，联系管理员");
-	}
-	/**
-	 * <p>修改支付密码</p>
-	 * @param m
-	 * @param user
-	 * @param password		支付密码
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping("/updataPayPassword")
-	@Transactional
-	public JsonResult updataPayPassword(Model m ,User  user,String password){
-		if(StrUtil.isBlank(password))
-			throw new ParamException("有误");
-		User findUserByUserId = userService.findUserByUserId(user.getUserId());
-		Map<String, String> encryptPassword = EncryptUtil.encryptPassword(user.getUserPassword());
-		String pass = encryptPassword.get(Constant.Common.PAYPASSWORD);
-		String password1 = "";
-		if(pass.equals(findUserByUserId.getUserPassword())){
-			Map<String, String> encryptPassword2 = EncryptUtil.encryptPassword(password);
-			password1 = encryptPassword2.get(Constant.Common.PAYPASSWORD);//获得新密码
-		}else {
-			return JsonResult.buildFailResult("旧支付密码验证错误");
-		}
-		if(StrUtil.isBlank(password))
-			return JsonResult.buildFailResult("未获取支付密码");
-		findUserByUserId.setUserPassword(password1);
-		boolean updateUserByUserId = userService.UpdateUserByUserId(findUserByUserId);
-		if(updateUserByUserId) {
-			SecurityUtils.getSubject().logout();
-			return JsonResult.buildSuccessMessage("修改成功，请重新登录");
-		}
-		return JsonResult.buildFailResult("未知错误，联系管理员");
-	}
-	@RequestMapping("/userShow")
-	public String userShow( ) {
-		return "/manage/account/userShow";
-	}
 	
-	@RequestMapping("/userAccount")
-	public String userAccount(Model m ) {
-		List<AccountEntity> accountList = accountServiceImpl.findAccountAll();
-		List<User> userList = userService.findUserAll();
-		List<AutocompleteResult> acco =new  ArrayList<AutocompleteResult>();
-		List<AutocompleteResult> use =new  ArrayList<AutocompleteResult>();
-		for( AccountEntity entity : accountList ) {
-			AutocompleteResult acc = new AutocompleteResult();
-			acc.setName(entity.getAccountName());
-			acc.setPinyin(entity.getAccountId());
-			acco.add(acc);
-		}
-		for( User entity : userList ) {
-			AutocompleteResult acc = new AutocompleteResult();
-			acc.setName(entity.getUserName());
-			acc.setPinyin(entity.getUserId());
-			use.add(acc);
-		}
-		m.addAttribute("accountList", JSONUtil.toJsonPrettyStr(acco));
-		m.addAttribute("userList", JSONUtil.toJsonPrettyStr(use));
-		return "/manage/account/userAccountAdd";
-	}
-	@ResponseBody
-	@RequestMapping("addUserAccount")
-	@Transactional
-	public JsonResult addUserAccount(UserAccount userAccount ){
-		if(StrUtil.isBlank(userAccount.getAccountId())) {
-			throw new ParamException("商户号为空");
-		}
-		if(StrUtil.isBlank(userAccount.getUserId())) {
-			throw new ParamException("账户号");
-		}
-		User findUserByUserId = userService.findUserByUserId(userAccount.getUserId());
-		if(Constant.Common.USER_NEI.equals(findUserByUserId.getUserType())) {
-			throw new OtherErrors("该账户号不支持绑定商户号");
-		}
-		boolean  flag = userService.addUserAccount(userAccount);
-		if(flag) {
-			return JsonResult.buildSuccessMessage("账户绑定成功");
-		}
-		return JsonResult.buildFailResult("账户绑定失败");
-	}
-	@ResponseBody
-	@RequestMapping("/userAccountList")
-	public PageResult<UserAccount> userAccountList(UserAccount account,String page,String limit){
-		log.info("查询商户请求参数"+account.toString());
-		 PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(limit));
-		 List<UserAccount> list = userService.findPageUserAccountByAccount(account);
-		 PageInfo<UserAccount> pageInfo = new PageInfo<UserAccount>(list);
-		 PageResult<UserAccount> pageR = new PageResult<UserAccount>();
-			pageR.setData(pageInfo.getList());
-			pageR.setCode("0");
-			pageR.setCount(String.valueOf(pageInfo.getTotal()));
-			log.info("商户列表响应结果集"+pageR.toString());
-		return pageR;
-	}
-	@ResponseBody
-	@RequestMapping("/userAccountDel")
-	@Transactional
-	public JsonResult userAccountDel(UserAccount account,Model m ) {
-		 log.info("商户和账户删除对应关系的id为："+account.getId());
-		 boolean flag = userService.deleteUserAccount(account.getId());
-			if(flag) {
-				return JsonResult.buildSuccessMessage("删除成功");
-			}else {
-				 throw new OtherErrors("删除商户异常");
-			}
-	    }
-	@RequestMapping("/userDealShow")
-	public String userDealShow( ) {
-		return "/manage/account/userDealShow";
-	}
 	
 }

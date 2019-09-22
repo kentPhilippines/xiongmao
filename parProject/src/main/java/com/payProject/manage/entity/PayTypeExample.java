@@ -179,6 +179,10 @@ public class PayTypeExample {
             addCriterion("payTypeNo =", value, "payTypeNo");
             return (Criteria) this;
         }
+        public Criteria andPayTypeNoListEqualTo(List value) {
+        	addCriterion("payTypeNo in", value, "payTypeNo");
+        	return (Criteria) this;
+        }
 
         public Criteria andPayTypeNoNotEqualTo(String value) {
             addCriterion("payTypeNo <>", value, "payTypeNo");

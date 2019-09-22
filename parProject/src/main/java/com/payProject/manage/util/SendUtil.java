@@ -53,6 +53,7 @@ public class SendUtil {
         Map<String ,Object > parasMap = new HashMap<String,Object>();
         parasMap.put("MD5",encryptData);
         parasMap.put("sign",sign);
+        System.out.println("请求参数："+parasMap.toString());
 		return parasMap;
 	}
 }

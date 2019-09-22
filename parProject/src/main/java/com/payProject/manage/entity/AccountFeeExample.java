@@ -179,6 +179,10 @@ public class AccountFeeExample {
             addCriterion("accountId =", value, "accountId");
             return (Criteria) this;
         }
+        public Criteria andAccountIdListEqualTo(List value) {
+        	addCriterion("accountId in", value, "accountId");
+        	return (Criteria) this;
+        }
         public Criteria andSettlementTypeEqualTo(String value) {
         	addCriterion("settlementType =", value, "settlementType");
         	return (Criteria) this;
@@ -255,6 +259,10 @@ public class AccountFeeExample {
         public Criteria andAccountChannelEqualTo(String value) {
             addCriterion("accountChannel =", value, "accountChannel");
             return (Criteria) this;
+        }
+        public Criteria andAccountChannelListEqualTo(List value) {
+        	addCriterion("accountChannel in", value, "accountChannel");
+        	return (Criteria) this;
         }
 
         public Criteria andAccountChannelNotEqualTo(String value) {

@@ -1,21 +1,27 @@
 package com.payProject.manage.contorller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.payProject.config.common.Constant;
+import com.payProject.config.common.Constant.Common;
 import com.payProject.config.common.JsonResult;
 import com.payProject.config.common.PageResult;
 import com.payProject.config.exception.OtherErrors;
@@ -23,13 +29,17 @@ import com.payProject.config.exception.ParamException;
 import com.payProject.manage.entity.DealOrderEntity;
 import com.payProject.manage.entity.ExceptionOrderEntity;
 import com.payProject.manage.entity.RunOrder;
+import com.payProject.manage.entity.UserAccount;
 import com.payProject.manage.entity.WithdrawalsOrderEntity;
 import com.payProject.manage.service.DealOrderService;
 import com.payProject.manage.service.OrderErrorService;
 import com.payProject.manage.service.OrderRunService;
 import com.payProject.manage.service.WithdrawalsOrderService;
 import com.payProject.manage.util.SendUtil;
+import com.payProject.system.service.UserService;
+import com.payProject.system.util.MapUtil;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
@@ -46,6 +56,8 @@ public class OrderContorller  {
 	OrderErrorService orderErrorServiceImpl;
 	@Autowired
 	OrderRunService	orderRunServiceImpl;
+	@Autowired
+	UserService userService;
 	@Autowired
 	SendUtil sendUtil;
 	private final static String UPDATAORDER = "/notify/updataOrder";//补发通知,生成流水
@@ -132,7 +144,7 @@ public class OrderContorller  {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("/notifyOrderSu")
+	@PostMapping("/notifyOrderSu")
 	public JsonResult notifyOrderSu(DealOrderEntity dealOrder){
 	//	throw new OtherErrors("功能暂未开放");
 		DealOrderEntity deal = dealOrderServiceImpl.findDealOrderByOrderId(dealOrder.getOrderId());
@@ -162,6 +174,7 @@ public class OrderContorller  {
 			throw new OtherErrors("发送通知参数组合异常，联系开发人员处理");
 		}
 		String result= HttpUtil.post(url, careteParam);
+		System.out.println("返回结果集："+result);
 		JSONObject parseObj = JSONUtil.parseObj(result);
 		JsonResult bean = JSONUtil.toBean(parseObj, JsonResult.class);
 		return bean;

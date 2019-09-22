@@ -201,4 +201,20 @@ public class ChannelServiceImpl implements ChannelService {
 		int updateByExample = ChannelFeeDao.updateByExample(first, example);
 		return updateByExample > 0 && updateByExample < 2;
 	}
+	@Override
+	public List<ChannelFee> findChannelByAccountList(List<String> accountList) {
+		ChannelFeeExample example  = new ChannelFeeExample();
+		com.payProject.manage.entity.ChannelFeeExample.Criteria criteria = example.createCriteria();
+		criteria.andChannelAccountListEqualTo(accountList);
+		List<ChannelFee> selectByExample = ChannelFeeDao.selectByExample(example);
+		return selectByExample;
+	}
+	@Override
+	public List<PayType> findPayTypeByListNo(List<String> payList) {
+		PayTypeExample example = new PayTypeExample();
+		com.payProject.manage.entity.PayTypeExample.Criteria criteria = example.createCriteria();
+		criteria.andPayTypeNoListEqualTo(payList);
+		List<PayType> selectByExample = PayTypeDao.selectByExample(example);
+		return selectByExample;
+	}
 }

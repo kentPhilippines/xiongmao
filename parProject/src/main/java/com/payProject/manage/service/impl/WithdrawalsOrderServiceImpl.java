@@ -1,6 +1,7 @@
 package com.payProject.manage.service.impl;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +39,6 @@ public class WithdrawalsOrderServiceImpl implements WithdrawalsOrderService {
 			String data1 = StrUtil.subSuf(withdrawalsOrder.getTime(),12);
 			criteria.andCreateTimeBetween(DateUtil.parse(data), DateUtil.parse(data1));
 			} 
-		if(CollUtil.isNotEmpty(withdrawalsOrder.getAccountList())) {
-			List<String> accountList = withdrawalsOrder.getAccountList();
-			criteria.andAccountListEqualTo(accountList);
-		}
 		List<WithdrawalsOrderEntity> selectByExample = withdrawalsOrderDao.selectByExample(example);
 		return selectByExample;
 	}
@@ -88,6 +85,34 @@ public class WithdrawalsOrderServiceImpl implements WithdrawalsOrderService {
 		criteria.andIdEqualTo(order.getId());
 		int updateByExample = withdrawalsOrderDao.updateByExample(order, example);
 		return updateByExample > 0 && updateByExample < 2;
+	}
+	@Override
+	public List<WithdrawalsOrderEntity> findPageWithdrawalsByWithdrawals1(WithdrawalsOrderEntity withdrawalsOrder) {
+		WithdrawalsOrderEntityExample example  = new WithdrawalsOrderEntityExample();
+		Criteria criteria = example.createCriteria();
+		if(StrUtil.isNotBlank(withdrawalsOrder.getOrderId()))
+			criteria.andOrderIdEqualTo(withdrawalsOrder.getOrderId());
+		if(StrUtil.isNotBlank(withdrawalsOrder.getAssociatedId()))
+			criteria.andAssociatedIdEqualTo(withdrawalsOrder.getAssociatedId());
+		if(StrUtil.isNotBlank(withdrawalsOrder.getBankCard()))
+			criteria.andBankCardEqualTo(withdrawalsOrder.getBankCard());
+		if(StrUtil.isNotBlank(withdrawalsOrder.getOrderAccount()))
+			criteria.andOrderAccountEqualTo(withdrawalsOrder.getOrderAccount());
+		if( null != withdrawalsOrder.getOrderStatus())
+			criteria.andOrderStatusEqualTo(withdrawalsOrder.getOrderStatus());
+		if(StrUtil.isNotBlank(withdrawalsOrder.getTime())) {
+			String data = StrUtil.subPre(withdrawalsOrder.getTime(),10);
+			String data1 = StrUtil.subSuf(withdrawalsOrder.getTime(),12);
+			criteria.andCreateTimeBetween(DateUtil.parse(data), DateUtil.parse(data1));
+			} 
+		if(CollUtil.isNotEmpty(withdrawalsOrder.getAccountList())) {
+			List<String> accountList = withdrawalsOrder.getAccountList();
+			criteria.andAccountListEqualTo(accountList);
+		}else {
+			return new ArrayList<WithdrawalsOrderEntity>();
+		} 
+		List<WithdrawalsOrderEntity> selectByExample = withdrawalsOrderDao.selectByExample(example);
+		return selectByExample;
 	}
 
 }

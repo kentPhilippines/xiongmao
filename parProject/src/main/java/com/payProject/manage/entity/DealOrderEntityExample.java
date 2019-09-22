@@ -680,6 +680,10 @@ public class DealOrderEntityExample {
             addCriterion("orderAccount =", value, "orderAccount");
             return (Criteria) this;
         }
+        public Criteria andOrderAccountListEqualTo(List value) {
+        	addCriterion("orderAccount in", value, "orderAccount");
+        	return (Criteria) this;
+        }
 
         public Criteria andOrderAccountNotEqualTo(String value) {
             addCriterion("orderAccount <>", value, "orderAccount");
@@ -1489,6 +1493,10 @@ public class DealOrderEntityExample {
         public Criteria andRetain4EqualTo(String value) {
             addCriterion("retain4 =", value, "retain4");
             return (Criteria) this;
+        }
+        public Criteria andRetain4ListEqualTo(List value) {
+        	addCriterion("retain4 in", value, "retain4");
+        	return (Criteria) this;
         }
 
         public Criteria andRetain4NotEqualTo(String value) {

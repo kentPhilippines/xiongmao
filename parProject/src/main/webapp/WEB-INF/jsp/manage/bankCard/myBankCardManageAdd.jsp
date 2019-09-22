@@ -110,7 +110,7 @@
 		    </div>
  		</div>
 		<div class="layui-layer-btn layui-layer-btn-">
-			<a class="layui-layer-btn0" url = "${ctx}/manage/bankCard/bankCardInsert">确定</a><a class="layui-layer-btn1">取消</a>
+			<a class="layui-layer-btn0" url = "${ctx}/manage/bankCard/myBankCardInsert">确定</a><a class="layui-layer-btn1">取消</a>
 		</div>
 	</div>
 </form>

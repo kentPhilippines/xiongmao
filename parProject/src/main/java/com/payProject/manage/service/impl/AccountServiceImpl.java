@@ -291,4 +291,20 @@ public class AccountServiceImpl implements AccountService {
 		List<AccountEntity> account = accountDao.findBankCardByAccountId(accountList);
 		return account;
 	}
+	@Override
+	public List<AccountEntity> findAccountEntityByAccountId(List<String> accountList) {
+		AccountEntityExample example  = new AccountEntityExample();
+		AccountEntityExample.Criteria criteria = example.createCriteria();
+		criteria.andAccountIdListEqualTo(accountList);
+		List<AccountEntity> account = accountDao.selectByExample(example);
+		return account;
+	}
+	@Override
+	public List<AccountFee> findAccountFeeByAccountList(List<String> accountList) {
+		AccountFeeExample example  = new AccountFeeExample();
+		com.payProject.manage.entity.AccountFeeExample.Criteria criteria = example.createCriteria();
+		criteria.andAccountIdListEqualTo(accountList);
+		List<AccountFee> selectByExample = accountFeeDao.selectByExample(example);
+		return selectByExample;
+	}
 }

@@ -19,7 +19,7 @@
           <div class="layui-card-header">月交易流量图</div>
           <div class="layui-card-body">
             <div style="min-width:400px;height:400px" class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-normline" lay-anim="fade" style="width: 100%; height: 280px;">
-            <div id="container" style="min-width:400px;height:400px"></div>
+            <div id="container2" style="min-width:400px;height:400px"></div>
             </div>
           </div>
         </div>
@@ -32,53 +32,54 @@
           </div>
         </div>
       </div> 
-      <div class="layui-col-md6" style="height: 800px;background-color: #a58f8f30;margin-top: 31px;">
+      <div class="layui-col-md6" style="margin-top: 31px;">
         <div class="layui-card">
-          <div class="layui-card-header"> 交易情况汇总 </div>
+          <div class="layui-card-header">交易比率</div>
           <div class="layui-card-body">
-           		<p>一月同期交易总量对比20%</p>
-           		<div class="layui-progress layui-progress-big">
-				  <div class="layui-progress-bar" lay-percent="100%"></div>
-				</div>
-           		<p>二月同期交易总量对比20%</p>
-           		<div class="layui-progress layui-progress-big">
-				  <div class="layui-progress-bar" lay-percent="20%"></div>
-				</div>
-           		<p>三月同期交易总量对比20%</p>
-           		<div class="layui-progress layui-progress-big">
-				  <div class="layui-progress-bar" lay-percent="20%"></div>
-				</div>
-           		<p>四月同期交易总量对比20%</p>
-           		<div class="layui-progress layui-progress-big">
-				  <div class="layui-progress-bar" lay-percent="20%"></div>
-				</div>
-           		<p>同期交易总量对比20%</p>
-           		<div class="layui-progress layui-progress-big">
-				  <div class="layui-progress-bar" lay-percent="20%"></div>
-				</div>
-           		<p>同期交易总量对比20%</p>
-           		<div class="layui-progress layui-progress-big">
-				  <div class="layui-progress-bar" lay-percent="20%"></div>
-				</div>
+            <div style="min-width:400px;height:400px" class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-normline" lay-anim="fade" style="width: 100%; height: 280px;">
+          <div id="container3" style="min-width:400px;height:400px"></div>
+            </div>
+          </div>
+        </div>
+        <div class="layui-card">
+          <div class="layui-card-header">月交易流量图</div>
+          <div class="layui-card-body">
+            <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-heapline" lay-anim="fade" style="width: 100%; height: 280px;">
+           <div id="container" style="min-width:400px;height:400px"></div>
+            </div>
           </div>
         </div>
       </div> 
+     <!--  <div class="layui-col-md6" style="height: 800px;background-color: #a58f8f30;margin-top: 31px;">
+        <div class="layui-card">
+          <div class="layui-card-header"> 交易情况汇总 </div>
+          <div class="layui-card-body">
+           		
+				<div class="layui-card-header"></div>
+           		<div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-heapline" lay-anim="fade" style="width: 100%; height: 280px;">
+            	 
+            	</div>
+				<div class="layui-card-header"></div>
+           		<div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-heapline" lay-anim="fade" style="width: 100%; height: 280px;">
+            	 
+            	</div>
+          </div>
+        </div>
+      </div>  -->
       </div> 
-      
     </div>
-  <script type="text/javascript" src="${ctx}/static/js/manage/account/highchartsUserShow.js">
-  </script>
-<style id="LAY_layadmin_theme">
-.layui-side-menu,.layadmin-pagetabs .layui-tab-title li:after,.layadmin-pagetabs .layui-tab-title li.layui-this:after,.layui-layer-admin .layui-layer-title,.layadmin-side-shrink .layui-side-menu .layui-nav>.layui-nav-item>.layui-nav-child{background-color:#20222A !important;}
-.layui-nav-tree .layui-this,.layui-nav-tree .layui-this>a,.layui-nav-tree .layui-nav-child dd.layui-this,.layui-nav-tree .layui-nav-child dd.layui-this a{background-color:#009688 !important;}
-.layui-layout-admin .layui-logo{background-color:#20222A !important;}
-</style>
 </body>
 </html>
-<<script type="text/javascript">
-/* //注意进度条依赖 element 模块，否则无法进行正常渲染和功能性操作 */
+<script type="text/javascript">
 layui.use('element', function(){
   var element = layui.element;
 });
+var timeList = ${timeList};
+var sum = ${sum};
+var dealDaySuList = ${dealDaySuList};
+var dealDayMoneySuList = ${dealDayMoneySuList};
+var dealDayList = ${dealDayList};
+var dealDayMoneyList = ${dealDayMoneyList};
 </script>
-
+  <script type="text/javascript" src="${ctx}/static/js/manage/account/highchartsUserShow.js">
+  </script>

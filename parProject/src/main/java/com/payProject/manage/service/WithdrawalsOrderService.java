@@ -42,4 +42,11 @@ public interface WithdrawalsOrderService {
 	 */
 	boolean updataOrder(WithdrawalsOrderEntity order);
 
+	/**
+	 * <p>商户分页查询代付订单</p>
+	 * @param withdrawalsOrder
+	 * @return
+	 */
+	List<WithdrawalsOrderEntity> findPageWithdrawalsByWithdrawals1(WithdrawalsOrderEntity withdrawalsOrder);
+
 }

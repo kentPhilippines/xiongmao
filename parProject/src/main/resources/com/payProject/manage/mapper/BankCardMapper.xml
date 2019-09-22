@@ -89,7 +89,7 @@
   <sql id="Base_Column_List" >
     id, bankId, bankType, bankCard, bankName, cardholder, treasurer, liabilities, bankAmount, 
       createTime, submitTime, submitSystem, status, retain1, retain2, retain3, 
-    retain4, retain5, retain6, retain7,bankPhone,cardholderId
+    retain4, retain5, retain6, retain7,bankPhone,cardholderId,bankNote
   </sql>
   <sql id="Blob_Column_List" >
     bankNote

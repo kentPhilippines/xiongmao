@@ -36,6 +36,8 @@ public class BankCardContorller {
 	Logger log = LoggerFactory.getLogger(BankCardContorller.class);
 	@Autowired
 	BankCardService bankCardService;
+	
+	
 	@ResponseBody
 	@PostMapping("/bankCardInsert")
 	@Transactional
@@ -50,6 +52,25 @@ public class BankCardContorller {
 		}
 		return  JsonResult.buildFailResult("当前银行卡已存在");
 	}
+	@ResponseBody
+	@PostMapping("/myBankCardInsert")
+	@Transactional
+	public JsonResult myBankCardInsert(BankCardEntity bankCard){
+		log.info("增加银行卡请求参数"+bankCard.toString());
+		BankCardEntity bankCards = bankCardService.findBankCardByBankCard(bankCard.getBankCard());
+		if(ObjectUtil.isNull(bankCards)){
+			bankCard.setRetain2("2");
+			Boolean flag = bankCardService.addBankCard(bankCard);
+			if(flag)
+				return JsonResult.buildSuccessMessage("增加成功");
+			return JsonResult.buildFailResult("增加失败");	
+		}
+		return  JsonResult.buildFailResult("当前银行卡已存在");
+	}
+	
+	
+	
+	
 	
 	@RequestMapping("/bankManage")
 	public String bankManage( ){

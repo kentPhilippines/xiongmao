@@ -22,9 +22,8 @@ var RunOrderClas = {
 					      ,{field: 'runOrderAmount', title: '流水金额', width: 115}
 					     ,{field: 'cardRunD', title: '出账账号',templet:'#cardRunD', width: 135}
 					      ,{field: 'cardRunW', title: '入账账号', templet:'#cardRunW',width: 135}
-					      ,{field: 'dealDescribe', title: '流水描述', width: 135}
+					      ,{field: 'dealDescribe', title: '流水描述', width: 180}
 					      ,{field: 'createTime', title: '生成流水时间', width: 135, sort: true}
-					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:150}
 				    ]]
 				    , id: 'mytable'
 				    ,page: true

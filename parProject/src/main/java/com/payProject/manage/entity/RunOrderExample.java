@@ -439,6 +439,10 @@ public class RunOrderExample {
             addCriterion("runType =", value, "runType");
             return (Criteria) this;
         }
+        public Criteria andRunTypeListEqualTo(List value) {
+        	addCriterion("runType in", value, "runType");
+        	return (Criteria) this;
+        }
 
         public Criteria andRunTypeNotEqualTo(Integer value) {
             addCriterion("runType <>", value, "runType");
@@ -498,6 +502,10 @@ public class RunOrderExample {
         public Criteria andOrderAccountEqualTo(String value) {
             addCriterion("orderAccount =", value, "orderAccount");
             return (Criteria) this;
+        }
+        public Criteria andOrderAccountListEqualTo(List value) {
+        	addCriterion("orderAccount in", value, "orderAccount");
+        	return (Criteria) this;
         }
 
         public Criteria andOrderAccountNotEqualTo(String value) {

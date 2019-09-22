@@ -180,7 +180,10 @@ public class AccountEntityExample {
             addCriterion("accountId =", value, "accountId");
             return (Criteria) this;
         }
-
+        public Criteria andAccountIdListEqualTo(List value) {
+        	addCriterion("accountId in", value, "accountId");
+        	return (Criteria) this;
+        }
         public Criteria andAccountIdNotEqualTo(String value) {
             addCriterion("accountId <>", value, "accountId");
             return (Criteria) this;

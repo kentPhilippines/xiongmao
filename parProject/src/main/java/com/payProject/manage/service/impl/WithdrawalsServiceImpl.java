@@ -1,5 +1,6 @@
 package com.payProject.manage.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ public class WithdrawalsServiceImpl implements WithdrawalsService{
 		if(CollUtil.isNotEmpty(withdrawals.getAccountList())) {
 			List<String> accountList = withdrawals.getAccountList();
 			criteria.andAccountListEqualTo(accountList);
+		}else {
+			return new ArrayList<WithdrawalsRecord>() ;
 		}
 		List<WithdrawalsRecord> selectByExample = withdrawalsRecordDao.selectByExample(example);
 		return selectByExample;

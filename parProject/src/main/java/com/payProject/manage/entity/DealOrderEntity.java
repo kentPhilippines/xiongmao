@@ -2,6 +2,8 @@ package com.payProject.manage.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -79,31 +81,48 @@ public class DealOrderEntity  extends BaseEntity<DealOrderEntity>{
      * <p>商户交易渠道</p>
      */
     private String dealChannel;
-
-    
     /**
      * <p>时间范围</p>
      */
     private String Time;
     
-    private String retain1;
-    private String retain2;
-    private String retain3;
-    private String retain4;
+    private String retain1;//回调地址
+    private String retain2;//费率数据id
+    private String retain3;//是否發送通知 // YES 已發送 NO 未發送
+    private String retain4;//产品类型
     private String retain5;
     private String retain6;
     private String retain7;
     private String retain8;
-
-    
-    
-    
     private String dealDescribe;
-
+    
+    
+    
+    
+    
+    
+    private List AccountList;//账户集合
+    private List PayTypeList;//产品集合
     
     
 
-    public String getTime() {
+    public List getAccountList() {
+		return AccountList;
+	}
+
+	public void setAccountList(List accountList) {
+		AccountList = accountList;
+	}
+
+	public List getPayTypeList() {
+		return PayTypeList;
+	}
+
+	public void setPayTypeList(List payTypeList) {
+		PayTypeList = payTypeList;
+	}
+
+	public String getTime() {
 		return Time;
 	}
 

@@ -10,6 +10,8 @@
     <result column="freezeBalance" property="freezeBalance" jdbcType="DECIMAL" />
     <result column="accountBalance" property="accountBalance" jdbcType="DECIMAL" />
     <result column="dayDealAmountMax" property="dayDealAmountMax" jdbcType="DECIMAL" />
+    <result column="freezeT1" property="freezeT1" jdbcType="DECIMAL" />
+    <result column="freezeD1" property="freezeD1" jdbcType="DECIMAL" />
     <result column="dayDealAmountMin" property="dayDealAmountMin" jdbcType="DECIMAL" />
     <result column="SumDealAmount" property="sumDealAmount" jdbcType="DECIMAL" />
     <result column="SumDealToDayAmount" property="sumDealToDayAmount" jdbcType="DECIMAL" />
@@ -82,7 +84,7 @@
   <sql id="Base_Column_List" >
     id, accountId, accountName, accountType, cashBalance, freezeBalance, accountBalance, 
     dayDealAmountMax, dayDealAmountMin, SumDealAmount, SumDealToDayAmount, createTime, 
-    submitTime, submitSystem, status,isDeal,isDpay,bankCard
+    submitTime, submitSystem, status,isDeal,isDpay,bankCard,freezeT1,freezeD1
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payProject.manage.entity.AccountEntityExample" >
     select
@@ -118,12 +120,18 @@
   <insert id="insert" parameterType="com.payProject.manage.entity.AccountEntity" useGeneratedKeys="true" keyProperty="id" >
     insert into manage_account (accountId, accountName, accountType, 
       cashBalance, freezeBalance, accountBalance, 
-      dayDealAmountMax, dayDealAmountMin, SumDealAmount, 
+      dayDealAmountMax, 
+      freezeT1, 
+      freezeD1, 
+      dayDealAmountMin, SumDealAmount, 
       SumDealToDayAmount, createTime, submitTime, 
       submitSystem, status,isDeal,isDpay)
     values (#{accountId,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, #{accountType,jdbcType=INTEGER}, 
       #{cashBalance,jdbcType=DECIMAL}, #{freezeBalance,jdbcType=DECIMAL}, #{accountBalance,jdbcType=DECIMAL}, 
-      #{dayDealAmountMax,jdbcType=DECIMAL}, #{dayDealAmountMin,jdbcType=DECIMAL}, #{sumDealAmount,jdbcType=DECIMAL}, 
+      #{dayDealAmountMax,jdbcType=DECIMAL},
+      #{freezeT1,jdbcType=DECIMAL},
+      #{freezeD1,jdbcType=DECIMAL},
+       #{dayDealAmountMin,jdbcType=DECIMAL}, #{sumDealAmount,jdbcType=DECIMAL}, 
       #{sumDealToDayAmount,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{submitTime,jdbcType=TIMESTAMP}, 
       #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},#{isDeal,jdbcType=INTEGER},#{isDpay,jdbcType=INTEGER}
       #{bankCard,jdbcType=VARCHAR}
@@ -153,6 +161,12 @@
       </if>
       <if test="dayDealAmountMax != null" >
         dayDealAmountMax,
+      </if>
+      <if test="freezeT1 != null" >
+        freezeT1,
+      </if>
+      <if test="freezeD1 != null" >
+        freezeD1,
       </if>
       <if test="dayDealAmountMin != null" >
         dayDealAmountMin,
@@ -206,6 +220,12 @@
       </if>
       <if test="dayDealAmountMax != null" >
         #{dayDealAmountMax,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeT1 != null" >
+        #{freezeT1,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeD1 != null" >
+        #{freezeD1,jdbcType=DECIMAL},
       </if>
       <if test="dayDealAmountMin != null" >
         #{dayDealAmountMin,jdbcType=DECIMAL},
@@ -272,6 +292,12 @@
       <if test="record.dayDealAmountMax != null" >
         dayDealAmountMax = #{record.dayDealAmountMax,jdbcType=DECIMAL},
       </if>
+      <if test="record.freezeD1 != null" >
+        freezeD1 = #{record.freezeD1,jdbcType=DECIMAL},
+      </if>
+      <if test="record.freezeT1 != null" >
+        freezeT1 = #{record.freezeT1,jdbcType=DECIMAL},
+      </if>
       <if test="record.dayDealAmountMin != null" >
         dayDealAmountMin = #{record.dayDealAmountMin,jdbcType=DECIMAL},
       </if>
@@ -317,6 +343,8 @@
       freezeBalance = #{record.freezeBalance,jdbcType=DECIMAL},
       accountBalance = #{record.accountBalance,jdbcType=DECIMAL},
       dayDealAmountMax = #{record.dayDealAmountMax,jdbcType=DECIMAL},
+      freezeT1 = #{record.freezeT1,jdbcType=DECIMAL},
+      freezeD1 = #{record.freezeD1,jdbcType=DECIMAL},
       dayDealAmountMin = #{record.dayDealAmountMin,jdbcType=DECIMAL},
       SumDealAmount = #{record.sumDealAmount,jdbcType=DECIMAL},
       SumDealToDayAmount = #{record.sumDealToDayAmount,jdbcType=DECIMAL},
@@ -354,6 +382,12 @@
       </if>
       <if test="dayDealAmountMax != null" >
         dayDealAmountMax = #{dayDealAmountMax,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeT1 != null" >
+        freezeT1 = #{freezeT1,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeD1 != null" >
+        freezeD1 = #{freezeD1,jdbcType=DECIMAL},
       </if>
       <if test="dayDealAmountMin != null" >
         dayDealAmountMin = #{dayDealAmountMin,jdbcType=DECIMAL},
@@ -397,6 +431,8 @@
       freezeBalance = #{freezeBalance,jdbcType=DECIMAL},
       accountBalance = #{accountBalance,jdbcType=DECIMAL},
       dayDealAmountMax = #{dayDealAmountMax,jdbcType=DECIMAL},
+      freezeT1 = #{freezeT1,jdbcType=DECIMAL},
+      freezeD1 = #{freezeD1,jdbcType=DECIMAL},
       dayDealAmountMin = #{dayDealAmountMin,jdbcType=DECIMAL},
       SumDealAmount = #{sumDealAmount,jdbcType=DECIMAL},
       SumDealToDayAmount = #{sumDealToDayAmount,jdbcType=DECIMAL},

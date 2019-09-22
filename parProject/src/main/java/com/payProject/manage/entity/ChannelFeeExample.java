@@ -249,6 +249,10 @@ public class ChannelFeeExample {
             addCriterion("channelAccount =", value, "channelAccount");
             return (Criteria) this;
         }
+        public Criteria andChannelAccountListEqualTo(List value) {
+        	addCriterion("channelAccount in", value, "channelAccount");
+        	return (Criteria) this;
+        }
 
         public Criteria andChannelAccountNotEqualTo(String value) {
             addCriterion("channelAccount <>", value, "channelAccount");

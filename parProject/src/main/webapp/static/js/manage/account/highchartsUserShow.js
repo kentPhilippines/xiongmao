@@ -1,5 +1,5 @@
 var chart = null;
-$.getJSON('https://data.jianshukeji.com/jsonp?filename=json/usdeur.json&callback=?', function (data) {
+$.getJSON('myUserDealShow', function (data) {
 	chart = Highcharts.chart('container', {
 		chart: {
 			zoomType: 'x'
@@ -38,7 +38,7 @@ $.getJSON('https://data.jianshukeji.com/jsonp?filename=json/usdeur.json&callback
 		},
 		yAxis: {
 			title: {
-				text: '笔数'
+				text: '金额'
 			}
 		},
 		legend: {
@@ -78,92 +78,114 @@ $.getJSON('https://data.jianshukeji.com/jsonp?filename=json/usdeur.json&callback
 			},
 		series: [{
 			type: 'area',
-			name: '交易笔数',
+			name: '交易金额',
 			data: data
 		}]
 	});
 });
-$.getJSON('https://data.jianshukeji.com/jsonp?filename=json/usdeur.json&callback=?', function (data) {
-	chart = Highcharts.chart('container1', {
+ Highcharts.chart('container1',{
+	chart: {
+		type: 'column'
+	},
+	title: {
+		text: '日交易次数汇总'
+	},
+	subtitle: {
+		text: '数据来源: 未来支付'
+	},
+	xAxis: {
+		categories:["2019-09-16","2019-09-17","2019-09-18","2019-09-19","2019-09-20"],
+		crosshair: true
+	},
+	yAxis: {
+		min: 0,
+		title: {
+			text: '单次'
+		}
+	},
+	tooltip: {
+		// head + 每个 point + footer 拼接成完整的 table
+		headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+		pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+		'<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+		footerFormat: '</table>',
+		shared: true,
+		useHTML: true
+	},
+	plotOptions: {
+		column: {
+			borderWidth: 0
+		}
+	},
+	series: [{
+		name: '成功交易笔数（笔）',
+		data:  dealDaySuList
+	},  {
+		name: '发起交易笔数（笔）',
+		data: dealDayList
+	} ]
+});
+ Highcharts.chart('container2',{
+	 chart: {
+		 type: 'column'
+	 },
+	 title: {
+		 text: '日交易金额汇总'
+	 },
+	 subtitle: {
+		 text: '数据来源: 未来支付'
+	 },
+	 xAxis: {
+		 categories:["2019-09-16","2019-09-17","2019-09-18","2019-09-19","2019-09-20"],
+		 crosshair: true
+	 },
+	 yAxis: {
+		 min: 0,
+		 title: {
+			 text: '金额'
+		 }
+	 },
+	 tooltip: {
+		 // head + 每个 point + footer 拼接成完整的 table
+		 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+		 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+		 '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+		 footerFormat: '</table>',
+		 shared: true,
+		 useHTML: true
+	 },
+	 plotOptions: {
+		 column: {
+			 borderWidth: 0
+		 }
+	 },
+	 series: [ {
+		 name: '成功交易金额（元）',
+		 data:  dealDayMoneySuList
+	 },  {
+		 name: '发起交易交易金额（元）',
+		 data:  dealDayMoneyList
+	 }]
+ });
+ var chart = Highcharts.chart('container3',{
 		chart: {
-			zoomType: 'x'
+			type: 'column'
 		},
 		title: {
-			text: '金额分布趋势图'
-		},
-		subtitle: {
-			text: document.ontouchstart === undefined ?
-			'鼠标拖动可以进行缩放' : '手势操作进行缩放'
-		},
-		xAxis: {
-			type: 'datetime',
-			dateTimeLabelFormats: {
-				millisecond: '%H:%M:%S.%L',
-				second: '%H:%M:%S',
-				minute: '%H:%M',
-				hour: '%H:%M',
-				day: '%m-%d',
-				week: '%m-%d',
-				month: '%Y-%m',
-				year: '%Y'
-			}
-		},
-		tooltip: {
-			dateTimeLabelFormats: {
-				millisecond: '%H:%M:%S.%L',
-				second: '%H:%M:%S',
-				minute: '%H:%M',
-				hour: '%H:%M',
-				day: '%Y-%m-%d',
-				week: '%m-%d',
-				month: '%Y-%m',
-				year: '%Y'
-			}
+			text: '交易增长率'
 		},
 		yAxis: {
+			allowDecimals: false,
 			title: {
-				text: '单位（元）'
+				text: '百分比',
+				rotation: 0
 			}
 		},
-		legend: {
-			enabled: false
+		xAxis: {
+			categories: ['当前交易日同上一交易日金额同比增长', '今日交易笔数同比增长', '今日成功交易金额同比增长', '今日成功笔数同比增长']
 		},
-		plotOptions: {
-			area: {
-				fillColor: {
-					linearGradient: {
-						x1: 0,
-						y1: 0,
-						x2: 0,
-						y2: 1
-					},
-					stops: [
-						[0, Highcharts.getOptions().colors[0]],
-						[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-					]
-				},
-				marker: {
-					radius: 2
-				},
-				lineWidth: 1,
-				states: {
-					hover: {
-						lineWidth: 1
-					}
-				},
-				threshold: null
-			}
-		},
-		credits: { 
-			enabled: false //不显示LOGO 
-			},
-		exporting: {
-			enabled: false//隐藏导出
-			},
 		series: [{
-			type: 'area',
-			name: '人民币',
-			data: data
-		}]
+			name: '同比增长',
+			data: sum
+		} ]
 	});
-});

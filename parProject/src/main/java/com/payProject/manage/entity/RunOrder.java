@@ -1,4 +1,6 @@
 package com.payProject.manage.entity;
+import java.util.List;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.payProject.system.entity.base.BaseEntity;
@@ -17,14 +19,30 @@ public class RunOrder extends BaseEntity<RunOrder>{
 	 */
     private Integer runStatus;
     /**
-	 * <p>流水类型:1交易,2系统加款,3交易手续费,4系统扣款,5代付,6代付手续费</p>
+	 * <p>流水类型:1交易,2系统加款,3交易手续费,4系统扣款,5代付,6代付手续费,7冻结,8解冻,9代付手手续费冻结,10代付冻结</p>
 	 */
     private Integer runType;
-    /**
+    private List runTypeList;
+    
+    public List getRunTypeList() {
+		return runTypeList;
+	}
+	public void setRunTypeList(List runTypeList) {
+		this.runTypeList = runTypeList;
+	}
+	/**
 	 * <p>流水关联商户号</p>
 	 */
     private String orderAccount;
-    /**
+    private List orderAccountList;
+    
+    public List getOrderAccountList() {
+		return orderAccountList;
+	}
+	public void setOrderAccountList(List orderAccountList) {
+		this.orderAccountList = orderAccountList;
+	}
+	/**
 	 * <p>流水金额</p>
 	 */
     private String runOrderAmount;

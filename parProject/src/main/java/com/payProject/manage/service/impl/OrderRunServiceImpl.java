@@ -53,6 +53,10 @@ public class OrderRunServiceImpl implements OrderRunService {
 			String data1 = StrUtil.subSuf(runOrder.getTime(),12);
 			criteria.andCreateTimeBetween(DateUtil.parse(data), DateUtil.parse(data1));
 			} 
+		if(CollUtil.isNotEmpty(runOrder.getRunTypeList()))
+		criteria.andRunTypeListEqualTo(runOrder.getRunTypeList());
+		if(CollUtil.isNotEmpty( runOrder.getOrderAccountList()))
+			criteria.andOrderAccountListEqualTo( runOrder.getOrderAccountList());
 		List<RunOrder> selectByExample = runOrderDao.selectByExample(example);
 		return selectByExample;
 	}

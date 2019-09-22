@@ -145,12 +145,6 @@ public class MerchantContorller {
 		log.info("申请提现列表相应结果集："+pageR.toString());
 		return pageR;
 	}
-	@RequestMapping("/amount")
-	public JsonResult amount(WithdrawalsRecord withdrawals){
-		return null;
-	}
-	
-	
 	/**
 	 * <p>提现处理类,接收到提现申请</p>
 	 * @param request
@@ -290,7 +284,7 @@ public class MerchantContorller {
 			 accountList.add(uerAccount.getAccountId());
 		 }
 		 withdrawalsOrder.setAccountList(accountList);
-		List<WithdrawalsOrderEntity> list = withdrawalsOrderServiceImpl.findPageWithdrawalsByWithdrawals(withdrawalsOrder);
+		List<WithdrawalsOrderEntity> list = withdrawalsOrderServiceImpl.findPageWithdrawalsByWithdrawals1(withdrawalsOrder);
 		PageInfo<WithdrawalsOrderEntity> pageInfo = new PageInfo<WithdrawalsOrderEntity>(list);
 		PageResult<WithdrawalsOrderEntity> pageR = new PageResult<WithdrawalsOrderEntity>();
 		pageR.setData(pageInfo.getList());
@@ -373,7 +367,7 @@ public class MerchantContorller {
 		boolean flag = withdrawalsOrderServiceImpl.updataOrder(order);
 		record.setMerchantsStatus(Common.DPAY_STATUS_SU);
 		boolean flag1 = withdrawalsServiceImpl.updataOrder(record);
-		if(flag && flag1) {
+		if(!flag || !flag1) {
 			throw new OtherErrors("审核失败");
 		}
 		List<RunOrder> runList = OrderRunServiceImpl.findOrderRunByWitOrder(order.getOrderId());

@@ -71,9 +71,9 @@
 			{{# } }}
 </script>
 <script type="text/html" id="status">
-			{{#  if(d.status == '0'){ }}
+			{{#  if(d.status == '1'){ }}
 				<span class="label radius" style="background-color:#f9c248;">可使用</span> 
-			{{# }else if(d.status == '1'){ }}
+			{{# }else if(d.status == '0'){ }}
 				<span class="label label-success radius" style="background-color:red;">不可使用</span>
 			{{# } }}
 </script>
@@ -82,6 +82,8 @@
 				<span class="label radius" style="background-color:red;">已删除</span> 
 			{{# }else if(d.retain2 == '2'){ }}
 				<span class="label label-success radius" style="background-color:#f9c248;">未删除</span>
+			{{# }else { }}
+				<span class="label label-success radius" style="background-color:#28ff7c;" >本家卡</span>
 			{{# } }}
 </script>
 <script>
