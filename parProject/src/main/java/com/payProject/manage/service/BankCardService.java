@@ -2,6 +2,7 @@ package com.payProject.manage.service;
 
 import java.util.List;
 
+import com.payProject.manage.entity.BackBankAmount;
 import com.payProject.manage.entity.BankCardEntity;
 import com.payProject.manage.entity.BankCardRunEntity;
 
@@ -71,4 +72,10 @@ public interface BankCardService {
 	 * @return
 	 */
 	List<BankCardEntity> finBankCardByUserId(String userId);
+	/**
+	 * <p>银行卡回款列表</p>
+	 * @param account
+	 * @return
+	 */
+	List<BackBankAmount> findPageBackBankAmountByBank(BackBankAmount account);
 }

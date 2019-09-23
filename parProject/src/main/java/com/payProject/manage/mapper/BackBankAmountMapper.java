@@ -3,8 +3,10 @@ package com.payProject.manage.mapper;
 import com.payProject.manage.entity.BackBankAmount;
 import com.payProject.manage.entity.BackBankAmountExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+@Mapper
 public interface BackBankAmountMapper {
     int countByExample(BackBankAmountExample example);
 

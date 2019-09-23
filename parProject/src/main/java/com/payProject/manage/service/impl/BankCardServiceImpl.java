@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.payProject.config.exception.OtherErrors;
 import com.payProject.config.exception.ParamException;
+import com.payProject.manage.entity.BackBankAmount;
+import com.payProject.manage.entity.BackBankAmountExample;
 import com.payProject.manage.entity.BankCardEntity;
 import com.payProject.manage.entity.BankCardEntityExample;
 import com.payProject.manage.entity.BankCardEntityExample.Criteria;
@@ -15,6 +17,7 @@ import com.payProject.manage.entity.BankCardRunEntity;
 import com.payProject.manage.entity.BankCardRunEntityExample;
 import com.payProject.manage.entity.BankIsDealEntity;
 import com.payProject.manage.entity.BankIsDealEntityExample;
+import com.payProject.manage.mapper.BackBankAmountMapper;
 import com.payProject.manage.mapper.BankCardMapper;
 import com.payProject.manage.mapper.BankCardRunMapper;
 import com.payProject.manage.mapper.BankIsDealMapper;
@@ -27,10 +30,10 @@ import cn.hutool.core.util.StrUtil;
 public class BankCardServiceImpl  implements BankCardService{
 	@Autowired
 	BankCardMapper bankCardDao;
-	
 	@Autowired
 	BankIsDealMapper bankIsDealDao;
-	
+	@Autowired
+	BackBankAmountMapper BackBankAmountDao;
 	@Autowired
 	BankCardRunMapper bankCardRunDao;
 	
@@ -149,6 +152,27 @@ public class BankCardServiceImpl  implements BankCardService{
 		Criteria criteria = example.createCriteria();
 		criteria.andLiabilitiesEqualTo(userId);
 		List<BankCardEntity> selectByExample = bankCardDao.selectByExample(example);		
+		return selectByExample;
+	}
+	@Override
+	public List<BackBankAmount> findPageBackBankAmountByBank(BackBankAmount bank) {
+		BackBankAmountExample example = new BackBankAmountExample();
+		com.payProject.manage.entity.BackBankAmountExample.Criteria criteria = example.createCriteria();
+		if(StrUtil.isNotBlank( bank.getAccountId()))
+			criteria.andAccountIdEqualTo( bank.getAccountId());
+		if(StrUtil.isNotBlank( bank.getOrderId()))
+			criteria.andOrderIdEqualTo( bank.getOrderId());
+		if(StrUtil.isNotBlank(bank.getBankR()))
+			criteria.andBankREqualTo(bank.getBankR());
+		if(StrUtil.isNotBlank(bank.getBankD()))
+			criteria.andBankDEqualTo(bank.getBankD());
+		if(StrUtil.isNotBlank(bank.getTime())) {
+			String data = StrUtil.subPre(bank.getTime(),10);
+			String data1 = StrUtil.subSuf(bank.getTime(),12);
+			criteria.andCreateTimeBetween(DateUtil.parse(data), DateUtil.parse(data1));
+			} 
+		List<BackBankAmount> selectByExample = BackBankAmountDao.selectByExample(example);
+		
 		return selectByExample;
 	}
 }

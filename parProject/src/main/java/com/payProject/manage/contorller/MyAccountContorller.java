@@ -517,9 +517,7 @@ public class MyAccountContorller {
 		}
 		return result;
 	}
-	
-
-public   List<String> getWeekDayInMonth(String date){
+	public   List<String> getWeekDayInMonth(String date){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		List<String> resultList = new ArrayList<>();
 		Calendar calendar = Calendar.getInstance();
@@ -536,4 +534,24 @@ public   List<String> getWeekDayInMonth(String date){
 		}
 		return resultList;
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

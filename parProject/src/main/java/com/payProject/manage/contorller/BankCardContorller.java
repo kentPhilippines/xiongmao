@@ -25,8 +25,10 @@ import com.payProject.config.common.Constant.Common;
 import com.payProject.config.common.JsonResult;
 import com.payProject.config.common.PageResult;
 import com.payProject.config.exception.ParamException;
+import com.payProject.manage.entity.BackBankAmount;
 import com.payProject.manage.entity.BankCardEntity;
 import com.payProject.manage.entity.BankCardRunEntity;
+import com.payProject.manage.entity.UserAccount;
 import com.payProject.manage.service.BankCardService;
 import com.payProject.system.entity.User;
 import com.payProject.system.service.UserService;
@@ -360,12 +362,23 @@ public class BankCardContorller {
 	public String bankAmount( ){
 		return "/manage/bankCard/bankAmountList";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+	@RequestMapping("/backbankAmount")
+	public String backbankAmount( ) {
+		return "/manage/bankCard/backbankAmountList";
+	}
+	@ResponseBody
+	@RequestMapping("/backbankAmountList")
+	public PageResult<BackBankAmount> backbankAmountList(BackBankAmount account,String page,String limit){
+		log.info("查询商户请求参数"+account.toString());
+		 PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(limit));
+		 List<BackBankAmount> list = bankCardService.findPageBackBankAmountByBank(account);
+		 PageInfo<BackBankAmount> pageInfo = new PageInfo<BackBankAmount>(list);
+		 PageResult<BackBankAmount> pageR = new PageResult<BackBankAmount>();
+			pageR.setData(pageInfo.getList());
+			pageR.setCode("0");
+			pageR.setCount(String.valueOf(pageInfo.getTotal()));
+			log.info("商户列表响应结果集"+pageR.toString());
+		return pageR;
+	}
 }

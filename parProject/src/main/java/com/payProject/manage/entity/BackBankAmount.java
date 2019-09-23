@@ -5,43 +5,68 @@ import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.payProject.system.entity.base.BaseEntity;
-public class BackBankAmount extends BaseEntity<BackBankAmount>{
+public class BackBankAmount {
 	/**
-	 * <p>回款账户</p>
+	 *<p>账户id</p>
 	 */
     private String accountId;
-	/**
-	 * <p>订单号</p>
+    /**
+	 *<p>订单id</p>
 	 */
     private String orderId;
-	/**
-	 * <p>回款金额</p>
+    /**
+	 *<p>金额</p>
 	 */
     private BigDecimal amount;
-	/**
-	 * <p>回款ip</p>
+    /**
+	 *<p>ip</p>
 	 */
     private String ip;
-	/**
-	 * <p>回款审核人</p>
+    /**
+	 *<p>审核人</p>
 	 */
     private String approver;
-	/**
-	 * <p>回款状态</p>
+    /**
+	 *<p>入款卡</p>
 	 */
-    private Integer merchantsStatus;//1成功2失败3处理中
-	/**
-	 * <p>回款备足</p>
+    private String bankR;
+    /**
+	 *<p>出款卡</p>
 	 */
-    private String note;
-    private String retain1;
+    private String bankD;
+    /**
+	 *<p>状态</p>
+	 */
+    private Integer bankStatus;
+    /**
+     * <p>搜索时间</p>
+     */
+    private String Time;
+    
+    public String getTime() {
+		return Time;
+	}
+
+	public void setTime(String time) {
+		Time = time;
+	}
+
+	private String retain1;
+
     private String retain2;
+
     private String retain3;
+
     private String retain4;
+
     private String retain5;
+
     private String retain6;
+
     private String retain7;
+    private String note;//备注
+
+
     public String getAccountId() {
         return accountId;
     }
@@ -82,20 +107,32 @@ public class BackBankAmount extends BaseEntity<BackBankAmount>{
         this.approver = approver == null ? null : approver.trim();
     }
 
-    public Integer getMerchantsStatus() {
-        return merchantsStatus;
+    public String getBankR() {
+        return bankR;
     }
 
-    public void setMerchantsStatus(Integer merchantsStatus) {
-        this.merchantsStatus = merchantsStatus;
+    public void setBankR(String bankR) {
+        this.bankR = bankR == null ? null : bankR.trim();
     }
 
+    public String getBankD() {
+        return bankD;
+    }
 
+    public void setBankD(String bankD) {
+        this.bankD = bankD == null ? null : bankD.trim();
+    }
 
+    public Integer getBankStatus() {
+        return bankStatus;
+    }
+
+    public void setBankStatus(Integer bankStatus) {
+        this.bankStatus = bankStatus;
+    }
     public String getRetain1() {
         return retain1;
     }
-
     public void setRetain1(String retain1) {
         this.retain1 = retain1 == null ? null : retain1.trim();
     }

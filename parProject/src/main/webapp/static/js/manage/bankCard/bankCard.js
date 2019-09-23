@@ -1,3 +1,79 @@
+var MyBackBankAmountClas = {
+		init : function(){
+			this.initNode();
+			this.bankCardShowInit();
+			this.query();
+		},
+		initNode : function(){
+			this.$table = $("#LAY-user-back-manage");
+		},
+		bankCardShowInit : function(){
+			layui.use('table', function(){
+				MyBackBankAmountClas.$ObjectTable = layui.table;
+				MyBackBankAmountClas.$ObjectTable.render({
+					elem: MyBackBankAmountClas.$table
+					,url:MyBackBankAmountClas.$table.attr('url')
+					,cols: [[
+						{field: 'id', title: 'ID', hide :true, width:5,   fixed: 'left'}
+						,{field: 'accountId', title: '回款人', width: 160}
+						,{field: 'orderId', title: '订单号', width: 160}
+						,{field: 'amount', title: '金额', width: 160}
+						,{field: 'bankR', title: '入款卡', width: 160}
+						,{field: 'bankD', title: '出款卡', width: 160}
+						,{field: 'ip', title: '回款人ip', width: 160}
+						,{field: 'note', title: '备注', width: 160}
+						,{field: 'bankStatus', title: '状态', width: 160,templet:'#bankStatus' , style:'background-color: #009688; color: #fff;'}
+						,{field: 'createTime', title: '创建时间', width: 135, sort: true}
+						 ,{fixed: 'right', title:'操作', toolbar: '#operation', width:150}						]]
+				, id: 'mytable'
+					,page: true
+				});
+			});
+		},
+		query : function(){
+			$("[lay-filter='LAY-user-back-search']").on("click",function(){
+				 var accountId = $('[name="accountId"]').val();//获取输入框的值
+				 var orderId = $('[name="orderId"]').val();//获取输入框的值
+				 var bankR = $('[name="bankR"]').val();//获取输入框的值
+				 var bankD = $('[name="bankD"]').val();//获取输入框的值
+				var Time = $("#createTime").val();
+				MyBackBankAmountClas.reload({
+					accountId:accountId,
+					orderId:orderId,
+					bankR:bankR,
+					bankD:bankD,
+					Time:Time
+					
+				})
+			})
+		},
+		 reload:function(param){
+			MyBackBankAmountClas.$ObjectTable.reload('mytable',{ page:{  curr: 1} //重新从第 1 页开始
+				                        , where: param//这里传参  向后台
+				                        , url: 'MyBackBankAmountClas'//后台做模糊搜索接口路径
+				                        , method: 'post'
+				                          });
+		} 
+		
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var MyBankCardRun1Clas = {
 		init : function(){
 			this.initNode();

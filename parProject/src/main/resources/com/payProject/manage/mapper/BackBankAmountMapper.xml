@@ -8,7 +8,9 @@
     <result column="amount" property="amount" jdbcType="DECIMAL" />
     <result column="ip" property="ip" jdbcType="VARCHAR" />
     <result column="approver" property="approver" jdbcType="VARCHAR" />
-    <result column="merchantsStatus" property="merchantsStatus" jdbcType="INTEGER" />
+    <result column="bankR" property="bankR" jdbcType="VARCHAR" />
+    <result column="BankD" property="bankD" jdbcType="VARCHAR" />
+    <result column="bankStatus" property="bankStatus" jdbcType="INTEGER" />
     <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
     <result column="submitTime" property="submitTime" jdbcType="TIMESTAMP" />
     <result column="submitSystem" property="submitSystem" jdbcType="VARCHAR" />
@@ -83,8 +85,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, accountId, orderId, amount, ip, approver, merchantsStatus, createTime, submitTime, 
-    submitSystem, status, retain1, retain2, retain3, retain4, retain5, retain6, retain7
+    id, accountId, orderId, amount, ip, approver, bankR, BankD, bankStatus, createTime, 
+    submitTime, submitSystem, status, retain1, retain2, retain3, retain4, retain5, retain6, 
+    retain7
   </sql>
   <sql id="Blob_Column_List" >
     note
@@ -141,19 +144,19 @@
   </delete>
   <insert id="insert" parameterType="com.payProject.manage.entity.BackBankAmount" useGeneratedKeys="true" keyProperty="id" >
     insert into manage_backbank_amount (accountId, orderId, amount, 
-      ip, approver, merchantsStatus, 
-      createTime, submitTime, submitSystem, 
-      status, retain1, retain2, 
-      retain3, retain4, retain5, 
-      retain6, retain7, note
-      )
+      ip, approver, bankR, 
+      BankD, bankStatus, createTime, 
+      submitTime, submitSystem, status, 
+      retain1, retain2, retain3, 
+      retain4, retain5, retain6, 
+      retain7, note)
     values (#{accountId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, 
-      #{ip,jdbcType=VARCHAR}, #{approver,jdbcType=VARCHAR}, #{merchantsStatus,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{submitTime,jdbcType=TIMESTAMP}, #{submitSystem,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{retain1,jdbcType=VARCHAR}, #{retain2,jdbcType=VARCHAR}, 
-      #{retain3,jdbcType=VARCHAR}, #{retain4,jdbcType=VARCHAR}, #{retain5,jdbcType=VARCHAR}, 
-      #{retain6,jdbcType=VARCHAR}, #{retain7,jdbcType=VARCHAR}, #{note,jdbcType=LONGVARCHAR}
-      )
+      #{ip,jdbcType=VARCHAR}, #{approver,jdbcType=VARCHAR}, #{bankR,jdbcType=VARCHAR}, 
+      #{bankD,jdbcType=VARCHAR}, #{bankStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{submitTime,jdbcType=TIMESTAMP}, #{submitSystem,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{retain1,jdbcType=VARCHAR}, #{retain2,jdbcType=VARCHAR}, #{retain3,jdbcType=VARCHAR}, 
+      #{retain4,jdbcType=VARCHAR}, #{retain5,jdbcType=VARCHAR}, #{retain6,jdbcType=VARCHAR}, 
+      #{retain7,jdbcType=VARCHAR}, #{note,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.payProject.manage.entity.BackBankAmount" useGeneratedKeys="true" keyProperty="id" >
     insert into manage_backbank_amount
@@ -173,8 +176,14 @@
       <if test="approver != null" >
         approver,
       </if>
-      <if test="merchantsStatus != null" >
-        merchantsStatus,
+      <if test="bankR != null" >
+        bankR,
+      </if>
+      <if test="bankD != null" >
+        BankD,
+      </if>
+      <if test="bankStatus != null" >
+        bankStatus,
       </if>
       <if test="createTime != null" >
         createTime,
@@ -229,8 +238,14 @@
       <if test="approver != null" >
         #{approver,jdbcType=VARCHAR},
       </if>
-      <if test="merchantsStatus != null" >
-        #{merchantsStatus,jdbcType=INTEGER},
+      <if test="bankR != null" >
+        #{bankR,jdbcType=VARCHAR},
+      </if>
+      <if test="bankD != null" >
+        #{bankD,jdbcType=VARCHAR},
+      </if>
+      <if test="bankStatus != null" >
+        #{bankStatus,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -297,8 +312,14 @@
       <if test="record.approver != null" >
         approver = #{record.approver,jdbcType=VARCHAR},
       </if>
-      <if test="record.merchantsStatus != null" >
-        merchantsStatus = #{record.merchantsStatus,jdbcType=INTEGER},
+      <if test="record.bankR != null" >
+        bankR = #{record.bankR,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankD != null" >
+        BankD = #{record.bankD,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankStatus != null" >
+        bankStatus = #{record.bankStatus,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null" >
         createTime = #{record.createTime,jdbcType=TIMESTAMP},
@@ -349,7 +370,9 @@
       amount = #{record.amount,jdbcType=DECIMAL},
       ip = #{record.ip,jdbcType=VARCHAR},
       approver = #{record.approver,jdbcType=VARCHAR},
-      merchantsStatus = #{record.merchantsStatus,jdbcType=INTEGER},
+      bankR = #{record.bankR,jdbcType=VARCHAR},
+      BankD = #{record.bankD,jdbcType=VARCHAR},
+      bankStatus = #{record.bankStatus,jdbcType=INTEGER},
       createTime = #{record.createTime,jdbcType=TIMESTAMP},
       submitTime = #{record.submitTime,jdbcType=TIMESTAMP},
       submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
@@ -374,7 +397,9 @@
       amount = #{record.amount,jdbcType=DECIMAL},
       ip = #{record.ip,jdbcType=VARCHAR},
       approver = #{record.approver,jdbcType=VARCHAR},
-      merchantsStatus = #{record.merchantsStatus,jdbcType=INTEGER},
+      bankR = #{record.bankR,jdbcType=VARCHAR},
+      BankD = #{record.bankD,jdbcType=VARCHAR},
+      bankStatus = #{record.bankStatus,jdbcType=INTEGER},
       createTime = #{record.createTime,jdbcType=TIMESTAMP},
       submitTime = #{record.submitTime,jdbcType=TIMESTAMP},
       submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
@@ -408,8 +433,14 @@
       <if test="approver != null" >
         approver = #{approver,jdbcType=VARCHAR},
       </if>
-      <if test="merchantsStatus != null" >
-        merchantsStatus = #{merchantsStatus,jdbcType=INTEGER},
+      <if test="bankR != null" >
+        bankR = #{bankR,jdbcType=VARCHAR},
+      </if>
+      <if test="bankD != null" >
+        BankD = #{bankD,jdbcType=VARCHAR},
+      </if>
+      <if test="bankStatus != null" >
+        bankStatus = #{bankStatus,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         createTime = #{createTime,jdbcType=TIMESTAMP},
@@ -457,7 +488,9 @@
       amount = #{amount,jdbcType=DECIMAL},
       ip = #{ip,jdbcType=VARCHAR},
       approver = #{approver,jdbcType=VARCHAR},
-      merchantsStatus = #{merchantsStatus,jdbcType=INTEGER},
+      bankR = #{bankR,jdbcType=VARCHAR},
+      BankD = #{bankD,jdbcType=VARCHAR},
+      bankStatus = #{bankStatus,jdbcType=INTEGER},
       createTime = #{createTime,jdbcType=TIMESTAMP},
       submitTime = #{submitTime,jdbcType=TIMESTAMP},
       submitSystem = #{submitSystem,jdbcType=VARCHAR},
@@ -479,7 +512,9 @@
       amount = #{amount,jdbcType=DECIMAL},
       ip = #{ip,jdbcType=VARCHAR},
       approver = #{approver,jdbcType=VARCHAR},
-      merchantsStatus = #{merchantsStatus,jdbcType=INTEGER},
+      bankR = #{bankR,jdbcType=VARCHAR},
+      BankD = #{bankD,jdbcType=VARCHAR},
+      bankStatus = #{bankStatus,jdbcType=INTEGER},
       createTime = #{createTime,jdbcType=TIMESTAMP},
       submitTime = #{submitTime,jdbcType=TIMESTAMP},
       submitSystem = #{submitSystem,jdbcType=VARCHAR},
