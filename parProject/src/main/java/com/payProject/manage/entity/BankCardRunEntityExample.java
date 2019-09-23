@@ -440,6 +440,10 @@ public class BankCardRunEntityExample {
             addCriterion("dealBankCard =", value, "dealBankCard");
             return (Criteria) this;
         }
+        public Criteria andDealBankCardListEqualTo(List value) {
+        	addCriterion("dealBankCard in", value, "dealBankCard");
+        	return (Criteria) this;
+        }
 
         public Criteria andDealBankCardNotEqualTo(String value) {
             addCriterion("dealBankCard <>", value, "dealBankCard");
@@ -639,6 +643,10 @@ public class BankCardRunEntityExample {
         public Criteria andRunTypeEqualTo(Integer value) {
             addCriterion("runType =", value, "runType");
             return (Criteria) this;
+        }
+        public Criteria andRunTypeListEqualTo(List value) {
+        	addCriterion("runType in", value, "runType");
+        	return (Criteria) this;
         }
 
         public Criteria andRunTypeNotEqualTo(Integer value) {

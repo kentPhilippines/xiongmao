@@ -17,26 +17,6 @@
   <div class="layui-header">
     <div class="layui-logo"><strong>新的支付系统</strong></div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
-    <ul class="layui-nav layui-layout-left">
-      <li class="layui-nav-item"><a href="">控制台</a></li>
-      <li class="layui-nav-item"><a href="">用户</a></li>
-	  <li class="layui-nav-item ">
-	    <a href="javascript:;">产品</a>
-	    <dl class="layui-nav-child">
-	      <dd><a href="">选项1</a></dd>
-	      <dd><a href="">选项2</a></dd>
-	      <dd><a href="">选项3</a></dd>
-	    </dl>
-	  </li>
-      <li class="layui-nav-item upbit">
-        <a href="javascript:;" ><span class="layui-nav-more upbit-more"></span>其它系统</a>
-        <dl class="layui-nav-child layui-anim topLayuiShow layui-anim-upbit">
-          <dd><a href="">邮件管理</a></dd>
-          <dd><a href="">消息管理</a></dd>
-          <dd><a href="">授权管理</a></dd>
-        </dl>
-      </li>
-    </ul>
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item upbit1">
       	<span class="layui-nav-more upbit-more"></span>

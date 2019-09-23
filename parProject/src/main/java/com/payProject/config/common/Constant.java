@@ -142,7 +142,12 @@ public final class Constant {
 		 */
 		public static final Integer DEAL_STATUS_ER = 4;//失败
 		
-		
+		/**
+		 * <p>银行卡流水分类</p>
+		 */
+		public static final Integer BANKCARD_RUN_DEAL = 1;//商户交易
+		public static final Integer BANKCARD_RUN_BENEFIT = 3;//账户入款分润
+		public static final Integer BANKCARD_RUN_DPAY = 2;//卡商回款
 		
 		// 私有
 		private Common() {

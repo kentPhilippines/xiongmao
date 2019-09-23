@@ -1,6 +1,8 @@
 package com.payProject.manage.entity;
 
 import java.math.BigDecimal;
+import java.util.List;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -27,7 +29,17 @@ public class BankCardRunEntity extends BaseEntity<BankCardRunEntity>{
 	 * <p>交易银行卡(入金)</p>
 	 */
     private String dealBankCard;
-    /**
+    private List dealBankCardList;
+    
+    public List getDealBankCardList() {
+		return dealBankCardList;
+	}
+
+	public void setDealBankCardList(List dealBankCardList) {
+		this.dealBankCardList = dealBankCardList;
+	}
+
+	/**
 	 * <p>交易本地账户(入金)</p>
 	 */
     private String dealAccount;
@@ -39,8 +51,17 @@ public class BankCardRunEntity extends BaseEntity<BankCardRunEntity>{
 	 * <p>流水类型</p>
 	 */
     private Integer runType;
+    private List runTypeList;
     
-    private String Time;
+    public List getRunTypeList() {
+		return runTypeList;
+	}
+
+	public void setRunTypeList(List runTypeList) {
+		this.runTypeList = runTypeList;
+	}
+
+	private String Time;
     
     
     public String getTime() {

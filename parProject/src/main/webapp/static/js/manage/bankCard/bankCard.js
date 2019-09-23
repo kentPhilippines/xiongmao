@@ -1,3 +1,49 @@
+var MyBankCardRun1Clas = {
+		init : function(){
+			this.initNode();
+			this.bankCardShowInit();
+			this.query();
+		},
+		initNode : function(){
+			this.$table = $("#LAY-user-back-manage");
+		},
+		bankCardShowInit : function(){
+			layui.use('table', function(){
+				MyBankCardRun1Clas.$ObjectTable = layui.table;
+				MyBankCardRun1Clas.$ObjectTable.render({
+					elem: MyBankCardRun1Clas.$table
+					,url:MyBankCardRun1Clas.$table.attr('url')
+					,cols: [[
+						{field: 'id', title: 'ID', hide :true, width:5,   fixed: 'left'}
+						,{field: 'withdrawAmount', title: '出金金额', width: 160}
+						,{field: 'dealBankCard', title: '到账银行卡(入金)', width: 160}
+						,{field: 'dealAmount', title: '到账金额(入金)', width: 160}
+						,{field: 'retain1', title: '关联单号', width: 160}
+						,{field: 'runType', title: '流水类型', width: 160,templet:'#runType' , style:'background-color: #009688; color: #fff;'}
+						,{field: 'createTime', title: '创建时间', width: 135, sort: true}
+						]]
+				, id: 'mytable'
+					,page: true
+				});
+			});
+		},
+		query : function(){
+			$("[lay-filter='LAY-user-back-search']").on("click",function(){
+				 var bankCard = $('[name="bankCard"]').val();//获取输入框的值
+				 var liabilities = $('[name="liabilities"]').val();//获取输入框的值
+				 var bankId = $('[name="bankId"]').val();//获取输入框的值
+				MyBankCardRun1Clas.reload({bankCard:bankCard,liabilities:liabilities,bankId:bankId})
+			})
+		},
+		 reload:function(param){
+			MyBankCardRun1Clas.$ObjectTable.reload('mytable',{ page:{  curr: 1} //重新从第 1 页开始
+				                        , where: param//这里传参  向后台
+				                        , url: 'MyBankCardRunList'//后台做模糊搜索接口路径
+				                        , method: 'post'
+				                          });
+		} 
+		
+}
 var MyBankCardRunClas = {
 		init : function(){
 			this.initNode();

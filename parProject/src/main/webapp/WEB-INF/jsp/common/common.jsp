@@ -2,6 +2,9 @@
 	<script type="text/javascript" src="${ctx}/static/js/layui/layui.all.js"></script>
 	<script type="text/javascript" src="${ctx}/static/js/layui/layui.js"></script>
 	<script type="text/javascript" src="${ctx}/static/js/Common.js"></script>
+	<script type="text/javascript" src="${ctx}/static/js/Common.js"></script>
+	
+	
 	<link href="${ctx}/static/css/system/common.css" rel="stylesheet" type="text/css" />
 	<link href="${ctx}/static/layAutoComplete/layuiAutocomplete.css" rel="stylesheet" type="text/css" />
 	<%-- <script type="text/javascript" src="${ctx}/static/js/layui/lay/modules/util.js"></script>
@@ -18,3 +21,4 @@
 	<script type="text/javascript" src="${ctx}/static/js/layui/lay/modules/layedit.js"></script>
 	<script type="text/javascript" src="${ctx}/static/js/layui/lay/modules/laydate.js"></script> --%>
 	<link href="${ctx}/static/js/layui/css/layui.css" rel="stylesheet" type="text/css"/>
+	<link href="${ctx}/static/js/layui/layuiAdmin.css" rel="stylesheet" type="text/css"/>

@@ -58,4 +58,17 @@ public interface BankCardService {
 	 * @return
 	 */
 	List<BankCardRunEntity> findPageBankCardRunByBankCard(BankCardRunEntity bankCardRun);
+	
+	/**
+	 * <p>根据条件查询银行卡流水</p>
+	 * @param bankCardRun
+	 * @return
+	 */
+	List<BankCardRunEntity> findBankCardRunByBankCard(BankCardRunEntity bankCardRun);
+	/**
+	 * <p>根据银行卡负责人查询该复制人所有的银行卡</p>
+	 * @param userId
+	 * @return
+	 */
+	List<BankCardEntity> finBankCardByUserId(String userId);
 }

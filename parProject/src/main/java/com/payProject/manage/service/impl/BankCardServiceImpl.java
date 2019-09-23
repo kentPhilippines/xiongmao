@@ -121,12 +121,34 @@ public class BankCardServiceImpl  implements BankCardService{
 			criteria.andDealAccountEqualTo(bankCardRun.getDealAccount());
 		if(null != bankCardRun.getRunType())  
 			criteria.andRunTypeEqualTo(bankCardRun.getRunType());
+		if(CollUtil.isNotEmpty( bankCardRun.getDealBankCardList())&& bankCardRun.getDealBankCardList().size() > 0) {
+			criteria.andDealBankCardListEqualTo(bankCardRun.getDealBankCardList());
+		}
 		if(StrUtil.isNotBlank(bankCardRun.getTime())) {
 			String data = StrUtil.subPre(bankCardRun.getTime(),10);
 			String data1 = StrUtil.subSuf(bankCardRun.getTime(),12);
 			criteria.andCreateTimeBetween(DateUtil.parse(data), DateUtil.parse(data1));
 			} 
 		List<BankCardRunEntity> selectByExample = bankCardRunDao.selectByExample(example);
+		return selectByExample;
+	}
+	@Override
+	public List<BankCardRunEntity> findBankCardRunByBankCard(BankCardRunEntity bankCardRun) {
+		BankCardRunEntityExample example = new BankCardRunEntityExample();
+		com.payProject.manage.entity.BankCardRunEntityExample.Criteria criteria = example.createCriteria();
+		if(bankCardRun.getDealBankCardList().size() > 0) 
+			criteria.andDealBankCardListEqualTo(bankCardRun.getDealBankCardList());
+		if(bankCardRun.getRunTypeList().size() >0)
+			criteria.andRunTypeListEqualTo(bankCardRun.getRunTypeList());
+		List<BankCardRunEntity> selectByExample = bankCardRunDao.selectByExample(example);
+		return selectByExample;
+	}
+	@Override
+	public List<BankCardEntity> finBankCardByUserId(String userId) {
+		BankCardEntityExample example = new BankCardEntityExample(); 
+		Criteria criteria = example.createCriteria();
+		criteria.andLiabilitiesEqualTo(userId);
+		List<BankCardEntity> selectByExample = bankCardDao.selectByExample(example);		
 		return selectByExample;
 	}
 }
