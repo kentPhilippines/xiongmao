@@ -36,9 +36,6 @@ public class BankCardServiceImpl  implements BankCardService{
 	BackBankAmountMapper BackBankAmountDao;
 	@Autowired
 	BankCardRunMapper bankCardRunDao;
-	
-	
-	
 	public BankCardEntity findBankCardByBankCard(String bankCard) {
 		BankCardEntityExample  example = new BankCardEntityExample();
 		Criteria criteria = example.createCriteria();
@@ -95,7 +92,7 @@ public class BankCardServiceImpl  implements BankCardService{
 			 throw new OtherErrors("删除银行卡异常");
 		return deleteByExample>0 && deleteByExample <2 ;
 	}
-	public boolean UpdateBankCardByBankCardNo(BankCardEntity bankCard) {
+	public boolean updateBankCardByBankCardNo(BankCardEntity bankCard) {
 		BankCardEntityExample example = new BankCardEntityExample(); 
 		Criteria criteria = example.createCriteria(); 
 		criteria.andBankCardEqualTo(bankCard.getBankCard());
@@ -174,5 +171,34 @@ public class BankCardServiceImpl  implements BankCardService{
 		List<BackBankAmount> selectByExample = BackBankAmountDao.selectByExample(example);
 		
 		return selectByExample;
+	}
+	@Override
+	public boolean addBacBankAmount(BackBankAmount backBankAmount) {
+		int insertSelective = BackBankAmountDao.insertSelective(backBankAmount);
+		return insertSelective> 0 && insertSelective <2;
+	}
+	@Override
+	public BackBankAmount findBackBankAmountByOrderId(String orderId) {
+		BackBankAmountExample example = new BackBankAmountExample();
+		com.payProject.manage.entity.BackBankAmountExample.Criteria criteria = example.createCriteria();
+		criteria.andOrderIdEqualTo(orderId);
+		List<BackBankAmount> selectByExample = BackBankAmountDao.selectByExample(example);
+		if(CollUtil.isNotEmpty(selectByExample)) {
+			return CollUtil.getFirst(selectByExample);
+		}
+		return new BackBankAmount();
+	}
+	@Override
+	public boolean updataBackBankAmount(BackBankAmount backBankAmount) {
+		BackBankAmountExample example = new BackBankAmountExample();
+		com.payProject.manage.entity.BackBankAmountExample.Criteria criteria = example.createCriteria();
+		criteria.andOrderIdEqualTo(backBankAmount.getOrderId());
+		int updateByExample = BackBankAmountDao.updateByExample(backBankAmount, example);
+		return updateByExample > 0 && updateByExample < 2 ;
+	}
+	@Override
+	public boolean addBankRun(BankCardRunEntity entity) {
+		int insertSelective = bankCardRunDao.insertSelective(entity);
+		return insertSelective > 0 && insertSelective < 2;
 	}
 }

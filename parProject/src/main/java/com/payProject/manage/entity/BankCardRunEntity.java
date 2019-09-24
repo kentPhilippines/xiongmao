@@ -48,7 +48,7 @@ public class BankCardRunEntity extends BaseEntity<BankCardRunEntity>{
 	 */
     private BigDecimal dealAmount;
     /**
-	 * <p>流水类型</p>
+	 * <p>流水类型</p>1商户交易2卡商回款3账户入款分润
 	 */
     private Integer runType;
     private List runTypeList;

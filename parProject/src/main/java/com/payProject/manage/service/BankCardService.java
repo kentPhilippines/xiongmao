@@ -46,7 +46,7 @@ public interface BankCardService {
 	 * @param bankCard	银行卡更改的详细信息
 	 * @return
 	 */
-	boolean UpdateBankCardByBankCardNo(BankCardEntity bankCard);
+	boolean updateBankCardByBankCardNo(BankCardEntity bankCard);
 	/**
 	 * <p>修改银行卡的状态未无效</p>
 	 * @param bankCard
@@ -78,4 +78,28 @@ public interface BankCardService {
 	 * @return
 	 */
 	List<BackBankAmount> findPageBackBankAmountByBank(BackBankAmount account);
+	/**
+	 * <p>添加回款</p>
+	 * @param backBankAmount
+	 * @return
+	 */
+	boolean addBacBankAmount(BackBankAmount backBankAmount);
+	/**
+	 * <p>根据码商回款订单查询订单数据</p>
+	 * @param orderId
+	 * @return
+	 */
+	BackBankAmount findBackBankAmountByOrderId(String orderId);
+	/**
+	 * <p>根据码商回款订单修改订单为失败</p>
+	 * @param backBankAmount
+	 * @return
+	 */
+	boolean updataBackBankAmount(BackBankAmount backBankAmount);
+	/**
+	 * <p>增加银行卡流水</p>
+	 * @param entity
+	 * @return
+	 */
+	boolean addBankRun(BankCardRunEntity entity);
 }

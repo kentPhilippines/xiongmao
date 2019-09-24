@@ -1,11 +1,72 @@
+var BackbankAdd = {
+		init : function(){
+			this.initNode();
+			this.bindEvent();
+		},
+		initNode : function(){
+			this.$but = $(".layui-layer-btn0")
+		},
+		bindEvent : function() {
+			this.$but.on("click",this.addAmount)
+		},
+		addAmount : function(){
+			var deta = {
+			accountId : $("[name=accountId]").val(),
+			bankR : $("[name=bankR]").val(),
+			bankD : $("[name=bankD]").val(),
+			amount: $("[name=amount]").val(),
+			payPassword :$("[name=payPassword]").val()
+			}
+			if(BackbankAdd.checkParam()){
+				 $("[name='payPassword']").val("");
+				 $("[name='amount']").val("");
+				 return;
+			};
+			var url = $(this).attr("url")
+			CommonUtil.ObjextAjax(url,deta,BackbankAdd.AjaxSucFn,true,'无权限或网络错误，请联系开发人员处理','post');
+		},
+		checkParam : function(){
+			$pass1 = $("[name='accountId']").val();
+			$pass2 = $("[name='bankR']").val();
+			$pass3 = $("[name='bankD']").val();
+			$pass4 = $("[name='amount']").val();
+			$pass5 = $("[name='payPassword']").val();
+			if(!$pass1 || !$pass2 || !$pass3 || !$pass4|| !$pass5){
+				layer.msg("参数为空");
+				return true;
+			}
+			return false;
+			
+		},
+		AjaxSucFn : function(data){
+			if(data && data.success){
+				layer.msg(data.message);
+				parent.layer.closeAll();
+			}else if(data && !data.success){
+				layer.msg(data.message)
+			}
+		}
+}
 var MyBackBankAmountClas = {
 		init : function(){
 			this.initNode();
 			this.bankCardShowInit();
+			this.bindEvent();
 			this.query();
 		},
 		initNode : function(){
+			this.$BackBankAmountAdd = $("[data-type='add']");
 			this.$table = $("#LAY-user-back-manage");
+		},
+		bindEvent : function() {
+			this.$BackBankAmountAdd.on("click",this.BackBankAmountAdd);
+		},
+		BackBankAmountAdd : function(){
+			$url = $(this).attr("addUrl");
+			$width = '630px';
+			$higth = '500px';
+			$title = '申请回款';
+			MyBackBankAmountClas.layuiOpen($url,$width,$higth,$title)
 		},
 		bankCardShowInit : function(){
 			layui.use('table', function(){
@@ -24,11 +85,118 @@ var MyBackBankAmountClas = {
 						,{field: 'note', title: '备注', width: 160}
 						,{field: 'bankStatus', title: '状态', width: 160,templet:'#bankStatus' , style:'background-color: #009688; color: #fff;'}
 						,{field: 'createTime', title: '创建时间', width: 135, sort: true}
-						 ,{fixed: 'right', title:'操作', toolbar: '#operation', width:150}						]]
+						]]
 				, id: 'mytable'
 					,page: true
 				});
+			
 			});
+		},
+		layuiOpen : function(url,width,higth,title){
+					layer.open({
+						type: 2,
+						title:title,
+						shadeClose: true,
+						shade: false,
+						shade: 0.5,
+						id:'LAY_layuipro',
+						maxmin: true, //开启最大化最小化按钮
+						area: [width,higth],
+						content: url,
+						success: function(){
+							  },
+						end : function(){
+							MyBackBankAmountClas.reload({"":""});
+						}
+					});
+			},
+		query : function(){
+			$("[lay-filter='LAY-user-back-search']").on("click",function(){
+				 var accountId = $('[name="accountId"]').val();//获取输入框的值
+				 var orderId = $('[name="orderId"]').val();//获取输入框的值
+				 var bankStatus = $('[name="bankStatus"]').val();//获取输入框的值
+				 var bankR = $('[name="bankR"]').val();//获取输入框的值
+				 var bankD = $('[name="bankD"]').val();//获取输入框的值
+				var Time = $("#createTime").val();
+				MyBackBankAmountClas.reload({
+					accountId:accountId,
+					orderId:orderId,
+					bankR:bankR,
+					bankStatus:bankStatus,
+					bankD:bankD,
+					Time:Time
+					
+				})
+			})
+		},
+		AjaxSucFn : function(data){
+			if(data && data.success){
+				layer.msg(data.message);
+				MyBackBankAmountClas.reload({"":""})
+			}else if(data && !data.success){
+				layer.msg(data.message)
+			}
+		},
+		 reload:function(param){
+			MyBackBankAmountClas.$ObjectTable.reload('mytable',{ page:{  curr: 1} //重新从第 1 页开始
+				                        , where: param//这里传参  向后台
+				                        , url: 'MyBackbankAmountList'//后台做模糊搜索接口路径
+				                        , method: 'post'
+				                          });
+		} 
+		
+};
+var BackBankAmountClas = {
+		init : function(){
+			this.initNode();
+			this.bankCardShowInit();
+			this.query();
+		},
+		initNode : function(){
+			this.$table = $("#LAY-user-back-manage");
+		},
+		bankCardShowInit : function(){
+			layui.use('table', function(){
+				BackBankAmountClas.$ObjectTable = layui.table;
+				BackBankAmountClas.$ObjectTable.render({
+					elem: BackBankAmountClas.$table
+					,url:BackBankAmountClas.$table.attr('url')
+					,cols: [[
+						{field: 'id', title: 'ID', hide :true, width:5,   fixed: 'left'}
+						,{field: 'accountId', title: '回款人', width: 160}
+						,{field: 'orderId', title: '订单号', width: 160}
+						,{field: 'amount', title: '金额', width: 120}
+						,{field: 'bankR', title: '入款卡', width: 180}
+						,{field: 'bankD', title: '出款卡', width: 180}
+						,{field: 'ip', title: '回款人ip', width: 160}
+						,{field: 'note', title: '备注', width: 160}
+						,{field: 'bankStatus', title: '状态', width: 160,templet:'#bankStatus' , style:'background-color: #009688; color: #fff;'}
+						,{field: 'createTime', title: '创建时间', width: 135, sort: true}
+						 ,{fixed: 'right', title:'操作', toolbar: '#operation', width:180}						]]
+				, id: 'mytable'
+					,page: true
+				});
+				BackBankAmountClas.$ObjectTable.on('tool(LAY-user-back-manage)', function(obj){
+				    var data = obj.data;
+				    if(obj.event === 'notifyOrderSu'){
+				    	var url = $("[lay-event='notifyOrderSu']").attr("url");
+				    	var deta =  {orderId : obj.data.orderId};
+				    	CommonUtil.ObjextAjax(url,deta,MyBackBankAmountClas.AjaxSucFn,true,'无权限或网络错误，请联系开发人员处理','post');
+				    }else if(obj.event === 'notifyOrderEr'){
+						    	var url = $("[lay-event='notifyOrderEr']").attr("url");
+						    	var deta =  {orderId : obj.data.orderId};
+						    	CommonUtil.ObjextAjax(url,deta,BackBankAmountClas.AjaxSucFn,true,'无权限或网络错误，请联系开发人员处理','post');
+				    }
+				  });
+			});
+		},
+		AjaxSucFn : function(data){
+			if(data && data.success){
+				layer.msg(data.message);
+				BackBankAmountClas.reload({"":""})
+			}else if(data && !data.success){
+				layer.msg(data.message)
+			}
 		},
 		query : function(){
 			$("[lay-filter='LAY-user-back-search']").on("click",function(){
@@ -37,7 +205,7 @@ var MyBackBankAmountClas = {
 				 var bankR = $('[name="bankR"]').val();//获取输入框的值
 				 var bankD = $('[name="bankD"]').val();//获取输入框的值
 				var Time = $("#createTime").val();
-				MyBackBankAmountClas.reload({
+				BackBankAmountClas.reload({
 					accountId:accountId,
 					orderId:orderId,
 					bankR:bankR,
@@ -48,32 +216,14 @@ var MyBackBankAmountClas = {
 			})
 		},
 		 reload:function(param){
-			MyBackBankAmountClas.$ObjectTable.reload('mytable',{ page:{  curr: 1} //重新从第 1 页开始
+			BackBankAmountClas.$ObjectTable.reload('mytable',{ page:{  curr: 1} //重新从第 1 页开始
 				                        , where: param//这里传参  向后台
-				                        , url: 'MyBackBankAmountClas'//后台做模糊搜索接口路径
+				                        , url: 'backbankAmountList'//后台做模糊搜索接口路径
 				                        , method: 'post'
 				                          });
 		} 
 		
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var MyBankCardRun1Clas = {
 		init : function(){
 			this.initNode();

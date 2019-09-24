@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>商户提现</title>
+<title>码商回款</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -37,46 +37,37 @@
 	    <div class="layui-inline">
 	      <label class="layui-form-label">账户编号</label>
 	      <div class="layui-input-inline">
-	        <input type="text" readonly = "unselectable='on'"  name="userId"  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" value = "${user.userId}">
+	        <input type="text" readonly = "unselectable='on'"  name="accountId"  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" value = "${user.userId}">
 	      </div>
 	    </div>
 	    <div class="layui-inline">
 	      <label class="layui-form-label">账户昵称</label>
 	      <div class="layui-input-inline">
-	        <input type="text" name="userName" autocomplete="off" class="layui-input" value = "${user.userName}">
+	        <input type="text" name="accountIdName" autocomplete="off" class="layui-input" value = "${user.userName}">
 	      </div>
 	    </div>
 	  </div>
 	    <div class="layui-inline">
 	    <label class="layui-form-label">到账银行卡</label>
 	    <div class="layui-input-inline">
-	      <select name="backCard" lay-verify="required" >
-	      	<c:forEach var="back" items="${backCard}">
-	      	 <option value="${back}">${back}</option>
-	      	</c:forEach>
-	      </select>
+	  	  <input type="text" name="bankR" autocomplete="off" class="layui-input" value = "">
 	    </div>
 	  </div>
 	    <div class="layui-inline">
-	    <label class="layui-form-label">提现账户</label>
+	    <label class="layui-form-label">出款银行卡</label>
 	    <div class="layui-input-inline">
-	      <select name="accountId" lay-verify="required" >
-	      	<c:forEach var="user" items="${UserAccountList}">
-	      	 <option value="${user.accountId}">${user.accountName}</option>
-	      	</c:forEach>
-	      </select>
+	      <input type="text" name="bankD" autocomplete="off" class="layui-input" value = "">
 	    </div>
 	  </div>
-	    
 	    <div class="layui-inline">
-	      <label class="layui-form-label">提现金额</label>
+	      <label class="layui-form-label">回款金额</label>
 	      <div class="layui-input-inline">
 	        <input type="text" name="amount" autocomplete="off" class="layui-input"  >
 	      </div>
 	    </div>
 	  </div>
 	    <div class="layui-inline">
-	      <label class="layui-form-label">提现密码</label>
+	      <label class="layui-form-label">回款密码</label>
 	      <div class="layui-input-inline">
 	        <input type="password" name="payPassword" autocomplete="off" class="layui-input"  >
 	      </div>
@@ -84,12 +75,12 @@
 	   
 	  </div>
 	  <div class="layui-layer-btn layui-layer-btn-">
-			<a class="layui-layer-btn0" url = "${ctx}/manage/merchants/amount">确定</a>
+			<a class="layui-layer-btn0" url = "${ctx}/manage/bankCard/addAmount">确定</a>
 		</div>
 	</form>
 </body>
 </html>
-<script type="text/javascript" src="${ctx}/static/js/manage/merchants/merchants.js" >
+<script type="text/javascript" src="${ctx}/static/js/manage/bankCard/bankCard.js" >
 </script>
 <script type="text/javascript">
 layui.use(['form', 'layedit', 'laydate'], function(){
@@ -99,6 +90,6 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 	  ,laydate = layui.laydate;
 	});
 $(function(){
-	Amount.init();
+	BackbankAdd.init();
 })
 </script>

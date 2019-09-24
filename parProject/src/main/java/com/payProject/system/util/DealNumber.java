@@ -94,4 +94,11 @@ public class DealNumber {
     public static String GetAllOrder(){
     	return GetRandom(Constant.Common.ORDERALL);
     }
+    /**
+     * <p>回款订单</p>
+     * @return
+     */
+    public static String GetBankOrder(){
+    	return GetRandom(Constant.Common.ORDERBACK);
+    }
 }

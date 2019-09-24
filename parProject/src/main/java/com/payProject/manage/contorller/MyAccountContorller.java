@@ -329,8 +329,8 @@ public class MyAccountContorller {
 			 }
 		}
 		//上一日数据
-		Double double1 = dealDayList.get(dealDayList.size()-1)>0?dealDayList.get(dealDayList.size()-1):1;
-		Double double2 = dealDaySuList.get(dealDaySuList.size()-1)>0?dealDaySuList.get(dealDaySuList.size()-1):1;
+		Double double1 = (Double)(dealDayList.get(dealDayList.size()-1)>0?dealDayList.get(dealDayList.size()-1):1);
+		Double double2 =  (Double)(dealDaySuList.get(dealDaySuList.size()-1)>0?dealDaySuList.get(dealDaySuList.size()-1):1);
 		Integer integer = dealDayMoneyList.get(dealDayMoneyList.size()-1)>0?dealDayMoneyList.get(dealDayMoneyList.size()-1):1;
 		Integer integer2 = dealDayMoneySuList.get(dealDayMoneySuList.size()-1)>0?dealDayMoneySuList.get(dealDayMoneySuList.size()-1):1;
 		dealnumberAmout =  (Double)(dealnumberAmout / integer) - 1 ;

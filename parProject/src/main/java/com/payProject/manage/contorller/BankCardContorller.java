@@ -1,9 +1,13 @@
 package com.payProject.manage.contorller;
 
 import java.math.BigDecimal;
+import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -32,6 +36,8 @@ import com.payProject.manage.entity.UserAccount;
 import com.payProject.manage.service.BankCardService;
 import com.payProject.system.entity.User;
 import com.payProject.system.service.UserService;
+import com.payProject.system.util.DealNumber;
+import com.payProject.system.util.EncryptUtil;
 import com.payProject.system.util.MapUtil;
 
 import cn.hutool.core.collection.CollUtil;
@@ -179,7 +185,7 @@ public class BankCardContorller {
 			throw new ParamException("请求参数无效");
 		}
 		bankCard.setCreateTime(null);
-		boolean flag  = bankCardService.UpdateBankCardByBankCardNo(bankCard);
+		boolean flag  = bankCardService.updateBankCardByBankCardNo(bankCard);
 		if(flag) {
 			return JsonResult.buildSuccessMessage("修改成功");
 		}
@@ -228,7 +234,7 @@ public class BankCardContorller {
 			throw new ParamException("请求参数无效");
 		}
 		bankCard.setCreateTime(null);
-		boolean flag  = bankCardService.UpdateBankCardByBankCardNo(bankCard);
+		boolean flag  = bankCardService.updateBankCardByBankCardNo(bankCard);
 		if(flag) {
 			return JsonResult.buildSuccessMessage("修改成功");
 		}
@@ -360,7 +366,7 @@ public class BankCardContorller {
 	
 	@RequestMapping("/bankAmount")
 	public String bankAmount( ){
-		return "/manage/bankCard/bankAmountList";
+		return "/manage/bankCard/myBackBankAmountList";
 	}
 
 	@RequestMapping("/backbankAmount")
@@ -381,4 +387,183 @@ public class BankCardContorller {
 			log.info("商户列表响应结果集"+pageR.toString());
 		return pageR;
 	}
+	@ResponseBody
+	@RequestMapping("/MyBackbankAmountList")
+	public PageResult<BackBankAmount> MyBackbankAmountList(BackBankAmount account,String page,String limit){
+		String userId = getUserId();
+		log.info("【当前操作码商为：】"+userId);
+		account.setAccountId(userId);
+		log.info("查询商户请求参数"+account.toString());
+		PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(limit));
+		List<BackBankAmount> list = bankCardService.findPageBackBankAmountByBank(account);
+		PageInfo<BackBankAmount> pageInfo = new PageInfo<BackBankAmount>(list);
+		PageResult<BackBankAmount> pageR = new PageResult<BackBankAmount>();
+		pageR.setData(pageInfo.getList());
+		pageR.setCode("0");
+		pageR.setCount(String.valueOf(pageInfo.getTotal()));
+		log.info("商户列表响应结果集"+pageR.toString());
+		return pageR;
+	}
+	@RequestMapping("/backbankAdd")
+	public String backbankAdd(Model m ) {
+		String userId = getUserId();
+		log.info("【当前操作码商为：】"+userId);
+		User user = userService.findUserByUserId(userId);
+		m.addAttribute("user", user);
+		return "/manage/bankCard/backAmount";
+	}
+	@ResponseBody
+	@RequestMapping("/addAmount")
+	@Transactional
+	public JsonResult myBankCardEdit(BackBankAmount backBankAmount,String payPassword,HttpServletRequest request){
+		/**
+		 * ##############################################
+		 *  	卡商回款逻辑
+		 *  1,填入订单
+		 *  2,等待审核
+		 */
+		if(StrUtil.isBlank(backBankAmount.getAccountId())||StrUtil.isBlank(backBankAmount.getBankD()) || StrUtil.isBlank(backBankAmount.getBankR()) || StrUtil.isBlank(payPassword)) {
+			throw new ParamException("请求参数无效");
+		}
+		User user = userService.findUserByUserId(backBankAmount.getAccountId());
+		Map<String, String> password = EncryptUtil.encryptPassword(payPassword);
+		String string = password.get(Constant.Common.PAYPASSWORD);
+		if(!user.getPayPassword().equals(string)) {
+			throw new ParamException("密码错误");
+		}
+		BankCardEntity bankcard = bankCardService.findBankCardByBankCard(backBankAmount.getBankR());
+		if(ObjectUtil.isNull(bankcard)) {
+			throw new ParamException("系统内不存在该入款卡号，请与对接人联系获取入款卡号");
+		}
+		if(!bankcard.getBankType().equals(Common.BANKCARDTYPE_TRANSFER)) {
+			throw new ParamException("该入款卡号不符合回款要求，请与对接人员沟通获取最新入款卡号");
+		}
+		
+		BankCardEntity bankCardEntity = bankCardService.findBankCardByBankCard(backBankAmount.getBankD());//获取当前出款的银行卡
+		if(!Common.STATUS_NO.equals(bankCardEntity.getStatus())) {//出款卡只能为 当前超额的银行卡
+			throw new ParamException("该出款卡号不符合回款要求，请与对接人员沟通获取最新出款卡号");
+		}
+		backBankAmount.setOrderId(DealNumber.GetBankOrder());
+		backBankAmount.setBankStatus(Common.BACKBANK_OH);
+		String ipAddr = getIpAddr(request);
+		log.info("【码商提现ip为：】"+ipAddr+"，当前码商为："+user.getUserId());
+		backBankAmount.setIp(ipAddr);
+		boolean flag = bankCardService.addBacBankAmount(backBankAmount);
+		if(flag) {
+			return JsonResult.buildSuccessMessage("等待审批");
+		}
+		
+		
+		return JsonResult.buildFailResult("回款失败");
+	}
+	public  String getIpAddr(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for"); 
+        System.out.println("x-forwarded-for ip: " + ip);
+        if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {  
+            // 多次反向代理后会有多个ip值，第一个ip才是真实ip
+            if( ip.indexOf(",")!=-1 ){
+                ip = ip.split(",")[0];
+            }
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("Proxy-Client-IP");  
+            System.out.println("Proxy-Client-IP ip: " + ip);
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("WL-Proxy-Client-IP");  
+            System.out.println("WL-Proxy-Client-IP ip: " + ip);
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("HTTP_CLIENT_IP");  
+            System.out.println("HTTP_CLIENT_IP ip: " + ip);
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");  
+            System.out.println("HTTP_X_FORWARDED_FOR ip: " + ip);
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("X-Real-IP");  
+            System.out.println("X-Real-IP ip: " + ip);
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getRemoteAddr();  
+            System.out.println("getRemoteAddr ip: " + ip);
+        } 
+        log.info("登录账户正在发起提现请求，获取客户端ip: " + ip);
+        return ip;  
+    }
+	
+	
+	
+	/**
+	 * </p>商户回款成功</p>
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/notifyOrderSu")
+	@ResponseBody
+	@Transactional
+	public JsonResult notifyOrderSu(HttpServletRequest request, HttpServletResponse response) {
+		String orderId = request.getParameter("orderId");
+		if(StrUtil.isBlank(orderId)) {
+			throw new ParamException("未找到订单");
+		}
+		BackBankAmount bankAmount = bankCardService.findBackBankAmountByOrderId(orderId);//当前回款订单
+		BankCardEntity bankCardEntity = bankCardService.findBankCardByBankCard(bankAmount.getBankD());//获取当前出款的银行卡
+		if(!Common.STATUS_NO.equals(bankCardEntity.getStatus())) {//出款卡只能为 当前超额的银行卡
+			throw new ParamException("该出款卡号不符合回款要求，请与对接人员沟通获取最新出款卡号");
+		}
+		/**
+		 * <p>卡商码商回款逻辑</p>
+		 * 1,查询当前出款卡是否正确  是否不可用
+		 * 2,当前入款卡是否为系统规定的
+		 * 3,修改回款订单状态
+		 * 4,写入银行卡流水
+		 * 5,写入一笔资金流水表（暂时不写入,这里将上下游流水分开处理,减少压力）
+		 */
+		bankAmount.setBankStatus(Common.BACKBANK_SU);
+		boolean flag = bankCardService.updataBackBankAmount(bankAmount);
+		if(flag) {
+			//银行卡流水
+			BankCardRunEntity entity= new BankCardRunEntity();
+			entity.setDealAmount(bankAmount.getAmount());
+			entity.setDealAccount("SYS");
+			entity.setDealBankCard(bankAmount.getBankR());
+			entity.setRunType(Common.BANKCARD_RUN_DPAY);
+			entity.setWithdrawAccount(bankAmount.getAccountId());
+			entity.setWithdrawBankCard(bankAmount.getBankD());
+			entity.setWithdrawAmount(bankAmount.getAmount());
+			boolean runFlag = bankCardService.addBankRun(entity);
+			if(runFlag) {
+				return JsonResult.buildSuccessMessage("操作成功");
+			}
+		}
+		return JsonResult.buildFailResult("操作失败");
+	}
+	/**
+	 * <p>商户回款失败</p>
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/notifyOrderEr")
+	@ResponseBody
+	@Transactional
+	public JsonResult notifyOrderEr(HttpServletRequest request, HttpServletResponse response) {
+		log.info("【商户回款失败】");
+		String orderId = request.getParameter("orderId");
+		if(StrUtil.isBlank(orderId))
+			throw new ParamException("未找到订单");
+		BackBankAmount backBankAmount = bankCardService.findBackBankAmountByOrderId(orderId);
+		if(backBankAmount.getBankStatus().equals(Common.BACKBANK_OH)) {
+			backBankAmount.setBankStatus(Common.BACKBANK_ER);
+		}
+		boolean flag = bankCardService.updataBackBankAmount(backBankAmount);
+		if(flag) {
+			return JsonResult.buildSuccessMessage("该订单以处理为失败");
+		}
+		return JsonResult.buildFailResult("无效请求");
+	}
 }
+

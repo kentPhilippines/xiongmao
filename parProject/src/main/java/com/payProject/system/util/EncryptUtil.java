@@ -55,7 +55,7 @@ public class EncryptUtil {
 	// 手动测试密码加密方法
 	public   void main(String[] args) {
 		Map<String, String> map = encryptPassword("admin", "admin");
-		System.out.println(map.get("password"));
-		System.out.println(map.get("salt"));
+		System.out.println(map.get(Constant.Common.PASSWORD));
+		System.out.println(map.get(Constant.Common.SALT));
 	}
 }

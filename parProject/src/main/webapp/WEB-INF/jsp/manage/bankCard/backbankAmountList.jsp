@@ -83,17 +83,17 @@
 <script type="text/javascript" src="${ctx}/static/js/manage/bankCard/bankCard.js" ></script>
 <script type="text/html" id="operation">
 	{{#  if(d.bankStatus == '3'){ }} 
- 		<a class="layui-btn layui-btn-xs" lay-event="notifyOrderSu" url = "${ctx}/manage/order/notifyOrderSu">置为成功</a>
-		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="notifyOrderEr" url = "${ctx}/manage/order/notifyOrderEr">置为失败</a>
+ 		<a class="layui-btn layui-btn-xs" lay-event="notifyOrderSu" url = "${ctx}/manage/bankCard/notifyOrderSu">置为成功</a>
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="notifyOrderEr" url = "${ctx}/manage/bankCard/notifyOrderEr">置为失败</a>
 	{{# } }}
 	</script>
 	<script type="text/html" id="bankStatus">
 			{{#  if(d.bankStatus == '1'){ }}
 				<span class="label label-danger radius" style="background-color: red">成功</span>
-			{{# }else if(d.bankStatus = '2'){ }}
-				<span class="label label-danger radius" style="background-color: red">失败</span>
-			{{# }else if(d.bankStatus = '3'){ }}
-				<span class="label label-danger radius" style="background-color: red">处理中</span>
+			{{# }else if(d.bankStatus == '2'){ }}
+				<span class="label label-danger radius" style="background-color: #b0a8a6">失败</span>
+			{{# }else if(d.bankStatus == '3'){ }}
+				<span class="label label-danger radius" style="background-color: #c0b431">处理中</span>
 			{{# } }}
 </script>
 <script>
@@ -101,6 +101,6 @@ layui.use('table', function(){
 	  var table = layui.table;
 })
 $(function(){
-	MyBackBankAmountClas.init();
+	BackBankAmountClas.init();
 })
 </script>
