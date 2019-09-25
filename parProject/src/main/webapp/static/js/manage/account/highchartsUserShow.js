@@ -11,42 +11,27 @@ $.getJSON('myUserDealShow', function (data) {
 			text: document.ontouchstart === undefined ?
 			'鼠标拖动可以进行缩放' : '手势操作进行缩放'
 		},
-	/*	xAxis: {
-			type: 'datetime',
-			dateTimeLabelFormats: {
-				millisecond:"%Y-%M-%d %H:%M:%S",
-				second: '%H:%M:%S',
-				minute: '%H:%M',
-				hour: '%H:%M',
-				day: '%m-%d',
-				week: '%m-%d',
-				month: '%Y-%m',
-				year: '%Y'
-			}
-		},*/
-		
 		xAxis: {
 			type: 'datetime',
-			labels: {
-			style: {
-			fontSize: '13px',
-			color: '#333'
-			},
-			formatter: function(){
-				return Highcharts.dateFormat('%Y-%M-%d %H:%M:%S', this.value);  //格式化x轴时间格式
-				}
-			},
+			dateTimeLabelFormats: {
+				millisecond:"%Y-%m-%d, %H:%M:%S",
+				second:"%Y-%m-%d, %H:%M:%S",
+				minute:"%Y-%m-%d, %H:%M",
+				hour:"%Y-%m-%d, %H:%M",
+				day:"%Y-%m-%d, %H",
+				month:"%Y-%m",
+				year:"%Y"
+			}
 		},
 		tooltip: {
 			dateTimeLabelFormats: {
-					millisecond:"%Y-%M-%d %H:%M:%S",
-					second: '%H:%M:%S',
-					minute: '%H:%M',
-					hour: '%H:%M',
-					day: '%m-%d',
-					week: '%m-%d',
-					month: '%Y-%m',
-					year: '%Y'
+				millisecond:"%Y-%m-%d, %H:%M:%S",
+				second:"%Y-%m-%d, %H:%M:%S",
+				minute:"%Y-%m-%d, %H:%M",
+				hour:"%Y-%m-%d, %H:%M",
+				day:"%Y-%m-%d, %H",
+				month:"%Y-%m",
+				year:"%Y"
 			}
 		},
 		yAxis: {
