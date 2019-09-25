@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -134,7 +136,15 @@ public class OrderContorller  {
 		log.info("查询订单流水相应结果集"+pageR.toString());
 		return pageR;
 	}
-	
+	private String getUserId() {
+		Subject subject = SecurityUtils.getSubject();
+		Session session = subject.getSession();
+		Object attribute = session.getAttribute(Constant.User.USER_IN_SESSION());
+		Map<String, Object> objectToMap = MapUtil.objectToMap(attribute);
+		com.payProject.system.entity.User user = MapUtil.mapToBean(objectToMap,com.payProject.system.entity.User.class);
+		String userId = (String)objectToMap.get(Constant.User.USER_ID());
+		return userId;
+	}
 	
 	/**
 	 * <p>将现有订单改为成功 并生成订单流水,向下游发送通知</p>
@@ -145,8 +155,9 @@ public class OrderContorller  {
 	 */
 	@ResponseBody
 	@PostMapping("/notifyOrderSu")
-	public JsonResult notifyOrderSu(DealOrderEntity dealOrder){
+	public JsonResult notifyOrderSu(DealOrderEntity dealOrder,HttpServletRequest request){
 	//	throw new OtherErrors("功能暂未开放");
+		log.info("【当前订单置为 成功，订单号为："+dealOrder.getOrderId()+"，操作人为："+getUserId()+"，操作ip为："+getIpAddr(request)+"】");
 		DealOrderEntity deal = dealOrderServiceImpl.findDealOrderByOrderId(dealOrder.getOrderId());
 		/**
 		 * ######################
@@ -216,4 +227,40 @@ public class OrderContorller  {
 		JsonResult bean = JSONUtil.toBean(parseObj, JsonResult.class);
 		return bean;
 	}
+	public  String getIpAddr(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for"); 
+        System.out.println("x-forwarded-for ip: " + ip);
+        if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {  
+            // 多次反向代理后会有多个ip值，第一个ip才是真实ip
+            if( ip.indexOf(",")!=-1 ){
+                ip = ip.split(",")[0];
+            }
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("Proxy-Client-IP");  
+            System.out.println("Proxy-Client-IP ip: " + ip);
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("WL-Proxy-Client-IP");  
+            System.out.println("WL-Proxy-Client-IP ip: " + ip);
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("HTTP_CLIENT_IP");  
+            System.out.println("HTTP_CLIENT_IP ip: " + ip);
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");  
+            System.out.println("HTTP_X_FORWARDED_FOR ip: " + ip);
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("X-Real-IP");  
+            System.out.println("X-Real-IP ip: " + ip);
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getRemoteAddr();  
+            System.out.println("getRemoteAddr ip: " + ip);
+        } 
+        log.info("登录账户正在发起提现请求，获取客户端ip: " + ip);
+        return ip;  
+    }
 }

@@ -74,11 +74,11 @@ public class User extends BaseEntity<User>{
 	 */
     private Integer status;
 	/**
-	 * 保留字段目前没有业务拓展的需求用不到
+	 * <p>码商利率(该字段只有账户是卡商或者码商才有数据)</p>
 	 */
     private String retain1;
     /**
-	 * 保留字段目前没有业务拓展的需求用不到
+	 * <p>账号类型:1码商2商户3运营4财务5客服</p>
 	 */
     private String retain2;
     /**

@@ -58,7 +58,9 @@ public class UserServiceImpl implements UserService {
 			criteria.andUserMailLike(user.getUserMail()); 
 		}else if(StrUtil.isNotBlank(user.getUserPhone())) {
 			criteria.andUserPhoneLike(user.getUserPhone()); 
-			} 
+		} else if (null != user.getUserType()) {
+			criteria.andUserTypeEqualTo(user.getUserType());
+			}
 		List<User> selectByExample = userDao.selectByExample(example);
 		return selectByExample;
 	}
