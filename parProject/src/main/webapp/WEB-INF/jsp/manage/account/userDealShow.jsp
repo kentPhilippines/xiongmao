@@ -74,6 +74,7 @@
 layui.use('element', function(){
   var element = layui.element;
 });
+debugger;
 var timeList = ${timeList};
 var sum = ${sum};
 var dealDaySuList = ${dealDaySuList};

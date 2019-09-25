@@ -11,10 +11,10 @@ $.getJSON('myUserDealShow', function (data) {
 			text: document.ontouchstart === undefined ?
 			'鼠标拖动可以进行缩放' : '手势操作进行缩放'
 		},
-		xAxis: {
+	/*	xAxis: {
 			type: 'datetime',
 			dateTimeLabelFormats: {
-				millisecond: '%H:%M:%S.%L',
+				millisecond:"%Y-%M-%d %H:%M:%S",
 				second: '%H:%M:%S',
 				minute: '%H:%M',
 				hour: '%H:%M',
@@ -23,17 +23,30 @@ $.getJSON('myUserDealShow', function (data) {
 				month: '%Y-%m',
 				year: '%Y'
 			}
+		},*/
+		
+		xAxis: {
+			type: 'datetime',
+			labels: {
+			style: {
+			fontSize: '13px',
+			color: '#333'
+			},
+			formatter: function(){
+				return Highcharts.dateFormat('%Y-%M-%d %H:%M:%S', this.value);  //格式化x轴时间格式
+				}
+			},
 		},
 		tooltip: {
 			dateTimeLabelFormats: {
-				millisecond: '%H:%M:%S.%L',
-				second: '%H:%M:%S',
-				minute: '%H:%M',
-				hour: '%H:%M',
-				day: '%Y-%m-%d',
-				week: '%m-%d',
-				month: '%Y-%m',
-				year: '%Y'
+					millisecond:"%Y-%M-%d %H:%M:%S",
+					second: '%H:%M:%S',
+					minute: '%H:%M',
+					hour: '%H:%M',
+					day: '%m-%d',
+					week: '%m-%d',
+					month: '%Y-%m',
+					year: '%Y'
 			}
 		},
 		yAxis: {
@@ -54,8 +67,7 @@ $.getJSON('myUserDealShow', function (data) {
 						y2: 1
 					},
 					stops: [
-						[0, Highcharts.getOptions().colors[0]],
-						[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+						[0, Highcharts.getOptions().colors[7]],
 					]
 				},
 				marker: {
@@ -94,7 +106,7 @@ $.getJSON('myUserDealShow', function (data) {
 		text: '数据来源: 未来支付'
 	},
 	xAxis: {
-		categories:["2019-09-16","2019-09-17","2019-09-18","2019-09-19","2019-09-20"],
+		categories:timeList,
 		crosshair: true
 	},
 	yAxis: {
@@ -136,7 +148,7 @@ $.getJSON('myUserDealShow', function (data) {
 		 text: '数据来源: 未来支付'
 	 },
 	 xAxis: {
-		 categories:["2019-09-16","2019-09-17","2019-09-18","2019-09-19","2019-09-20"],
+		 categories:timeList,
 		 crosshair: true
 	 },
 	 yAxis: {
