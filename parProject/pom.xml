@@ -14,12 +14,12 @@
    	   <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-              <exclusions>
+            <!--   <exclusions>
                 <exclusion>
                     <groupId>ch.qos.logback</groupId>
                    <artifactId>logback-classic</artifactId>
                 </exclusion>
-           </exclusions>  
+           </exclusions>   -->
         </dependency>
          <!--  servlet依赖. -->
         <dependency>
@@ -80,7 +80,6 @@
 	    <artifactId>httpclient</artifactId>
 	    <version>4.5.2</version>
 	</dependency>
-	<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 	<dependency>
 	    <groupId>org.apache.commons</groupId>
 	    <artifactId>commons-lang3</artifactId>
@@ -91,12 +90,6 @@
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>1.1.1</version>
-		</dependency>
-			<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-lang3</artifactId>
-		    <version>3.4</version>
 		</dependency>
 		 <!-- jpa-->
         <dependency>
@@ -139,13 +132,6 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.5</version>
         </dependency>
-        
-<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-<dependency>
-    <groupId>org.apache.commons</groupId>
-    <artifactId>commons-lang3</artifactId>
-    <version>3.6</version>
-</dependency>
 		<dependency>
 		    <groupId>com.google.zxing</groupId>
 		    <artifactId>core</artifactId>

@@ -11,12 +11,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <%@include file="../../common/common.jsp"%>
 <%@include file="../../common/highcharts.jsp"%>
-<body layadmin-themealias="default">
+<body layadmin-themealias="default" >
   <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
       <div class="layui-col-md6" style="margin-top: 31px;">
         <div class="layui-card">
-          <div class="layui-card-header">月交易流量图</div>
+          <div class="layui-card-header"><strong>交易金额汇总</strong></div>
           <div class="layui-card-body">
             <div style="min-width:400px;height:400px" class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-normline" lay-anim="fade" style="width: 100%; height: 280px;">
             <div id="container2" style="min-width:400px;height:400px"></div>
@@ -24,9 +24,9 @@
           </div>
         </div>
         <div class="layui-card">
-          <div class="layui-card-header">交易金额关系图</div>
+          <div class="layui-card-header"><strong>交易金额关系图</strong></div>
           <div class="layui-card-body">
-            <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-heapline" lay-anim="fade" style="width: 100%; height: 280px;">
+            <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-heapline" lay-anim="fade" style="width: 100%;height:400px">
              <div id="container1" style="min-width:400px;height:400px"></div>
             </div>
           </div>
@@ -34,17 +34,17 @@
       </div> 
       <div class="layui-col-md6" style="margin-top: 31px;">
         <div class="layui-card">
-          <div class="layui-card-header">交易比率</div>
+          <div class="layui-card-header"><strong>交易比率</strong></div>
           <div class="layui-card-body">
-            <div style="min-width:400px;height:400px" class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-normline" lay-anim="fade" style="width: 100%; height: 280px;">
+            <div style="min-width:400px;height:400px" class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-normline" lay-anim="fade" style="width: 100%; height:400px;">
           <div id="container3" style="min-width:400px;height:400px"></div>
             </div>
           </div>
         </div>
         <div class="layui-card">
-          <div class="layui-card-header">月交易流量图</div>
+          <div class="layui-card-header"><strong>月交易流量图</strong></div>
           <div class="layui-card-body">
-            <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-heapline" lay-anim="fade" style="width: 100%; height: 280px;">
+            <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-heapline" lay-anim="fade" style="width: 100%; height:400px;">
            <div id="container" style="min-width:400px;height:400px"></div>
             </div>
           </div>

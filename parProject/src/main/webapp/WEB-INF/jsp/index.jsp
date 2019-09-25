@@ -70,9 +70,9 @@
     </div>
   </div>
   <div style="padding: 15px;">
-  <div class="layui-body" id="LAY_app_body">
+  <div class="layui-body" id="LAY_app_body" style="background-color: #dadbdb;">
      <iframe id="mainFrame" name="mainFrame"
-						src="${ctx}/homePage"
+						src="${ctx}/${higcharhs}"
 						style="overflow: visible; height: 100%; scrolling="yes"
 						frameborder="no" width="100%" height="650"
 						marginheight = "50px"

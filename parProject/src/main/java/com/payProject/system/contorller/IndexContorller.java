@@ -89,8 +89,17 @@ public class IndexContorller {
 		 m.addAttribute("menuList", menuList);
 		 m.addAttribute("user", user);
 		 /*5,日志记录,该功能由aop完成*/
+		 if(Common.USER_NEI.equals(user.getUserType())) {//外部账号不可以看到 交易情况
+			m.addAttribute("higcharhs", "homePage");
+		 }else {
+			 m.addAttribute("higcharhs", "home");
+		 }
 	        return "index";
 	    }
+	 @RequestMapping("/home")
+	 public String home(Model m,HttpServletRequest request) {
+		return "home";
+	 }
 	 @RequestMapping("/homePage")
 	 public String homePage(Model m,HttpServletRequest request) {
 			String userId = getUserId();

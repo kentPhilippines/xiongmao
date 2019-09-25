@@ -12,20 +12,19 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <%@include file="../../common/common.jsp"%>
-
-<body layadmin-themealias="default">
+<body layadmin-themealias="default" style="  margin-top: 10px; ">
 	<div class="layui-fluid">
 		<div class="layui-row layui-col-space15">
 			<div class="layui-col-md8">
 				<div class="layui-row layui-col-space15">
 					<div class="layui-col-md12">
 						<div class="layui-card">
-							<div class="layui-card-header">数据概览</div>
+							<div class="layui-card-header"><strong>数据概览</strong></div>
 							<div class="layui-card-body">
 								<div class="layui-carousel layadmin-carousel layadmin-dataview"
 									data-anim="fade" lay-filter="LAY-index-dataview"
 									lay-anim="fade" lay-indicator="inside" lay-arrow="none"
-									style="width: 100%; height: 280px;">
+									style="width: 100%; height:300px;">
 										<div id="container" style="min-width:400px;height:300px"></div>
 								</div>
 							</div>
@@ -84,17 +83,17 @@
 				<div class="layui-card">
 					<div class="layui-card-header">版本信息</div>
 						<div class="layui-card-body layadmin-takerates" style="background-color: #e6e9e8;">
-							<p>这里填写版本信息</p>
+							<p>内测版：0.1V</p>
 						</div>
 				</div>
 				<div class="layui-card">
 					<div class="layui-card-header">资金报告</div>
 						<div class="layui-card-body layadmin-takerates" style="background-color: #e6e9e8;">
-								<p>可取现金额：${cash}</p>
+								<p style=" margin-top: 5px; "><strong>可取现金额：${cash}</strong></p>
 				           		<div class="layui-progress layui-progress-big">
 								  <div class="layui-progress-bar layui-bg-red" lay-percent="${casePercent}%"></div>
 								</div>
-								<p>冻结总额：${freeze}</p>
+								<p style=" margin-top: 5px; "><strong>冻结总额：${freeze}</strong></p>
 				           		<div class="layui-progress layui-progress-big">
 								  <div class="layui-progress-bar layui-bg-blue" lay-percent="${freezePercent}%"></div>
 								</div>
@@ -104,12 +103,12 @@
 				<div class="layui-card">
 					<div class="layui-card-header">实时监控</div>
 						<div class="layui-card-body layadmin-takerates" style="background-color: #e6e9e8;">
-						<p>订单未结算率${orderOhPercent}%</p>
+						<p style=" margin-top: 5px; "><strong>订单未结算率${orderOhPercent}%</strong></p>
 				           <div class="layui-progress layui-progress-big">
 								  <div class="layui-progress-bar" lay-percent="${orderOhPercent}%"></div>
 							</div>
 						<c:forEach items="${dataPayType}" var="payType">
-								<p>${payType.payType}成功率${payTypeNumber}%</p>
+								<p  style=" margin-top: 5px; "><strong>${payType.payType}成功率${payTypeNumber}%</strong></p>
 				           		<div class="layui-progress layui-progress-big">
 								  <div class="layui-progress-bar" lay-percent="${payTypeNumber}%"></div>
 								</div>
