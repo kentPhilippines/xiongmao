@@ -10,6 +10,7 @@
     <result column="freezeBalance" property="freezeBalance" jdbcType="DECIMAL" />
     <result column="accountBalance" property="accountBalance" jdbcType="DECIMAL" />
     <result column="dayDealAmountMax" property="dayDealAmountMax" jdbcType="DECIMAL" />
+    <result column="maxDeal" property="maxDeal" jdbcType="DECIMAL" />
     <result column="freezeT1" property="freezeT1" jdbcType="DECIMAL" />
     <result column="freezeD1" property="freezeD1" jdbcType="DECIMAL" />
     <result column="dayDealAmountMin" property="dayDealAmountMin" jdbcType="DECIMAL" />
@@ -83,7 +84,9 @@
   </sql>
   <sql id="Base_Column_List" >
     id, accountId, accountName, accountType, cashBalance, freezeBalance, accountBalance, 
-    dayDealAmountMax, dayDealAmountMin, SumDealAmount, SumDealToDayAmount, createTime, 
+    dayDealAmountMax, 
+    maxDeal, 
+    dayDealAmountMin, SumDealAmount, SumDealToDayAmount, createTime, 
     submitTime, submitSystem, status,isDeal,isDpay,bankCard,freezeT1,freezeD1
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payProject.manage.entity.AccountEntityExample" >
@@ -121,6 +124,7 @@
     insert into manage_account (accountId, accountName, accountType, 
       cashBalance, freezeBalance, accountBalance, 
       dayDealAmountMax, 
+      maxDeal, 
       freezeT1, 
       freezeD1, 
       dayDealAmountMin, SumDealAmount, 
@@ -129,6 +133,7 @@
     values (#{accountId,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, #{accountType,jdbcType=INTEGER}, 
       #{cashBalance,jdbcType=DECIMAL}, #{freezeBalance,jdbcType=DECIMAL}, #{accountBalance,jdbcType=DECIMAL}, 
       #{dayDealAmountMax,jdbcType=DECIMAL},
+      #{maxDeal,jdbcType=DECIMAL},
       #{freezeT1,jdbcType=DECIMAL},
       #{freezeD1,jdbcType=DECIMAL},
        #{dayDealAmountMin,jdbcType=DECIMAL}, #{sumDealAmount,jdbcType=DECIMAL}, 
@@ -161,6 +166,9 @@
       </if>
       <if test="dayDealAmountMax != null" >
         dayDealAmountMax,
+      </if>
+      <if test="maxDeal != null" >
+        maxDeal,
       </if>
       <if test="freezeT1 != null" >
         freezeT1,
@@ -220,6 +228,9 @@
       </if>
       <if test="dayDealAmountMax != null" >
         #{dayDealAmountMax,jdbcType=DECIMAL},
+      </if>
+      <if test="maxDeal != null" >
+        #{maxDeal,jdbcType=DECIMAL},
       </if>
       <if test="freezeT1 != null" >
         #{freezeT1,jdbcType=DECIMAL},
@@ -292,6 +303,9 @@
       <if test="record.dayDealAmountMax != null" >
         dayDealAmountMax = #{record.dayDealAmountMax,jdbcType=DECIMAL},
       </if>
+      <if test="record.maxDeal != null" >
+        maxDeal = #{record.maxDeal,jdbcType=DECIMAL},
+      </if>
       <if test="record.freezeD1 != null" >
         freezeD1 = #{record.freezeD1,jdbcType=DECIMAL},
       </if>
@@ -343,6 +357,7 @@
       freezeBalance = #{record.freezeBalance,jdbcType=DECIMAL},
       accountBalance = #{record.accountBalance,jdbcType=DECIMAL},
       dayDealAmountMax = #{record.dayDealAmountMax,jdbcType=DECIMAL},
+      maxDeal = #{record.maxDeal,jdbcType=DECIMAL},
       freezeT1 = #{record.freezeT1,jdbcType=DECIMAL},
       freezeD1 = #{record.freezeD1,jdbcType=DECIMAL},
       dayDealAmountMin = #{record.dayDealAmountMin,jdbcType=DECIMAL},
@@ -382,6 +397,9 @@
       </if>
       <if test="dayDealAmountMax != null" >
         dayDealAmountMax = #{dayDealAmountMax,jdbcType=DECIMAL},
+      </if>
+      <if test="maxDeal != null" >
+        maxDeal = #{maxDeal,jdbcType=DECIMAL},
       </if>
       <if test="freezeT1 != null" >
         freezeT1 = #{freezeT1,jdbcType=DECIMAL},
@@ -431,6 +449,7 @@
       freezeBalance = #{freezeBalance,jdbcType=DECIMAL},
       accountBalance = #{accountBalance,jdbcType=DECIMAL},
       dayDealAmountMax = #{dayDealAmountMax,jdbcType=DECIMAL},
+      maxDeal = #{maxDeal,jdbcType=DECIMAL},
       freezeT1 = #{freezeT1,jdbcType=DECIMAL},
       freezeD1 = #{freezeD1,jdbcType=DECIMAL},
       dayDealAmountMin = #{dayDealAmountMin,jdbcType=DECIMAL},
@@ -452,7 +471,5 @@
          t1.accountId =    #{bean}
     </foreach>   
     </where>
-    
-    
   </select>
 </mapper>

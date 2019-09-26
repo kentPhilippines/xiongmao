@@ -253,7 +253,21 @@ public class AccountEntityExample {
             addCriterion("accountName =", value, "accountName");
             return (Criteria) this;
         }
-
+        
+        
+        
+        
+        
+        public Criteria andMaxDealEqualTo(BigDecimal maxDeal) {
+        	addCriterion("maxDeal =", maxDeal, "maxDeal");
+        	return (Criteria) this;
+        }
+        
+        
+        
+        
+        
+        
         public Criteria andAccountNameNotEqualTo(String value) {
             addCriterion("accountName <>", value, "accountName");
             return (Criteria) this;

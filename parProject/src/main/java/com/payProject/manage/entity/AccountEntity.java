@@ -87,7 +87,23 @@ public class AccountEntity  extends BaseEntity<AccountEntity>{
 	     */
 	    private Integer isDpay;
 	    
-	    public BigDecimal getFreezeT1() {
+	    
+	    
+	    /**
+	     * <p>单笔最大额度</p>
+	     */
+	    private BigDecimal maxDeal;
+	    
+	    
+	    public BigDecimal getMaxDeal() {
+			return maxDeal;
+		}
+
+		public void setMaxDeal(BigDecimal maxDeal) {
+			this.maxDeal = maxDeal;
+		}
+
+		public BigDecimal getFreezeT1() {
 			return freezeT1;
 		}
 
