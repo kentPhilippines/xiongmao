@@ -191,6 +191,28 @@ public class BankCardContorller {
 		}
 		return JsonResult.buildFailResult();
 	}
+	@RequestMapping("/bankCardAttributeEditShow")
+	public String bankCardAttributeEdit(BankCardEntity bankCard ,Model m){
+	if( StrUtil.isBlank(bankCard.getBankCard())) {
+		throw new ParamException("请求参数无效");
+	}
+	BankCardEntity bankCard1 = bankCardService.findBankCardByBankCard(bankCard.getBankCard());
+	m.addAttribute("bankCard", bankCard1);
+		return "/manage/bankCard/bankCardAttributeEdit";
+	}
+	@ResponseBody
+	@RequestMapping("/bankCardAttributeEdit")
+	public JsonResult bankCardAttributeEdit(BankCardEntity bankCard){
+		if( StrUtil.isBlank(bankCard.getBankCard())) {
+			throw new ParamException("请求参数无效");
+		}
+		bankCard.setCreateTime(null);
+		boolean flag  = bankCardService.updateBankCardByBankCardNo(bankCard);
+		if(flag) {
+			return JsonResult.buildSuccessMessage("修改成功");
+		}
+		return JsonResult.buildFailResult();
+	}
 	@RequestMapping("/myBankCard")
 	public String myBankCard( ){
 		return "/manage/bankCard/myBankCard";
@@ -230,6 +252,28 @@ public class BankCardContorller {
 	@ResponseBody
 	@RequestMapping("/myBankCardEdit")
 	public JsonResult myBankCardEdit(BankCardEntity bankCard){
+		if( StrUtil.isBlank(bankCard.getBankCard())) {
+			throw new ParamException("请求参数无效");
+		}
+		bankCard.setCreateTime(null);
+		boolean flag  = bankCardService.updateBankCardByBankCardNo(bankCard);
+		if(flag) {
+			return JsonResult.buildSuccessMessage("修改成功");
+		}
+		return JsonResult.buildFailResult();
+	}
+	@RequestMapping("/myBankCardAttributeEditShow")
+	public String myBankCardAttributeEditShow(BankCardEntity bankCard ,Model m){
+	if( StrUtil.isBlank(bankCard.getBankCard())) {
+		throw new ParamException("请求参数无效");
+	}
+	BankCardEntity bankCard1 = bankCardService.findBankCardByBankCard(bankCard.getBankCard());
+	m.addAttribute("bankCard", bankCard1);
+		return "/manage/bankCard/myBankCardAttributeEdit";
+	}
+	@ResponseBody
+	@RequestMapping("/myBankCardAttributeEdit")
+	public JsonResult myBankCardAttributeEdit(BankCardEntity bankCard){
 		if( StrUtil.isBlank(bankCard.getBankCard())) {
 			throw new ParamException("请求参数无效");
 		}

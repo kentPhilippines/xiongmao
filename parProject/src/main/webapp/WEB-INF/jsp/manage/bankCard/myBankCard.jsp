@@ -53,6 +53,7 @@
 	<script type="text/html" id="operation">
  	 <a class="layui-btn layui-btn-xs" lay-event="edit" url = "${ctx}/manage/bankCard/myBankCardEditShow">编辑</a>
  	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" url = "${ctx}/manage/bankCard/myBankCardDel">删除</a>
+ 	 <a class="layui-btn layui-btn-xs" lay-event="edit1" url = "${ctx}/manage/bankCard/myBankCardAttributeEditShow">属性设置</a>
 	</script>
 </body>
 </html>

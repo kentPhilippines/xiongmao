@@ -63,8 +63,8 @@ public class  BankCardEntity extends BaseEntity<BankCardEntity>{
     private String retain1;//银行卡允许交易额度
     private String retain2;//是否逻辑删除：1删除2可用
     private String retain3;//银行卡简写
-    private String retain4;
-    private String retain5;
+    private String retain4;//支付宝中获取的银行卡ID
+    private String retain5;//支付宝中获取的隐藏的卡号
     private String retain6;
     private String retain7;
    

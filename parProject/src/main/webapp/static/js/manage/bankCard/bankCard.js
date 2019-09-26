@@ -404,7 +404,14 @@ var MyBankCardClas = {
 						$higth = '500px';
 						$title = '修改用户信息';
 						MyBankCardClas.layuiOpen($url,$width,$higth,$title);
-				    }  
+				    }  else if(obj.event === 'edit1'){
+				    	$url = $("[lay-event='edit1']").attr("url");
+				    	$url = $url + '?' + 'bankCard='+ obj.data.bankCard
+						$width = '630px';
+						$higth = '500px';
+						$title = '设置银行卡属性';
+						MyBankCardClas.layuiOpen($url,$width,$higth,$title);
+				    } 
 				  });
 				});
 		},
@@ -465,7 +472,54 @@ var BankCardEditCls = {
 			CommonUtil.ObjextAjax($(this).attr("url"),BankCardEditCls.$data,BankCardAddCls.AjaxSucFn,true,"暂无权限","post")
 		}
 }
-
+var MyBankCardAttributeEditCls = {
+		init : function(){
+			this.initNode();
+			this.bindEvent();
+		}, 
+		initNode : function(){
+			this.$but = $(".layui-layer-btn0");
+		},
+		initData : function(){
+			this.$data ={
+					bankCard : $("[name='bankCard']").val(),
+					retain4 : $("[name='retain4']").val(),
+					retain3 : $("[name='retain3']").val(),
+					retain5 : $("[name='retain5']").val()
+			}
+		},
+		bindEvent : function(){
+			this.$but.on("click",this.bankCardEdit)
+		},
+		bankCardEdit : function(){
+			BankCardAttributeEditCls.initData();
+			CommonUtil.ObjextAjax($(this).attr("url"),BankCardAttributeEditCls.$data,BankCardAddCls.AjaxSucFn,true,"暂无权限","post")
+		}
+}
+var BankCardAttributeEditCls = {
+		init : function(){
+			this.initNode();
+			this.bindEvent();
+		}, 
+		initNode : function(){
+			this.$but = $(".layui-layer-btn0");
+		},
+		initData : function(){
+			this.$data ={
+					bankCard : $("[name='bankCard']").val(),
+					retain4 : $("[name='retain4']").val(),
+					retain3 : $("[name='retain3']").val(),
+					retain5 : $("[name='retain5']").val()
+			}
+		},
+		bindEvent : function(){
+			this.$but.on("click",this.bankCardEdit)
+		},
+		bankCardEdit : function(){
+			BankCardAttributeEditCls.initData();
+			CommonUtil.ObjextAjax($(this).attr("url"),BankCardAttributeEditCls.$data,BankCardAddCls.AjaxSucFn,true,"暂无权限","post")
+		}
+}
 var BankCardAddCls = {
 		init : function(){
 			this.initNode();
@@ -641,7 +695,14 @@ var BankCardClas = {
 						$higth = '500px';
 						$title = '修改用户信息';
 						BankCardClas.layuiOpen($url,$width,$higth,$title);
-				    }  
+				    }  else if(obj.event === 'edit1'){
+				    	$url = $("[lay-event='edit1']").attr("url");
+				    	$url = $url + '?' + 'bankCard='+ obj.data.bankCard
+						$width = '630px';
+						$higth = '500px';
+						$title = '设置银行卡属性';
+						BankCardClas.layuiOpen($url,$width,$higth,$title);
+				    } 
 				  });
 				});
 		},
