@@ -176,7 +176,8 @@ var AccountlEdit = {
 					havaInterface:$("[name=havaInterface]").val(),
 					isDeal:$("[name=isDeal]").val(),
 					isDpay:$("[name=isDpay]").val(),
-					bankCard:$("[name=bankCard]").val()
+					bankCard:$("[name=bankCard]").val(),
+					maxDeal:$("[name=maxDeal]").val()
 			}
 		},
 		bindEvent : function(){

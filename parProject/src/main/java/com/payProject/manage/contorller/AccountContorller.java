@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -71,10 +72,13 @@ public class AccountContorller<E> {
 	DealOrderService dealOrderServiceImpl;
 	@Autowired
 	OrderRunService	orderRunServiceImpl;
+	
+	@RequiresPermissions("/manage/account/accountShow")
 	@RequestMapping("/accountShow")
 	public String accountlShow( ){
 		return "/manage/account/accountList";
 	}
+	@RequiresPermissions("/manage/account/accountFeeAdd")
 	@RequestMapping("/accountFeeAdd")
 	public String accountFeeAdd(Model m){
 		List<AccountEntity> accountList = accountServiceImpl.findAccountAll();
@@ -106,6 +110,7 @@ public class AccountContorller<E> {
 		m.addAttribute("accountList", JSONUtil.toJsonPrettyStr(acco));
 		return "/manage/account/accountFeeAdd";
 	}
+	@RequiresPermissions("/manage/account/accountFee")
 	@RequestMapping("/accountFee")
 	public String accountFee(Model m  ){
 		List<Channel> channelList  = channelServiceImpl.findChannelByAll();
@@ -115,6 +120,7 @@ public class AccountContorller<E> {
 		return "/manage/account/accountFee";
 	}
 	@ResponseBody
+	@RequiresPermissions("/manage/account/accountList")
 	@RequestMapping("/accountList")
 	public PageResult<AccountEntity> accountList(AccountEntity account,String page,String limit){
 		log.info("查询商户请求参数"+account.toString());
@@ -136,6 +142,7 @@ public class AccountContorller<E> {
 	 * @throws Exception 
 	 */
 	@ResponseBody
+	@RequiresPermissions("/manage/account/accountlAdd")
 	@RequestMapping("/accountlAdd")
 	@Transactional
 	public JsonResult accountlAdd() throws Exception{
@@ -195,6 +202,7 @@ public class AccountContorller<E> {
         generator.initialize(Common.ACCOUNT_KEY_SIZE());
         return generator.generateKeyPair();
     }
+	@RequiresPermissions("/manage/account/accountEditShow")
     @RequestMapping("/accountEditShow")
     public String accountEditShow(String accountId,Model m ) {
     	if(StrUtil.isBlank(accountId))
@@ -206,6 +214,7 @@ public class AccountContorller<E> {
 		return "/manage/account/accountlUpdata";
     }
 	@ResponseBody
+	@RequiresPermissions("/manage/account/upDataIsAgant")
     @RequestMapping("/upDataIsAgant")
 	@Transactional
     public JsonResult upDataIsAgant(String accountId,String isAgant,Model m ) {
@@ -222,6 +231,7 @@ public class AccountContorller<E> {
 		return JsonResult.buildFailResult("功能故障");
     }
 	@ResponseBody
+	@RequiresPermissions("/manage/account/accountDel")
     @RequestMapping("/accountDel")
 	@Transactional
     public JsonResult accountDel(String accountId,Model m ) {
@@ -233,6 +243,7 @@ public class AccountContorller<E> {
 		}
     }
 	@ResponseBody
+	@RequiresPermissions("/manage/account/accountFeeList")
 	@RequestMapping("/accountFeeList")
 	public PageResult<AccountFee> accountFeeList(AccountFee accountFee,String page,String limit){
 		log.info("查询商户费率请求参数"+accountFee.toString());
@@ -247,6 +258,7 @@ public class AccountContorller<E> {
 		return pageR;
 	}
 	@ResponseBody
+	@RequiresPermissions("/manage/account/addaccountFee")
 	@RequestMapping("/addaccountFee")
 	@Transactional
 	public JsonResult addaccountFee(AccountFee account) throws Exception{
@@ -265,6 +277,7 @@ public class AccountContorller<E> {
 	}
 	
 	@ResponseBody
+	@RequiresPermissions("/manage/account/accountFeeDel")
 	@RequestMapping("/accountFeeDel")
 	@Transactional
 	public JsonResult accountFeeDel(AccountFee account) throws Exception{
@@ -277,7 +290,7 @@ public class AccountContorller<E> {
 	}
 	
 	
-	
+	@RequiresPermissions("/manage/account/accountFeeEditShow")
 	@RequestMapping("/accountFeeEditShow")
 	public String accountFeeEditShow(Integer id,Model m){
 		if(null == id)
@@ -288,6 +301,7 @@ public class AccountContorller<E> {
 		return "/manage/account/accountFeeEditShow";
 	}
 	@ResponseBody
+	@RequiresPermissions("/manage/account/accountFeeEdit")
 	@RequestMapping("/accountFeeEdit")
 	@Transactional
 	public JsonResult accountFeeEdit(AccountFee account) throws Exception{
@@ -305,6 +319,7 @@ public class AccountContorller<E> {
 	throw new OtherErrors("修改失败");
 	}
 	@ResponseBody
+	@RequiresPermissions("/manage/account/accountEdit")
 	@RequestMapping("/accountEdit")
 	@Transactional
 	public JsonResult accountEdit(AccountEntity  account) throws Exception{
@@ -316,7 +331,7 @@ public class AccountContorller<E> {
 		return JsonResult.buildSuccessMessage("商户账户修改成功");
 	throw new OtherErrors("修改失败");
 	}
-	
+	@RequiresPermissions("/manage/account/addAmount")
 	@RequestMapping("/addAmount")
 	public String addAmount(AccountEntity  account,Model m) throws Exception{
 		if(StrUtil.isBlank(account.getAccountId())  )
@@ -327,6 +342,7 @@ public class AccountContorller<E> {
 	}
 	
 	@ResponseBody
+	@RequiresPermissions("/manage/account/accountAmountAdd")
 	@RequestMapping("/accountAmountAdd")
 	@Transactional
 	public JsonResult accountAmountAdd(HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -344,6 +360,7 @@ public class AccountContorller<E> {
 		return JsonResult.buildSuccessMessage("商户加钱成功");
 	throw new OtherErrors("加钱失败");
 	}
+	@RequiresPermissions("/manage/account/amountDel")
 	@RequestMapping("/amountDel")
 	public String amountDel(AccountEntity  account,Model m) throws Exception{
 		if(StrUtil.isBlank(account.getAccountId())  )
@@ -354,6 +371,7 @@ public class AccountContorller<E> {
 	}
 	
 	@ResponseBody
+	@RequiresPermissions("/manage/account/accountAmountDel")
 	@RequestMapping("/accountAmountDel")
 	@Transactional
 	public JsonResult accountAmountDel(HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -371,6 +389,7 @@ public class AccountContorller<E> {
 		return JsonResult.buildSuccessMessage("商户加钱成功");
 	throw new OtherErrors("加钱失败");
 	}
+	@RequiresPermissions("/manage/account/amountFre")
 	@RequestMapping("/amountFre")
 	public String amountFre(AccountEntity  account,Model m) throws Exception{
 		if(StrUtil.isBlank(account.getAccountId())  )
@@ -380,6 +399,7 @@ public class AccountContorller<E> {
 		return "/manage/account/accountAmountFre";
 	}
 	@ResponseBody
+	@RequiresPermissions("/manage/account/accountAmountFre")
 	@RequestMapping("/accountAmountFre")
 	@Transactional
 	public JsonResult accountAmountFre(HttpServletRequest request, HttpServletResponse response) throws Exception{

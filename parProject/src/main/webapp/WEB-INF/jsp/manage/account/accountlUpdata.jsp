@@ -49,7 +49,7 @@
 	  </div>
 	  <div class="layui-form-item">
 	    <div class="layui-inline">
-	      <label class="layui-form-label">交易额度范围（日）</label>
+	      <label class="layui-form-label">交易额度范围</label>
 	      <div class="layui-input-inline" style="width: 100px;">
 	        <input type="text" name="dayDealAmountMin" placeholder="￥" autocomplete="off" class="layui-input" value = "${account.dayDealAmountMin }">
 	      </div>
@@ -66,6 +66,12 @@
 	        <option value="0" <c:if test="${account.accountType eq '0'}">selected = "selected"</c:if>>本渠道商户</option>
 	        <option value="1"<c:if test="${account.accountType eq '1'}">selected = "selected"</c:if>>外渠道商户</option>
 	      </select>
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">日最大累计交易额</label>
+	    <div class="layui-input-inline">
+	   		<input type="text" name="maxDeal" autocomplete="off" class="layui-input" value = "${account.maxDeal}">
 	    </div>
 	  </div>
 	  <div class="layui-form-item">

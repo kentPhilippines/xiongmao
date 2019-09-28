@@ -8,7 +8,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
   	<%@include file="../../common/common.jsp"%>
-<body layadmin-themealias="default">
+  	<style type="text/css">
+  	strong{
+  	 color: #ff500e;
+  	}
+  	</style>
+<body layadmin-themealias="default" style="  margin-top: 14px;">
   <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
       <div class="layui-col-md8">    
@@ -20,43 +25,55 @@
             <div class="layui-row layui-col-space10">
 	              <div class="layui-col-xs12 layui-col-sm4">
 	                <div class="layuiadmin-card-text">
-	                  <div class="layui-text-top"><i class="layui-icon layui-icon-water"></i><a lay-href="https://www.layui.com/doc/modules/flow.html">卡片</a></div>
-	                  <p class="layui-text-center">当前卡片${bankCount}张</p>
+	                  <div class="layui-text-top" style=" -webkit-text-stroke-width: thick;">
+	                  <i class="layui-icon layui-icon-water"></i>
+	                  <a lay-href="https://www.layui.com/doc/modules/flow.html" style="font-size:20px">卡片</a></div>
+	                  <p class="layui-text-center"style=" -webkit-text-stroke: thin; ">当前卡片<span><strong>【${bankCount}】</strong></span>张</p>
 	                  <p class="layui-text-bottom">  </p>
 	                </div>
 	              </div>
               <div class="layui-col-xs12 layui-col-sm4">
                 <div class="layuiadmin-card-text">
-                  <div class="layui-text-top"><i class="layui-icon layui-icon-upload-circle"></i><a lay-href="https://www.layui.com/doc/modules/upload.html">余额</a></div>
-                  <p class="layui-text-center">所有卡片余额     ${sumAmount} 元</p>
+                  <div class="layui-text-top" style=" -webkit-text-stroke-width: thick;">
+                  <i class="layui-icon layui-icon-upload-circle"></i>
+                  <a lay-href="https://www.layui.com/doc/modules/upload.html" style="font-size:20px">余额</a></div>
+                  <p class="layui-text-center" style=" -webkit-text-stroke: thin; ">所有卡片余额 <span><strong>【${sumAmount}】</strong></span> 元</p>
                   <p class="layui-text-bottom"> </p>
                 </div>
               </div>
               <div class="layui-col-xs12 layui-col-sm4">
                 <div class="layuiadmin-card-text">
-                  <div class="layui-text-top"><i class="layui-icon layui-icon-form"></i><a lay-href="https://www.layui.com/doc/modules/form.html#val">盈利</a></div>
-                  <p class="layui-text-center">盈利${myMoney}元</p>
+                  <div class="layui-text-top" style=" -webkit-text-stroke-width: thick;">
+                  <i class="layui-icon layui-icon-form"></i>
+                  <a lay-href="https://www.layui.com/doc/modules/form.html#val" style="font-size:20px">盈利</a></div>
+                  <p class="layui-text-center"style=" -webkit-text-stroke: thin; ">盈利<span><strong>【${myMoney}】</strong></span>元</p>
                   <p class="layui-text-bottom"> </p>
                 </div>
               </div>
               <div class="layui-col-xs12 layui-col-sm4">
                 <div class="layuiadmin-card-text">
-                  <div class="layui-text-top"><i class="layui-icon layui-icon-form"></i><a lay-href="https://www.layui.com/doc/modules/form.html">额度</a></div>
-                  <p class="layui-text-center">额度 ${sumIsDeal}元</p>
+                  <div class="layui-text-top" style=" -webkit-text-stroke-width: thick;">
+                  <i class="layui-icon layui-icon-form" ></i>
+                  <a lay-href="https://www.layui.com/doc/modules/form.html" style="font-size:20px">额度</a></div>
+                  <p class="layui-text-center"style=" -webkit-text-stroke: thin; ">额度<span><strong>【 ${sumIsDeal}】</strong></span>元</p>
                   <p class="layui-text-bottom"> </p>
                 </div>
               </div>
               <div class="layui-col-xs12 layui-col-sm4">
                 <div class="layuiadmin-card-text">
-                  <div class="layui-text-top"><i class="layui-icon layui-icon-form"></i><a lay-href="https://www.layui.com/doc/modules/form.html">需回款</a></div>
-                  <p class="layui-text-center">当前需回款  ${toDayAmount}元</p>
+                  <div class="layui-text-top" style=" -webkit-text-stroke-width: thick;">
+                  <i class="layui-icon layui-icon-form"></i>
+                  <a lay-href="https://www.layui.com/doc/modules/form.html" style="font-size:20px">需回款</a></div>
+                  <p class="layui-text-center"style=" -webkit-text-stroke: thin; ">当前需回款<span><strong>【 ${toDayAmount}】</strong></span>元</p>
                   <p class="layui-text-bottom"></p>
                 </div>
               </div>
               <div class="layui-col-xs12 layui-col-sm4">
                 <div class="layuiadmin-card-text">
-                  <div class="layui-text-top"><i class="layui-icon layui-icon-form"></i><a lay-href="https://www.layui.com/doc/modules/form.html">银行卡满额</a></div>
-                  <p class="layui-text-center">满额银行卡  ${number } 张</p>
+                  <div class="layui-text-top" style=" -webkit-text-stroke-width: thick;">
+                  <i class="layui-icon layui-icon-form"></i>
+                  <a lay-href="https://www.layui.com/doc/modules/form.html" style="font-size:20px">银行卡满额</a></div>
+                  <p class="layui-text-center"style=" -webkit-text-stroke: thin; ">满额银行卡<span><strong>【 ${number}】</strong></span> 张</p>
                   <p class="layui-text-bottom"> </p>
                 </div>
               </div>

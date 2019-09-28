@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -350,6 +351,7 @@ public class MyAccountContorller {
 		m.addAttribute("timeList",new JSONArray(timeList) );
 		return "/manage/account/userDealShow";
 	}
+	@RequiresPermissions("/manage/account/appAccount")
 	@RequestMapping("/appAccount")
 	public String appAccount(Model m) {
 		String userId = getUserId();

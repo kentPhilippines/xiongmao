@@ -78,6 +78,7 @@
 		      <select name="retain2" lay-filter="aihao">
 		        <option value="1">码商账户</option>
 		        <option value="2">商户账户</option>
+		        <option value="6">代理商账户</option>
 		      </select>
 		    </div>
  		</div>

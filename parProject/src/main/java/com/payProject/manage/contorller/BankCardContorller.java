@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -54,6 +55,7 @@ public class BankCardContorller {
 	UserService userService;
 	
 	@ResponseBody
+	@RequiresPermissions("/manage/bankCard/bankCardInsert")
 	@PostMapping("/bankCardInsert")
 	@Transactional
 	public JsonResult bankCardInsert(BankCardEntity bankCard){
@@ -68,6 +70,7 @@ public class BankCardContorller {
 		return  JsonResult.buildFailResult("当前银行卡已存在");
 	}
 	@ResponseBody
+	@RequiresPermissions("/manage/bankCard/myBankCardInsert")
 	@PostMapping("/myBankCardInsert")
 	@Transactional
 	public JsonResult myBankCardInsert(BankCardEntity bankCard){
@@ -86,7 +89,7 @@ public class BankCardContorller {
 	
 	
 	
-	
+	@RequiresPermissions("/manage/bankCard/bankManage")
 	@RequestMapping("/bankManage")
 	public String bankManage( ){
 		return "/manage/bankCard/bankManage";
@@ -97,6 +100,7 @@ public class BankCardContorller {
 	 * @return 2019-07-31
 	 */
 	@ResponseBody
+	@RequiresPermissions("/manage/bankCard/bankCardList")
 	@RequestMapping("/bankCardList")
 	public PageResult<BankCardEntity> bankCardList(BankCardEntity bankCard,String page,String limit){
 		log.info("查询银行卡请求参数"+bankCard.toString());
@@ -110,10 +114,12 @@ public class BankCardContorller {
 			log.info("增加银行卡相应参数"+pageR.toString());
 		return pageR;
 	}
+	@RequiresPermissions("/manage/bankCard/bankCardAdd")
 	@RequestMapping("/bankCardAdd")
 	public String bankCardAdd( ){
 		return "/manage/bankCard/bankCardManageAdd";
 	}
+	@RequiresPermissions("/manage/bankCard/myBankCardAdd")
 	@RequestMapping("/myBankCardAdd")
 	public String myBankCardAdd(Model m){
 		String userId = getUserId();
@@ -121,6 +127,7 @@ public class BankCardContorller {
 		return "/manage/bankCard/myBankCardManageAdd";
 	}
 	@ResponseBody
+	@RequiresPermissions("/manage/bankCard/caeateBankId")
 	@RequestMapping("/caeateBankId")
 	public JsonResult caeateBankId( ){
 		String bankId = createBankId();
@@ -140,6 +147,7 @@ public class BankCardContorller {
 	
 	
 	@ResponseBody
+	@RequiresPermissions("/manage/bankCard/myBankCardDel")
 	@RequestMapping("/myBankCardDel")
 	@Transactional
 	public JsonResult myBankCardDel(BankCardEntity bankCard ){
@@ -156,6 +164,7 @@ public class BankCardContorller {
 	}
 	
 	@ResponseBody
+	@RequiresPermissions("/manage/bankCard/bankCardDel")
 	@RequestMapping("/bankCardDel")
 	@Transactional
 	public JsonResult bankCardDel(BankCardEntity bankCard ){
@@ -168,7 +177,7 @@ public class BankCardContorller {
 		}
 		return JsonResult.buildFailResult();
 	}
-	
+	@RequiresPermissions("/manage/bankCard/bankCardEditShow")
 	@RequestMapping("/bankCardEditShow")
 	public String bankCardEditShow(BankCardEntity bankCard ,Model m){
 	if( StrUtil.isBlank(bankCard.getBankCard())) {
@@ -178,6 +187,7 @@ public class BankCardContorller {
 	m.addAttribute("bankCard", bankCard1);
 		return "/manage/bankCard/bankCardEdit";
 	}
+	@RequiresPermissions("/manage/bankCard/bankCardEdit")
 	@ResponseBody
 	@RequestMapping("/bankCardEdit")
 	public JsonResult bankCardEdit(BankCardEntity bankCard){
@@ -191,28 +201,7 @@ public class BankCardContorller {
 		}
 		return JsonResult.buildFailResult();
 	}
-	@RequestMapping("/bankCardAttributeEditShow")
-	public String bankCardAttributeEdit(BankCardEntity bankCard ,Model m){
-	if( StrUtil.isBlank(bankCard.getBankCard())) {
-		throw new ParamException("请求参数无效");
-	}
-	BankCardEntity bankCard1 = bankCardService.findBankCardByBankCard(bankCard.getBankCard());
-	m.addAttribute("bankCard", bankCard1);
-		return "/manage/bankCard/bankCardAttributeEdit";
-	}
-	@ResponseBody
-	@RequestMapping("/bankCardAttributeEdit")
-	public JsonResult bankCardAttributeEdit(BankCardEntity bankCard){
-		if( StrUtil.isBlank(bankCard.getBankCard())) {
-			throw new ParamException("请求参数无效");
-		}
-		bankCard.setCreateTime(null);
-		boolean flag  = bankCardService.updateBankCardByBankCardNo(bankCard);
-		if(flag) {
-			return JsonResult.buildSuccessMessage("修改成功");
-		}
-		return JsonResult.buildFailResult();
-	}
+	@RequiresPermissions("/manage/bankCard/myBankCard")
 	@RequestMapping("/myBankCard")
 	public String myBankCard( ){
 		return "/manage/bankCard/myBankCard";
@@ -223,6 +212,7 @@ public class BankCardContorller {
 	 * @return 2019-07-31
 	 */
 	@ResponseBody
+	@RequiresPermissions("/manage/bankCard/myBankCardList")
 	@RequestMapping("/myBankCardList")
 	public PageResult<BankCardEntity> myBankCardList(BankCardEntity bankCard,String page,String limit){
 		log.info("查询银行卡请求参数"+bankCard.toString());
@@ -240,6 +230,7 @@ public class BankCardContorller {
 			log.info("增加银行卡相应参数"+pageR.toString());
 		return pageR;
 	}
+	@RequiresPermissions("/manage/bankCard/myBankCardEditShow")
 	@RequestMapping("/myBankCardEditShow")
 	public String myBankCardEditShow(BankCardEntity bankCard ,Model m){
 	if( StrUtil.isBlank(bankCard.getBankCard())) {
@@ -250,30 +241,9 @@ public class BankCardContorller {
 		return "/manage/bankCard/myBankCardEdit";
 	}
 	@ResponseBody
+	@RequiresPermissions("/manage/bankCard/myBankCardEdit")
 	@RequestMapping("/myBankCardEdit")
 	public JsonResult myBankCardEdit(BankCardEntity bankCard){
-		if( StrUtil.isBlank(bankCard.getBankCard())) {
-			throw new ParamException("请求参数无效");
-		}
-		bankCard.setCreateTime(null);
-		boolean flag  = bankCardService.updateBankCardByBankCardNo(bankCard);
-		if(flag) {
-			return JsonResult.buildSuccessMessage("修改成功");
-		}
-		return JsonResult.buildFailResult();
-	}
-	@RequestMapping("/myBankCardAttributeEditShow")
-	public String myBankCardAttributeEditShow(BankCardEntity bankCard ,Model m){
-	if( StrUtil.isBlank(bankCard.getBankCard())) {
-		throw new ParamException("请求参数无效");
-	}
-	BankCardEntity bankCard1 = bankCardService.findBankCardByBankCard(bankCard.getBankCard());
-	m.addAttribute("bankCard", bankCard1);
-		return "/manage/bankCard/myBankCardAttributeEdit";
-	}
-	@ResponseBody
-	@RequestMapping("/myBankCardAttributeEdit")
-	public JsonResult myBankCardAttributeEdit(BankCardEntity bankCard){
 		if( StrUtil.isBlank(bankCard.getBankCard())) {
 			throw new ParamException("请求参数无效");
 		}
@@ -293,6 +263,7 @@ public class BankCardContorller {
 		String userId = (String)objectToMap.get(Constant.User.USER_ID());
 		return userId;
 	}
+	@RequiresPermissions("/manage/bankCard/dealBankCardShow")
 	@RequestMapping("/dealBankCardShow")
 	public String dealBankCardShow( ){
 		return "/manage/bankCard/bankCardRunShow";
@@ -300,6 +271,7 @@ public class BankCardContorller {
 	
 	
 	@ResponseBody
+	@RequiresPermissions("/manage/bankCard/bankCardRunList")
 	@RequestMapping("/bankCardRunList")
 	public PageResult<BankCardRunEntity> bankCardRunList(BankCardRunEntity bankCardRun,String page,String limit){
 		log.info("查询银行卡请求参数"+bankCardRun.toString());
@@ -315,6 +287,7 @@ public class BankCardContorller {
 		return pageR;
 	}
 	@ResponseBody
+	@RequiresPermissions("/manage/bankCard/MyBankCardRunList")
 	@RequestMapping("/MyBankCardRunList")
 	public PageResult<BankCardRunEntity> myBankCardRunList(BankCardRunEntity bankCardRun,String page,String limit){
 		log.info("查询银行卡请求参数"+bankCardRun.toString());
@@ -335,6 +308,7 @@ public class BankCardContorller {
 		log.info("增加银行卡相应参数"+pageR.toString());
 		return pageR;
 	}
+	@RequiresPermissions("/manage/bankCard/myBankCardShow")
 	@RequestMapping("/myBankCardShow")
 	public String myBankCardShow(Model m ){
 		/**
@@ -360,10 +334,10 @@ public class BankCardContorller {
 		BigDecimal sumAmount = new BigDecimal(0);
 		BigDecimal sumIsDeal = new BigDecimal(0);
 		int number = 0;
+		User user = new User();
 		if(CollUtil.isNotEmpty(bank)) {
 		List<String> list = new ArrayList<String>();
 		BigDecimal money = new BigDecimal(0);// 回款  =  交易  -  利率  - 当前已回款
-		
 		for(BankCardEntity entity : bank) {
 			sumAmount = sumAmount.add(entity.getBankAmount());//当前卡商卡商总余额
 			sumIsDeal = sumIsDeal.add(new BigDecimal(entity.getRetain1()));//总交易额度
@@ -373,51 +347,32 @@ public class BankCardContorller {
 			}
 			list.add(entity.getBankCard());
 		}
-		//查询所有卡商交易和分润流水
-		List<Integer> runTypelist = new ArrayList<Integer>();
-		BankCardRunEntity bankCardRun = new BankCardRunEntity();
-		bankCardRun.setDealBankCardList(list);
-		runTypelist.add(Common.BANKCARD_RUN_DEAL);
-		runTypelist.add(Common.BANKCARD_RUN_BENEFIT);
-		bankCardRun.setRunTypeList(runTypelist);
-		List<BankCardRunEntity> banRunList = bankCardService.findBankCardRunByBankCard(bankCardRun);//这是当前商户卡商总额
-		
-		/*
-		 * 	数据配分的时候要考虑到   银行卡交易流水和 银行卡回款流水保持一样的 数据清理
-		 */
-		for(BankCardRunEntity bean : banRunList) {
-			if(Common.BANKCARD_RUN_DEAL.equals(bean.getRunType())|| Common.BANKCARD_RUN_DEAL.equals(bean.getRunType())) //商户交易+系统分润
-				amount = amount.add(bean.getDealAmount());
-			if(Common.BANKCARD_RUN_DPAY.equals(bean.getDealAmount())) {//商户回款
-				backAmount = backAmount.add(bean.getDealAmount());
-			}
-		}
-		User user = userService.findUserByUserId(userId);
+		user = userService.findUserByUserId(userId);
+		toDayAmount = sumAmount.subtract(new BigDecimal(StrUtil.isBlank(user.getRetain3())?"0":user.getRetain3()));
 		String retain1 = user.getRetain1();
 		BigDecimal bigDecimal = new BigDecimal(StrUtil.isBlank(retain1)?"0":retain1);//码商或者卡商利率
-		myMoney = amount.multiply(bigDecimal);//码商卡商利润
-		toDayAmount = amount.subtract(backAmount).subtract(myMoney);//当前需回款
 		}
 		log.info("回款金额："+toDayAmount);
 		m.addAttribute("toDayAmount", toDayAmount.compareTo(new BigDecimal("0")) == -1?0:toDayAmount);//当前需回款
 		m.addAttribute("sumAmount", sumAmount);//总余额
 		m.addAttribute("sumIsDeal", sumIsDeal);//总交易额度
-		m.addAttribute("myMoney", myMoney);//总盈利
+		m.addAttribute("myMoney", StrUtil.isBlank(user.getRetain3())?'0':user.getRetain3());//总盈利
 		m.addAttribute("number", number);//超额卡片数量
 		m.addAttribute("bankCount", bank.size());//卡片数量
 		return "/manage/bankCard/myBankCardShow";
 	}
-	
+	@RequiresPermissions("/manage/bankCard/bankAmount")
 	@RequestMapping("/bankAmount")
 	public String bankAmount( ){
 		return "/manage/bankCard/myBackBankAmountList";
 	}
-
+	@RequiresPermissions("/manage/bankCard/backbankAmount")
 	@RequestMapping("/backbankAmount")
 	public String backbankAmount( ) {
 		return "/manage/bankCard/backbankAmountList";
 	}
 	@ResponseBody
+	@RequiresPermissions("/manage/bankCard/backbankAmountList")
 	@RequestMapping("/backbankAmountList")
 	public PageResult<BackBankAmount> backbankAmountList(BackBankAmount account,String page,String limit){
 		log.info("查询商户请求参数"+account.toString());
@@ -432,6 +387,7 @@ public class BankCardContorller {
 		return pageR;
 	}
 	@ResponseBody
+	@RequiresPermissions("/manage/bankCard/MyBackbankAmountList")
 	@RequestMapping("/MyBackbankAmountList")
 	public PageResult<BackBankAmount> MyBackbankAmountList(BackBankAmount account,String page,String limit){
 		String userId = getUserId();
@@ -448,6 +404,7 @@ public class BankCardContorller {
 		log.info("商户列表响应结果集"+pageR.toString());
 		return pageR;
 	}
+	@RequiresPermissions("/manage/bankCard/backbankAdd")
 	@RequestMapping("/backbankAdd")
 	public String backbankAdd(Model m ) {
 		String userId = getUserId();
@@ -457,6 +414,7 @@ public class BankCardContorller {
 		return "/manage/bankCard/backAmount";
 	}
 	@ResponseBody
+	@RequiresPermissions("/manage/bankCard/addAmount")
 	@RequestMapping("/addAmount")
 	@Transactional
 	public JsonResult myBankCardEdit(BackBankAmount backBankAmount,String payPassword,HttpServletRequest request){
@@ -545,6 +503,7 @@ public class BankCardContorller {
 	 * @param response
 	 * @return
 	 */
+	@RequiresPermissions("/manage/bankCard/notifyOrderSu")
 	@RequestMapping("/notifyOrderSu")
 	@ResponseBody
 	@Transactional
@@ -591,6 +550,7 @@ public class BankCardContorller {
 	 * @param response
 	 * @return
 	 */
+	@RequiresPermissions("/manage/bankCard/notifyOrderEr")
 	@RequestMapping("/notifyOrderEr")
 	@ResponseBody
 	@Transactional
@@ -608,6 +568,50 @@ public class BankCardContorller {
 			return JsonResult.buildSuccessMessage("该订单以处理为失败");
 		}
 		return JsonResult.buildFailResult("无效请求");
+	}
+	@RequestMapping("/myBankCardAttributeEditShow")
+	public String myBankCardAttributeEditShow(BankCardEntity bankCard ,Model m){
+		if( StrUtil.isBlank(bankCard.getBankCard())) {
+			throw new ParamException("请求参数无效");
+		}
+		BankCardEntity bankCard1 = bankCardService.findBankCardByBankCard(bankCard.getBankCard());
+		m.addAttribute("bankCard", bankCard1);
+		return "/manage/bankCard/myBankCardAttributeEdit";
+	}
+	@ResponseBody
+	@RequestMapping("/myBankCardAttributeEdit")
+	public JsonResult myBankCardAttributeEdit(BankCardEntity bankCard){
+		if( StrUtil.isBlank(bankCard.getBankCard())) {
+			throw new ParamException("请求参数无效");
+		}
+		bankCard.setCreateTime(null);
+		boolean flag  = bankCardService.updateBankCardByBankCardNo(bankCard);
+		if(flag) {
+			return JsonResult.buildSuccessMessage("修改成功");
+		}
+			return JsonResult.buildFailResult();
+	}
+	@RequestMapping("/bankCardAttributeEditShow")
+	public String bankCardAttributeEdit(BankCardEntity bankCard ,Model m){
+		if( StrUtil.isBlank(bankCard.getBankCard())) {
+			throw new ParamException("请求参数无效");
+		}
+		BankCardEntity bankCard1 = bankCardService.findBankCardByBankCard(bankCard.getBankCard());
+		m.addAttribute("bankCard", bankCard1);
+			return "/manage/bankCard/bankCardAttributeEdit";
+		}
+	@ResponseBody
+	@RequestMapping("/bankCardAttributeEdit")
+	public JsonResult bankCardAttributeEdit(BankCardEntity bankCard){
+		if( StrUtil.isBlank(bankCard.getBankCard())) {
+			throw new ParamException("请求参数无效");
+		}
+		bankCard.setCreateTime(null);
+		boolean flag  = bankCardService.updateBankCardByBankCardNo(bankCard);
+		if(flag) {
+			return JsonResult.buildSuccessMessage("修改成功");
+		}
+		return JsonResult.buildFailResult();
 	}
 }
 

@@ -78,6 +78,8 @@
 				<span class="label label-success radius">财务</span>
 			{{# }else if(d.retain2 == '5'){ }}
 				<span class="label label-success radius">客服</span>
+			{{# }else if(d.retain2 == '6'){ }}
+				<span class="label label-success radius">代理商</span>
 			{{# } }}
 </script>
 <script>

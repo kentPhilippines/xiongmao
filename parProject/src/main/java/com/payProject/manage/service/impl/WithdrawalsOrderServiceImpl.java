@@ -65,7 +65,7 @@ public class WithdrawalsOrderServiceImpl implements WithdrawalsOrderService {
 		criteria.andCreateTimeBetween(beginOfDay, endOfDay);
 		criteria.andOrderAccountEqualTo(string);
 		String todayAmount = withdrawalsOrderDao.selectToDaySumAmountByExample(example);
-		return new BigDecimal(todayAmount);
+		return new BigDecimal(StrUtil.isBlank(todayAmount)?"0":todayAmount);
 	}
 	@Override
 	public WithdrawalsOrderEntity findWithdrawalsByOrderId(String orderId) {

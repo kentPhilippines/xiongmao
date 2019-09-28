@@ -74,8 +74,10 @@
 		</div>
 	</div>
 	<script type="text/html" id="operation">
+	{{#  if(d.orderStatus == '1'){ }}
  	 <a class="layui-btn layui-btn-xs" lay-event="isCheck" url = "${ctx}/manage/merchants/isCheck">代付审核</a>
  	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="isDie" url = "${ctx}/manage/merchants/isDie">置为代付失败</a>
+	{{# } }}
 	</script>
 </body>
 </html> 
