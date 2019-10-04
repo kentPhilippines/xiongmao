@@ -22,7 +22,6 @@ var ChannelFeeAddCls = {
 			ChannelFeeAddCls.initData();
 			if(ChannelFeeAddCls.checkParam()){
 				$("[name='fee']").val("");
-				$("[name='settle']").val("");
 				return;
 			};
 			CommonUtil.ObjextAjax($(this).attr("url"),
@@ -32,11 +31,10 @@ var ChannelFeeAddCls = {
 					ChannelFeeAddCls.$requestType)
 		},
 		checkParam : function(){
-			debugger;
 			$pass1 = $("[name='channelNo']").val();
 			$pass2 = $("[name='payType']").val();
 			$pass3 = $("[name='fee']").val();
-			$pass4 = $("[name='settle']").val();
+			$pass4 = $("[name='status']").val();
 			if(!$pass1 ||!$pass2 || !$pass3 || !$pass4){
 				layer.msg("参数为空");
 				return true;

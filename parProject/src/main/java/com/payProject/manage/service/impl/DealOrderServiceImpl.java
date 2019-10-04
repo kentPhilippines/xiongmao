@@ -36,7 +36,7 @@ public class DealOrderServiceImpl implements DealOrderService {
 			criteria.andOrderStatusEqualTo(dealOrder.getOrderStatus());
 		if(StrUtil.isNotBlank(dealOrder.getTime())) {
 			String data = StrUtil.subPre(dealOrder.getTime(),10);
-			String data1 = StrUtil.subSuf(dealOrder.getTime(),12);
+			String data1 = StrUtil.subSuf(dealOrder.getTime(),13);
 			criteria.andCreateTimeBetween(DateUtil.parse(data), DateUtil.parse(data1));
 			} 
 		if(CollUtil.isNotEmpty(dealOrder.getAccountList())) 

@@ -105,13 +105,17 @@ public class IndexContorller {
 			String userId = getUserId();
 			log.info("当前查询流水人为："+userId);
 			DealOrderEntity dealOrder =   new DealOrderEntity();
-			//2019-09-05 - 2019-10-23
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd ");
 			Calendar c = Calendar.getInstance();
 			Calendar d = Calendar.getInstance();
 			c.add(Calendar.MONTH, -1);    //得到前一个月  
 			String start = format.format(c.getTime());
-			String end = format.format(d.getTime());
+			Calendar calendar2 = Calendar.getInstance();
+			calendar2.set(calendar2.get(Calendar.YEAR), calendar2.get(Calendar.MONTH), calendar2.get(Calendar.DAY_OF_MONTH),
+			        23, 59, 59);
+			Date endOfDate = calendar2.getTime();
+			format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String end = format.format(endOfDate);
 			dealOrder.setTime(start+" - "+end);
 			List<DealOrderEntity> list = dealOrderServiceImpl.findPageDealOrderByDealOrder(dealOrder);//一个月之内的数据
 			BigDecimal dealAmount = null;
@@ -137,6 +141,7 @@ public class IndexContorller {
 			Integer integer = 0;
 			Integer integer2 = 0;
 			log.info("【订单："+list+"】");
+			format = new SimpleDateFormat("yyyy-MM-dd ");
 			if(CollUtil.isNotEmpty(list)) {
 				list = CollUtil.sortByProperty(list,"createTime");//根据创建日期排序
 				int dealSize = list.size();//一个月内总交易

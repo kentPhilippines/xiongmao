@@ -42,6 +42,8 @@ public class AccountServiceImpl implements AccountService {
 			criteria.andAccountIdEqualTo(account.getAccountId());
 		if(StrUtil.isNotBlank(account.getAccountName()))
 			criteria.andAccountNameEqualTo(account.getAccountName());
+		if(CollUtil.isNotEmpty(account.getAccountIdList())) 
+			criteria.andAccountIdListEqualTo(account.getAccountIdList());
 		List<AccountEntity> selectByExample = accountDao.selectByExample(example);
 		return selectByExample;
 	}

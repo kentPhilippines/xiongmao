@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -260,12 +261,17 @@ public class MyAccountContorller {
 		DealOrderEntity dealOrder =   new DealOrderEntity();
 		dealOrder.setAccountList(accountList);
 		//2019-09-05 - 2019-10-23
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd ");
 		Calendar c = Calendar.getInstance();
 		Calendar d = Calendar.getInstance();
 		c.add(Calendar.MONTH, -1);    //得到前一个月  
 		String start = format.format(c.getTime());
-		String end = format.format(d.getTime());
+		Calendar calendar2 = Calendar.getInstance();
+		calendar2.set(calendar2.get(Calendar.YEAR), calendar2.get(Calendar.MONTH), calendar2.get(Calendar.DAY_OF_MONTH),
+		        23, 59, 59);
+		Date endOfDate = calendar2.getTime();
+		format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String end = format.format(endOfDate);
 		dealOrder.setTime(start+" - "+end);
 		List<DealOrderEntity> list = dealOrderServiceImpl.findPageDealOrderByDealOrder(dealOrder);//一个月之内的数据
 		
@@ -291,6 +297,7 @@ public class MyAccountContorller {
 		Double double2 = 0.00;
 		int integer = 1;
 		int integer2 = 1;
+		format = new SimpleDateFormat("yyyy-MM-dd ");
 		if(CollUtil.isNotEmpty(list)) {
 			list = CollUtil.sortByProperty(list,"createTime");//根据创建日期排序
 			int dealSize = list.size();//一个月内总交易

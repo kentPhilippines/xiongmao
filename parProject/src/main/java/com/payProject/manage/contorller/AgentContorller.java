@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -101,13 +102,17 @@ public class AgentContorller {
 		};
 		DealOrderEntity dealOrder =   new DealOrderEntity();
 		dealOrder.setAccountList(accountList);
-		//2019-09-05 - 2019-10-23
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd ");
 		Calendar c = Calendar.getInstance();
 		Calendar d = Calendar.getInstance();
 		c.add(Calendar.MONTH, -1);    //得到前一个月  
 		String start = format.format(c.getTime());
-		String end = format.format(d.getTime());
+		Calendar calendar2 = Calendar.getInstance();
+		calendar2.set(calendar2.get(Calendar.YEAR), calendar2.get(Calendar.MONTH), calendar2.get(Calendar.DAY_OF_MONTH),
+		        23, 59, 59);
+		Date endOfDate = calendar2.getTime();
+		format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String end = format.format(endOfDate);
 		dealOrder.setTime(start+" - "+end);
 		List<DealOrderEntity> list = dealOrderServiceImpl.findPageDealOrderByDealOrder(dealOrder);//一个月之内的数据
 		
@@ -133,6 +138,7 @@ public class AgentContorller {
 		Double double2 = 1.0;
 		int integer = 1;
 		int integer2 = 1;
+		format = new SimpleDateFormat("yyyy-MM-dd ");
 		if(CollUtil.isNotEmpty(list)) {
 			list = CollUtil.sortByProperty(list,"createTime");//根据创建日期排序
 			int dealSize = list.size();//一个月内总交易
@@ -381,16 +387,20 @@ public class AgentContorller {
 	public PageResult<AccountFee> accountFeeList(AccountFee accountFee,String page,String limit){
 		log.info("查询商户费率请求参数"+accountFee.toString());
 		 PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(limit));
-		 List<String> accountList = new ArrayList<String>();
-		 if(StrUtil.isNotBlank(accountFee.getUserId())) {
-				List<UserAccount> findUserAccountByUserId = userService.findUserAccountByUserId(accountFee.getUserId());
-				if(CollUtil.isNotEmpty(findUserAccountByUserId)) {
-					for(UserAccount acc : findUserAccountByUserId) {
-						accountList.add(acc.getAccountId());
-					}
-				};
-				accountFee.setAccountIdList(accountList);
-		 }
+		 String userId = getUserId();
+			log.info("当前查询流水人为："+userId);
+			List<String> userList = new ArrayList<String>();
+			List<String> accountList = new ArrayList<String>();
+			List<User> use  = userService.findUserByAgent(userId);//获取所有的代理子账户
+			for(User user: use) {
+				userList.add(user.getUserId());
+			};
+			List<UserAccount> UserAccountList = userService.findUserAccountByUserId(userList);
+			if(CollUtil.isNotEmpty(UserAccountList)) {
+				for(UserAccount acc : UserAccountList) {
+					accountList.add(acc.getAccountId());
+				}
+			};
 		 if(CollUtil.isEmpty(accountList)) {
 			 List<AccountFee> list = new ArrayList<AccountFee>();
 			 PageInfo<AccountFee> pageInfo = new PageInfo<AccountFee>(list);
@@ -401,6 +411,7 @@ public class AgentContorller {
 				log.info("商户费率列表响应结果集"+pageR.toString());
 			return pageR;
 		 }
+		 accountFee.setAccountIdList(accountList);
 		 List<AccountFee> list = accountServiceImpl.findPageAccountFeeByAccountFee(accountFee);
 		 PageInfo<AccountFee> pageInfo = new PageInfo<AccountFee>(list);
 		 PageResult<AccountFee> pageR = new PageResult<AccountFee>();
@@ -424,16 +435,26 @@ public class AgentContorller {
 	public PageResult<AccountEntity> accountList(AccountEntity account,String page,String limit){
 		log.info("查询商户请求参数"+account.toString());
 		 PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(limit));
-		 List<String> accountList = new ArrayList<String>();
-		 if(StrUtil.isNotBlank(account.getUserId())) {
-				List<UserAccount> findUserAccountByUserId = userService.findUserAccountByUserId(account.getUserId());
-				if(CollUtil.isNotEmpty(findUserAccountByUserId)) {
-					for(UserAccount acc : findUserAccountByUserId) {
-						accountList.add(acc.getAccountId());
-					}
-				};
-				account.setAccountIdList(accountList);
-		 }
+		 String userId = getUserId();
+			log.info("当前查询流水人为："+userId);
+			List<String> accountList = new ArrayList<String>();
+			List<String> userList = new ArrayList<String>();
+			List<User> use  = userService.findUserByAgent(userId);//获取所有的代理子账户
+			for(User user: use) {
+				userList.add(user.getUserId());
+			};
+			List<UserAccount> UserAccountList = userService.findUserAccountByUserId(userList);
+			if(CollUtil.isNotEmpty(UserAccountList)) {
+				for(UserAccount acc : UserAccountList) {
+					accountList.add(acc.getAccountId());
+				}
+			};
+			
+			
+			
+			
+			
+			
 		 if(CollUtil.isEmpty(accountList)) {
 			 List<AccountEntity> list = new ArrayList<AccountEntity>();
 			 PageInfo<AccountEntity> pageInfo = new PageInfo<AccountEntity>(list);
@@ -444,6 +465,7 @@ public class AgentContorller {
 				log.info("商户列表响应结果集"+pageR.toString());
 			return pageR;
 		 }
+		 account.setAccountIdList(accountList);
 		 List<AccountEntity> list = accountServiceImpl.findPageAccountByAccount(account);
 		 PageInfo<AccountEntity> pageInfo = new PageInfo<AccountEntity>(list);
 		 PageResult<AccountEntity> pageR = new PageResult<AccountEntity>();
