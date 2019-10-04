@@ -78,7 +78,7 @@ public class User extends BaseEntity<User>{
 	 */
     private String retain1;
     /**
-	 * <p>账号类型:1码商2商户3运营4财务5客服</p>
+	 * <p>账号类型:1码商2商户3运营4财务5客服6代理商</p>
 	 */
     private String retain2;
     /**

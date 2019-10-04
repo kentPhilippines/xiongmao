@@ -64,7 +64,6 @@
 	</div>
 	<script type="text/html" id="operation">
  	 <a class="layui-btn layui-btn-xs" lay-event="addAmount" url = "${ctx}/manage/account/addAmount">查看提现结果</a>
- 	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="amountDel" url = "${ctx}/manage/account/amountDel">提醒审批</a>
 	</script>
 </body>
 </html>

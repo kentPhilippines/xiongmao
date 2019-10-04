@@ -61,6 +61,8 @@ public class UserServiceImpl implements UserService {
 		} else if (null != user.getUserType()) {
 			criteria.andUserTypeEqualTo(user.getUserType());
 			}
+		if(StrUtil.isNotBlank(user.getRetain4()))//代理商账户
+			criteria.andRetain4EqualTo(user.getRetain4());
 		List<User> selectByExample = userDao.selectByExample(example);
 		return selectByExample;
 	}
@@ -109,5 +111,21 @@ public class UserServiceImpl implements UserService {
 		account.setUserId(userId);
 		List<UserAccount> selectByExampleAnd = userAccountDao.selectByExampleAnd(account);
 		return selectByExampleAnd;
+	}
+	@Override
+	public List<UserAccount> findUserAccountByUserId(List<String> accountList) {//所有代理商子账户的账户
+		UserAccount account = new UserAccount();
+		account.setUserIdList(accountList);
+		log.info("代理商商户集合："+accountList);
+		List<UserAccount> selectByExampleAnd = userAccountDao.findUserAccountByUserId(account);
+		return selectByExampleAnd;
+	}
+	@Override
+	public List<User> findUserByAgent(String userId) {
+		UserExample example = new UserExample(); 
+		Criteria criteria = example.createCriteria(); 
+		criteria.andRetain4EqualTo(userId);
+		List<User> userList = userDao.selectByExample(example);
+		return userList;
 	}
 }

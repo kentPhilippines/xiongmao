@@ -257,4 +257,31 @@
        and t1.accountId = #{accountId,jdbcType=VARCHAR} 
     </if>
   </select>
+  
+  <select id="findUserAccountByUserId" resultMap="BaseResultMap" parameterType="com.payProject.manage.entity.UserAccount" >
+       select
+    'true' as QUERYID,
+    <include refid="Base_Column_List2" />
+    from manage_user_account t1 
+	LEFT JOIN
+    	manage_account t2 ON
+    	t1.accountId = t2.accountId
+    LEFT JOIN 
+    	system_user u1 ON
+    	t1.userId = u1.userId
+    where 1=1
+    <if test="userIdList.size() != 0 and userIdList.size() != null">
+       and t1.userId  in
+	 <foreach collection="userIdList"  item="list" open="(" close=")" separator=",">
+	     #{list}
+	 </foreach>
+    </if>
+      
+      
+      
+      
+  </select>
+  
+  
+  
 </mapper>

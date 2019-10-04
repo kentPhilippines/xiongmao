@@ -20,4 +20,18 @@ public interface UserRoleService {
 	 */
 	Boolean addUserRole(List<UserRole> list , String userId);
 
+	/**
+	 * <p>为 一个账户增加一个角色</p>
+	 * @param entity
+	 * @return
+	 */
+	boolean addroleId(UserRole entity);
+
+	/**
+	 * <p>修改关于账户的角色信息</p>
+	 * @param entity
+	 * @return
+	 */
+	boolean updataRoleId(UserRole entity);
+
 }

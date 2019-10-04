@@ -1,5 +1,7 @@
 package com.payProject.manage.entity;
 
+import java.util.List;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -11,6 +13,7 @@ public class AccountFee extends BaseEntity<AccountFee>{
 	 * <p>账户编号</p>
 	 */
 	private String accountId;
+	private List accountIdList;
 	/**	
 	 * <p>账户渠道</p>
 	 */
@@ -48,7 +51,24 @@ public class AccountFee extends BaseEntity<AccountFee>{
 	 */
     private String settlementType;
     
-    public String getAccountSette() {
+    /**
+     * <p>子账户id</p>
+     */
+    private String userId;
+    
+    public List getAccountIdList() {
+		return accountIdList;
+	}
+	public void setAccountIdList(List accountIdList) {
+		this.accountIdList = accountIdList;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getAccountSette() {
 		return accountSette;
 	}
 	public void setAccountSette(String accountSette) {

@@ -374,8 +374,6 @@ var MyBankCardClas = {
 					      ,{field: 'bankCard', title: '银行卡号', width: 115}
 					      ,{field: 'bankName', title: '银行名称', width: 115}
 					      ,{field: 'cardholder', title: '持卡人', width: 115}
-					      ,{field: 'cardholderId', title: '持卡人身份证', width: 115}
-					      ,{field: 'treasurer', title: '上级负责人', width: 115}
 					      ,{field: 'liabilities', title: '银行卡负责人', width: 115}
 					      ,{field: 'bankPhone', title: '绑定手机', width: 115}
 					      ,{field: 'bankAmount', title: '卡上余额', width: 135, sort: true}
@@ -383,7 +381,7 @@ var MyBankCardClas = {
 					      ,{field: 'createTime', title: '创建时间', width: 115, sort: true}
 					      ,{field: 'bankNote', title: '银行卡备注', width: 115}
 					      ,{field: 'status', title: '是否可用', width: 135,templet:'#status' }
-					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:150}
+					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:200}
 				    ]]
 				    , id: 'mytable'
 				    ,page: true
@@ -664,17 +662,15 @@ var BankCardClas = {
 					      ,{field: 'bankCard', title: '银行卡号', width: 115}
 					      ,{field: 'bankName', title: '银行名称', width: 115}
 					      ,{field: 'cardholder', title: '持卡人', width: 115}
-					      ,{field: 'cardholderId', title: '持卡人身份证', width: 115}
-					      ,{field: 'treasurer', title: '财务主管', width: 115}
 					      ,{field: 'liabilities', title: '银行卡负责人', width: 115}
 					      ,{field: 'bankPhone', title: '绑定手机', width: 115}
-					      ,{field: 'bankAmount', title: '卡上余额', width: 135, sort: true}
+					      ,{field: 'bankAmount', title: '卡上余额', width: 110, sort: true}
 					      ,{field: 'retain1', title: '允许交易额度', width: 135, sort: true}
 					      ,{field: 'createTime', title: '创建时间', width: 115, sort: true}
 					      ,{field: 'bankNote', title: '银行卡备注', width: 115}
 					      ,{field: 'status', title: '是否可用', width: 135,templet:'#status' }
 					      ,{field: 'retain2', title: '码商是否删除', width: 135,templet:'#retain2' }
-					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:150}
+					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:200}
 				    ]]
 				    , id: 'mytable'
 				    ,page: true

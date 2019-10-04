@@ -20,6 +20,12 @@ public interface UserAccountMapper {
     int updateByPrimaryKeySelective(UserAccount record);
     int updateByPrimaryKey(UserAccount record);
     List<UserAccount>  selectByExampleAnd(UserAccount record);
+    /**
+     * <p>根据代理商账号查询所有商户号</p>
+     * @param account
+     * @return
+     */
+	List<UserAccount> findUserAccountByUserId(UserAccount account);
     
     
 }

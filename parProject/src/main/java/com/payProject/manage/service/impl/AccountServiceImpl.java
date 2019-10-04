@@ -120,6 +120,9 @@ public class AccountServiceImpl implements AccountService {
 			criteria.andAccountChannelEqualTo(accountFee.getAccountChannel());
 		if(StrUtil.isNotBlank(accountFee.getChannelProduct()))
 			criteria.andChannelProductEqualTo(accountFee.getChannelProduct());
+		if(CollUtil.isNotEmpty(accountFee.getAccountIdList())) {
+			criteria.andAccountIdListEqualTo(accountFee.getAccountIdList());
+		}
 		List<AccountFee> selectByExample = accountFeeDao.selectByExample(example);
 		return selectByExample;
 	}

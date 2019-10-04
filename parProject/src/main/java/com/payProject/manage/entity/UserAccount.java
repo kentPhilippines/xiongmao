@@ -1,6 +1,8 @@
 package com.payProject.manage.entity;
 
 import java.util.Date;
+import java.util.List;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -8,10 +10,21 @@ import com.payProject.system.entity.base.BaseEntity;
 
 public class UserAccount extends BaseEntity<RunOrder>{
     private String userId;
+    private List userIdList;
     private String UserName;
     private String accountId;
     private String accountName;
-    public String getUserId() {
+    
+    
+    public List getUserIdList() {
+		return userIdList;
+	}
+
+	public void setUserIdList(List userIdList) {
+		this.userIdList = userIdList;
+	}
+
+	public String getUserId() {
         return userId;
     }
 

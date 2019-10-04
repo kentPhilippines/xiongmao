@@ -23,6 +23,7 @@ $.getJSON('myUserDealShow', function (data) {
 				year:"%Y"
 			}
 		},
+
 		tooltip: {
 			dateTimeLabelFormats: {
 				millisecond:"%Y-%m-%d, %H:%M:%S",

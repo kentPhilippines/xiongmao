@@ -114,8 +114,6 @@ public class IndexContorller {
 			String end = format.format(d.getTime());
 			dealOrder.setTime(start+" - "+end);
 			List<DealOrderEntity> list = dealOrderServiceImpl.findPageDealOrderByDealOrder(dealOrder);//一个月之内的数据
-			list = CollUtil.sortByProperty(list,"createTime");//根据创建日期排序
-			int dealSize = list.size();//一个月内总交易
 			BigDecimal dealAmount = null;
 			BigDecimal dealAmountSu = null;
 			List<String> timeList = new ArrayList();
@@ -130,10 +128,18 @@ public class IndexContorller {
 			List<Integer> dealDayMoneyList = new ArrayList<Integer>();
 			List<Integer> dealDayMoneySuList = new ArrayList<Integer>();
 			int number = 0;
-			double dealnumberAmout = 0;
-			double dealnumberAmoutSu = 0;
-			double dealnumber = 0;
-			double dealnumberSu = 0;
+			Double dealnumberAmout = 0.00;
+			Double dealnumberAmoutSu = 0.00;
+			Double dealnumber = 0.00;
+			Double dealnumberSu = 0.00;
+			Double double1 = 0.00;
+			Double double2  = 0.00;
+			Integer integer = 0;
+			Integer integer2 = 0;
+			log.info("【订单："+list+"】");
+			if(CollUtil.isNotEmpty(list)) {
+				list = CollUtil.sortByProperty(list,"createTime");//根据创建日期排序
+				int dealSize = list.size();//一个月内总交易
 			for(DealOrderEntity entity : list) {
 				number ++ ;
 				 time = format.format(entity.getCreateTime());  //当前交易时间
@@ -165,8 +171,8 @@ public class IndexContorller {
 					 dealDayMoney = dealDayMoney.add(entity.getDealAmount());
 				 };
 				 if(number == list.size()) {//最后一次添加
-						 dealnumberAmout  = dealDayMoney.intValue();
-						 dealnumberAmoutSu = dealDayMoneySu.intValue();
+						 dealnumberAmout  = (double) dealDayMoney.intValue();
+						 dealnumberAmoutSu = (double) dealDayMoneySu.intValue();
 						 dealnumber = dealDay;
 						 dealnumberSu = dealDaySu;
 					 dealDayList.add(dealDay);
@@ -175,19 +181,22 @@ public class IndexContorller {
 					 dealDaySuList.add(dealDaySu);
 				 }
 			}
+			
 			//上一日数据
-			Double double1 = (Double)(dealDayList.get(dealDayList.size()-1)>0?dealDayList.get(dealDayList.size()-1):1);
-			Double double2 =  (Double)(dealDaySuList.get(dealDaySuList.size()-1)>0?dealDaySuList.get(dealDaySuList.size()-1):1);
-			Integer integer = dealDayMoneyList.get(dealDayMoneyList.size()-1)>0?dealDayMoneyList.get(dealDayMoneyList.size()-1):1;
-			Integer integer2 = dealDayMoneySuList.get(dealDayMoneySuList.size()-1)>0?dealDayMoneySuList.get(dealDayMoneySuList.size()-1):1;
-			dealnumberAmout =  (Double)(dealnumberAmout / integer) - 1 ;
-			dealnumberAmoutSu =  (Double)( dealnumberAmoutSu / integer2) - 1;
-			dealnumber = (Double)(dealnumber /double1 ) - 1;
-			dealnumberSu = (Double)(dealnumberSu /double2 ) - 1;
+			double1 = (Double)(dealDayList.get(dealDayList.size()-1)>0?dealDayList.get(dealDayList.size()-1):1);
+			double2 =  (Double)(dealDaySuList.get(dealDaySuList.size()-1)>0?dealDaySuList.get(dealDaySuList.size()-1):1);
+			integer = dealDayMoneyList.get(dealDayMoneyList.size()-1)>0?dealDayMoneyList.get(dealDayMoneyList.size()-1):1;
+			integer2 = dealDayMoneySuList.get(dealDayMoneySuList.size()-1)>0?dealDayMoneySuList.get(dealDayMoneySuList.size()-1):1;
+			}
+			dealnumberAmout = dealnumberAmout  != 0 ? (dealnumberAmout / integer) - 1:0 ;
+			dealnumberAmoutSu =   dealnumberAmoutSu != 0? ( dealnumberAmoutSu / integer2) - 1 : 0;
+			dealnumber =dealnumber != 0 ?  (dealnumber /double1 ) - 1 : 0;
+			dealnumberSu = dealnumberSu != 0 ? (dealnumberSu /double2 ) - 1 :0;
 			List sum = new ArrayList();
 			sum.add(dealnumberAmout*100);
 			sum.add(dealnumber*100);
 			sum.add(dealnumberAmoutSu*100);
+			
 			sum.add(dealnumberSu*100);
 			m.addAttribute("sum", new JSONArray(sum));
 			m.addAttribute("dealDayList", new JSONArray(dealDayList));

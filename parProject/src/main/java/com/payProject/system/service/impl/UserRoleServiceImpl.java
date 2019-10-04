@@ -36,4 +36,15 @@ public class UserRoleServiceImpl  implements UserRoleService{
 		int i  = userRoleDao.insertUserRole(list);
 		return i>0 && list.size() == i;
 	}
+	@Override
+	public boolean addroleId(UserRole entity) {
+		int insertSelective = userRoleDao.insertSelective(entity);
+		return insertSelective > 0 && insertSelective < 2;
+	}
+	@Override
+	public boolean updataRoleId(UserRole entity) {
+		userRoleDao.deleteByUserId(Integer.valueOf(entity.getUserId()));
+		int insertSelective = userRoleDao.insertSelective(entity);
+		return insertSelective > 0 && insertSelective < 2;
+	}
 }

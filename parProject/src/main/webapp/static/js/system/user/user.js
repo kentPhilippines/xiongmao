@@ -114,7 +114,8 @@ var UserManageEditCls = {
 					userCity:$("[name=userCity]").val(),
 					status:$("[name=status]").val(),
 					retain1:$("[name=retain1]").val(),
-					retain2:$("[name=retain2]").val()
+					retain2:$("[name=retain2]").val(),
+					retain5:$("[name=retain5]").val()
 			}
 		},
 		bindEvent : function(){

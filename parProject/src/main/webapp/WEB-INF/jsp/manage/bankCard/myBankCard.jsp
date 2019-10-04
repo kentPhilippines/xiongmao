@@ -78,11 +78,6 @@
 				<span class="label label-success radius" style="background-color:red;">不可使用</span>
 			{{# } }}
 </script>
-
-
-
-
-
 <script>
 layui.use('table', function(){
 	  var table = layui.table;

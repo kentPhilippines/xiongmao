@@ -73,12 +73,21 @@
 					placeholder="请输入用户所在城市" autocomplete="off" class="layui-input" value = "${user.userCity}">
 			</div>
 		</div>
-		<c:if test="${user.retain2 eq 1 }">
+		<c:if test="${user.retain2 eq 1 or user.retain2 eq 6 }">
 		<div class="layui-form-item">
-			<label class="layui-form-label">码商利率</label>
+			<label class="layui-form-label">利率</label>
 			<div class="layui-input-inline">
 				<input type="text" name="retain1" lay-verify="email"
-					placeholder="请输入码商利率" autocomplete="off" class="layui-input" value = "${user.retain1}">
+					placeholder="请输入利率" autocomplete="off" class="layui-input" value = "${user.retain1}">
+			</div>
+		</div>
+		</c:if>
+		<c:if test="${user.retain2 eq 1 or user.retain2 eq 6 }">
+		<div class="layui-form-item">
+			<label class="layui-form-label">代付手续费</label>
+			<div class="layui-input-inline">
+				<input type="text" name="retain5" lay-verify="email"
+					placeholder="请输入代付手续费" autocomplete="off" class="layui-input" value = "${user.retain5}">
 			</div>
 		</div>
 		</c:if>
@@ -88,6 +97,7 @@
 				 <select name="retain2" lay-filter="aihao">
 		        <option value="1" <c:if test="${user.retain2 eq '1'}">selected="selected"</c:if>>码商（卡商）</option>
 		        <option value="2"<c:if test="${user.retain2 eq '2'}">selected="selected"</c:if>>商户</option>
+		        <option value="6"<c:if test="${user.retain2 eq '6'}">selected="selected"</c:if>>代理商</option>
 		      </select>
 			</div>
 		</div>

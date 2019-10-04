@@ -268,8 +268,7 @@ public class MyAccountContorller {
 		String end = format.format(d.getTime());
 		dealOrder.setTime(start+" - "+end);
 		List<DealOrderEntity> list = dealOrderServiceImpl.findPageDealOrderByDealOrder(dealOrder);//一个月之内的数据
-		list = CollUtil.sortByProperty(list,"createTime");//根据创建日期排序
-		int dealSize = list.size();//一个月内总交易
+		
 		BigDecimal dealAmount = null;
 		BigDecimal dealAmountSu = null;
 		List<String> timeList = new ArrayList();
@@ -288,6 +287,13 @@ public class MyAccountContorller {
 		double dealnumberAmoutSu = 0;
 		double dealnumber = 0;
 		double dealnumberSu = 0;
+		Double double1 = 0.00;
+		Double double2 = 0.00;
+		int integer = 1;
+		int integer2 = 1;
+		if(CollUtil.isNotEmpty(list)) {
+			list = CollUtil.sortByProperty(list,"createTime");//根据创建日期排序
+			int dealSize = list.size();//一个月内总交易
 		for(DealOrderEntity entity : list) {
 			number ++ ;
 			 time = format.format(entity.getCreateTime());  //当前交易时间
@@ -330,14 +336,15 @@ public class MyAccountContorller {
 			 }
 		}
 		//上一日数据
-		Double double1 = (Double)(dealDayList.get(dealDayList.size()-1)>0?dealDayList.get(dealDayList.size()-1):1);
-		Double double2 =  (Double)(dealDaySuList.get(dealDaySuList.size()-1)>0?dealDaySuList.get(dealDaySuList.size()-1):1);
-		Integer integer = dealDayMoneyList.get(dealDayMoneyList.size()-1)>0?dealDayMoneyList.get(dealDayMoneyList.size()-1):1;
-		Integer integer2 = dealDayMoneySuList.get(dealDayMoneySuList.size()-1)>0?dealDayMoneySuList.get(dealDayMoneySuList.size()-1):1;
-		dealnumberAmout =  (Double)(dealnumberAmout / integer) - 1 ;
-		dealnumberAmoutSu =  (Double)( dealnumberAmoutSu / integer2) - 1;
-		dealnumber = (Double)(dealnumber /double1 ) - 1;
-		dealnumberSu = (Double)(dealnumberSu /double2 ) - 1;
+		double1  = (Double)(dealDayList.get(dealDayList.size()-1)>0?dealDayList.get(dealDayList.size()-1):1);
+		double2 =  (Double)(dealDaySuList.get(dealDaySuList.size()-1)>0?dealDaySuList.get(dealDaySuList.size()-1):1);
+		integer  = dealDayMoneyList.get(dealDayMoneyList.size()-1)>0?dealDayMoneyList.get(dealDayMoneyList.size()-1):1;
+		integer2 = dealDayMoneySuList.get(dealDayMoneySuList.size()-1)>0?dealDayMoneySuList.get(dealDayMoneySuList.size()-1):1;
+		}
+		dealnumberAmout = dealnumberAmout  != 0 ? (dealnumberAmout / integer) - 1:0 ;
+		dealnumberAmoutSu =   dealnumberAmoutSu != 0? ( dealnumberAmoutSu / integer2) - 1 : 0;
+		dealnumber =dealnumber != 0 ?  (dealnumber /double1 ) - 1 : 0;
+		dealnumberSu = dealnumberSu != 0 ? (dealnumberSu /double2 ) - 1 :0;
 		List sum = new ArrayList();
 		sum.add(dealnumberAmout*100);
 		sum.add(dealnumber*100);
@@ -386,19 +393,30 @@ public class MyAccountContorller {
 		double t1Percent = 0.00;//t1比例
 		double d1Percent = 0.00;//d1比例
 		double  freezePercent = 0.00;//总冻结比例
-		BigDecimal cash = cashBalance;
-		BigDecimal multiply = cashBalance.divide(accountBalance);
-		casePercent  = multiply.doubleValue();
-		t1Percent = freezeBalanceT1.divide(accountBalance).doubleValue();
-		d1Percent = freezeBalanceD1.divide(accountBalance).doubleValue();
-		BigDecimal freeze = freezeBalance;
-		freezePercent = freezeBalance.divide(accountBalance).doubleValue();
-		m.addAttribute("cash",cash);//可取现金总额
-		m.addAttribute("freeze",freeze);//总冻结金额
-		m.addAttribute("casePercent",(int)(casePercent*100));
-		m.addAttribute("t1Percent",(int)(t1Percent*100));
-		m.addAttribute("d1Percent",(int)(d1Percent*100));
-		m.addAttribute("freezePercent", (int)(freezePercent*100));
+		int r=accountBalance.compareTo(BigDecimal.ZERO);
+		if(0 != r) {
+			BigDecimal cash = cashBalance;
+			BigDecimal multiply = cashBalance.divide(accountBalance);
+			casePercent  = multiply.doubleValue();
+			t1Percent = freezeBalanceT1.divide(accountBalance).doubleValue();
+			d1Percent = freezeBalanceD1.divide(accountBalance).doubleValue();
+			BigDecimal freeze = freezeBalance;
+			freezePercent = freezeBalance.divide(accountBalance).doubleValue();
+			m.addAttribute("cash",cash);//可取现金总额
+			m.addAttribute("freeze",freeze);//总冻结金额
+			m.addAttribute("casePercent",(int)(casePercent*100));
+			m.addAttribute("t1Percent",(int)(t1Percent*100));
+			m.addAttribute("d1Percent",(int)(d1Percent*100));
+			m.addAttribute("freezePercent", (int)(freezePercent*100));
+		}else {
+			m.addAttribute("cash",0);//可取现金总额
+			m.addAttribute("freeze",0);//总冻结金额
+			m.addAttribute("casePercent",0);
+			m.addAttribute("t1Percent",0);
+			m.addAttribute("d1Percent",0);
+			m.addAttribute("freezePercent",0);
+		}
+		
 		//以上是饼图和资金报告数据
 		List<String> payNoList = new ArrayList();
 		List<String> payNameList = new ArrayList();
@@ -443,6 +461,13 @@ public class MyAccountContorller {
 		m.addAttribute("orderOhPercent", (int)orderOhPercent*100);
 		return "/manage/account/appAccount";
 	}
+	
+	
+	
+	
+	
+	
+	
 	private String getUserId() {
 		Subject subject = SecurityUtils.getSubject();
 		Session session = subject.getSession();

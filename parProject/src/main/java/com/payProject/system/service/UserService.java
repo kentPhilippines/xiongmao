@@ -71,6 +71,18 @@ public interface UserService {
 	 * @return
 	 */
 	List<UserAccount> findUserAccountByUserId(String userId);
+	/**
+	 * <p>根据账户集合查询所有的子账户</p>
+	 * @param accountList
+	 * @return
+	 */
+	List<UserAccount> findUserAccountByUserId(List<String> accountList);
+	/**
+	 * <p>根据用户id查询自己所有的代理账号</p>
+	 * @param userId
+	 * @return
+	 */
+	List<User> findUserByAgent(String userId);
 	
 	
 	

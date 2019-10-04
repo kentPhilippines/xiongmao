@@ -2,6 +2,8 @@ package com.payProject.manage.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -17,6 +19,17 @@ public class AccountEntity  extends BaseEntity<AccountEntity>{
 		 * <p>下游商户</p>
 		 */
 		private String accountId;
+		private List accountIdList;
+		
+		public List getAccountIdList() {
+			return accountIdList;
+		}
+
+		public void setAccountIdList(List accountIdList) {
+			this.accountIdList = accountIdList;
+		}
+
+
 		/**
 		 * <p>账户name</p>
 		 * <p>下游商户</p>
@@ -86,10 +99,22 @@ public class AccountEntity  extends BaseEntity<AccountEntity>{
 	     * <p>0暂停</p>
 	     */
 	    private Integer isDpay;
+
+
+	    
+	    private String userId;
 	    
 	    
-	    
-	    /**
+	    public String getUserId() {
+			return userId;
+		}
+
+		public void setUserId(String userId) {
+			this.userId = userId;
+		}
+
+
+		/**
 	     * <p>单笔最大额度</p>
 	     */
 	    private BigDecimal maxDeal;

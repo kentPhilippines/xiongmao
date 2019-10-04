@@ -15,14 +15,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.payProject.config.common.Constant.Common;
-import com.payProject.config.exception.ParamException;
 import com.payProject.config.common.Constant;
+import com.payProject.config.common.Constant.Common;
 import com.payProject.config.common.JsonResult;
 import com.payProject.config.common.PageResult;
-import com.payProject.manage.entity.AccountEntity;
+import com.payProject.config.exception.ParamException;
 import com.payProject.manage.service.AccountService;
 import com.payProject.system.entity.User;
+import com.payProject.system.entity.UserRole;
+import com.payProject.system.service.UserRoleService;
 import com.payProject.system.service.UserService;
 import com.payProject.system.util.EncryptUtil;
 
@@ -37,6 +38,8 @@ public class AppManageContorller {
 	AccountService accountServiceImpl;
 	@Autowired
 	UserService userService;
+	@Autowired
+	UserRoleService userRoleService;
 	@RequestMapping("/manage")
 	public String accountlShow( ){
 		return "/manage/account/userManage/appAccountManage";
@@ -82,11 +85,45 @@ public class AppManageContorller {
 		user.setUserPassword(map.get(Constant.Common.PASSWORD));
 		user.setUserSalt(map.get(Constant.Common.SALT));
 		Boolean flag = userService.addUser(user);
-		if(flag)
+		/**
+		 * <p>目前这里要写死</p>
+		 */
+		boolean flag1 = addRole(user);
+		if(!flag1) {
+			throw new ParamException("角色权限赋予失败");
+		}
+		if(flag )
 			return JsonResult.buildSuccessMessage("增加成功");
-		return JsonResult.buildFailResult("增加失败");	
+		throw new ParamException("账户增加失败");
 	}
 	return  JsonResult.buildFailResult("当前用户名已存在");
+	}
+	/**
+	 * <><>
+	 * @param user
+	 * @param i
+	 * @return
+	 */
+	private boolean addRole(User user) {
+		//1码商2商户3运营4财务5客服6代理商
+		String retain2 = user.getRetain2();
+		Integer role = Integer.valueOf(retain2);
+		Integer i = 0;
+		if(role.equals(1)) {
+			i  = 5;
+		}else if(role.equals(2)) {
+			i  = 4;
+		}else if(role.equals(6)) {
+			i  = 6;
+		}		
+		if(!i.equals(0)) {
+			UserRole entity = new UserRole();
+			entity.setRole(i);
+			entity.setUserId(user.getId().toString());
+			boolean flag = userRoleService.addroleId(entity);
+			return flag;
+		}
+		return false;
 	}
 	@RequestMapping("/userManageAdd")
 	public String userAdd( ){
@@ -95,14 +132,38 @@ public class AppManageContorller {
 	@ResponseBody
 	@RequestMapping("/appAccountEdit")
 	public JsonResult appAccountEdit(User user ){
-		if( StrUtil.isBlank(user.getUserId())) {
+		if( StrUtil.isBlank(user.getUserId()) || null == user.getId() ) {
 			throw new ParamException("请求参数无效");
 		}
 		user.setCreateTime(null);
 		boolean flag  = userService.UpdateUserByUserId(user);
 		if(flag) {
-			return JsonResult.buildSuccessMessage("修改成功");
+			boolean flag1 = updataRole(user);
+			if(flag1)
+				return JsonResult.buildSuccessMessage("修改成功");
+			throw new ParamException("修改失败，角色修改失败");
 		}
 		return JsonResult.buildFailResult();
+	}
+	private boolean updataRole(User user) {
+		//1码商2商户3运营4财务5客服6代理商
+			String retain2 = user.getRetain2();
+			Integer role = Integer.valueOf(retain2);
+			Integer i = 0;
+			if(role.equals(1)) {
+				i  = 5;
+			}else if(role.equals(2)) {
+				i  = 4;
+			}else if(role.equals(6)) {
+				i  = 6;
+			} 
+			if(!i.equals(0)) {
+				UserRole entity = new UserRole();
+				entity.setRole(i);
+				entity.setUserId(user.getId().toString());
+				boolean flag = userRoleService.updataRoleId(entity);
+				return flag;
+				}
+		return false;
 	}
 }

@@ -87,8 +87,6 @@ public class BankCardContorller {
 	}
 	
 	
-	
-	
 	@RequiresPermissions("/manage/bankCard/bankManage")
 	@RequestMapping("/bankManage")
 	public String bankManage( ){
@@ -578,6 +576,7 @@ public class BankCardContorller {
 		m.addAttribute("bankCard", bankCard1);
 		return "/manage/bankCard/myBankCardAttributeEdit";
 	}
+	
 	@ResponseBody
 	@RequestMapping("/myBankCardAttributeEdit")
 	public JsonResult myBankCardAttributeEdit(BankCardEntity bankCard){
