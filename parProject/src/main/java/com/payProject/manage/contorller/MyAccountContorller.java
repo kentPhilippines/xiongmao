@@ -403,12 +403,12 @@ public class MyAccountContorller {
 		int r=accountBalance.compareTo(BigDecimal.ZERO);
 		if(0 != r) {
 			BigDecimal cash = cashBalance;
-			BigDecimal multiply = cashBalance.divide(accountBalance);
+			BigDecimal multiply = cashBalance.divide(accountBalance,6,BigDecimal.ROUND_HALF_DOWN);
 			casePercent  = multiply.doubleValue();
-			t1Percent = freezeBalanceT1.divide(accountBalance).doubleValue();
-			d1Percent = freezeBalanceD1.divide(accountBalance).doubleValue();
+			t1Percent = freezeBalanceT1.divide(accountBalance,6,BigDecimal.ROUND_HALF_DOWN).doubleValue();
+			d1Percent = freezeBalanceD1.divide(accountBalance,6,BigDecimal.ROUND_HALF_DOWN).doubleValue();
 			BigDecimal freeze = freezeBalance;
-			freezePercent = freezeBalance.divide(accountBalance).doubleValue();
+			freezePercent = freezeBalance.divide(accountBalance,6,BigDecimal.ROUND_HALF_DOWN).doubleValue();
 			m.addAttribute("cash",cash);//可取现金总额
 			m.addAttribute("freeze",freeze);//总冻结金额
 			m.addAttribute("casePercent",(int)(casePercent*100));
