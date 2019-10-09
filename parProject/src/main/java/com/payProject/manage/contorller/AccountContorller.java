@@ -264,9 +264,28 @@ public class AccountContorller<E> {
 	public JsonResult addaccountFee(AccountFee account) throws Exception{
 		if(StrUtil.isBlank(account.getAccountId()))
 			throw new ParamException("增加费率异常");
+		/**
+		 * <p>渠道费率的增加要保证</p>
+		 * <li>1,当前用户可使用的费率同一个产品只有一个可以使用</li>
+		 * <li>2,一个渠道可以使用多个产品</li>
+		 */
+		/**
+		 * <p>保证一个产品只存在一个可用渠道</p>
+		 */
+		//要素为: appid + 产品 + 费率可用
+		List<AccountFee> cfeeList = accountServiceImpl.findFeeByAppid(account.getAccountId(),account.getChannelProduct());
+		for(AccountFee cfee : cfeeList) {
+			if(Common.ACCOUNT_FEE_STUSTA1.equals(cfee.getFeeStautus())) {
+				throw new OtherErrors("请关闭该产品其他的可用渠道");
+			}
+		}
+		/*
+		 * 
+		放弃这个逻辑
 		AccountFee entity1 = accountServiceImpl.findAccountFeeBy(account.getAccountId(),Common.ACCOUNT_FEE_STUSTA1());//理论上可以查询到一条费率状态
 		if(ObjectUtil.isNotNull(entity1))
 			throw new OtherErrors("当前商户存在一条费率状态为启用，请先关闭");
+		*/
 		AccountFee entity  = accountServiceImpl.findAccountFeeByAll(account.getAccountChannel(),account.getAccountId(),account.getChannelProduct(),account.getFeeStautus());
 		if(ObjectUtil.isNotNull(entity))
 			throw new OtherErrors("当前商户费率添加重复，请修改费率状态，仅存在唯一一条启用费率");

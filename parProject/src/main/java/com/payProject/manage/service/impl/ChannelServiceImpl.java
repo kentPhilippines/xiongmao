@@ -1,5 +1,6 @@
 package com.payProject.manage.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import com.payProject.manage.mapper.ChannelFeeMapper;
 import com.payProject.manage.mapper.ChannelMapper;
 import com.payProject.manage.mapper.PayTypeMapper;
 import com.payProject.manage.service.ChannelService;
-import com.payProject.system.entity.User;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
@@ -216,5 +216,21 @@ public class ChannelServiceImpl implements ChannelService {
 		criteria.andPayTypeNoListEqualTo(payList);
 		List<PayType> selectByExample = PayTypeDao.selectByExample(example);
 		return selectByExample;
+	}
+	@Override
+	public List<PayType> findProductToChannel(String channelNo) {
+		ChannelFeeExample example  = new ChannelFeeExample();
+		com.payProject.manage.entity.ChannelFeeExample.Criteria criteria = example.createCriteria();
+		criteria.andChannelNoEqualTo(channelNo);
+		List<ChannelFee> selectByExample = ChannelFeeDao.selectByExample(example);
+		List<String> list  = new ArrayList<String>();
+		for(ChannelFee  cf : selectByExample) {
+			list.add(cf.getPayType());
+		};
+		PayTypeExample example1 = new PayTypeExample();
+		com.payProject.manage.entity.PayTypeExample.Criteria criteria1 = example1.createCriteria();
+		criteria1.andPayTypeNoListEqualTo(list);
+		List<PayType> selectByExample1 = PayTypeDao.selectByExample(example1);
+		return selectByExample1;
 	}
 }

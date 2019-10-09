@@ -134,5 +134,11 @@ public interface ChannelService {
 	 * @return
 	 */
 	List<PayType> findPayTypeByListNo(List<String> payList);
+	/**
+	 * <p>根据渠道查询当前渠道所有的产品类型</p>
+	 * @param channelNo
+	 * @return
+	 */
+	List<PayType> findProductToChannel(String channelNo);
 
 }

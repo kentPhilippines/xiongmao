@@ -312,4 +312,16 @@ public class AccountServiceImpl implements AccountService {
 		List<AccountFee> selectByExample = accountFeeDao.selectByExample(example);
 		return selectByExample;
 	}
+	@Override
+	public List<AccountFee> findFeeByAppid(String accountId, String channelProduct) {
+		AccountFeeExample example  = new AccountFeeExample();
+		com.payProject.manage.entity.AccountFeeExample.Criteria criteria = example.createCriteria();
+		criteria.andAccountIdEqualTo(accountId);
+		criteria.andChannelProductEqualTo(channelProduct);
+		List<AccountFee> selectByExample = accountFeeDao.selectByExample(example);
+		if(CollUtil.isNotEmpty(selectByExample)) {
+			return selectByExample;
+		}
+		return null;
+	}
 }

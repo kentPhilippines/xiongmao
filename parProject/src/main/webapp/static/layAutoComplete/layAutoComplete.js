@@ -105,7 +105,6 @@ layui.define(['jquery'], function (exports) {
                     if (option.array != null) {
                         var tempArray = []
                         for (var i = 0; i < option.array.length; i++) {
-                        	debugger;
                             var item = option.array[i]
                             if (item[option.display].toLowerCase().search(value.toLowerCase()) > -1 || (option.shortcut && item[option.shortcut].toLowerCase().search(value.toLowerCase()) > -1)) {
                                 tempArray.push(item)

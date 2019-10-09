@@ -1,5 +1,6 @@
 package com.payProject.manage.contorller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import com.github.pagehelper.PageInfo;
 import com.payProject.config.common.Constant.Common;
 import com.payProject.config.exception.OtherErrors;
 import com.payProject.config.exception.ParamException;
+import com.payProject.config.common.AutocompleteResult;
 import com.payProject.config.common.JsonResult;
 import com.payProject.config.common.PageResult;
 import com.payProject.manage.entity.BankCardEntity;
@@ -306,7 +308,26 @@ public class ChannelContorller {
 		}
 		return JsonResult.buildFailResult("渠道费率修改失败");
 	}
-	
-	
-	
+	/**
+	 * <p>根据渠道查询所有的产婆类型</p>
+	 * @param channelFee
+	 * @param m
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/findProductToChannel")
+	public JsonResult findProductToChannel(ChannelFee channelFee,Model m){
+		if(StrUtil.isBlank(channelFee.getChannelNo())) {
+			throw new ParamException("请求参数为空");
+		}
+		List payt =new  ArrayList();
+		List<PayType> payTypeList = channelServiceImpl.findProductToChannel(channelFee.getChannelNo());
+		for( PayType entity : payTypeList ) {
+			AutocompleteResult pay = new AutocompleteResult();
+			pay.setName(entity.getPayTypeName());
+			pay.setPinyin(entity.getPayTypeNo());
+			payt.add(pay);
+		}
+		return JsonResult.buildSuccessResult("成功", payt);
+	}
 }

@@ -40,12 +40,12 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">产品编号</label>
-			<div class="layui-input-inline">
-				<input type="text" name="channelProduct" lay-verify="required" 
-					placeholder="请输入产品编号"  id="LAY-user-login-password" autocomplete="off" class="layui-input">
+			 <label class="layui-form-label">产品编号</label>
+			 <div class="layui-input-inline">
+			 <input type="text" name="channelProduct" lay-verify="required"
+					placeholder="请输入渠道编号" id="LAY-user-login-password"  autocomplete="off" class="layui-input">
+			 </div>
 			</div>
-		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">费率</label>
 			<div class="layui-input-inline">
@@ -129,6 +129,7 @@ layui.use(['autocomplete'], function () {
         	$("[name='accountId']").val(item.pinyin)
         }
     });
+    var select = '';
     var departmentList1 = ${channelList};
     layui.autocomplete({
         element: '[name="accountChannel"]',
@@ -137,18 +138,46 @@ layui.use(['autocomplete'], function () {
         count: 5,
         done: function (item) {//选中
         	$("[name='accountChannel']").val(item.pinyin)
+        	  $.ajax({
+                url: '${ctx}/manage/channel/findProductToChannel',
+                data: {channelNo : item.pinyin},
+                type: 'post',
+                dataType:"json",
+                success: function (data) {
+                	if(data && data.success){//数据
+  					  if(data.result){
+  						/*   for(var i = 0 ; i < data.result.length ; i++ ){
+  							var payTypeNo = data.result[i].payTypeNo;
+  							var payTypeName = data.result[i].payTypeName;
+  							select +=	"<option value='"+payTypeNo+"'>"+payTypeName+"</option>"
+  						  }
+  						  debugger;
+  						$("[name='channelProduct']").append(select); */
+  						var departmentList2 = data.result;
+  					    layui.autocomplete({
+  					        element: '[name="channelProduct"]',
+  					        array: departmentList2,
+  					        num: 1,
+  					        count: 5,
+  					        done: function (item) {//选中
+  					        	$("[name='channelProduct']").val(item.pinyin)
+  					        }
+  					    })
+  					  }
+	  				}else if(data && !data.success){//数据
+	  				}
+                },
+            })
         }
     })
-    var departmentList2 = ${payList};
-    layui.autocomplete({
-        element: '[name="channelProduct"]',
-        array: departmentList2,
-        num: 1,
-        count: 5,
-        done: function (item) {//选中
-        	$("[name='channelProduct']").val(item.pinyin)
-        }
-    })
+    
+    
+	  
+  
+			
+    
+    
+    
 })
 </script>
 <script type="text/javascript" src="${ctx}/static/js/manage/account/account.js" ></script>

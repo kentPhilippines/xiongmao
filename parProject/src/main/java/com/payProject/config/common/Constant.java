@@ -284,20 +284,20 @@ public final class Constant {
 		
 		
 		
-		private static final String RECORD_LOGIN_EXPIRE = "501";//账户未登录错误
-		private static final String RECORD_LOGIN_EXPIRE_MESSAGE = "当前账户未登录";
-		private static final String CHANNEL_NAME = "CH";//渠道命名前缀
-		private static final String CHANNEL_NAME_SUF = "99999";//渠道首次命名
-		private static final String PAYTYPE_NAME = "PAY";//渠道命名前缀
-		private static final String PAYTYPE_NAME_SUF = "999";//渠道首次命名
-		private static final String ACCOUNT_NAME = "AC";//商户命名前缀
-		private static final String ACCOUNT_NAME_SUF = "999";//商户首次命名编号
-		private static final String ACCOUNT_PRIAVTEKEY = "privateKey";//私钥key
-		private static final String ACCOUNT_PUBLICKEY = "publicKey";//公钥key
-		private static final Integer ACCOUNT_KEY_SIZE = 512;//公钥key
-		private static final Integer ACCOUNT_FEE_STUSTA1 = 1;//费率启用状态
-		private static final Integer ACCOUNT_FEE_STUSTA2 = 2;//费率停用状态
-		private static final Integer ACCOUNT_FEE_STUSTA3 = 3;//自动切换
+		public static final String RECORD_LOGIN_EXPIRE = "501";//账户未登录错误
+		public static final String RECORD_LOGIN_EXPIRE_MESSAGE = "当前账户未登录";
+		public static final String CHANNEL_NAME = "CH";//渠道命名前缀
+		public static final String CHANNEL_NAME_SUF = "99999";//渠道首次命名
+		public static final String PAYTYPE_NAME = "PAY";//渠道命名前缀
+		public static final String PAYTYPE_NAME_SUF = "999";//渠道首次命名
+		public static final String ACCOUNT_NAME = "AC";//商户命名前缀
+		public static final String ACCOUNT_NAME_SUF = "999";//商户首次命名编号
+		public static final String ACCOUNT_PRIAVTEKEY = "privateKey";//私钥key
+		public static final String ACCOUNT_PUBLICKEY = "publicKey";//公钥key
+		public static final Integer ACCOUNT_KEY_SIZE = 512;//公钥key
+		public static final Integer ACCOUNT_FEE_STUSTA1 = 1;//费率启用状态
+		public static final Integer ACCOUNT_FEE_STUSTA2 = 2;//费率停用状态
+		public static final Integer ACCOUNT_FEE_STUSTA3 = 3;//自动切换
 		
 		
 		/**

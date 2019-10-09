@@ -183,4 +183,12 @@ public interface AccountService {
 	 */
 	List<AccountFee> findAccountFeeByAccountList(List<String> accountList);
 
+	/**
+	 * <p>根据商户号和产品类型查询当前产品下有所可用渠道</p>
+	 * @param accountId
+	 * @param channelProduct
+	 * @return
+	 */
+	List<AccountFee> findFeeByAppid(String accountId, String channelProduct);
+
 }

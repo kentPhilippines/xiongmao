@@ -23,7 +23,7 @@
             </div>
           </div>
         </div>
-        <div class="layui-card">
+        <div class="layui-card" style=" height: 475px; ">
           <div class="layui-card-header">交易金额关系图</div>
           <div class="layui-card-body">
             <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-heapline" lay-anim="fade" style="width: 100%; height: 280px;">
@@ -41,7 +41,7 @@
             </div>
           </div>
         </div>
-        <div class="layui-card">
+        <div class="layui-card" style=" height: 475px; ">
           <div class="layui-card-header">月交易流量图</div>
           <div class="layui-card-body">
             <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-heapline" lay-anim="fade" style="width: 100%; height: 280px;">
