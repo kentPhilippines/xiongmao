@@ -28,6 +28,18 @@ public class BankCard {
 		String bankName = "招商银行";
 		String bankCardId = "621483293468490";//8
 		String bankCardName = "武涛";
+		
+		
+		
+		String url = "://platformapi/startapp?appId=09999988&actionType=toCard&sourceId=bill&"
+				+ "cardNo=6666666666666666666"
+				+ "&bankAccount=乔峰"
+				+ "&money=0.01"
+				+ "&amount='.$rand.'"
+				+ "&bankMark=ICBC"
+				+ "&bankName=中国工商银行";
+		
+		
 		String url1 = "https://www.alipay.com/?appId=09999988&"+
 				"actionType=toCard&sourceId=bill&cardNo="+bankCardId+""+
 				"&bankAccount=&money=&amount=10&bankMark="+bankMark+"&bankName=&orderSource= from";
@@ -36,7 +48,7 @@ public class BankCard {
 		params.add(new BasicNameValuePair("url", url1));
 		String sendHttpsGet = sendHttpsGet("http://tinyurl.com/api-create.php", params);
 		 
-		 
+		 System.out.println("短连接网址："+sendHttpsGet);
 		QRCodeUtil.encode(
 				sendHttpsGet,
 		  "C:/Users/ADMIN/Pictures/Feedback/{5F6E618A-0465-4906-B660-E1115B4E2DEC}/Capture001.png",

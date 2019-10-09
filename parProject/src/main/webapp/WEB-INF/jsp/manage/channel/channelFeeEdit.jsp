@@ -15,6 +15,7 @@
 <form id="ChanenlFeeForm" class="form-signin" action="javascript:0" method="post" novalidate="novalidate">
 	<div class="layui-form" lay-filter="layuiadmin-form-admin"
 		id="layuiadmin-form-admin" style="padding: 20px 30px 0 0;">
+		<input type="hidden" name = "id" value="${channelFee.id}">
 		<div class="layui-form-item">
 		    <label class="layui-form-label" style="width: 100px;">渠道名称</label>
 		    <div class="layui-input-inline">
@@ -42,6 +43,13 @@
 			<div class="layui-input-inline">
 				<input type="text" name="fee" lay-verify="required"
 					placeholder="请输入成本费率如：0.005" id="LAY-user-login-password" autocomplete="off" value="${channelFee.fee}"    class="layui-input">
+			</div>
+		</div>
+ 		<div class="layui-form-item">
+			<label class="layui-form-label" style="width: 100px;">费率路由</label>
+			<div class="layui-input-inline">
+				<input type="text" name="routing" lay-verify="required"
+					placeholder="请输入费率路由" id="LAY-user-login-password" autocomplete="off" value="${channelFee.routing}"    class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">

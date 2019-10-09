@@ -36,25 +36,29 @@ public class ChannelFee extends BaseEntity<ChannelFee>{
 	 * <p>如果不进行设置得话该值默认为100%</p>
 	 */
     private String settle;
-
-
-
-    public String getChannelNo() {
+    
+    
+    
+    private String routing;
+    
+    public String getRouting() {
+		return routing;
+	}
+	public void setRouting(String routing) {
+		this.routing = routing;
+	}
+	public String getChannelNo() {
         return channelNo;
     }
-
     public void setChannelNo(String channelNo) {
         this.channelNo = channelNo == null ? null : channelNo.trim();
     }
-
     public String getChannelAccount() {
         return channelAccount;
     }
-
     public void setChannelAccount(String channelAccount) {
         this.channelAccount = channelAccount == null ? null : channelAccount.trim();
     }
-
     public String getChannelName() {
         return channelName;
     }

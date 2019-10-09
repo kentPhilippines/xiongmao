@@ -260,10 +260,10 @@ public class ChannelContorller {
 			throw new OtherErrors("当前渠道不存在或数据错误");
 		}
 		Channel first = CollUtil.getFirst(findChannelByChannelId);
-		first.setChannelName(StrUtil.isBlank(channel.getChannelName())?channel.getChannelName() :first.getChannelName());
+		first.setChannelName(StrUtil.isNotBlank(channel.getChannelName())?channel.getChannelName() :first.getChannelName());
 		first.setChannelStautus(null != channel.getChannelStautus() ?channel.getChannelStautus() : first.getChannelStautus());
 		first.setChannelType(null != channel.getChannelType() ? channel.getChannelType():first.getChannelType());
-		first.setChannelAccount(StrUtil.isBlank(channel.getChannelAccount())?channel.getChannelAccount() :first.getChannelAccount());
+		first.setChannelAccount(StrUtil.isNotBlank(channel.getChannelAccount())?channel.getChannelAccount() :first.getChannelAccount());
 		boolean flag = channelServiceImpl.updataChannel(first);
 		if(flag) {
 			return 	JsonResult.buildSuccessMessage("渠道修改成功");
@@ -296,12 +296,18 @@ public class ChannelContorller {
 		if(CollUtil.isEmpty(findChannelByChannelId)) {
 			throw new OtherErrors("当前渠道不存在或数据错误");
 		}
+		
+		log.info("-0--------------【修改渠道费率实体】"+channelFee.toString());
+		List<Channel> findChannelByChannelId2 = channelServiceImpl.findChannelByChannelId(channelFee.getChannelNo());
+		Channel first2 = CollUtil.getFirst(findChannelByChannelId2);
+		channelFee.setChannelName(first2.getChannelName());
 		ChannelFee first = CollUtil.getFirst(findChannelByChannelId);
-		first.setChannelNo(StrUtil.isBlank(channelFee.getChannelNo())?channelFee.getChannelNo():first.getChannelNo());
-		first.setChannelName(StrUtil.isBlank(channelFee.getChannelName())?channelFee.getChannelName():first.getChannelName());
-		first.setPayType(StrUtil.isBlank(channelFee.getPayType())?channelFee.getPayType():first.getPayType());
-		first.setFee(StrUtil.isBlank(channelFee.getFee())?channelFee.getFee():first.getFee());
-		first.setStatus(null==channelFee.getStatus()?channelFee.getStatus():first.getStatus());
+		first.setChannelNo(StrUtil.isNotBlank(channelFee.getChannelNo())?channelFee.getChannelNo():first.getChannelNo());
+		first.setChannelName(StrUtil.isNotBlank(channelFee.getChannelName())?channelFee.getChannelName():first.getChannelName());
+		first.setPayType(StrUtil.isNotBlank(channelFee.getPayType())?channelFee.getPayType():first.getPayType());
+		first.setFee(StrUtil.isNotBlank(channelFee.getFee())?channelFee.getFee():first.getFee());
+		first.setStatus(null!=channelFee.getStatus()?channelFee.getStatus():first.getStatus());
+		first.setRouting(StrUtil.isNotBlank(channelFee.getRouting())?channelFee.getRouting():first.getRouting());
 		boolean flag = channelServiceImpl.updataChannelFee(first);
 		if(flag) {
 			return 	JsonResult.buildSuccessMessage("渠道费率修改成功");

@@ -10,10 +10,12 @@ var ChannelFeeEditCls = {
 		initData : function(){
 			this.$data ={
 					channelNo : $("[name=channelNo]").val(),
+					id : $("[name=id]").val(),
 					channelName:$("[name=channelName]").val(),
 					payType:$("[name=payType]").val(),
 					fee:$("[name=fee]").val(),
 					status:$("[name=status]").val(),
+					routing:$("[name=routing]").val()
 			}
 		},
 		bindEvent : function(){

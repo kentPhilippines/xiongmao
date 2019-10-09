@@ -9,6 +9,7 @@
     <result column="payType" property="payType" jdbcType="VARCHAR" />
     <result column="fee" property="fee" jdbcType="VARCHAR" />
     <result column="settle" property="settle" jdbcType="VARCHAR" />
+    <result column="routing" property="routing" jdbcType="VARCHAR" />
     <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
     <result column="submitTime" property="submitTime" jdbcType="TIMESTAMP" />
     <result column="submitSystem" property="submitSystem" jdbcType="VARCHAR" />
@@ -74,7 +75,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, channelNo, channelAccount, channelName, payType, fee, settle, createTime, submitTime, 
-    submitSystem, status
+    submitSystem, status,routing
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payProject.manage.entity.ChannelFeeExample" >
     select
@@ -111,11 +112,11 @@
     insert into manage_channel_fee (channelNo, channelAccount, channelName, 
       payType, fee, settle, 
       createTime, submitTime, submitSystem, 
-      status)
+      status,routing)
     values (#{channelNo,jdbcType=VARCHAR}, #{channelAccount,jdbcType=VARCHAR}, #{channelName,jdbcType=VARCHAR}, 
       #{payType,jdbcType=VARCHAR}, #{fee,jdbcType=VARCHAR}, #{settle,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{submitTime,jdbcType=TIMESTAMP}, #{submitSystem,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER})
+      #{status,jdbcType=INTEGER},#{routing,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.payProject.manage.entity.ChannelFee" useGeneratedKeys="true" keyProperty="id" >
     insert into manage_channel_fee
@@ -137,6 +138,9 @@
       </if>
       <if test="settle != null" >
         settle,
+      </if>
+      <if test="routing != null" >
+        routing,
       </if>
       <if test="createTime != null" >
         createTime,
@@ -169,6 +173,9 @@
       </if>
       <if test="settle != null" >
         #{settle,jdbcType=VARCHAR},
+      </if>
+      <if test="routing != null" >
+        #{routing,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -214,6 +221,9 @@
       <if test="record.settle != null" >
         settle = #{record.settle,jdbcType=VARCHAR},
       </if>
+      <if test="record.routing != null" >
+        routing = #{record.routing,jdbcType=VARCHAR},
+      </if>
       <if test="record.createTime != null" >
         createTime = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -240,6 +250,7 @@
       payType = #{record.payType,jdbcType=VARCHAR},
       fee = #{record.fee,jdbcType=VARCHAR},
       settle = #{record.settle,jdbcType=VARCHAR},
+      routing = #{record.routing,jdbcType=VARCHAR},
       createTime = #{record.createTime,jdbcType=TIMESTAMP},
       submitTime = #{record.submitTime,jdbcType=TIMESTAMP},
       submitSystem = #{record.submitSystem,jdbcType=VARCHAR},
@@ -269,6 +280,9 @@
       <if test="settle != null" >
         settle = #{settle,jdbcType=VARCHAR},
       </if>
+      <if test="routing != null" >
+        routing = #{routing,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         createTime = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -292,6 +306,7 @@
       payType = #{payType,jdbcType=VARCHAR},
       fee = #{fee,jdbcType=VARCHAR},
       settle = #{settle,jdbcType=VARCHAR},
+      routing = #{routing,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=TIMESTAMP},
       submitTime = #{submitTime,jdbcType=TIMESTAMP},
       submitSystem = #{submitSystem,jdbcType=VARCHAR},

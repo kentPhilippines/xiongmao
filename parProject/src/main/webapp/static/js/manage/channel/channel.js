@@ -318,7 +318,7 @@ var ChannelFeeClas = {
 					      ,{field: 'channelName', title: '渠道名', width: 160}
 					      ,{field: 'payType', title: '产品类型', width: 160}
 					      ,{field: 'fee', title: '费率', width: 160}
-					      ,{field: 'settle', title: '日结百分比', width: 160}
+					      ,{field: 'routing', title: '渠道路由标识', width: 160}
 					      ,{field: 'createTime', title: '创建时间', width: 135, sort: true}
 					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:150}
 				    ]]
