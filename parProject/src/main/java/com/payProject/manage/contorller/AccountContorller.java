@@ -274,9 +274,11 @@ public class AccountContorller<E> {
 		 */
 		//要素为: appid + 产品 + 费率可用
 		List<AccountFee> cfeeList = accountServiceImpl.findFeeByAppid(account.getAccountId(),account.getChannelProduct());
-		for(AccountFee cfee : cfeeList) {
-			if(Common.ACCOUNT_FEE_STUSTA1.equals(cfee.getFeeStautus())) {
-				throw new OtherErrors("请关闭该产品其他的可用渠道");
+		if(CollUtil.isNotEmpty(cfeeList)) {
+			for(AccountFee cfee : cfeeList) {
+				if(Common.ACCOUNT_FEE_STUSTA1.equals(cfee.getFeeStautus())) {
+					throw new OtherErrors("请关闭该产品其他的可用渠道");
+				}
 			}
 		}
 		/*

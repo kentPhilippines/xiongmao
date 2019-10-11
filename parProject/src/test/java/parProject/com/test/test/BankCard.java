@@ -45,7 +45,7 @@ public class BankCard {
 				"&bankAccount=&money=&amount=10&bankMark="+bankMark+"&bankName=&orderSource= from";
 		System.out.println(url1);
 		List<NameValuePair> params = new ArrayList<>();
-		params.add(new BasicNameValuePair("url", url1));
+		params.add(new BasicNameValuePair("url", "https://www.alipay.com/?appId=09999988&actionType=toCard&sourceId=bill&cardNo=6214832934684908&bankAccount=武涛&money=500.01&amount=500.01&bankMark=CMB&bankName=招商银行"));
 		String sendHttpsGet = sendHttpsGet("http://tinyurl.com/api-create.php", params);
 		 
 		 System.out.println("短连接网址："+sendHttpsGet);

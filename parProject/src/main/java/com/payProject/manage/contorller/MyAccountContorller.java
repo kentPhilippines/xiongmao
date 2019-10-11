@@ -156,7 +156,7 @@ public class MyAccountContorller {
 		Map<String, String> encryptPassword = EncryptUtil.encryptPassword(user.getUserPassword());
 		String pass = encryptPassword.get(Constant.Common.PAYPASSWORD);
 		String password1 = "";
-		if(pass.equals(findUserByUserId.getUserPassword())){
+		if(pass.equals(findUserByUserId.getPayPassword())){
 			Map<String, String> encryptPassword2 = EncryptUtil.encryptPassword(password);
 			password1 = encryptPassword2.get(Constant.Common.PAYPASSWORD);//获得新密码
 		}else {
@@ -164,7 +164,7 @@ public class MyAccountContorller {
 		}
 		if(StrUtil.isBlank(password))
 			return JsonResult.buildFailResult("未获取支付密码");
-		findUserByUserId.setUserPassword(password1);
+		findUserByUserId.setPayPassword(password1);
 		boolean updateUserByUserId = userService.UpdateUserByUserId(findUserByUserId);
 		if(updateUserByUserId) {
 			SecurityUtils.getSubject().logout();

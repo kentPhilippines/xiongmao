@@ -11,7 +11,6 @@ import org.springframework.core.env.Environment;
  * <li>该类在项目启动的时候加载</li>
  * <li>已知该类可以加载数据,可以作为主动注入容器的类</li>
  * @author K
- *
  */
 @Configuration
 public class EnvironmentConfig implements EnvironmentAware{

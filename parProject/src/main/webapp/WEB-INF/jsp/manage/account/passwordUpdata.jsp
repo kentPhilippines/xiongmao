@@ -56,7 +56,7 @@
 			</div>
 		</div>
 		<div class="layui-layer-btn layui-layer-btn-">
-			<a class="layui-layer-btn0" url = "${ctx}/manage/account/updata<if test='${isPay ne null and isPay ne ""}'>Pay</if>Password" >确定</a>
+			<a class="layui-layer-btn0" >确定</a>
 			<a class="layui-layer-btn1">取消</a>
 		</div>
 	</div>
@@ -80,7 +80,12 @@ function clickpassword(){
 }
 $(function(){
 	$(".layui-layer-btn0").on("click",function(){
-		var url = $(this).attr("url");
+		var url
+		if('${isPay}'){
+		 	url =  '${ctx}/manage/account/updataPayPassword'
+		}else{
+			url =  '${ctx}/manage/account/updataPassword'
+		}
 		var data = {
 			password : $("[name=password]").val(),
 			userId : $("[name='userId']").val(),
