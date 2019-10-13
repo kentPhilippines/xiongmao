@@ -35,6 +35,7 @@ import com.payProject.config.exception.OtherErrors;
 import com.payProject.config.exception.ParamException;
 import com.payProject.manage.entity.AccountEntity;
 import com.payProject.manage.entity.AccountFee;
+import com.payProject.manage.entity.AccountInfo;
 import com.payProject.manage.entity.DealOrderEntity;
 import com.payProject.manage.entity.RunOrder;
 import com.payProject.manage.entity.UserAccount;
@@ -569,23 +570,21 @@ public class MyAccountContorller {
 		return resultList;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	@RequestMapping("/findDealPassword")
+	public String findDealPassword( ) {
+		return "/manage/account/findDealPassword";
+	}
+	@ResponseBody
+	@RequestMapping("findappdealpassword")
+	public JsonResult findappdealpassword(String accountId){
+		if(StrUtil.isBlank(accountId) ) {
+			throw new ParamException("商户号未输入");
+		}
+		AccountInfo account = accountServiceImpl.findAccountInfoByNo(accountId);
+		log.info(account.toString());
+		if(ObjectUtil.isNotNull(account)) {
+			return JsonResult.buildSuccessResult(account.getAppDesKey());
+		}
+		return JsonResult.buildFailResult();
+	}
 }

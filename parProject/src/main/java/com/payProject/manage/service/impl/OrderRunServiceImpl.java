@@ -35,6 +35,7 @@ public class OrderRunServiceImpl implements OrderRunService {
 	@Override
 	public List<RunOrder> findPageRunOrderByRunOrder(RunOrder runOrder) {
 		RunOrderExample example  = new RunOrderExample();
+		example.setOrderByClause("createTime DESC");
 		Criteria criteria = example.createCriteria();
 		if(StrUtil.isNotBlank(runOrder.getOrderRunId()))
 			criteria.andOrderRunIdEqualTo(runOrder.getOrderRunId());
@@ -131,6 +132,7 @@ public class OrderRunServiceImpl implements OrderRunService {
 	@Override
 	public List<RunOrder> findOrderRunByWitOrder(String orderId) {
 		RunOrderExample example  = new RunOrderExample();
+		example.setOrderByClause("createTime DESC");
 		Criteria criteria = example.createCriteria();
 		criteria.andOrderIdEqualTo(orderId);
 		List<RunOrder> selectByExample = runOrderDao.selectByExample(example);

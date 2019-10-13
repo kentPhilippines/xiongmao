@@ -38,6 +38,7 @@ public class BankCardServiceImpl  implements BankCardService{
 	public BankCardEntity findBankCardByBankCard(String bankCard) {
 		BankCardEntityExample  example = new BankCardEntityExample();
 		Criteria criteria = example.createCriteria();
+		example.setOrderByClause("createTime DESC");
 		criteria.andBankCardEqualTo(bankCard);
 		List<BankCardEntity> selectByExample = bankCardDao.selectByExample(example);
 		if(CollUtil.isEmpty(selectByExample)) 
@@ -61,7 +62,7 @@ public class BankCardServiceImpl  implements BankCardService{
 	public List<BankCardEntity> findPageBankCardByBankCard(BankCardEntity bankCard) {
 		BankCardEntityExample example = new BankCardEntityExample(); 
 		Criteria criteria = example.createCriteria(); 
-		example.setOrderByClause("createTime ASC");
+		example.setOrderByClause("createTime DESC");
 		if(StrUtil.isNotBlank(bankCard.getBankCard()))
 			criteria.andBankCardLike(bankCard.getBankCard());
 		if(StrUtil.isNotBlank(bankCard.getLiabilities()))
@@ -109,6 +110,7 @@ public class BankCardServiceImpl  implements BankCardService{
 	@Override
 	public List<BankCardRunEntity> findPageBankCardRunByBankCard(BankCardRunEntity bankCardRun) {
 		BankCardRunEntityExample example = new BankCardRunEntityExample();
+		example.setOrderByClause("createTime DESC");
 		com.payProject.manage.entity.BankCardRunEntityExample.Criteria criteria = example.createCriteria();
 		if(StrUtil.isNotBlank(bankCardRun.getWithdrawBankCard()))  
 			criteria.andWithdrawBankCardEqualTo(bankCardRun.getWithdrawBankCard());
@@ -135,6 +137,7 @@ public class BankCardServiceImpl  implements BankCardService{
 	public List<BankCardRunEntity> findBankCardRunByBankCard(BankCardRunEntity bankCardRun) {
 		BankCardRunEntityExample example = new BankCardRunEntityExample();
 		com.payProject.manage.entity.BankCardRunEntityExample.Criteria criteria = example.createCriteria();
+		example.setOrderByClause("createTime DESC");
 		if(bankCardRun.getDealBankCardList().size() > 0) 
 			criteria.andDealBankCardListEqualTo(bankCardRun.getDealBankCardList());
 		if(bankCardRun.getRunTypeList().size() >0)
@@ -154,6 +157,7 @@ public class BankCardServiceImpl  implements BankCardService{
 	public List<BackBankAmount> findPageBackBankAmountByBank(BackBankAmount bank) {
 		BackBankAmountExample example = new BackBankAmountExample();
 		com.payProject.manage.entity.BackBankAmountExample.Criteria criteria = example.createCriteria();
+		example.setOrderByClause("createTime DESC");
 		if(StrUtil.isNotBlank( bank.getAccountId()))
 			criteria.andAccountIdEqualTo( bank.getAccountId());
 		if(StrUtil.isNotBlank( bank.getOrderId()))
@@ -168,7 +172,6 @@ public class BankCardServiceImpl  implements BankCardService{
 			criteria.andCreateTimeBetween(DateUtil.parse(data), DateUtil.parse(data1));
 			} 
 		List<BackBankAmount> selectByExample = BackBankAmountDao.selectByExample(example);
-		
 		return selectByExample;
 	}
 	@Override
@@ -180,6 +183,7 @@ public class BankCardServiceImpl  implements BankCardService{
 	public BackBankAmount findBackBankAmountByOrderId(String orderId) {
 		BackBankAmountExample example = new BackBankAmountExample();
 		com.payProject.manage.entity.BackBankAmountExample.Criteria criteria = example.createCriteria();
+		example.setOrderByClause("createTime DESC");
 		criteria.andOrderIdEqualTo(orderId);
 		List<BackBankAmount> selectByExample = BackBankAmountDao.selectByExample(example);
 		if(CollUtil.isNotEmpty(selectByExample)) {

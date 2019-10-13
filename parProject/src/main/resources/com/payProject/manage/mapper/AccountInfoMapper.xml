@@ -78,7 +78,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, accountId, agentAccount, isAgant, password, createTime, submitTime, submitSystem, 
-    status
+    status,appDesKey
   </sql>
   <sql id="Blob_Column_List" >
     appKey, appDesKey, accountIp, havaInterface

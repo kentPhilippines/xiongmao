@@ -38,8 +38,6 @@ public class SendUtil {
 	/**
 	 * <p>对参数进行加密</p>
 	 * @param map
-	 * @return
-	 * @throws Exception
 	 */
 	public Map<String ,Object > careteParam(Map<String,Object> map) throws Exception {
 		System.out.println("私钥:" + privateKey);

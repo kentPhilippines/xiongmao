@@ -23,6 +23,7 @@ public class OrderErrorServiceImpl implements OrderErrorService{
 	public List<ExceptionOrderEntity> findPageOrderErrorByOrderError(ExceptionOrderEntity orderError) {
 		ExceptionOrderEntityExample example  = new ExceptionOrderEntityExample();
 		Criteria criteria = example.createCriteria();
+		example.setOrderByClause("createTime DESC");
 		if(StrUtil.isNotBlank(orderError.getOrderId()))
 			criteria.andOrderIdEqualTo(orderError.getOrderId());
 		if(StrUtil.isNotBlank(orderError.getOrderExceptId()))

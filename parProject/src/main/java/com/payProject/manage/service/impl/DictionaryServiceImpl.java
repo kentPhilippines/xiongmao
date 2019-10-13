@@ -27,6 +27,7 @@ public class DictionaryServiceImpl implements DictionaryService {
 	public List<Dictionary> findDictionaryByDictionary(Dictionary dictionary) {
 		DictionaryExample example = new DictionaryExample();
 		Criteria criteria = example.createCriteria();
+		example.setOrderByClause("createTime DESC");
 		if(StrUtil.isNotBlank(dictionary.getDataType()))
 			criteria.andDataTypeEqualTo(dictionary.getDataType());
 		if(StrUtil.isNotBlank(dictionary.getDateSource()))

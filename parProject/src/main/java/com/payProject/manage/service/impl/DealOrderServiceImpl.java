@@ -24,6 +24,7 @@ public class DealOrderServiceImpl implements DealOrderService {
 	public List<DealOrderEntity> findPageDealOrderByDealOrder(DealOrderEntity dealOrder) {
 		DealOrderEntityExample example = new DealOrderEntityExample();
 		Criteria criteria = example.createCriteria();
+		example.setOrderByClause("createTime DESC");
 		if(StrUtil.isNotBlank(dealOrder.getOrderId()))
 			criteria.andOrderIdEqualTo(dealOrder.getOrderId());
 		if(StrUtil.isNotBlank(dealOrder.getAssociatedId()))
