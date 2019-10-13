@@ -84,7 +84,7 @@ var MyBackBankAmountClas = {
 						,{field: 'ip', title: '回款人ip', width: 160}
 						,{field: 'note', title: '备注', width: 160}
 						,{field: 'bankStatus', title: '状态', width: 160,templet:'#bankStatus' , style:'background-color: #009688; color: #fff;'}
-						,{field: 'createTime', title: '创建时间', width: 135, sort: true}
+						,{field: 'createTime', title: '创建时间', width: 135, sort: true,templet:'<div>{{ Format(d.createTime,"yyyy-MM-dd hh:mm:ss")}}</div>'}
 						]]
 				, id: 'mytable'
 					,page: true
@@ -171,7 +171,7 @@ var BackBankAmountClas = {
 						,{field: 'ip', title: '回款人ip', width: 160}
 						,{field: 'note', title: '备注', width: 160}
 						,{field: 'bankStatus', title: '状态', width: 160,templet:'#bankStatus' , style:'background-color: #009688; color: #fff;'}
-						,{field: 'createTime', title: '创建时间', width: 135, sort: true}
+						,{field: 'createTime', title: '创建时间', width: 135, sort: true,templet:'<div>{{ Format(d.createTime,"yyyy-MM-dd hh:mm:ss")}}</div>'}
 						 ,{fixed: 'right', title:'操作', toolbar: '#operation', width:180}						]]
 				, id: 'mytable'
 					,page: true
@@ -246,7 +246,7 @@ var MyBankCardRun1Clas = {
 						,{field: 'dealAmount', title: '到账金额(入金)', width: 160}
 						,{field: 'retain1', title: '关联单号', width: 160}
 						,{field: 'runType', title: '流水类型', width: 160,templet:'#runType' , style:'background-color: #009688; color: #fff;'}
-						,{field: 'createTime', title: '创建时间', width: 135, sort: true}
+						,{field: 'createTime', title: '创建时间', width: 135, sort: true,templet:'<div>{{ Format(d.createTime,"yyyy-MM-dd hh:mm:ss")}}</div>'}
 						]]
 				, id: 'mytable'
 					,page: true
@@ -293,7 +293,7 @@ var MyBankCardRunClas = {
 						,{field: 'dealAccount', title: '到账本地账户(入金)', width: 160}
 						,{field: 'dealAmount', title: '到账金额(入金)', width: 160}
 						,{field: 'runType', title: '流水类型', width: 160,templet:'#runType' , style:'background-color: #009688; color: #fff;'}
-						,{field: 'createTime', title: '创建时间', width: 135, sort: true}
+						,{field: 'createTime', title: '创建时间', width: 135, sort: true,templet:'<div>{{ Format(d.createTime,"yyyy-MM-dd hh:mm:ss")}}</div>'}
 						]]
 				, id: 'mytable'
 					,page: true
@@ -378,7 +378,7 @@ var MyBankCardClas = {
 					      ,{field: 'bankPhone', title: '绑定手机', width: 115}
 					      ,{field: 'bankAmount', title: '卡上余额', width: 135, sort: true}
 					      ,{field: 'retain1', title: '允许交易额度', width: 135, sort: true}
-					      ,{field: 'createTime', title: '创建时间', width: 115, sort: true}
+					      ,{field: 'createTime', title: '创建时间', width: 115, sort: true,templet:'<div>{{ Format(d.createTime,"yyyy-MM-dd hh:mm:ss")}}</div>'}
 					      ,{field: 'bankNote', title: '银行卡备注', width: 115}
 					      ,{field: 'status', title: '是否可用', width: 135,templet:'#status' }
 					      ,{fixed: 'right', title:'操作', toolbar: '#operation', width:200}
@@ -666,7 +666,7 @@ var BankCardClas = {
 					      ,{field: 'bankPhone', title: '绑定手机', width: 115}
 					      ,{field: 'bankAmount', title: '卡上余额', width: 110, sort: true}
 					      ,{field: 'retain1', title: '允许交易额度', width: 135, sort: true}
-					      ,{field: 'createTime', title: '创建时间', width: 115, sort: true}
+					      ,{field: 'createTime', title: '创建时间', width: 115, sort: true,templet:'<div>{{ Format(d.createTime,"yyyy-MM-dd hh:mm:ss")}}</div>'}
 					      ,{field: 'bankNote', title: '银行卡备注', width: 115}
 					      ,{field: 'status', title: '是否可用', width: 135,templet:'#status' }
 					      ,{field: 'retain2', title: '码商是否删除', width: 135,templet:'#retain2' }
@@ -727,3 +727,28 @@ var BankCardClas = {
 		} 
 		
 }
+function Format (datetime,fmt) {
+	  if (parseInt(datetime)==datetime) {
+	    if (datetime.length==10) {
+	      datetime=parseInt(datetime)*1000;
+	    } else if(datetime.length==13) {
+	      datetime=parseInt(datetime);
+	    }
+	  }
+	  datetime=new Date(datetime);
+	  var o = {
+	  "M+" : datetime.getMonth()+1,                 //月份   
+	  "d+" : datetime.getDate(),                    //日   
+	  "h+" : datetime.getHours(),                   //小时   
+	  "m+" : datetime.getMinutes(),                 //分   
+	  "s+" : datetime.getSeconds(),                 //秒   
+	  "q+" : Math.floor((datetime.getMonth()+3)/3), //季度   
+	  "S"  : datetime.getMilliseconds()             //毫秒   
+	  };   
+	  if(/(y+)/.test(fmt))   
+	  fmt=fmt.replace(RegExp.$1, (datetime.getFullYear()+"").substr(4 - RegExp.$1.length));   
+	  for(var k in o)   
+	  if(new RegExp("("+ k +")").test(fmt))   
+	  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+	  return fmt;
+	}
