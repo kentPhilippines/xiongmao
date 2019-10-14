@@ -88,12 +88,21 @@ public class AgentContorller {
 	@RequestMapping("/myAppDealShow")
 	public String myAppDealShow(Model m){
 		String userId = getUserId();
-		log.info("当前查询流水人为："+userId);
+		log.info("当前查询交易流水的人为："+userId);
 		List<String> accountList = new ArrayList<String>();
 		List<User> use  = userService.findUserByAgent(userId);//获取所有的代理子账户
 		for(User user: use) {
 			accountList.add(user.getUserId());
 		};
+		if(CollUtil.isEmpty(accountList)) {
+			m.addAttribute("sum", new JSONArray(new ArrayList<>()));
+			m.addAttribute("dealDayList", new JSONArray(new ArrayList<>()));
+			m.addAttribute("dealDaySuList",  new JSONArray(new ArrayList<>()));
+			m.addAttribute("dealDayMoneyList", new JSONArray(new ArrayList<>())  );
+			m.addAttribute("dealDayMoneySuList", new JSONArray(new ArrayList<>()) );
+			m.addAttribute("timeList",new JSONArray(new ArrayList<>()) );
+			return "/manage/agent/myAppDealList";
+		}
 		List<UserAccount> UserAccountList = userService.findUserAccountByUserId(accountList);
 		if(CollUtil.isNotEmpty(UserAccountList)) {
 			for(UserAccount acc : UserAccountList) {
@@ -102,6 +111,15 @@ public class AgentContorller {
 		};
 		DealOrderEntity dealOrder =   new DealOrderEntity();
 		dealOrder.setAccountList(accountList);
+		if(CollUtil.isEmpty(accountList)) {
+			m.addAttribute("sum", new JSONArray(new ArrayList<>()));
+			m.addAttribute("dealDayList", new JSONArray(new ArrayList<>()));
+			m.addAttribute("dealDaySuList",  new JSONArray(new ArrayList<>()));
+			m.addAttribute("dealDayMoneyList", new JSONArray(new ArrayList<>())  );
+			m.addAttribute("dealDayMoneySuList", new JSONArray(new ArrayList<>()) );
+			m.addAttribute("timeList",new JSONArray(new ArrayList<>()) );
+			return "/manage/agent/myAppDealList";
+		}
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd ");
 		Calendar c = Calendar.getInstance();
 		Calendar d = Calendar.getInstance();
@@ -253,6 +271,10 @@ public class AgentContorller {
 		for(User user: use) {
 			accountList.add(user.getUserId());
 		};
+		if(CollUtil.isEmpty(accountList)) {
+			log.info("交易记录为null"+userId);
+			return result;
+		}
 		List<UserAccount> UserAccountList = userService.findUserAccountByUserId(accountList);
 		if(CollUtil.isNotEmpty(UserAccountList)) {
 			for(UserAccount acc : UserAccountList) {
@@ -260,6 +282,10 @@ public class AgentContorller {
 			}
 		};
 		dealOrder.setAccountList(accountList);
+		if(CollUtil.isEmpty(accountList)) {
+			log.info("交易记录为null"+userId);
+			return result;
+		}
 		//2019-09-05 - 2019-10-23
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar c = Calendar.getInstance();
@@ -395,12 +421,23 @@ public class AgentContorller {
 			for(User user: use) {
 				userList.add(user.getUserId());
 			};
+			if(CollUtil.isEmpty(userList)) {
+				 List<AccountFee> list = new ArrayList<AccountFee>();
+				 PageInfo<AccountFee> pageInfo = new PageInfo<AccountFee>(list);
+				 PageResult<AccountFee> pageR = new PageResult<AccountFee>();
+					pageR.setData(pageInfo.getList());
+					pageR.setCode("0");
+					pageR.setCount(String.valueOf(pageInfo.getTotal()));
+					log.info("商户费率列表响应结果集"+pageR.toString());
+				return pageR;
+			}
 			List<UserAccount> UserAccountList = userService.findUserAccountByUserId(userList);
 			if(CollUtil.isNotEmpty(UserAccountList)) {
 				for(UserAccount acc : UserAccountList) {
 					accountList.add(acc.getAccountId());
 				}
 			};
+			
 		 if(CollUtil.isEmpty(accountList)) {
 			 List<AccountFee> list = new ArrayList<AccountFee>();
 			 PageInfo<AccountFee> pageInfo = new PageInfo<AccountFee>(list);
@@ -443,18 +480,22 @@ public class AgentContorller {
 			for(User user: use) {
 				userList.add(user.getUserId());
 			};
+			 if(CollUtil.isEmpty(userList)) {
+				 List<AccountEntity> list = new ArrayList<AccountEntity>();
+				 PageInfo<AccountEntity> pageInfo = new PageInfo<AccountEntity>(list);
+				 PageResult<AccountEntity> pageR = new PageResult<AccountEntity>();
+					pageR.setData(pageInfo.getList());
+					pageR.setCode("0");
+					pageR.setCount(String.valueOf(pageInfo.getTotal()));
+					log.info("商户列表响应结果集"+pageR.toString());
+				return pageR;
+			 }
 			List<UserAccount> UserAccountList = userService.findUserAccountByUserId(userList);
 			if(CollUtil.isNotEmpty(UserAccountList)) {
 				for(UserAccount acc : UserAccountList) {
 					accountList.add(acc.getAccountId());
 				}
 			};
-			
-			
-			
-			
-			
-			
 		 if(CollUtil.isEmpty(accountList)) {
 			 List<AccountEntity> list = new ArrayList<AccountEntity>();
 			 PageInfo<AccountEntity> pageInfo = new PageInfo<AccountEntity>(list);
@@ -566,6 +607,7 @@ public class AgentContorller {
 		param.put("amount",amount);
 		param.put("ipAddr",ipAddr);
 		Map<String, Object> careteParam = sendUtil.careteParam(param);
+		log.info(sendUtil.getGatewayUrl()+this.DPAY);
 		String result= HttpUtil.post(sendUtil.getGatewayUrl()+this.DPAY, careteParam);
 		JSONObject parseObj = JSONUtil.parseObj(result);
 		JsonResult bean = JSONUtil.toBean(parseObj, JsonResult.class);
@@ -619,12 +661,32 @@ public class AgentContorller {
 		for(User user: use) {
 			accountList.add(user.getUserId());
 		};
+		 if(CollUtil.isEmpty(accountList)) {
+			 List list = new ArrayList();
+			  PageInfo<WithdrawalsRecord> pageInfo = new PageInfo<WithdrawalsRecord>(list);
+				PageResult<WithdrawalsRecord> pageR = new PageResult<WithdrawalsRecord>();
+				pageR.setData(pageInfo.getList());
+				pageR.setCode("0");
+				pageR.setCount(String.valueOf(pageInfo.getTotal()));
+				log.info("申请提现列表相应结果集："+pageR.toString());
+				return pageR;
+		 }
 		List<UserAccount> UserAccountList = userService.findUserAccountByUserId(accountList);
 		if(CollUtil.isNotEmpty(UserAccountList)) {
 			for(UserAccount acc : UserAccountList) {
 				accountList.add(acc.getAccountId());
 			}
 		};
+		 if(CollUtil.isEmpty(accountList)) {
+			 List list = new ArrayList();
+			 PageInfo<WithdrawalsRecord> pageInfo = new PageInfo<WithdrawalsRecord>(list);
+				PageResult<WithdrawalsRecord> pageR = new PageResult<WithdrawalsRecord>();
+				pageR.setData(pageInfo.getList());
+				pageR.setCode("0");
+				pageR.setCount(String.valueOf(pageInfo.getTotal()));
+				log.info("申请提现列表相应结果集："+pageR.toString());
+				return pageR;
+		 }
 		withdrawals.setAccountList(accountList);
 		List<WithdrawalsRecord> list = withdrawalsServiceImpl.findPageWithdrawalsByWithdrawals(withdrawals);
 		PageInfo<WithdrawalsRecord> pageInfo = new PageInfo<WithdrawalsRecord>(list);

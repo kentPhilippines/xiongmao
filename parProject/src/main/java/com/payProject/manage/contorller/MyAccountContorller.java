@@ -26,11 +26,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.payProject.config.common.AutocompleteResult;
 import com.payProject.config.common.Constant;
+import com.payProject.config.common.Constant.Common;
 import com.payProject.config.common.DataResult;
 import com.payProject.config.common.HighchartsResult;
 import com.payProject.config.common.JsonResult;
 import com.payProject.config.common.PageResult;
-import com.payProject.config.common.Constant.Common;
 import com.payProject.config.exception.OtherErrors;
 import com.payProject.config.exception.ParamException;
 import com.payProject.manage.entity.AccountEntity;
@@ -261,6 +261,15 @@ public class MyAccountContorller {
 		 }
 		DealOrderEntity dealOrder =   new DealOrderEntity();
 		dealOrder.setAccountList(accountList);
+		if(CollUtil.isEmpty(accountList)){
+			m.addAttribute("sum", new JSONArray(new ArrayList()));
+			m.addAttribute("dealDayList", new JSONArray(new ArrayList()));
+			m.addAttribute("dealDaySuList",  new JSONArray(new ArrayList()));
+			m.addAttribute("dealDayMoneyList", new JSONArray(new ArrayList())  );
+			m.addAttribute("dealDayMoneySuList", new JSONArray(new ArrayList()) );
+			m.addAttribute("timeList",new JSONArray(new ArrayList()) );
+			return "/manage/account/userDealShow";
+		}
 		//2019-09-05 - 2019-10-23
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd ");
 		Calendar c = Calendar.getInstance();
@@ -499,6 +508,11 @@ public class MyAccountContorller {
 			 accountList.add(acc.getAccountId());
 		 }
 		if(CollUtil.isEmpty(accountList)) {
+			List list  = new ArrayList();
+			PageInfo<RunOrder> pageInfo = new PageInfo<RunOrder>(list);
+			pageR.setData(pageInfo.getList());
+			pageR.setCode("0");
+			pageR.setCount(String.valueOf(pageInfo.getTotal()));
 			return pageR;
 		}
 		runOrder.setOrderAccountList(accountList);
@@ -535,6 +549,9 @@ public class MyAccountContorller {
 			accountList.add(acc.getAccountId());
 		}
 		dealOrder.setAccountList(accountList);
+		if(CollUtil.isEmpty(accountList)) {
+			return result;
+		}
 		//2019-09-05 - 2019-10-23
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar c = Calendar.getInstance();
@@ -569,22 +586,21 @@ public class MyAccountContorller {
 		}
 		return resultList;
 	}
-
 	@RequestMapping("/findDealPassword")
 	public String findDealPassword( ) {
 		return "/manage/account/findDealPassword";
 	}
-	@ResponseBody
+	
 	@RequestMapping("findappdealpassword")
 	public JsonResult findappdealpassword(String accountId){
 		if(StrUtil.isBlank(accountId) ) {
 			throw new ParamException("商户号未输入");
 		}
 		AccountInfo account = accountServiceImpl.findAccountInfoByNo(accountId);
-		log.info(account.toString());
 		if(ObjectUtil.isNotNull(account)) {
 			return JsonResult.buildSuccessResult(account.getAppDesKey());
 		}
 		return JsonResult.buildFailResult();
 	}
+
 }

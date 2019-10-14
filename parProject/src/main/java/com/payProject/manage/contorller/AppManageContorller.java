@@ -1,8 +1,12 @@
 package com.payProject.manage.contorller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +24,18 @@ import com.payProject.config.common.Constant.Common;
 import com.payProject.config.common.JsonResult;
 import com.payProject.config.common.PageResult;
 import com.payProject.config.exception.ParamException;
+import com.payProject.manage.entity.DealOrderEntity;
+import com.payProject.manage.entity.UserAccount;
 import com.payProject.manage.service.AccountService;
+import com.payProject.manage.service.DealOrderService;
 import com.payProject.system.entity.User;
 import com.payProject.system.entity.UserRole;
 import com.payProject.system.service.UserRoleService;
 import com.payProject.system.service.UserService;
 import com.payProject.system.util.EncryptUtil;
+import com.payProject.system.util.MapUtil;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 
@@ -40,6 +49,8 @@ public class AppManageContorller {
 	UserService userService;
 	@Autowired
 	UserRoleService userRoleService;
+	@Autowired
+	DealOrderService dealOrderServiceImpl;
 	@RequestMapping("/manage")
 	public String accountlShow( ){
 		return "/manage/account/userManage/appAccountManage";
@@ -166,4 +177,52 @@ public class AppManageContorller {
 				}
 		return false;
 	}
+	@RequestMapping("/orderList")
+	public String orderList( ){
+		return "/manage/account/userManage/orderList";
+	}
+	@ResponseBody
+	@RequestMapping("/dealOrderList")
+	public PageResult<DealOrderEntity> dealOrderList(DealOrderEntity dealOrder,String page,String limit){
+		String userId = getUserId();
+		log.info("交易订单列表请求参数："+dealOrder.toString());
+		List<String> accountList = new ArrayList<String>();
+		List<UserAccount> userAccount = userService.findUserAccountByUserId(userId);
+		if(CollUtil.isNotEmpty(userAccount)) {
+			for(UserAccount acc : userAccount) {
+				accountList.add(acc.getAccountId());
+			}
+		};
+		dealOrder.setAccountList(accountList);
+		if(CollUtil.isEmpty(accountList)) {
+			List list = new ArrayList();
+			PageInfo<DealOrderEntity> pageInfo = new PageInfo<DealOrderEntity>(list);
+			PageResult<DealOrderEntity> pageR = new PageResult<DealOrderEntity>();
+				pageR.setData(pageInfo.getList());
+				pageR.setCode("0");
+				pageR.setCount(String.valueOf(pageInfo.getTotal()));
+				log.info("交易订单列表响应结果集："+pageR.toString());
+			return pageR;
+		}
+		PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(limit));
+		List<DealOrderEntity> list = dealOrderServiceImpl.findPageDealOrderByDealOrder(dealOrder);
+		PageInfo<DealOrderEntity> pageInfo = new PageInfo<DealOrderEntity>(list);
+		PageResult<DealOrderEntity> pageR = new PageResult<DealOrderEntity>();
+			pageR.setData(pageInfo.getList());
+			pageR.setCode("0");
+			pageR.setCount(String.valueOf(pageInfo.getTotal()));
+			log.info("交易订单列表响应结果集："+pageR.toString());
+		return pageR;
+	}
+	private String getUserId() {
+		Subject subject = SecurityUtils.getSubject();
+		Session session = subject.getSession();
+		Object attribute = session.getAttribute(Constant.User.USER_IN_SESSION());
+		Map<String, Object> objectToMap = MapUtil.objectToMap(attribute);
+		com.payProject.system.entity.User user = MapUtil.mapToBean(objectToMap,com.payProject.system.entity.User.class);
+		String userId = (String)objectToMap.get(Constant.User.USER_ID());
+		return userId;
+	}
+	
+	
 }
