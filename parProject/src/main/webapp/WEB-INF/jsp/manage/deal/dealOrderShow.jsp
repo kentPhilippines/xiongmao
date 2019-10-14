@@ -34,6 +34,12 @@
 							<input type="text" name="dealCardId" placeholder="请输入" autocomplete="off" class="layui-input">
 						</div>
 					</div> 
+					<div class="layui-inline">
+						<label class="layui-form-label">外部订单号</label>
+						<div class="layui-input-block">
+							<input type="text" name="externalOrderId" placeholder="请输入" autocomplete="off" class="layui-input">
+						</div>
+					</div> 
 				</div>
 				<div class="layui-form-item">
 					<div class="layui-inline">
