@@ -21,7 +21,7 @@
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="retain1" property="retain1" jdbcType="VARCHAR" />
     <result column="retain2" property="retain2" jdbcType="VARCHAR" />
-    <result column="retain3" property="retain3" jdbcType="VARCHAR" />
+    <result column="retain3" property="rfSYSTEM_USERetain3" jdbcType="VARCHAR" />
     <result column="retain4" property="retain4" jdbcType="VARCHAR" />
     <result column="retain5" property="retain5" jdbcType="VARCHAR" />
     <result column="retain6" property="retain6" jdbcType="VARCHAR" />
@@ -101,7 +101,7 @@
     </if>
     'false' as QUERYID,
     <include refid="Base_Column_List" />
-    from system_user
+    from system_user_
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -110,7 +110,7 @@
     </if>
   </select>
   <insert id="insert" parameterType="com.payProject.system.entity.User" useGeneratedKeys="true" keyProperty="id" >
-    insert into system_user (userId, userName, userPassword, 
+    insert into system_user_ (userId, userName, userPassword, 
       userSalt, userMail, userPhone, 
       userQQ, userWechar, userType, 
       userAddress, userCity, createTime, 
@@ -130,7 +130,7 @@
       #{retain9,jdbcType=VARCHAR}, #{retain10,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.payProject.system.entity.User" useGeneratedKeys="true" keyProperty="id" >
-    insert into system_user
+    insert into system_user_
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
         userId,
@@ -293,13 +293,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.payProject.system.entity.UserExample" resultType="java.lang.Integer" >
-    select count(*) from system_user
+    select count(*) from system_user_
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update system_user
+    update system_user_
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
@@ -388,7 +388,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update system_user
+    update system_user_
     set id = #{record.id,jdbcType=INTEGER},
       userId = #{record.userId,jdbcType=VARCHAR},
       userName = #{record.userName,jdbcType=VARCHAR},
@@ -421,7 +421,7 @@
     </if>
   </update>
   <select id="selectUserAll" parameterType="com.payProject.system.entity.User" resultType="com.payProject.system.entity.User">
-  	select * from system_user
+  	select * from system_user_
   </select>
   
    <select id="selectPageByExample" resultMap="BaseResultMap" parameterType="com.payProject.system.entity.UserExample" >
@@ -431,7 +431,7 @@
     </if>
     'false' as QUERYID,
     <include refid="Base_Column_List" />
-    from system_user
+    from system_user_
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -440,7 +440,7 @@
     </if>
   </select>
   <delete id="deleteByUserId" parameterType="java.lang.String" >
-    delete from system_user
+    delete from system_user_
     where userId = #{userId,jdbcType=INTEGER}
   </delete>
 </mapper>
