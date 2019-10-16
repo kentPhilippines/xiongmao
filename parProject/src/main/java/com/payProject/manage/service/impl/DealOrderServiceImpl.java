@@ -35,7 +35,7 @@ public class DealOrderServiceImpl implements DealOrderService {
 			criteria.andDealChannelEqualTo(dealOrder.getDealChannel());
 		if(null != dealOrder.getOrderStatus())
 			criteria.andOrderStatusEqualTo(dealOrder.getOrderStatus());
-		if(StrUtil.isBlank(dealOrder.getExternalOrderId()))
+		if(StrUtil.isNotBlank(dealOrder.getExternalOrderId()))
 			criteria.andExternalOrderIdEqualTo(dealOrder.getExternalOrderId());
 		if(StrUtil.isNotBlank(dealOrder.getTime())) {
 			String data = StrUtil.subPre(dealOrder.getTime(),10);
