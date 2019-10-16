@@ -328,11 +328,14 @@ public class AccountContorller<E> {
 	public JsonResult accountFeeEdit(AccountFee account) throws Exception{
 		if(StrUtil.isBlank(account.getAccountChannel()) || StrUtil.isBlank(account.getAccountId())||  StrUtil.isBlank(account.getChannelProduct()) )
 			throw new ParamException("无法确定唯一费率，数据传输有误");
-		if(account.getFeeStautus().equals(1)) {
-			AccountFee entity1 = accountServiceImpl.findAccountFeeBy(account.getAccountId(),Common.ACCOUNT_FEE_STUSTA1());//理论上可以查询到一条费率状态
-			if(ObjectUtil.isNotNull(entity1))
-				throw new OtherErrors("当前商户存在一条费率状态为启用，请先关闭其他正在使用费率在开启该费率");
-		}
+			List<AccountFee> cfeeList = accountServiceImpl.findFeeByAppid(account.getAccountId(), account.getChannelProduct());
+			if(CollUtil.isNotEmpty(cfeeList)) {
+				for(AccountFee cfee : cfeeList) {
+					if(Common.ACCOUNT_FEE_STUSTA1.equals(cfee.getFeeStautus())) {
+						throw new OtherErrors("请关闭该产品其他的可用渠道");
+					}
+				}
+			}
 		account.setCreateTime(null);
 		Boolean flag = accountServiceImpl.updataAccountFee(account);
 	if(flag)	
