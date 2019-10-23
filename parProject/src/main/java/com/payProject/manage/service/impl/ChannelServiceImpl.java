@@ -233,4 +233,12 @@ public class ChannelServiceImpl implements ChannelService {
 		List<PayType> selectByExample1 = PayTypeDao.selectByExample(example1);
 		return selectByExample1;
 	}
+	@Override
+	public List<Channel> findChannelByChannelIdList(List channelList) {
+		ChannelExample example  = new ChannelExample();
+		Criteria criteria = example.createCriteria();
+		if(CollUtil.isNotEmpty(channelList))
+			criteria.andChannelNoListEqualTo(channelList);
+		return ChannelDao.selectByExample(example);
+	}
 }

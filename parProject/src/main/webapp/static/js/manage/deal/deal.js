@@ -66,7 +66,7 @@ var DealOrderClas = {
 				 var dealChannel = $('[name="dealChannel"]').val();//获取输入框的值
 				 var orderStatus = $('[name="orderStatus"]').val();//获取输入框的值
 				 var createTime = $('[name="createTime"]').val();//获取输入框的值
-				 var DealOrderClas = $('[name="DealOrderClas"]').val();//获取输入框的值
+				 var externalOrderId = $('[name="externalOrderId"]').val();//获取输入框的值
 				DealOrderClas.reload({
 					orderId:orderId,
 					associatedId:associatedId,
@@ -75,7 +75,7 @@ var DealOrderClas = {
 					dealCardId:dealCardId,
 					orderStatus:orderStatus,
 					Time:createTime,
-					DealOrderClas:DealOrderClas
+					externalOrderId:externalOrderId
 				})
 			})
 		},

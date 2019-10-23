@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.payProject.manage.mapper.StatisticsMapper" >
+  <resultMap id="BaseResultMap" type="com.payProject.manage.entity.Statistics" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="key" property="key" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="VARCHAR" />
+    <result column="amountSu" property="amountSu" jdbcType="VARCHAR" />
+    <result column="dealCount" property="dealCount" jdbcType="VARCHAR" />
+    <result column="dealCountSu" property="dealCountSu" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="DATE" />
+    <result column="retain1" property="retain1" jdbcType="VARCHAR" />
+    <result column="retain2" property="retain2" jdbcType="VARCHAR" />
+    <result column="retain3" property="retain3" jdbcType="VARCHAR" />
+    <result column="retain4" property="retain4" jdbcType="VARCHAR" />
+    <result column="retain5" property="retain5" jdbcType="VARCHAR" />
+    <result column="retain6" property="retain6" jdbcType="VARCHAR" />
+    <result column="retain7" property="retain7" jdbcType="VARCHAR" />
+    <result column="retain8" property="retain8" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, key, amount, amountSu, dealCount, dealCountSu, time, retain1, retain2, retain3, 
+    retain4, retain5, retain6, retain7, retain8
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payProject.manage.entity.StatisticsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from statistics
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from statistics
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from statistics
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.payProject.manage.entity.StatisticsExample" >
+    delete from statistics
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.payProject.manage.entity.Statistics" useGeneratedKeys="true" keyProperty="id" >
+    insert into statistics (key, amount, amountSu, 
+      dealCount, dealCountSu, time, 
+      retain1, retain2, retain3, 
+      retain4, retain5, retain6, 
+      retain7, retain8)
+    values (#{key,jdbcType=VARCHAR}, #{amount,jdbcType=VARCHAR}, #{amountSu,jdbcType=VARCHAR}, 
+      #{dealCount,jdbcType=VARCHAR}, #{dealCountSu,jdbcType=VARCHAR}, #{time,jdbcType=DATE}, 
+      #{retain1,jdbcType=VARCHAR}, #{retain2,jdbcType=VARCHAR}, #{retain3,jdbcType=VARCHAR}, 
+      #{retain4,jdbcType=VARCHAR}, #{retain5,jdbcType=VARCHAR}, #{retain6,jdbcType=VARCHAR}, 
+      #{retain7,jdbcType=VARCHAR}, #{retain8,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.payProject.manage.entity.Statistics" useGeneratedKeys="true" keyProperty="id" >
+    insert into statistics
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="key != null" >
+        key,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="amountSu != null" >
+        amountSu,
+      </if>
+      <if test="dealCount != null" >
+        dealCount,
+      </if>
+      <if test="dealCountSu != null" >
+        dealCountSu,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="retain1 != null" >
+        retain1,
+      </if>
+      <if test="retain2 != null" >
+        retain2,
+      </if>
+      <if test="retain3 != null" >
+        retain3,
+      </if>
+      <if test="retain4 != null" >
+        retain4,
+      </if>
+      <if test="retain5 != null" >
+        retain5,
+      </if>
+      <if test="retain6 != null" >
+        retain6,
+      </if>
+      <if test="retain7 != null" >
+        retain7,
+      </if>
+      <if test="retain8 != null" >
+        retain8,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="key != null" >
+        #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="amountSu != null" >
+        #{amountSu,jdbcType=VARCHAR},
+      </if>
+      <if test="dealCount != null" >
+        #{dealCount,jdbcType=VARCHAR},
+      </if>
+      <if test="dealCountSu != null" >
+        #{dealCountSu,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=DATE},
+      </if>
+      <if test="retain1 != null" >
+        #{retain1,jdbcType=VARCHAR},
+      </if>
+      <if test="retain2 != null" >
+        #{retain2,jdbcType=VARCHAR},
+      </if>
+      <if test="retain3 != null" >
+        #{retain3,jdbcType=VARCHAR},
+      </if>
+      <if test="retain4 != null" >
+        #{retain4,jdbcType=VARCHAR},
+      </if>
+      <if test="retain5 != null" >
+        #{retain5,jdbcType=VARCHAR},
+      </if>
+      <if test="retain6 != null" >
+        #{retain6,jdbcType=VARCHAR},
+      </if>
+      <if test="retain7 != null" >
+        #{retain7,jdbcType=VARCHAR},
+      </if>
+      <if test="retain8 != null" >
+        #{retain8,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.payProject.manage.entity.StatisticsExample" resultType="java.lang.Integer" >
+    select count(*) from statistics
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update statistics
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.key != null" >
+        key = #{record.key,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amountSu != null" >
+        amountSu = #{record.amountSu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealCount != null" >
+        dealCount = #{record.dealCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealCountSu != null" >
+        dealCountSu = #{record.dealCountSu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=DATE},
+      </if>
+      <if test="record.retain1 != null" >
+        retain1 = #{record.retain1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain2 != null" >
+        retain2 = #{record.retain2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain3 != null" >
+        retain3 = #{record.retain3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain4 != null" >
+        retain4 = #{record.retain4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain5 != null" >
+        retain5 = #{record.retain5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain6 != null" >
+        retain6 = #{record.retain6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain7 != null" >
+        retain7 = #{record.retain7,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retain8 != null" >
+        retain8 = #{record.retain8,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update statistics
+    set id = #{record.id,jdbcType=INTEGER},
+      key = #{record.key,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=VARCHAR},
+      amountSu = #{record.amountSu,jdbcType=VARCHAR},
+      dealCount = #{record.dealCount,jdbcType=VARCHAR},
+      dealCountSu = #{record.dealCountSu,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=DATE},
+      retain1 = #{record.retain1,jdbcType=VARCHAR},
+      retain2 = #{record.retain2,jdbcType=VARCHAR},
+      retain3 = #{record.retain3,jdbcType=VARCHAR},
+      retain4 = #{record.retain4,jdbcType=VARCHAR},
+      retain5 = #{record.retain5,jdbcType=VARCHAR},
+      retain6 = #{record.retain6,jdbcType=VARCHAR},
+      retain7 = #{record.retain7,jdbcType=VARCHAR},
+      retain8 = #{record.retain8,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.payProject.manage.entity.Statistics" >
+    update statistics
+    <set >
+      <if test="key != null" >
+        key = #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="amountSu != null" >
+        amountSu = #{amountSu,jdbcType=VARCHAR},
+      </if>
+      <if test="dealCount != null" >
+        dealCount = #{dealCount,jdbcType=VARCHAR},
+      </if>
+      <if test="dealCountSu != null" >
+        dealCountSu = #{dealCountSu,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=DATE},
+      </if>
+      <if test="retain1 != null" >
+        retain1 = #{retain1,jdbcType=VARCHAR},
+      </if>
+      <if test="retain2 != null" >
+        retain2 = #{retain2,jdbcType=VARCHAR},
+      </if>
+      <if test="retain3 != null" >
+        retain3 = #{retain3,jdbcType=VARCHAR},
+      </if>
+      <if test="retain4 != null" >
+        retain4 = #{retain4,jdbcType=VARCHAR},
+      </if>
+      <if test="retain5 != null" >
+        retain5 = #{retain5,jdbcType=VARCHAR},
+      </if>
+      <if test="retain6 != null" >
+        retain6 = #{retain6,jdbcType=VARCHAR},
+      </if>
+      <if test="retain7 != null" >
+        retain7 = #{retain7,jdbcType=VARCHAR},
+      </if>
+      <if test="retain8 != null" >
+        retain8 = #{retain8,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.payProject.manage.entity.Statistics" >
+    update statistics
+    set key = #{key,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=VARCHAR},
+      amountSu = #{amountSu,jdbcType=VARCHAR},
+      dealCount = #{dealCount,jdbcType=VARCHAR},
+      dealCountSu = #{dealCountSu,jdbcType=VARCHAR},
+      time = #{time,jdbcType=DATE},
+      retain1 = #{retain1,jdbcType=VARCHAR},
+      retain2 = #{retain2,jdbcType=VARCHAR},
+      retain3 = #{retain3,jdbcType=VARCHAR},
+      retain4 = #{retain4,jdbcType=VARCHAR},
+      retain5 = #{retain5,jdbcType=VARCHAR},
+      retain6 = #{retain6,jdbcType=VARCHAR},
+      retain7 = #{retain7,jdbcType=VARCHAR},
+      retain8 = #{retain8,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

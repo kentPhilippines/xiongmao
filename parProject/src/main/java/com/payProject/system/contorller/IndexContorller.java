@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -28,9 +29,16 @@ import com.payProject.config.common.HighchartsResult;
 import com.payProject.config.common.Constant.Common;
 import com.payProject.config.common.Constant.User;
 import com.payProject.config.exception.OtherErrors;
+import com.payProject.manage.entity.AccountEntity;
+import com.payProject.manage.entity.Channel;
 import com.payProject.manage.entity.DealOrderEntity;
+import com.payProject.manage.entity.PayType;
 import com.payProject.manage.entity.UserAccount;
+import com.payProject.manage.service.AccountService;
+import com.payProject.manage.service.ChannelService;
 import com.payProject.manage.service.DealOrderService;
+import com.payProject.manage.service.StatisticsService;
+import com.payProject.manage.util.StatisticsUtil;
 import com.payProject.system.annotation.LoginRequired;
 import com.payProject.system.entity.Resources;
 import com.payProject.system.service.ResourcesService;
@@ -58,6 +66,12 @@ public class IndexContorller {
 	ResourcesService resourcesService;
 	@Autowired
 	DealOrderService dealOrderServiceImpl;
+	@Autowired
+	StatisticsUtil	statisticsUtil;
+	@Autowired
+	ChannelService channelService;
+	@Autowired
+	AccountService accountService;
 	/**
 	 * 主页面跳转，在这之前需要验证权限
 	 * @param m
@@ -219,7 +233,7 @@ public class IndexContorller {
 			com.payProject.system.entity.User user = MapUtil.mapToBean(objectToMap,com.payProject.system.entity.User.class);
 			String userId = (String)objectToMap.get(Constant.User.USER_ID());
 			return userId;
-		}
+	}
 	 public   List<String> getWeekDayInMonth(String date){
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			List<String> resultList = new ArrayList<>();
@@ -261,5 +275,28 @@ public class IndexContorller {
 			}
 			return result;
 		}
-	 
+		/**
+		 * <p>数据统计</p>
+		 * <p>前端页面需需优化</p>
+		 */
+		public void Statistics(Model m,HttpServletRequest request) {
+			List<Channel> findChannelByAll = channelService.findChannelByAll();
+			List<PayType> findPayTypeByAll = channelService.findPayTypeByAll();
+			List<AccountEntity> findAccountAll = accountService.findAccountAll();
+			List<String> channelList = new ArrayList();
+			List<String> productList = new ArrayList();
+			List<String> accountList = new ArrayList();
+			for(Channel ch : findChannelByAll) {
+				channelList.add(ch.getChannelNo());
+			}
+			for(PayType pt : findPayTypeByAll) {
+				productList.add(pt.getPayTypeNo());
+			}
+			for(AccountEntity ac : findAccountAll) {
+				accountList.add(ac.getAccountId());
+			}
+			Collection<List> dealShow = statisticsUtil.DealShow(channelList);
+			Collection<List> dealShow2 = statisticsUtil.DealShow(productList);
+			Collection<List> dealShow3 = statisticsUtil.DealShow(accountList);
+		}
 }

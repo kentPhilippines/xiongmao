@@ -329,12 +329,16 @@ public class AccountContorller<E> {
 		if(StrUtil.isBlank(account.getAccountChannel()) || StrUtil.isBlank(account.getAccountId())||  StrUtil.isBlank(account.getChannelProduct()) )
 			throw new ParamException("无法确定唯一费率，数据传输有误");
 			List<AccountFee> cfeeList = accountServiceImpl.findFeeByAppid(account.getAccountId(), account.getChannelProduct());
+			int i = 0;
 			if(CollUtil.isNotEmpty(cfeeList)) {
 				for(AccountFee cfee : cfeeList) {
 					if(Common.ACCOUNT_FEE_STUSTA1.equals(cfee.getFeeStautus())) {
-						throw new OtherErrors("请关闭该产品其他的可用渠道");
+						i++;
 					}
 				}
+			}
+			if(i > 1 ) {
+				throw new OtherErrors("请关闭该产品其他的可用渠道");
 			}
 		account.setCreateTime(null);
 		Boolean flag = accountServiceImpl.updataAccountFee(account);

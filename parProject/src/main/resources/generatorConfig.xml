@@ -27,7 +27,7 @@
 		</commentGenerator>
 		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-						connectionURL="jdbc:mysql://47.75.42.165:3306/payproject?serverTimezone=UTC"
+						connectionURL="jdbc:mysql://47.91.218.103:3306/payproject?serverTimezone=UTC"
 						userId="payproduct"
 						password="teus2019payproduct">
 		</jdbcConnection>
@@ -108,7 +108,7 @@
                     <property name="useActualColumnNames" value="true"/>
                     <generatedKey column="id" sqlStatement="JDBC"/>
                 </table>  -->
-            <table tableName="manage_backbank_amount" domainObjectName="BackBankAmount"   enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="true"  enableSelectByExample="true"  selectByExampleQueryId="true">
+            <table tableName="statistics" domainObjectName="Statistics"   enableCountByExample="true"  enableUpdateByExample="true"  enableDeleteByExample="true"  enableSelectByExample="true"  selectByExampleQueryId="true">
                     <property name="my.isgen.usekeys" value="true"/>
                     <property name="useActualColumnNames" value="true"/>
                     <generatedKey column="id" sqlStatement="JDBC"/>

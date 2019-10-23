@@ -592,6 +592,7 @@ public class MyAccountContorller {
 	}
 	
 	@RequestMapping("findappdealpassword")
+	@ResponseBody
 	public JsonResult findappdealpassword(String accountId){
 		if(StrUtil.isBlank(accountId) ) {
 			throw new ParamException("商户号未输入");
