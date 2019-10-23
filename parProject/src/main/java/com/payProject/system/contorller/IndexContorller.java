@@ -295,6 +295,7 @@ public class IndexContorller {
 			for(AccountEntity ac : findAccountAll) {
 				accountList.add(ac.getAccountId());
 			}
+			
 			Collection<List> dealShow = statisticsUtil.DealShow(channelList);
 			Collection<List> dealShow2 = statisticsUtil.DealShow(productList);
 			Collection<List> dealShow3 = statisticsUtil.DealShow(accountList);
