@@ -273,6 +273,7 @@ public class IndexContorller {
 				result1.add(entity.getDealAmount());
 				result.add(result1);
 			}
+			
 			return result;
 		}
 		/**
