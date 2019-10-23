@@ -64,6 +64,7 @@ public class AccountContorller<E> {
 	Logger log = LoggerFactory.getLogger(ChannelContorller.class);
 	@Autowired
 	AccountService accountServiceImpl;
+	
 	@Autowired
 	ChannelService channelServiceImpl;
 	@Autowired
