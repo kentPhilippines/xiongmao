@@ -24,44 +24,8 @@
     .left{
     margin-left: 49px;
     }
-    </style>
-<body layadmin-themealias="default" style=" background-color: #c4c0c7;">
+</style>
+<body layadmin-themealias="default" style="background-image: url(&quot;../static/img/psr0001op6s2915763n.jpg&quot;); display: block;">
 	 <!-- <div id="popWindow" class="" ><h1 class="load_ts">未来支付欢迎您</h1> -->
-	 <img class="left" src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img class="left" src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img class="left" src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img class="left" src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img class="left" src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 <img  src="${ctx}/static/img/download.jpg"> 
-	 </div>
 </body>
 </html>

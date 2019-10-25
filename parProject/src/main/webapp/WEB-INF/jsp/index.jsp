@@ -9,19 +9,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>新的支付系统</title>
+  <title>熊猫支付系统</title>
 </head>
 <%@include file="common/common.jsp"%>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
   <div class="layui-header">
-    <div class="layui-logo"><strong>新的支付系统</strong></div>
+    <div class="layui-logo"><strong>熊猫支付系统</strong></div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item upbit1">
       	<span class="layui-nav-more upbit-more"></span>
         <a href="javascript:;">
-          <img src="http://t.cn/RCzsdCq" class="layui-nav-img"><!-- 图片要替换 -->
+          <img src="http://www.logosheji.com/MessageImage/20180514105731_logo.gif" class="layui-nav-img"><!-- 图片要替换 -->
           ${user.userName}
         </a>
         <dl class="layui-nav-child layui-anim topUserShow layui-anim-upbit">
@@ -82,7 +82,7 @@
     </div> 
   </div>  
   <div class="layui-footer">
-    © 支付创造未来
+    © 熊猫支付·创造未来
   </div>
 </div>
 </body>

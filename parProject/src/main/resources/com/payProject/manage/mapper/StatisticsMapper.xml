@@ -3,12 +3,12 @@
 <mapper namespace="com.payProject.manage.mapper.StatisticsMapper" >
   <resultMap id="BaseResultMap" type="com.payProject.manage.entity.Statistics" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="key" property="key" jdbcType="VARCHAR" />
+    <result column="`key`" property="key" jdbcType="VARCHAR" />
     <result column="amount" property="amount" jdbcType="VARCHAR" />
     <result column="amountSu" property="amountSu" jdbcType="VARCHAR" />
     <result column="dealCount" property="dealCount" jdbcType="VARCHAR" />
     <result column="dealCountSu" property="dealCountSu" jdbcType="VARCHAR" />
-    <result column="time" property="time" jdbcType="DATE" />
+    <result column="`time`" property="time" jdbcType="DATE" />
     <result column="retain1" property="retain1" jdbcType="VARCHAR" />
     <result column="retain2" property="retain2" jdbcType="VARCHAR" />
     <result column="retain3" property="retain3" jdbcType="VARCHAR" />
@@ -77,7 +77,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, key, amount, amountSu, dealCount, dealCountSu, time, retain1, retain2, retain3, 
+    id, `key`, amount, amountSu, dealCount, dealCountSu, `time`, retain1, retain2, retain3, 
     retain4, retain5, retain6, retain7, retain8
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payProject.manage.entity.StatisticsExample" >
@@ -112,8 +112,8 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.payProject.manage.entity.Statistics" useGeneratedKeys="true" keyProperty="id" >
-    insert into statistics (key, amount, amountSu, 
-      dealCount, dealCountSu, time, 
+    insert into statistics (`key`, amount, amountSu, 
+      dealCount, dealCountSu, `time`, 
       retain1, retain2, retain3, 
       retain4, retain5, retain6, 
       retain7, retain8)
@@ -127,7 +127,7 @@
     insert into statistics
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="key != null" >
-        key,
+       `key`,
       </if>
       <if test="amount != null" >
         amount,
@@ -142,7 +142,7 @@
         dealCountSu,
       </if>
       <if test="time != null" >
-        time,
+        `time`,
       </if>
       <if test="retain1 != null" >
         retain1,
@@ -227,7 +227,7 @@
         id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.key != null" >
-        key = #{record.key,jdbcType=VARCHAR},
+        `key` = #{record.key,jdbcType=VARCHAR},
       </if>
       <if test="record.amount != null" >
         amount = #{record.amount,jdbcType=VARCHAR},
@@ -242,7 +242,7 @@
         dealCountSu = #{record.dealCountSu,jdbcType=VARCHAR},
       </if>
       <if test="record.time != null" >
-        time = #{record.time,jdbcType=DATE},
+        `time` = #{record.time,jdbcType=DATE},
       </if>
       <if test="record.retain1 != null" >
         retain1 = #{record.retain1,jdbcType=VARCHAR},
@@ -276,12 +276,12 @@
   <update id="updateByExample" parameterType="map" >
     update statistics
     set id = #{record.id,jdbcType=INTEGER},
-      key = #{record.key,jdbcType=VARCHAR},
+      `key` = #{record.key,jdbcType=VARCHAR},
       amount = #{record.amount,jdbcType=VARCHAR},
       amountSu = #{record.amountSu,jdbcType=VARCHAR},
       dealCount = #{record.dealCount,jdbcType=VARCHAR},
       dealCountSu = #{record.dealCountSu,jdbcType=VARCHAR},
-      time = #{record.time,jdbcType=DATE},
+      `time` = #{record.time,jdbcType=DATE},
       retain1 = #{record.retain1,jdbcType=VARCHAR},
       retain2 = #{record.retain2,jdbcType=VARCHAR},
       retain3 = #{record.retain3,jdbcType=VARCHAR},
@@ -298,7 +298,7 @@
     update statistics
     <set >
       <if test="key != null" >
-        key = #{key,jdbcType=VARCHAR},
+        `key` = #{key,jdbcType=VARCHAR},
       </if>
       <if test="amount != null" >
         amount = #{amount,jdbcType=VARCHAR},
@@ -313,7 +313,7 @@
         dealCountSu = #{dealCountSu,jdbcType=VARCHAR},
       </if>
       <if test="time != null" >
-        time = #{time,jdbcType=DATE},
+        `time` = #{time,jdbcType=DATE},
       </if>
       <if test="retain1 != null" >
         retain1 = #{retain1,jdbcType=VARCHAR},
@@ -344,12 +344,12 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.payProject.manage.entity.Statistics" >
     update statistics
-    set key = #{key,jdbcType=VARCHAR},
+    set `key` = #{key,jdbcType=VARCHAR},
       amount = #{amount,jdbcType=VARCHAR},
       amountSu = #{amountSu,jdbcType=VARCHAR},
       dealCount = #{dealCount,jdbcType=VARCHAR},
       dealCountSu = #{dealCountSu,jdbcType=VARCHAR},
-      time = #{time,jdbcType=DATE},
+      `time` = #{time,jdbcType=DATE},
       retain1 = #{retain1,jdbcType=VARCHAR},
       retain2 = #{retain2,jdbcType=VARCHAR},
       retain3 = #{retain3,jdbcType=VARCHAR},

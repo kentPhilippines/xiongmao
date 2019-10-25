@@ -5,12 +5,12 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>补单处理</title>
+<title>交易订单管理</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-<%@include file="../../common/common.jsp"%>
+<%@include file="../../../common/common.jsp"%>
 <body layadmin-themealias="default" style=" background-color: #c4c0c7;">
 	<div class="layui-fluid" style="padding: 15px;">
 		<div class="layui-card"  style="padding: 15px;">
@@ -74,14 +74,12 @@
 				</div>
 			</div>
 			  <div class="layui-card-body">
-				<table id="LAY-user-back-manage" url = "${ctx}/manage/order/dealOrderList" lay-filter="LAY-user-back-manage"></table>
+				<table id="LAY-user-back-manage" url = "${ctx}/manage/appAcount/dealOrderList" lay-filter="LAY-user-back-manage"></table>
 			</div>  
 		</div>
 	</div>
 	<script type="text/html" id="operation">
-	{{#  if(d.orderStatus != '2' && d.orderStatus != '4'){ }}
- 		<a class="layui-btn layui-btn-xs" lay-event="notifyOrderSu" url = "${ctx}/manage/order/notifyOrderSu">置为成功</a>
-	{{# }else if(d.orderStatus != '1'){ }}
+	{{#  if(d.orderStatus != '1'){ }}
 		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="notifyOrderNo" url = "${ctx}/manage/order/notifyOrderNo">补发通知</a>
 	{{# } }}
 	</script>

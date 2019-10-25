@@ -12,13 +12,32 @@
 <title>新的支付系统</title>
 </head>
 <%@include file="common/common.jsp"%>
-<body>
+<style>
+.back{
+  bottom: 70px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+}
+.items{
+position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+</style>
+<body id = "backgroundImg" style="background-image: url(&quot;http://www.logoquan.com/upload/list/20130721/logoquan13746570316.PNG&quot;); display: block;">
+
 <form id="loginForm" class="form-signin" action="javascript:0" method="post" novalidate="novalidate">
 <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
     <div class="layadmin-user-login-main">
       <div class="layadmin-user-login-box layadmin-user-login-header">
-        <h2>Kent</h2>
-        <p>支付台管理系统</p>
+        <h2>熊猫</h2>
+        <p>支付后台管理系统</p>
       </div>
       <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
         <div class="layui-form-item">
@@ -53,5 +72,28 @@
   </div>
   </form>
 </body>
-<script type="text/javascript">var ctx = '${ctx}';</script>
+<script type="text/javascript">
+var ctx = '${ctx}';
+var ii = null;
+$(function(){
+		console.log(1)
+		setTimeout(function () {
+			agan();
+		}, 300);
+		
+})
+	function agan(){
+	var i1 = "background-image: url(&quot;https://img.alicdn.com/tps/TB1h9xxIFXXXXbKXXXXXXXXXXXX.jpg&quot;);"
+	var i2 = "background-image: url(&quot;https://img.alicdn.com/tps/TB1pfG4IFXXXXc6XXXXXXXXXXXX.jpg&quot;);"
+	var i3 = "background-image: url(&quot;https://img.alicdn.com/tps/TB1h9xxIFXXXXbKXXXXXXXXXXXX.jpg&quot;);"
+	for(var i = 1 ; i <4 ; i ++){
+		a = 'i'+ i;
+		$("backgroundImg").attr("style",a)
+	}
+	
+	
+	
+		
+		}
+</script>
 <script type="text/javascript" src="${ctx}/static/js/system/index/login.js" ></script>

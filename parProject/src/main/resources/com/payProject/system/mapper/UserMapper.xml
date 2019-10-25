@@ -21,7 +21,7 @@
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="retain1" property="retain1" jdbcType="VARCHAR" />
     <result column="retain2" property="retain2" jdbcType="VARCHAR" />
-    <result column="retain3" property="rfSYSTEM_USERetain3" jdbcType="VARCHAR" />
+    <result column="retain3" property="retain3" jdbcType="VARCHAR" />
     <result column="retain4" property="retain4" jdbcType="VARCHAR" />
     <result column="retain5" property="retain5" jdbcType="VARCHAR" />
     <result column="retain6" property="retain6" jdbcType="VARCHAR" />

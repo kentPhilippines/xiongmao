@@ -21,8 +21,9 @@ public class StatisticsServiceImpl implements StatisticsService {
 	public List<Statistics> findStatisticsByAll(Statistics entity) {
 		StatisticsExample example = new StatisticsExample();
 		Criteria criteria = example.createCriteria();
-		if(CollUtil.isNotEmpty(entity.getKeyList())) {
-			criteria.andKeyListEqualTo(entity.getKeyList());
+		example.setOrderByClause("`time` DESC");
+		if(CollUtil.isNotEmpty(entity.getKeysList())) {
+			criteria.andKeyListEqualTo(entity.getKeysList());
 		}
 		List<Statistics> selectByExample = statisticsDao.selectByExample(example);
 		return selectByExample;

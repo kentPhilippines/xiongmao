@@ -193,61 +193,61 @@ public class StatisticsExample {
         }
 
         public Criteria andKeyIsNull() {
-            addCriterion("key is null");
+            addCriterion("`key` is null");
             return (Criteria) this;
         }
 
         public Criteria andKeyIsNotNull() {
-            addCriterion("key is not null");
+            addCriterion("`key` is not null");
             return (Criteria) this;
         }
 
         public Criteria andKeyEqualTo(String value) {
-            addCriterion("key =", value, "key");
+            addCriterion("`key` =", value, "key");
             return (Criteria) this;
         }
         public Criteria andKeyListEqualTo(List value) {
-        	addCriterion("key in", value, "key");
+        	addCriterion("`key` in", value, "key");
         	return (Criteria) this;
         }
 
         public Criteria andKeyNotEqualTo(String value) {
-            addCriterion("key <>", value, "key");
+            addCriterion("`key` <>", value, "key");
             return (Criteria) this;
         }
 
         public Criteria andKeyGreaterThan(String value) {
-            addCriterion("key >", value, "key");
+            addCriterion("`key` >", value, "key");
             return (Criteria) this;
         }
 
         public Criteria andKeyGreaterThanOrEqualTo(String value) {
-            addCriterion("key >=", value, "key");
+            addCriterion("`key` >=", value, "key");
             return (Criteria) this;
         }
 
         public Criteria andKeyLessThan(String value) {
-            addCriterion("key <", value, "key");
+            addCriterion("`key` <", value, "key");
             return (Criteria) this;
         }
 
         public Criteria andKeyLessThanOrEqualTo(String value) {
-            addCriterion("key <=", value, "key");
+            addCriterion("`key` <=", value, "key");
             return (Criteria) this;
         }
 
         public Criteria andKeyLike(String value) {
-            addCriterion("key like", value, "key");
+            addCriterion("`key` like", value, "key");
             return (Criteria) this;
         }
 
         public Criteria andKeyNotLike(String value) {
-            addCriterion("key not like", value, "key");
+            addCriterion("`key` not like", value, "key");
             return (Criteria) this;
         }
 
         public Criteria andKeyIn(List<String> values) {
-            addCriterion("key in", values, "key");
+            addCriterion("`key` in", values, "key");
             return (Criteria) this;
         }
 
@@ -257,12 +257,12 @@ public class StatisticsExample {
         }
 
         public Criteria andKeyBetween(String value1, String value2) {
-            addCriterion("key between", value1, value2, "key");
+            addCriterion("`key` between", value1, value2, "key");
             return (Criteria) this;
         }
 
         public Criteria andKeyNotBetween(String value1, String value2) {
-            addCriterion("key not between", value1, value2, "key");
+            addCriterion("`key` not between", value1, value2, "key");
             return (Criteria) this;
         }
 
@@ -547,62 +547,62 @@ public class StatisticsExample {
         }
 
         public Criteria andTimeIsNull() {
-            addCriterion("time is null");
+            addCriterion("`time` is null");
             return (Criteria) this;
         }
 
         public Criteria andTimeIsNotNull() {
-            addCriterion("time is not null");
+            addCriterion("`time` is not null");
             return (Criteria) this;
         }
 
         public Criteria andTimeEqualTo(Date value) {
-            addCriterionForJDBCDate("time =", value, "time");
+            addCriterionForJDBCDate("`time` =", value, "time");
             return (Criteria) this;
         }
 
         public Criteria andTimeNotEqualTo(Date value) {
-            addCriterionForJDBCDate("time <>", value, "time");
+            addCriterionForJDBCDate("`time` <>", value, "time");
             return (Criteria) this;
         }
 
         public Criteria andTimeGreaterThan(Date value) {
-            addCriterionForJDBCDate("time >", value, "time");
+            addCriterionForJDBCDate("`time` >", value, "time");
             return (Criteria) this;
         }
 
         public Criteria andTimeGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("time >=", value, "time");
+            addCriterionForJDBCDate("`time` >=", value, "time");
             return (Criteria) this;
         }
 
         public Criteria andTimeLessThan(Date value) {
-            addCriterionForJDBCDate("time <", value, "time");
+            addCriterionForJDBCDate("`time` <", value, "time");
             return (Criteria) this;
         }
 
         public Criteria andTimeLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("time <=", value, "time");
+            addCriterionForJDBCDate("`time` <=", value, "time");
             return (Criteria) this;
         }
 
         public Criteria andTimeIn(List<Date> values) {
-            addCriterionForJDBCDate("time in", values, "time");
+            addCriterionForJDBCDate("`time` in", values, "time");
             return (Criteria) this;
         }
 
         public Criteria andTimeNotIn(List<Date> values) {
-            addCriterionForJDBCDate("time not in", values, "time");
+            addCriterionForJDBCDate("`time` not in", values, "time");
             return (Criteria) this;
         }
 
         public Criteria andTimeBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("time between", value1, value2, "time");
+            addCriterionForJDBCDate("`time` between", value1, value2, "time");
             return (Criteria) this;
         }
 
         public Criteria andTimeNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("time not between", value1, value2, "time");
+            addCriterionForJDBCDate("`time` not between", value1, value2, "time");
             return (Criteria) this;
         }
 
