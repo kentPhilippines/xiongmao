@@ -16,7 +16,7 @@
     <div class="layui-row layui-col-space15">
       <div class="layui-col-md6" style="margin-top: 31px;">
         <div class="layui-card" style=" height: 475px; ">
-          <div class="layui-card-header">各产品交易情况汇总图</div>
+          <div class="layui-card-header">各交易号交易笔数情况汇总图</div>
           <div class="layui-card-body">
             <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-heapline" lay-anim="fade" style="width: 100%; height: 280px;">
              <div id="container1" style="min-width:400px;height:400px"></div>
@@ -26,7 +26,7 @@
       </div> 
       <div class="layui-col-md6" style="margin-top: 31px;">
         <div class="layui-card">
-          <div class="layui-card-header">各交易号交易情况汇总</div>
+          <div class="layui-card-header">各交易号交易金额情况汇总</div>
           <div class="layui-card-body">
             <div style="min-width:400px;height:400px" class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-normline" lay-anim="fade" style="width: 100%; height: 280px;">
           <div id="container3" style="min-width:400px;height:400px"></div>
@@ -42,15 +42,10 @@
 layui.use('element', function(){
   var element = layui.element;
 });
-var channelTimeList = ${channelTimeList};
-var productTimeList = ${productTimeList};
-var accounttimeList = ${accounttimeList};
-var time = ${time};
-var channnelDate = ${channnelDate};
-var productList = ${productList};
-var accountDate = ${accountDate};
-var sumDate = ${sumDate};
-
+var accountAmountTimeList = ${accountAmountTimeList};
+var accountCountTimeList = ${accountCountTimeList};
+var accountAmountDate = ${accountAmountDate};
+var accountCountDate = ${accountCountDate};
 </script>
-  <script type="text/javascript" src="${ctx}/static/js/manage/account/highchartsUserShow.js">
+  <script type="text/javascript" src="${ctx}/static/js/manage/account/highcharAppAccount.js">
   </script>

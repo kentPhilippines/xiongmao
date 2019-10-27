@@ -178,7 +178,7 @@ public class StatisticsUtil {
 	 * #################################### 
 	 */
 	@SuppressWarnings("unchecked")
-	public HighcharBenaSuper<List<HighcharBena>> statistics(List<Statistics> dealShow, List<String> List){
+	public HighcharBenaSuper<List<HighcharBena>> statisticsToAmount(List<Statistics> dealShow, List<String> List){
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Map<String,Statistics> SumZone = new HashMap<String, Statistics>();
 		for(Statistics bean : dealShow) {
@@ -263,7 +263,7 @@ public class StatisticsUtil {
 		List<HighcharBena> number = new ArrayList<HighcharBena>();
 		for(String key : List) {
 			List<String> amount = new ArrayList<String>();//按照时间顺序的所有金额
-			List<String> amountSu = new ArrayList<String>();//按照时间顺序的所有金额
+			List<String> amountSu = new ArrayList<String>();//按照时间顺序的所有成功金额
 			HighcharBena bean = new HighcharBena();
 			HighcharBena beanSu = new HighcharBena();
 			for(String keyMap : keyMaps) {
@@ -282,6 +282,131 @@ public class StatisticsUtil {
 				bean.setName(key + "交易总金额");
 				bean.setData(amount);
 				beanSu.setName(key + "成功交易金额");
+				beanSu.setData(amountSu);
+				number.add(bean);
+				number.add(beanSu);
+			}
+		}
+		HighcharBenaSuper supe = new HighcharBenaSuper<HighcharBena>();
+		supe.setObj(number);
+		supe.setTimeList(timeList);
+		return supe;
+	}
+	/**
+	 * ################ ###{@link  }
+	 * <strong>当前前端的可视化数据图形插件发生变更时,该方法要做出同步改变</strong>
+	 * <p>将交易数据转换为可视化数据格式</p>
+	 * @param dealShow		渠道交易数据或者产品交易数据或者用户交易数据
+	 * @param List			渠道数据或者产品数据或者用户数据
+	 * @return
+	 * @see 当个人用户获取交易数据的时候 List 值为  产品或者渠道 或者个人的交易账号   与运营传递规则一致 只需要控制个人的参数多少即可
+	 * #################################### 
+	 */
+	@SuppressWarnings("unchecked")
+	public HighcharBenaSuper<List<HighcharBena>> statisticsToCount(List<Statistics> dealShow, List<String> List){
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Map<String,Statistics> SumZone = new HashMap<String, Statistics>();
+		for(Statistics bean : dealShow) {
+			String date = format.format(bean.getTime());
+			Statistics statistics = SumZone.get(date+bean.getKey());
+			if(ObjectUtil.isNull(statistics)) {//没存过
+				SumZone.put(date+bean.getKey(), bean);
+			} else {//防止数据出现错误
+				BigDecimal amount = new BigDecimal(statistics.getAmount());
+				BigDecimal amountSu = new BigDecimal(statistics.getAmountSu());
+				BigDecimal amountBean = new BigDecimal(bean.getAmount());
+				BigDecimal amountSuBean = new BigDecimal(bean.getAmountSu());
+				Integer countBean = Integer.valueOf(bean.getDealCount());
+				Integer count = Integer.valueOf(statistics.getDealCount());
+				Integer countSuBean = Integer.valueOf(bean.getDealCountSu());
+				Integer countSu = Integer.valueOf(statistics.getDealCountSu());
+				bean.setAmount(amount.add(amountBean).toString());
+				bean.setAmountSu(amountSu.add(amountSuBean).toString());
+				bean.setDealCount(String.valueOf(countBean+count));
+				bean.setDealCountSu(String.valueOf(countSuBean+countSu));
+				SumZone.put(date+bean.getKey(), bean);
+			}
+		}
+		Set<String> keySet = SumZone.keySet();
+		List<List> SumList = new ArrayList<List>();
+		List<List> SumCountList = new ArrayList<List>();
+		for(String No: List) {
+			for(String key : keySet) {
+				if(key.contains(No)) {//一个渠道三个集合,遍历总集合,拿到渠道分类数据
+					Statistics statistics = SumZone.get(key);
+					List<String> amountList = new ArrayList<String>();
+					List<String> countList = new ArrayList<String>();
+					String format2 = format.format(statistics.getTime());
+					amountList.add(key);
+					amountList.add(statistics.getAmount()+format2);
+					amountList.add(statistics.getAmountSu()+format2);
+					amountList.add(format2);
+					countList.add(key);
+					countList.add(statistics.getDealCount()+format2);
+					countList.add(statistics.getDealCountSu()+format2);
+					countList.add(format2);
+					SumList.add(amountList);
+					SumCountList.add(countList);
+				}
+			}
+		}
+		/**
+		 * 单独的时间集合
+		 * 数据格式为：
+		 * name ：数据情况
+		 * data ：数据集合
+		 * 转为json数据格式
+		 */
+		Map<String,List> higAmountMap = new HashMap<String, List>();//交易金额情况
+		Map<String,List> higCountMap = new HashMap<String, List>();//交易笔数情况
+		List<String> timeList = new ArrayList();
+		sort(SumList);
+		sort(SumCountList);
+		for(List<String> sum : SumList) {//各KEY交易数据 金额
+			String key = CollUtil.getFirst(sum);
+			String time = CollUtil.getLast(sum);
+			if(!timeList.contains(time)) {
+				timeList.add(time);
+			}
+			higAmountMap.put(key, sum);//当前key必为唯一
+		}
+		for(List<String> sum : SumCountList) {//各KEY交易数据  笔数
+			String key = CollUtil.getFirst(sum);
+			String time = CollUtil.getLast(sum);
+			higCountMap.put(key, sum);//当前key必为唯一
+		}
+		List<String> keyMaps = new ArrayList<String>();
+		for(int e =0;e < timeList.size() ; e++) {
+			for(String string2 : List) {
+				String string = timeList.get(e);
+				keyMaps.add(string+string2);
+			}
+		}
+		/**
+		 * <p>一个渠道两条数据</p>
+		 */
+		List<HighcharBena> number = new ArrayList<HighcharBena>();
+		for(String key : List) {
+			List<String> amount = new ArrayList<String>();//按照时间顺序的所有金额
+			List<String> amountSu = new ArrayList<String>();//按照时间顺序的所有成功金额
+			HighcharBena bean = new HighcharBena();
+			HighcharBena beanSu = new HighcharBena();
+			for(String keyMap : keyMaps) {
+				if(keyMap.contains(key)) {//该KEY是该渠道的组合key
+					List list2 = higCountMap.get(keyMap);
+					if(CollUtil.isNotEmpty(list2)) {
+						Object object = list2.get(1);//该渠道的所有金额
+						Object object2 = list2.get(2);//该渠道的所有金额
+						amount.add(object.toString());
+						amountSu.add(object2.toString());
+					}
+				}
+				
+			}
+			if(CollUtil.isNotEmpty(amount) && CollUtil.isNotEmpty(amountSu)) {
+				bean.setName(key + "交易总笔数");
+				bean.setData(amount);
+				beanSu.setName(key + "成功交易笔数");
 				beanSu.setData(amountSu);
 				number.add(bean);
 				number.add(beanSu);

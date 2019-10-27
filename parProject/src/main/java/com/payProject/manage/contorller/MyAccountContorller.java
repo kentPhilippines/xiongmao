@@ -36,13 +36,19 @@ import com.payProject.config.exception.ParamException;
 import com.payProject.manage.entity.AccountEntity;
 import com.payProject.manage.entity.AccountFee;
 import com.payProject.manage.entity.AccountInfo;
+import com.payProject.manage.entity.Channel;
 import com.payProject.manage.entity.DealOrderEntity;
+import com.payProject.manage.entity.PayType;
 import com.payProject.manage.entity.RunOrder;
+import com.payProject.manage.entity.Statistics;
 import com.payProject.manage.entity.UserAccount;
 import com.payProject.manage.service.AccountService;
 import com.payProject.manage.service.ChannelService;
 import com.payProject.manage.service.DealOrderService;
 import com.payProject.manage.service.OrderRunService;
+import com.payProject.manage.util.HighcharBena;
+import com.payProject.manage.util.HighcharBenaSuper;
+import com.payProject.manage.util.StatisticsUtil;
 import com.payProject.system.entity.User;
 import com.payProject.system.service.UserService;
 import com.payProject.system.util.EncryptUtil;
@@ -71,6 +77,8 @@ public class MyAccountContorller {
 	DealOrderService dealOrderServiceImpl;
 	@Autowired
 	OrderRunService	orderRunServiceImpl;
+	@Autowired
+	StatisticsUtil	statisticsUtil;
 	/**
 	 * <p>个人资料详情</p>
 	 * @param m
@@ -248,10 +256,12 @@ public class MyAccountContorller {
 	    }
 	/**
 	 * <p>一个月之内的数据做数据展示</p>
+	 * <li>商户查看自己的数据</li>
 	 * @return
 	 */
 	@RequestMapping("/userDealShow")
 	public String userDealShow(Model m) {
+		/*
 		String userId = getUserId();
 		log.info("当前查询流水人为："+userId);
 		 List<String> accountList = new ArrayList<String>();
@@ -284,7 +294,6 @@ public class MyAccountContorller {
 		String end = format.format(endOfDate);
 		dealOrder.setTime(start+" - "+end);
 		List<DealOrderEntity> list = dealOrderServiceImpl.findPageDealOrderByDealOrder(dealOrder);//一个月之内的数据
-		
 		BigDecimal dealAmount = null;
 		BigDecimal dealAmountSu = null;
 		List<String> timeList = new ArrayList();
@@ -373,6 +382,66 @@ public class MyAccountContorller {
 		m.addAttribute("dealDayMoneyList", new JSONArray(dealDayMoneyList)  );
 		m.addAttribute("dealDayMoneySuList", new JSONArray(dealDayMoneySuList) );
 		m.addAttribute("timeList",new JSONArray(timeList) );
+		*/
+		/**
+		 * ##############################
+		 * <p>商户查询自己的交易大数据逻辑</p>
+		 * 1，获取自己的交易所有的交易账号
+		 * 2，根据交易账号获取交易数据
+		 */
+		String userId = getUserId();
+		log.info("当前查询流水人为："+userId);
+		 List<String> accountList = new ArrayList<String>();
+		 List<UserAccount> UserAccountList = userService.findUserAccountByUserId(userId);
+		 for(UserAccount acc : UserAccountList) {//获取交易账号
+			 accountList.add(acc.getAccountId());
+		 }
+		
+		
+		
+		/*
+		
+
+		List<Channel> findChannelByAll = channelService.findChannelByAll();
+		List<PayType> findPayTypeByAll = channelService.findPayTypeByAll();
+		List<AccountEntity> findAccountAll = accountService.findAccountAll();
+		List<String> channelList = new ArrayList<String>();
+		List<String> productList = new ArrayList<String>();
+		List<String> accountList = new ArrayList<String>();
+		for(Channel ch : findChannelByAll) {
+			channelList.add(ch.getChannelNo());
+		}
+		for(PayType pt : findPayTypeByAll) {
+			productList.add(pt.getPayTypeNo());
+		}
+		for(AccountEntity ac : findAccountAll) {
+			accountList.add(ac.getAccountId());
+		}
+		List<Statistics> dealShow = statisticsUtil.DealShow(channelList);//渠道交易
+		List<Statistics> dealShow2 = statisticsUtil.DealShow(productList);//产品交易
+		
+		*/
+		 if(CollUtil.isEmpty(accountList)) {
+			m.addAttribute("accountAmountTimeList", new JSONArray(accountList));
+			m.addAttribute("accountCountTimeList", new JSONArray(accountList));
+			m.addAttribute("accountAmountDate", JSONUtil.toJsonStr(new ArrayList<String>()).toString());
+			m.addAttribute("accountCountDate", JSONUtil.toJsonStr(new ArrayList<String>()).toString());
+			return "/manage/account/userDealShow";
+		}
+		
+		List<Statistics> dealShow3 = statisticsUtil.DealShow(accountList);//用户交易数据
+		HighcharBenaSuper<List<HighcharBena>> statisticsToAmount = statisticsUtil.statisticsToAmount(dealShow3, accountList);
+		HighcharBenaSuper<List<HighcharBena>> statisticsToCount = statisticsUtil.statisticsToCount(dealShow3, accountList);
+		HighcharBenaSuper<List<HighcharBena>> accountAmount = statisticsUtil.toJson(statisticsToAmount);
+		HighcharBenaSuper<List<HighcharBena>> accountCount = statisticsUtil.toJson(statisticsToCount);
+		List accountAmountTimeList = accountAmount.getTimeList();
+		List accountCountTimeList = accountCount.getTimeList();
+		List<HighcharBena> accountAmountDate = accountAmount.getObj();
+		List<HighcharBena> accountCountDate = accountCount.getObj();
+		m.addAttribute("accountAmountTimeList", new JSONArray(accountAmountTimeList));
+		m.addAttribute("accountCountTimeList", new JSONArray(accountCountTimeList));
+		m.addAttribute("accountAmountDate", JSONUtil.toJsonStr(accountAmountDate).toString());
+		m.addAttribute("accountCountDate", JSONUtil.toJsonStr(accountCountDate).toString());
 		return "/manage/account/userDealShow";
 	}
 	@RequiresPermissions("/manage/account/appAccount")
@@ -445,7 +514,7 @@ public class MyAccountContorller {
 		DealOrderEntity order = new DealOrderEntity();//根据订单信息类分析各类该账户各类产品的成功率
 		order.setAccountList(accountList);
 		order.setPayTypeList(payNoList);
-		List<DealOrderEntity> orderList = dealOrderServiceImpl.findPageDealOrderByDealOrder(order);//获取到了当前用户下所有产品类型的订单   包括成功和失败
+	/*	List<DealOrderEntity> orderList = dealOrderServiceImpl.findPageDealOrderByDealOrder(order);//获取到了当前用户下所有产品类型的订单   包括成功和失败
 		List<DealOrderEntity> orderListSu = new ArrayList();
 		List<DealOrderEntity> orderListOh = new ArrayList();
 		for(DealOrderEntity orderDeal : orderList) {
@@ -474,17 +543,11 @@ public class MyAccountContorller {
 			dataPayType.add(result);
 			result = null;
 		}
-		m.addAttribute("dataPayType", dataPayType);
-		m.addAttribute("orderOhPercent", (int)orderOhPercent*100);
+		*/
+	//	m.addAttribute("dataPayType", dataPayType);
+	//	m.addAttribute("orderOhPercent", (int)orderOhPercent*100);
 		return "/manage/account/appAccount";
 	}
-	
-	
-	
-	
-	
-	
-	
 	private String getUserId() {
 		Subject subject = SecurityUtils.getSubject();
 		Session session = subject.getSession();
@@ -500,7 +563,7 @@ public class MyAccountContorller {
 		log.info("查询订单流水请求参数"+runOrder.toString());
 		String userId = getUserId();
 		log.info("当前查询流水人为："+userId);
-		PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(limit));
+		log.info(""+Integer.valueOf(page)+ Integer.valueOf(limit));
 		PageResult<RunOrder> pageR = new PageResult<RunOrder>();
 		 List<String> accountList = new ArrayList<String>();
 		 List<UserAccount> UserAccountList = userService.findUserAccountByUserId(userId);
@@ -527,6 +590,7 @@ public class MyAccountContorller {
 			runTypeList.add(Common.RUN_DPAY_FREEZE);
 			runOrder.setRunTypeList(runTypeList);
 		}
+		PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(limit));
 		List<RunOrder> list = orderRunServiceImpl.findPageRunOrderByRunOrder(runOrder);
 		PageInfo<RunOrder> pageInfo = new PageInfo<RunOrder>(list);
 		pageR.setData(pageInfo.getList());

@@ -333,11 +333,11 @@ public class IndexContorller {
 				 }
 			}
 			//渠道交易量计算规则：各渠道交易数据提取
-			HighcharBenaSuper<List<HighcharBena>> statistics = statisticsUtil.statistics(dealShow,channelList);
+			HighcharBenaSuper<List<HighcharBena>> statistics = statisticsUtil.statisticsToAmount(dealShow,channelList);
 			//产品交易量计算规则：各产品交易数据提取
-			HighcharBenaSuper<List<HighcharBena>> statistics2 = statisticsUtil.statistics(dealShow2,productList);
+			HighcharBenaSuper<List<HighcharBena>> statistics2 = statisticsUtil.statisticsToAmount(dealShow2,productList);
 			//用户交易量计算规则：各用户交易数据提取
-			HighcharBenaSuper<List<HighcharBena>> statistics3 = statisticsUtil.statistics(dealShow3,accountList);
+			HighcharBenaSuper<List<HighcharBena>> statistics3 = statisticsUtil.statisticsToAmount(dealShow3,accountList);
 			/**
 			 * <p>数据格式变化</p>
 			 */

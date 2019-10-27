@@ -38,13 +38,17 @@ import com.payProject.config.exception.ParamException;
 import com.payProject.manage.entity.AccountEntity;
 import com.payProject.manage.entity.AccountFee;
 import com.payProject.manage.entity.DealOrderEntity;
+import com.payProject.manage.entity.Statistics;
 import com.payProject.manage.entity.UserAccount;
 import com.payProject.manage.entity.WithdrawalsRecord;
 import com.payProject.manage.service.AccountService;
 import com.payProject.manage.service.DealOrderService;
 import com.payProject.manage.service.OrderRunService;
 import com.payProject.manage.service.WithdrawalsService;
+import com.payProject.manage.util.HighcharBena;
+import com.payProject.manage.util.HighcharBenaSuper;
 import com.payProject.manage.util.SendUtil;
+import com.payProject.manage.util.StatisticsUtil;
 import com.payProject.system.entity.User;
 import com.payProject.system.entity.UserRole;
 import com.payProject.system.service.UserRoleService;
@@ -63,7 +67,7 @@ import cn.hutool.json.JSONUtil;
 @Controller
 @RequestMapping("/manage/agent")
 public class AgentContorller {
-	static Logger log = LoggerFactory.getLogger(ChannelContorller.class);
+	static Logger log = LoggerFactory.getLogger(AgentContorller.class);
 	@Autowired
 	AccountService accountServiceImpl;
 	@Autowired
@@ -76,6 +80,8 @@ public class AgentContorller {
 	SendUtil sendUtil;
 	@Autowired
 	OrderRunService	orderRunServiceImpl;
+	@Autowired
+	StatisticsUtil	statisticsUtil;
 	@Autowired
 	WithdrawalsService withdrawalsServiceImpl;
 	private final static String DPAY = "/merchants/agentAmount";//补发通知,生成流水
@@ -91,9 +97,44 @@ public class AgentContorller {
 		log.info("当前查询交易流水的人为："+userId);
 		List<String> accountList = new ArrayList<String>();
 		List<User> use  = userService.findUserByAgent(userId);//获取所有的代理子账户
+		if(CollUtil.isEmpty(use)) {
+			m.addAttribute("accountAmountTimeList", new JSONArray(accountList));
+			m.addAttribute("accountCountTimeList", new JSONArray(accountList));
+			m.addAttribute("accountAmountDate", JSONUtil.toJsonStr(new ArrayList<String>()).toString());
+			m.addAttribute("accountCountDate", JSONUtil.toJsonStr(new ArrayList<String>()).toString());
+			return "/manage/agent/myAppDealList";
+		}
 		for(User user: use) {
 			accountList.add(user.getUserId());
 		};
+		if(CollUtil.isEmpty(accountList)) {
+			m.addAttribute("accountAmountTimeList", new JSONArray(accountList));
+			m.addAttribute("accountCountTimeList", new JSONArray(accountList));
+			m.addAttribute("accountAmountDate", JSONUtil.toJsonStr(new ArrayList<String>()).toString());
+			m.addAttribute("accountCountDate", JSONUtil.toJsonStr(new ArrayList<String>()).toString());
+			return "/manage/agent/myAppDealList";
+		}
+		List<UserAccount> UserAccountList = userService.findUserAccountByUserId(accountList);
+		accountList = new ArrayList<String>();
+		if(CollUtil.isNotEmpty(UserAccountList)) {
+			for(UserAccount acc : UserAccountList) {
+				accountList.add(acc.getAccountId());
+			}
+		};
+		List<Statistics> dealShow3 = statisticsUtil.DealShow(accountList);//用户交易数据
+		HighcharBenaSuper<List<HighcharBena>> statisticsToAmount = statisticsUtil.statisticsToAmount(dealShow3, accountList);
+		HighcharBenaSuper<List<HighcharBena>> statisticsToCount = statisticsUtil.statisticsToCount(dealShow3, accountList);
+		HighcharBenaSuper<List<HighcharBena>> accountAmount = statisticsUtil.toJson(statisticsToAmount);
+		HighcharBenaSuper<List<HighcharBena>> accountCount = statisticsUtil.toJson(statisticsToCount);
+		List accountAmountTimeList = accountAmount.getTimeList();
+		List accountCountTimeList = accountCount.getTimeList();
+		List<HighcharBena> accountAmountDate = accountAmount.getObj();
+		List<HighcharBena> accountCountDate = accountCount.getObj();
+		m.addAttribute("accountAmountTimeList", new JSONArray(accountAmountTimeList));
+		m.addAttribute("accountCountTimeList", new JSONArray(accountCountTimeList));
+		m.addAttribute("accountAmountDate", JSONUtil.toJsonStr(accountAmountDate).toString());
+		m.addAttribute("accountCountDate", JSONUtil.toJsonStr(accountCountDate).toString());
+		/*
 		if(CollUtil.isEmpty(accountList)) {
 			m.addAttribute("sum", new JSONArray(new ArrayList<>()));
 			m.addAttribute("dealDayList", new JSONArray(new ArrayList<>()));
@@ -223,6 +264,8 @@ public class AgentContorller {
 		m.addAttribute("dealDayMoneyList", new JSONArray(dealDayMoneyList)  );
 		m.addAttribute("dealDayMoneySuList", new JSONArray(dealDayMoneySuList) );
 		m.addAttribute("timeList",new JSONArray(timeList) );
+		
+		*/
 		return "/manage/agent/myAppDealList";
 	}
 	

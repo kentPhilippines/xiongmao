@@ -100,10 +100,11 @@
 						</div>
 				</div>
 
-				<div class="layui-card">
+		<%-- 		<div class="layui-card">
 					<div class="layui-card-header">实时监控</div>
 						<div class="layui-card-body layadmin-takerates" style="background-color: #e6e9e8;">
-						<p style=" margin-top: 5px; "><strong>订单未结算率${orderOhPercent}%</strong></p>
+						<p style=" margin-top: 5px; ">
+						<strong>订单未结算率${orderOhPercent}%</strong></p>
 				           <div class="layui-progress layui-progress-big">
 								  <div class="layui-progress-bar" lay-percent="${orderOhPercent}%"></div>
 							</div>
@@ -124,7 +125,7 @@
 								
 								
 						</div>
-				</div>
+				</div> --%>
 
 				<div class="layui-card">
 					<div class="layui-card-header">产品动态</div>
