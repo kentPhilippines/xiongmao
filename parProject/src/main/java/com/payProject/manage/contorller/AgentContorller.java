@@ -122,14 +122,22 @@ public class AgentContorller {
 			}
 		};
 		List<Statistics> dealShow3 = statisticsUtil.DealShow(accountList);//用户交易数据
+		HighcharBenaSuper<List<HighcharBena>> accountAmount = new HighcharBenaSuper<List<HighcharBena>>();
+		HighcharBenaSuper<List<HighcharBena>> accountCount = new HighcharBenaSuper<List<HighcharBena>>();
+		List accountAmountTimeList = new ArrayList();
+		List accountCountTimeList = new ArrayList();
+		List<HighcharBena> accountAmountDate = new ArrayList();
+		List<HighcharBena> accountCountDate = new ArrayList();
+		if(CollUtil.isNotEmpty(dealShow3)) {
 		HighcharBenaSuper<List<HighcharBena>> statisticsToAmount = statisticsUtil.statisticsToAmount(dealShow3, accountList);
 		HighcharBenaSuper<List<HighcharBena>> statisticsToCount = statisticsUtil.statisticsToCount(dealShow3, accountList);
-		HighcharBenaSuper<List<HighcharBena>> accountAmount = statisticsUtil.toJson(statisticsToAmount);
-		HighcharBenaSuper<List<HighcharBena>> accountCount = statisticsUtil.toJson(statisticsToCount);
-		List accountAmountTimeList = accountAmount.getTimeList();
-		List accountCountTimeList = accountCount.getTimeList();
-		List<HighcharBena> accountAmountDate = accountAmount.getObj();
-		List<HighcharBena> accountCountDate = accountCount.getObj();
+		accountAmount = statisticsUtil.toJson(statisticsToAmount);
+		accountCount = statisticsUtil.toJson(statisticsToCount);
+		accountAmountTimeList = accountAmount.getTimeList();
+		accountCountTimeList = accountCount.getTimeList();
+		accountAmountDate = accountAmount.getObj();
+		accountCountDate = accountCount.getObj();
+		}
 		m.addAttribute("accountAmountTimeList", new JSONArray(accountAmountTimeList));
 		m.addAttribute("accountCountTimeList", new JSONArray(accountCountTimeList));
 		m.addAttribute("accountAmountDate", JSONUtil.toJsonStr(accountAmountDate).toString());

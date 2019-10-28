@@ -14,9 +14,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.payProject.application;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = application.class)
-@WebAppConfiguration
+//@RunWith(SpringRunner.class)
+//@SpringBootTest(classes = application.class)
+//@WebAppConfiguration
 public class TmallApplicationTests {
 	@Before
     public void init() {

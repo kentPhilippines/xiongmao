@@ -60,6 +60,8 @@ public class Data extends TmallApplicationTests {
 		List<Statistics> dealShow = statisticsUtil.DealShow(channelList);//渠道交易
 		List<Statistics> dealShow2 = statisticsUtil.DealShow(productList);//产品交易
 		List<Statistics> dealShow3 = statisticsUtil.DealShow(accountList);//用户交易
+		HighcharBenaSuper<List<HighcharBena>> channel = new HighcharBenaSuper<List<HighcharBena>>();
+		if(CollUtil.isNotEmpty(dealShow)) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Map<String,Statistics> sumZone = new HashMap<String, Statistics>();
 		//总交易量计算规则： 所有渠道交易量相加
@@ -86,16 +88,20 @@ public class Data extends TmallApplicationTests {
 		}
 		//渠道交易量计算规则：各渠道交易数据提取
 		HighcharBenaSuper<List<HighcharBena>> statistics = statisticsUtil.statisticsToAmount(dealShow,channelList);
-		//产品交易量计算规则：各产品交易数据提取
-		HighcharBenaSuper<List<HighcharBena>> statistics2 = statisticsUtil.statisticsToAmount(dealShow2,productList);
+		channel = statisticsUtil.toJson(statistics);
+		}
+		HighcharBenaSuper<List<HighcharBena>> prodecut = new HighcharBenaSuper<List<HighcharBena>>();
+		if(CollUtil.isNotEmpty(dealShow2)) {
+			//产品交易量计算规则：各产品交易数据提取
+			HighcharBenaSuper<List<HighcharBena>> statistics2 = statisticsUtil.statisticsToAmount(dealShow2,productList);
+			prodecut = statisticsUtil.toJson(statistics2);
+		}
+		HighcharBenaSuper<List<HighcharBena>> account = new HighcharBenaSuper<List<HighcharBena>>();
+		if(CollUtil.isNotEmpty(dealShow3)) {
+			HighcharBenaSuper<List<HighcharBena>> statistics3 = statisticsUtil.statisticsToAmount(dealShow3,accountList);
+			account = statisticsUtil.toJson(statistics3);
+		}
 		//用户交易量计算规则：各用户交易数据提取
-		HighcharBenaSuper<List<HighcharBena>> statistics3 = statisticsUtil.statisticsToAmount(dealShow3,accountList);
-		HighcharBenaSuper<List<HighcharBena>> channel = statisticsUtil.toJson(statistics);
-		HighcharBenaSuper<List<HighcharBena>> prodecut = statisticsUtil.toJson(statistics2);
-		HighcharBenaSuper<List<HighcharBena>> account = statisticsUtil.toJson(statistics3);
-	
-		
-		
 		System.out.println(JSONUtil.toJsonStr(channel).toString());
 		System.out.println(JSONUtil.toJsonStr(prodecut).toString());
 		System.out.println(JSONUtil.toJsonStr(account).toString());

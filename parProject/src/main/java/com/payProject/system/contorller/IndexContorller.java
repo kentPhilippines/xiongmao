@@ -308,8 +308,14 @@ public class IndexContorller {
 			List<Statistics> dealShow = statisticsUtil.DealShow(channelList);//渠道交易
 			List<Statistics> dealShow2 = statisticsUtil.DealShow(productList);//产品交易
 			List<Statistics> dealShow3 = statisticsUtil.DealShow(accountList);//用户交易
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			
+			
+			HighcharBenaSuper<List<HighcharBena>> channel = new HighcharBenaSuper<List<HighcharBena>>();
+			List channelTimeList = new ArrayList();
+			List<HighcharBena> channnelDate = new ArrayList();
 			Map<String,Statistics> sumZone = new HashMap<String, Statistics>();
+			if(CollUtil.isNotEmpty(dealShow)) {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			//总交易量计算规则： 所有渠道交易量相加
 			for(Statistics bean : dealShow) {
 				String date = format.format(bean.getTime());
@@ -334,16 +340,33 @@ public class IndexContorller {
 			}
 			//渠道交易量计算规则：各渠道交易数据提取
 			HighcharBenaSuper<List<HighcharBena>> statistics = statisticsUtil.statisticsToAmount(dealShow,channelList);
+			channel = statisticsUtil.toJson(statistics);
+			channelTimeList = channel.getTimeList();
+			channnelDate = channel.getObj();
+			}
+			HighcharBenaSuper<List<HighcharBena>> prodecut = new HighcharBenaSuper<List<HighcharBena>>();
+			List productTimeList = new ArrayList();
+			List<HighcharBena> productDate = new ArrayList();
+			if(CollUtil.isNotEmpty(dealShow2)) {
 			//产品交易量计算规则：各产品交易数据提取
 			HighcharBenaSuper<List<HighcharBena>> statistics2 = statisticsUtil.statisticsToAmount(dealShow2,productList);
+			prodecut = statisticsUtil.toJson(statistics2);
+			productTimeList = prodecut.getTimeList();
+			productDate = prodecut.getObj();
+			}
+			HighcharBenaSuper<List<HighcharBena>> account = new HighcharBenaSuper<List<HighcharBena>>();
+			List accounttimeList = new ArrayList();
+			List<HighcharBena> accountDate = new ArrayList();
+			if(CollUtil.isNotEmpty(dealShow3)) {
 			//用户交易量计算规则：各用户交易数据提取
 			HighcharBenaSuper<List<HighcharBena>> statistics3 = statisticsUtil.statisticsToAmount(dealShow3,accountList);
 			/**
 			 * <p>数据格式变化</p>
 			 */
-			HighcharBenaSuper<List<HighcharBena>> channel = statisticsUtil.toJson(statistics);
-			HighcharBenaSuper<List<HighcharBena>> product = statisticsUtil.toJson(statistics2);
-			HighcharBenaSuper<List<HighcharBena>> account = statisticsUtil.toJson(statistics3);
+			account = statisticsUtil.toJson(statistics3);
+			accounttimeList = account.getTimeList();
+			accountDate = account.getObj();
+			}
 			List<String> list = new ArrayList();
 			Set<String> keySet = sumZone.keySet();
 			for(String time : keySet) {
@@ -367,12 +390,6 @@ public class IndexContorller {
 			List<HighcharBena> beanList = new ArrayList();
 			beanList.add(bean);
 			beanList.add(bean1);
-			List channelTimeList = channel.getTimeList();
-			List productTimeList = product.getTimeList();
-			List accounttimeList = account.getTimeList();
-			List<HighcharBena> channnelDate = channel.getObj();
-			List<HighcharBena> productDate = product.getObj();
-			List<HighcharBena> accountDate = account.getObj();
 			m.addAttribute("channelTimeList", new JSONArray(channelTimeList));
 			m.addAttribute("productTimeList", new JSONArray(productTimeList));
 			m.addAttribute("accounttimeList", new JSONArray(accounttimeList));
@@ -382,7 +399,7 @@ public class IndexContorller {
 			m.addAttribute("time",  new JSONArray(list));
 			m.addAttribute("sumDate", JSONUtil.toJsonStr(beanList).toString());
 			System.out.println(JSONUtil.toJsonStr(channel).toString());
-			System.out.println(JSONUtil.toJsonStr(product).toString());
+			System.out.println(JSONUtil.toJsonStr(prodecut).toString());
 			System.out.println(JSONUtil.toJsonStr(account).toString());
 			return "homePage";
 		}

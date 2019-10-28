@@ -115,8 +115,7 @@ public class StatisticsUtil {
 		}
 		Statistics entity = new Statistics();
 		entity.setKeysList(keyList);
-		List<Statistics> data = getData(entity);
-		return data;
+		return getData(entity);
 	}
 	
 	

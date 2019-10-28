@@ -31,7 +31,6 @@ position: absolute;
 }
 </style>
 <body id = "backgroundImg" style="background-image: url(&quot;http://www.logoquan.com/upload/list/20130721/logoquan13746570316.PNG&quot;); display: block;">
-
 <form id="loginForm" class="form-signin" action="javascript:0" method="post" novalidate="novalidate">
 <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
     <div class="layadmin-user-login-main">
@@ -74,26 +73,5 @@ position: absolute;
 </body>
 <script type="text/javascript">
 var ctx = '${ctx}';
-var ii = null;
-$(function(){
-		console.log(1)
-		setTimeout(function () {
-			agan();
-		}, 300);
-		
-})
-	function agan(){
-	var i1 = "background-image: url(&quot;https://img.alicdn.com/tps/TB1h9xxIFXXXXbKXXXXXXXXXXXX.jpg&quot;);"
-	var i2 = "background-image: url(&quot;https://img.alicdn.com/tps/TB1pfG4IFXXXXc6XXXXXXXXXXXX.jpg&quot;);"
-	var i3 = "background-image: url(&quot;https://img.alicdn.com/tps/TB1h9xxIFXXXXbKXXXXXXXXXXXX.jpg&quot;);"
-	for(var i = 1 ; i <4 ; i ++){
-		a = 'i'+ i;
-		$("backgroundImg").attr("style",a)
-	}
-	
-	
-	
-		
-		}
 </script>
 <script type="text/javascript" src="${ctx}/static/js/system/index/login.js" ></script>
