@@ -45,7 +45,7 @@ public class EncryptUtil {
 	 * @return
 	 */
 	public static  Map<String,String> encryptPassword(String payPassword){
-		String salt2 = ""; //new SecureRandomNumberGenerator().nextBytes().toHex();
+		String salt2 = payPassword; //new SecureRandomNumberGenerator().nextBytes().toHex();
 		SimpleHash hash = new SimpleHash(algorithmName, payPassword,salt2, hashIterations);
 		String payPassword1 = hash.toHex();
 		Map<String,String> map = new HashMap<>();

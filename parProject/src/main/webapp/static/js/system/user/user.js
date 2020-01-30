@@ -219,8 +219,9 @@ var UserManageClas = {
 						$title = '角色资源详情';
 						UserManageClas.layuiOpen($url,$width,$higth,$title);
 				    }else if (obj.event === 'agent'){
+				    	debugger;
 				    	$url = $("[lay-event='agent']").attr("url");
-				    	var deta =  {userId : obj.data.userId};
+				    	var deta =  {userId : obj.data.id};
 				    	CommonUtil.ObjextAjax($url,deta,UserManageClas.AjaxSucFn,true,'无权限或网络错误，请联系开发人员处理','post');
 				    }
 				  });

@@ -224,15 +224,32 @@ public class AppManageContorller {
 		return userId;
 	}
 	
+	/**
+	 * <p>重置密码</p>
+	 * @param UserId
+	 * @return
+	 */
 	@RequestMapping("/agentPassword")
 	@ResponseBody
-	public JsonResult agentPassword(String UserId) {
-		
-		
-		
-		
-		
-		return null;
+	public JsonResult agentPassword(String userId) {
+		log.info("重置密码账号："+userId);
+		Map<String, String> encryptPassword = EncryptUtil.encryptPassword(userId, "123456");
+		Map<String, String> encryptPassword2 = EncryptUtil.encryptPassword("123456");
+		String string = encryptPassword2.get(Constant.Common.PAYPASSWORD);
+		String pa = encryptPassword.get(Constant.Common.PASSWORD);
+		log.info("登录密码 ："+pa);
+		log.info("支付密码 ："+string);
+		User user = new User();
+		user.setPayPassword(string);
+		user.setUserPassword(pa);
+		user.setCreateTime(null);
+		user.setStatus(null);
+		user.setSubmitTime(null);
+		user.setId(Integer.valueOf(userId));
+		boolean updateUserByUserId = userService.UpdateUserByUserId(user);
+		if(updateUserByUserId)
+			return JsonResult.buildSuccessMessage("密码重置成功");
+		return JsonResult.buildFailResult("密码重置失败");
 	}
 	
 	
