@@ -35,21 +35,34 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">老<if test="${isPay ne null and isPay ne ''}">支付</if>密码</label>
+			<label class="layui-form-label"> 
+			<c:choose>
+				<c:when test="${isPay == null or isPay == ''}">登录</c:when>
+				<c:otherwise>支付</c:otherwise>
+			</c:choose>
+			密码</label>
 			<div class="layui-input-inline">
 				<input type="password" name="userPassword" lay-verify="required" 
 					placeholder="请输入密码"  id="LAY-user-login-password" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">请输入新<if test="${isPay ne null and isPay ne ''}">支付</if>密码</label>
+			<label class="layui-form-label">验证
+			<c:choose>
+				<c:when test="${isPay == null or isPay == ''}">登录</c:when>
+				<c:otherwise>支付</c:otherwise>
+			</c:choose>密码</label>
 			<div class="layui-input-inline">
 				<input type="password" name="password" lay-verify="required"
 					placeholder="请输入密码" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">请验证新<if test="${isPay ne null and isPay ne ''}">支付</if>密码</label>
+			<label class="layui-form-label">验证
+			<c:choose>
+				<c:when test="${isPay == null or isPay == ''}">登录</c:when>
+				<c:otherwise>支付</c:otherwise>
+			</c:choose>密码</label>
 			<div class="layui-input-inline">
 				<input type="password" name="password1" lay-verify="required"
 					placeholder="请输入密码" autocomplete="off" class="layui-input" onBlur="clickpassword()">

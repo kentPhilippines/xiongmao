@@ -356,7 +356,7 @@
 		    FROM
 		      system_user_role ur
 		    WHERE  ur.userId IN (
-		SELECT id FROM system_user_ WHERE userId = #{userId,jdbcType=VARCHAR}
+		SELECT id FROM system_user WHERE userId = #{userId,jdbcType=VARCHAR}
     )))
   </select>
   <!--  -->

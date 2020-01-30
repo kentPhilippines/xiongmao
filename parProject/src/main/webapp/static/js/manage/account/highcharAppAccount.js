@@ -6,7 +6,7 @@
 		text: '交易笔数交易汇总'
 	},
 	subtitle: {
-		text: '数据来源: 熊猫·支付'
+		text: '数据来源: 虹·支付'
 	},
 	xAxis: {
 		categories:accountCountTimeList,
@@ -42,7 +42,7 @@
 		 text: '用户交易情况汇总'
 	 },
 	 subtitle: {
-		 text: '数据来源: 熊猫·支付'
+		 text: '数据来源: 虹·支付'
 	 },
 	 xAxis: {
 		 categories:accountAmountTimeList,

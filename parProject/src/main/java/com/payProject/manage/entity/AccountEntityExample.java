@@ -398,6 +398,10 @@ public class AccountEntityExample {
             addCriterion("cashBalance =", value, "cashBalance");
             return (Criteria) this;
         }
+        public Criteria andRetain4EqualTo(String account) {
+        	addCriterion("retain4 =", account, "retain4");
+        	return (Criteria) this;
+        }
 
         public Criteria andCashBalanceNotEqualTo(BigDecimal value) {
             addCriterion("cashBalance <>", value, "cashBalance");

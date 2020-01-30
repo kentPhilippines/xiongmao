@@ -9,13 +9,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>熊猫支付系统</title>
+  <link rel="icon" href="http://s575.com/Uploads/2018-09-09/20179cvy81536491112.png" type="image/x-icon">
+    <link rel="alternate" media="only screen and(max-width: 640px)" href="https://ds.alipay.com/" />
+  <title>虹付支付系统</title>
 </head>
 <%@include file="common/common.jsp"%>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
   <div class="layui-header">
-    <div class="layui-logo"><strong>熊猫支付系统</strong></div>
+    <div class="layui-logo"><strong>虹付支付系统</strong></div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item upbit1">
@@ -82,7 +84,7 @@
     </div> 
   </div>  
   <div class="layui-footer">
-    © 熊猫支付·创造未来
+    © 虹付支付·创造未来
   </div>
 </div>
 </body>

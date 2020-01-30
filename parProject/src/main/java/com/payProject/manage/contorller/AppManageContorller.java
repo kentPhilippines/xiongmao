@@ -224,5 +224,18 @@ public class AppManageContorller {
 		return userId;
 	}
 	
+	@RequestMapping("/agentPassword")
+	@ResponseBody
+	public JsonResult agentPassword(String UserId) {
+		
+		
+		
+		
+		
+		return null;
+	}
+	
+	
+	
 	
 }

@@ -6,7 +6,7 @@ Highcharts.chart('container',{
 		text: '月交易汇总'
 	},
 	subtitle: {
-		text: '数据来源: 熊猫·支付'
+		text: '数据来源: 虹·支付'
 	},
 	xAxis: {
 		categories:time,
@@ -42,7 +42,7 @@ Highcharts.chart('container',{
 		text: '产品交易汇总'
 	},
 	subtitle: {
-		text: '数据来源: 熊猫·支付'
+		text: '数据来源: 虹·支付'
 	},
 	xAxis: {
 		categories:productTimeList,
@@ -78,7 +78,7 @@ Highcharts.chart('container',{
 		 text: '渠道交易情况汇总'
 	 },
 	 subtitle: {
-		 text: '数据来源: 熊猫·支付'
+		 text: '数据来源: 虹·支付'
 	 },
 	 xAxis: {
 		 categories:channelTimeList,
@@ -114,7 +114,7 @@ Highcharts.chart('container',{
 		 text: '用户交易情况汇总'
 	 },
 	 subtitle: {
-		 text: '数据来源: 熊猫·支付'
+		 text: '数据来源: 虹·支付'
 	 },
 	 xAxis: {
 		 categories:accounttimeList,

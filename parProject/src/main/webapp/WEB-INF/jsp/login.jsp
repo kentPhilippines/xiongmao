@@ -9,7 +9,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link href="${ctx}/static/css/system/login.css" rel="stylesheet" type="text/css"/> 
-<title>新的支付系统</title>
+	<link rel="icon" href="${ctx}/static/img/photo_logo.jpg" type="image/x-icon"> 
+    <link rel="alternate" media="only screen and(max-width: 640px)" href="https://ds.alipay.com/" />
+<title>虹付支付系统</title>
 </head>
 <%@include file="common/common.jsp"%>
 <style>
@@ -30,12 +32,12 @@ position: absolute;
     overflow: hidden;
 }
 </style>
-<body id = "backgroundImg" style="background-image: url(&quot;http://www.logoquan.com/upload/list/20130721/logoquan13746570316.PNG&quot;); display: block;">
+<body id = "backgroundImg" style="background-image: url(${ctx}/static/img/photo_2019-12-29_12-10-28.jpg); display: block;">
 <form id="loginForm" class="form-signin" action="javascript:0" method="post" novalidate="novalidate">
 <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
     <div class="layadmin-user-login-main">
       <div class="layadmin-user-login-box layadmin-user-login-header">
-        <h2>熊猫</h2>
+        <h2>虹付</h2>
         <p>支付后台管理系统</p>
       </div>
       <div class="layadmin-user-login-box layadmin-user-login-body layui-form">

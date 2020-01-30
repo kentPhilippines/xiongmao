@@ -55,6 +55,7 @@
 	</div>
 	<script type="text/html" id="operation">
  	 <a class="layui-btn layui-btn-xs" lay-event="edit" url = "${ctx}/manage/appAcount/appAccountEditShow">编辑</a>
+ 	 <a class="layui-btn layui-btn-xs" lay-event="agent" url = "${ctx}/manage/appAcount/agentPassword">重置密码</a>
  	 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" url = "${ctx}/system/user/userDel">删除</a>
 	</script>
 </body>

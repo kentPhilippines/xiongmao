@@ -10,6 +10,8 @@ import java.security.Signature;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import javax.crypto.Cipher;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.codec.binary.Base64;
 
 import java.util.HashMap;
@@ -17,6 +19,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
 
 import cn.hutool.http.HttpUtil;
 
@@ -38,20 +41,38 @@ public class SendUtil {
 	/**
 	 * <p>对参数进行加密</p>
 	 * @param map
+	 * @return
+	 * @throws Exception
 	 */
 	public Map<String ,Object > careteParam(Map<String,Object> map) throws Exception {
-		System.out.println("私钥:" + privateKey);
-        System.out.println("公钥:" + publicKey);
-        XRsa rsa = new XRsa(publicKey,privateKey);
 		String params = HttpUtil.toParams(map);
 		System.out.println("-----------------------【请求参数加密，请求参数："+params+"】");
-		String encryptData = rsa.publicEncrypt(params);
+		String encryptData = AES.Encrypt(params);
         System.out.println("加密后内容:" + encryptData);
-        String sign = rsa.sign(params);
         Map<String ,Object > parasMap = new HashMap<String,Object>();
         parasMap.put("MD5",encryptData);
-        parasMap.put("sign",sign);
-        System.out.println("请求参数："+parasMap.toString());
 		return parasMap;
+	}
+	public Map<String ,Object > careteParam(String params) throws Exception {
+		System.out.println("-----------------------【请求参数加密，请求参数："+params+"】");
+		String encryptData =  AES.Encrypt(params);
+		System.out.println("加密后内容:" + encryptData);
+		Map<String ,Object > parasMap = new HashMap<String,Object>();
+		parasMap.put("MD5",encryptData);
+		return parasMap;
+	}
+	/**
+	 * <p>对参数进行解密</p>
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, String> decryptionParam(HttpServletRequest request) throws Exception{
+        XRsa rsa = new XRsa(publicKey,privateKey);
+		String MD5 = request.getParameter("MD5");//参数加密结果  这是要解密的值
+		String decryptData =AES.Decrypt(MD5);
+		System.out.println("解密后内容:" + decryptData);
+        HashMap<String, String> decodeParamMap = HttpUtil.decodeParamMap(decryptData,"UTF-8");
+		return decodeParamMap;
 	}
 }

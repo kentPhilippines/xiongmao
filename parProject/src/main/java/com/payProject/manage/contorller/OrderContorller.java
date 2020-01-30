@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,6 +38,7 @@ import com.payProject.manage.service.DealOrderService;
 import com.payProject.manage.service.OrderErrorService;
 import com.payProject.manage.service.OrderRunService;
 import com.payProject.manage.service.WithdrawalsOrderService;
+import com.payProject.manage.util.AccountUtil;
 import com.payProject.manage.util.SendUtil;
 import com.payProject.system.service.UserService;
 import com.payProject.system.util.MapUtil;
@@ -60,6 +62,8 @@ public class OrderContorller  {
 	OrderRunService	orderRunServiceImpl;
 	@Autowired
 	UserService userService;
+	@Autowired
+	AccountUtil accountUtil;
 	@Autowired
 	SendUtil sendUtil;
 	private final static String UPDATAORDER = "/notify/updataOrder";//补发通知,生成流水
@@ -270,5 +274,30 @@ public class OrderContorller  {
 	@RequestMapping("/returnOrder")
 	public String returnOrder( ){
 		return "/manage/deal/returnOrder";
+	}
+	@GetMapping("/myDealOrder")
+	public String myDealOrder( ){
+		return "/manage/deal/myDealOrder";
+	}
+	/***
+	 * <p>商户交易记录</p>
+	 * @param dealOrder
+	 * @param page
+	 * @param limit
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/MydealOrderList")
+	public PageResult<DealOrderEntity> MydealOrderList(DealOrderEntity dealOrder,String page,String limit){
+		log.info("交易订单列表请求参数："+dealOrder.toString());
+		dealOrder.setAccountList(accountUtil.findAccountMyAccount(getUserId()));
+		PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(limit));
+		List<DealOrderEntity> list = dealOrderServiceImpl.findPageDealOrderByDealOrder(dealOrder);
+		PageInfo<DealOrderEntity> pageInfo = new PageInfo<DealOrderEntity>(list);
+		PageResult<DealOrderEntity> pageR = new PageResult<DealOrderEntity>();
+		pageR.setData(pageInfo.getList());
+		pageR.setCode("0");
+		pageR.setCount(String.valueOf(pageInfo.getTotal()));
+		return pageR;
 	}
 }

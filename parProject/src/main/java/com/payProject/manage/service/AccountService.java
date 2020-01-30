@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.payProject.manage.entity.AccountEntity;
 import com.payProject.manage.entity.AccountFee;
 import com.payProject.manage.entity.AccountInfo;
+import com.payProject.manage.entity.UserAccount;
+import com.payProject.system.entity.User;
 
 public interface AccountService {
 
@@ -190,5 +192,19 @@ public interface AccountService {
 	 * @return
 	 */
 	List<AccountFee> findFeeByAppid(String accountId, String channelProduct);
+
+	/**
+	 * <p>根据自己的登录账户查询自己的交易账户</p>
+	 * @param account
+	 * @return
+	 */
+	List<UserAccount> findAccountMyAccount(String account);
+
+	/**
+	 * <p>根据代理商账号查询所有属于自己的商户账号</p>
+	 * @param account
+	 * @return
+	 */
+	List<User> findAccountByAgent(String account);
 
 }

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +17,16 @@ import com.payProject.manage.entity.AccountFee;
 import com.payProject.manage.entity.AccountFeeExample;
 import com.payProject.manage.entity.AccountInfo;
 import com.payProject.manage.entity.AccountInfoExample;
+import com.payProject.manage.entity.UserAccount;
+import com.payProject.manage.entity.UserAccountExample;
 import com.payProject.manage.mapper.AccountFeeMapper;
 import com.payProject.manage.mapper.AccountInfoMapper;
 import com.payProject.manage.mapper.AccountMapper;
+import com.payProject.manage.mapper.UserAccountMapper;
 import com.payProject.manage.service.AccountService;
 import com.payProject.manage.service.OrderRunService;
+import com.payProject.system.entity.User;
+import com.payProject.system.service.UserService;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
@@ -30,10 +36,18 @@ public class AccountServiceImpl implements AccountService {
 	AccountMapper accountDao;
 	@Autowired
 	AccountInfoMapper accountInfoDao;
+	@Autowired 
+	UserAccountMapper userAccountDao;
 	@Autowired
 	AccountFeeMapper accountFeeDao;
 	@Autowired
 	OrderRunService OrderRunServiceImpl;
+	@Autowired
+	UserService userServiceImpl;
+	
+	
+	
+	
 	@Override
 	public List<AccountEntity> findPageAccountByAccount(AccountEntity account) {
 		AccountEntityExample example = new AccountEntityExample();
@@ -323,5 +337,18 @@ public class AccountServiceImpl implements AccountService {
 			return selectByExample;
 		}
 		return null;
+	}
+	@Override
+	public List<UserAccount> findAccountMyAccount( @NotNull String account) {
+		UserAccountExample example = new UserAccountExample();
+		com.payProject.manage.entity.UserAccountExample.Criteria criteria = example.createCriteria();
+		criteria.andUserIdEqualTo(account);
+		List<UserAccount> selectByExample = userAccountDao.selectByExample(example);
+		return selectByExample;
+	}
+	@Override
+	public List<User> findAccountByAgent(@NotNull String account) {
+	    List<User> findUserByAgent = userServiceImpl.findUserByAgent(account);
+		return findUserByAgent;
 	}
 }
